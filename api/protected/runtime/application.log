@@ -1,0 +1,614 @@
+2014/05/06 22:39:43 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/
+---
+2014/05/06 22:40:29 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:42:42 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:44:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:45:50 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:45:59 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:48:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:48:23 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:48:33 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:48:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:50:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:51:24 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:51:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/porsche_lemans/api/user/register
+---
+2014/05/06 22:53:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/
+---
+2014/05/06 22:53:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/05/06 22:53:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/05/06 22:53:04 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/05/06 22:53:12 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/user/register
+---
+2014/05/06 22:53:44 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/
+---
+2014/05/06 22:53:58 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/user/register
+---
+2014/05/06 22:54:25 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/user/register
+---
+2014/05/06 22:54:26 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/user/register
+---
+2014/05/06 22:54:51 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/index.php/user/register
+---
+2014/05/06 22:56:16 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "site".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/
+---
+2014/05/06 22:57:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "welcome".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php:483
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(270): CController->missingAction('welcome')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): CController->run('welcome')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('')
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/
+---
+2014/05/06 23:31:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/05/06 23:31:47 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/05/06 23:32:21 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php:286
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+HTTP_REFERER=http://open.weibo.com/webmaster/info/basic?siteid=1910934872
+---
+2014/05/06 23:33:18 [error] [exception.CException] exception 'CException' with message 'Alias "ext.sinaWeibo.SinaWeibo" is invalid. Make sure it points to an existing PHP file and the file is readable.' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/YiiBase.php:322
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php(2): YiiBase::import('ext.sinaWeibo.S...', true)
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(354): require('/Users/jackeych...')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(276): CWebApplication->createController('weibo/index')
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/index')
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#6 {main}
+REQUEST_URI=/weibo/index
+---
+2014/05/06 23:36:25 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=281d27abbef27e1f9d17ea46a860cc46
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:36:33 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:26)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=281d27abbef27e1f9d17ea46a860cc46
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (26)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:36:49 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=281d27abbef27e1f9d17ea46a860cc46
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:36:56 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=f758b4c8bd70c892ec42f80d5a305376
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:36:58 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=f758b4c8bd70c892ec42f80d5a305376
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:36:59 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=f758b4c8bd70c892ec42f80d5a305376
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:51:23 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=f758b4c8bd70c892ec42f80d5a305376
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:51:28 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=d97e735a4aa5562d5ede490ea3b053ab
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:51:42 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=d97e735a4aa5562d5ede490ea3b053ab
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:52:39 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=03ceb99619427df6a2f04777d2edb1bc
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:53:00 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=c400bdaa74df11f957d18cf44e87c8e1
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:53:22 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=41f6420faa4266e37eca0d06d86d7e65
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (21)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:55:54 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=920371300f35b8dab13333c20228b4b0
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:56:32 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=6bbe71a36e6637b7672e90e8eeda387a
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:58:43 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=03107e44979867ca756b22de5d432d39
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/06 23:59:32 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=0c826d373e87de7265d5cd391aa2dd25
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:00:18 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=a6373605236964939253709828b5c72e
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:00:52 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:202)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=832db1ab33134ba5d6d828531f16870a
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (202)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:01:19 [error] [php] Undefined index: refresh_token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php:201)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(308): CInlineAction->runWithParams()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=206823bc40febb4fe543707a9b654c25
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/extensions/sinaWeibo/saetv2.ex.class.php (201)
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (22)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:01:32 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=206823bc40febb4fe543707a9b654c25
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:01:35 [error] [php] Array to string conversion (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=d822028fec28732c7c57dbdbf18e9c24
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:02:03 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:27)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=d822028fec28732c7c57dbdbf18e9c24
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (27)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:02:06 [error] [php] Use of undefined constant back_url - assumed 'back_url' (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:30)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=13a75e1b071ae8c1e9d41bd4f78ab2fe
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (30)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:03:32 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:26)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=79142d426a97dfffa38eff4feb4abdd4
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (26)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:03:38 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "weibolist".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php:483
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(270): CController->missingAction('weibolist')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): CController->run('weibolist')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/weibolist')
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/index.php/weibo/weibolist
+HTTP_REFERER=http://fumer.sourceroot.cn/weibo/callback?code=2da2f2974b7c717140bce97424be2f07
+---
+2014/05/07 00:03:40 [error] [php] Undefined variable: token (/Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php:26)
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(286): WeiboController->runAction()
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(265): WeiboController->runActionWithFilters()
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): WeiboController->run()
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CWebApplication->run()
+REQUEST_URI=/weibo/callback?code=2da2f2974b7c717140bce97424be2f07
+in /Users/jackeychen/Workspace/porsche_lemans/api/protected/controllers/WeiboController.php (26)
+in /Users/jackeychen/Workspace/porsche_lemans/api/index.php (13)
+2014/05/07 00:06:28 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "loginurl".' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php:483
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CController.php(270): CController->missingAction('loginurl')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(282): CController->run('loginurl')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/loginurl')
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/weibo/loginurl
+---
+2014/05/07 00:10:00 [error] [exception.CException] exception 'CException' with message 'CHttpSession.savePath "/Users/jackeychen/Workspace/porsche_lemans/api/protected/config../../session" is not a valid directory.' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CHttpSession.php:217
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CComponent.php(152): CHttpSession->setSavePath('/Users/jackeych...')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/YiiBase.php(220): CComponent->__set('savePath', '/Users/jackeych...')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(386): YiiBase::createComponent(Array)
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(201): CModule->getComponent('session')
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/auth/CWebUser.php(199): CWebApplication->getSession()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(387): CWebUser->init()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(103): CModule->getComponent('user')
+#7 /Users/jackeychen/Workspace/porsche_lemans/api/protected/components/Controller.php(68): CModule->__get('user')
+#8 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(359): Controller->__construct('weibo', NULL)
+#9 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(276): CWebApplication->createController('weibo/loginurl')
+#10 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/loginurl')
+#11 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/weibo/loginurl
+---
+2014/05/07 00:10:09 [error] [exception.CException] exception 'CException' with message 'CHttpSession.savePath "/Users/jackeychen/Workspace/porsche_lemans/api/protected/config/../../session" is not a valid directory.' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CHttpSession.php:217
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CComponent.php(152): CHttpSession->setSavePath('/Users/jackeych...')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/YiiBase.php(220): CComponent->__set('savePath', '/Users/jackeych...')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(386): YiiBase::createComponent(Array)
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(201): CModule->getComponent('session')
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/auth/CWebUser.php(199): CWebApplication->getSession()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(387): CWebUser->init()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(103): CModule->getComponent('user')
+#7 /Users/jackeychen/Workspace/porsche_lemans/api/protected/components/Controller.php(68): CModule->__get('user')
+#8 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(359): Controller->__construct('weibo', NULL)
+#9 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(276): CWebApplication->createController('weibo/loginurl')
+#10 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/loginurl')
+#11 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/weibo/loginurl
+---
+2014/05/07 00:10:42 [error] [exception.CException] exception 'CException' with message 'CHttpSession.savePath "/Users/jackeychen/Workspace/porsche_lemans/api/protected/config/../session" is not a valid directory.' in /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CHttpSession.php:217
+Stack trace:
+#0 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CComponent.php(152): CHttpSession->setSavePath('/Users/jackeych...')
+#1 /Users/jackeychen/Workspace/porsche_lemans/api/yii/YiiBase.php(220): CComponent->__set('savePath', '/Users/jackeych...')
+#2 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(386): YiiBase::createComponent(Array)
+#3 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(201): CModule->getComponent('session')
+#4 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/auth/CWebUser.php(199): CWebApplication->getSession()
+#5 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(387): CWebUser->init()
+#6 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CModule.php(103): CModule->getComponent('user')
+#7 /Users/jackeychen/Workspace/porsche_lemans/api/protected/components/Controller.php(68): CModule->__get('user')
+#8 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(359): Controller->__construct('weibo', NULL)
+#9 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(276): CWebApplication->createController('weibo/loginurl')
+#10 /Users/jackeychen/Workspace/porsche_lemans/api/yii/web/CWebApplication.php(141): CWebApplication->runController('weibo/loginurl')
+#11 /Users/jackeychen/Workspace/porsche_lemans/api/yii/base/CApplication.php(180): CWebApplication->processRequest()
+#12 /Users/jackeychen/Workspace/porsche_lemans/api/index.php(13): CApplication->run()
+#13 {main}
+REQUEST_URI=/weibo/loginurl
+---
