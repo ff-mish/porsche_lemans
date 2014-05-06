@@ -1,0 +1,102 @@
+@charset "utf-8";
+/*
+ * PORSCHE
+ * zx 2014 05 04
+ */
+
+/* Reset
+================================================================================================= */
+html{}
+body{font-family:FranklinGothicLT,"Microsoft Yahei",simsun,arial,sans-serif;color:#fff;font-size:12px;line-height:1.666em;background: #fff;}
+h1,h2,h3{font-size:100%;}
+body,h1,h2,h3,h4,ul,li,p,img,div{margin:0;padding:0;border:0;}
+img{margin:0;line-height:normal;}
+em,i{font-style:normal;text-decoration:none}
+ul{list-style:none;}
+table{border-collapse:collapse;border-spacing:0;}
+
+/* Commonly Used
+================================================================================================= */
+a{text-decoration:none;color:#fff;outline: none;}
+a:hover{color:#f00}
+.cs-clear{+zoom:1;}
+.cs-clear:before,
+.cs-clear:after{clear:both;content:".";font-size:0;display:block;height:0;overflow:hidden;visibility:hidden;}
+.fl{float: left}
+.column{width:1100px;margin:0 auto;}
+
+
+/* bg Used
+================================================================================================= */
+body{background:#000;height: 100%;width: 100%}
+.page{position: absolute;left:0;right: 0;bottom: 0;top: 0}
+.pagebg1{background:url('../images/bg1.jpg') no-repeat center top; background-size:cover; }
+.pagebg2{background:url('../images/bg2.jpg') no-repeat center top; background-size:cover; }
+.pagebg3{background:url('../images/bg3.jpg') no-repeat center top; background-size:cover; }
+.pagebg4{background:url('../images/bg4.jpg') no-repeat center top; background-size:cover; }
+.pagebg5{background:url('../images/bg5.jpg') no-repeat center top; background-size:cover; }
+.pagebg6{background:url('../images/bg6.jpg') no-repeat center top; background-size:cover; }
+
+
+/* PAGE Used
+================================================================================================= */
+.logo{background: url('../images/logo.png') no-repeat;width: 200px;height: 20px;position: absolute;top: 56px;left: 74px;overflow: hidden;line-height: 500em}
+.nav{font-size: 18px;position: absolute;top: 155px;left:66px;font-weight: bold;}
+	.navicon{background: url('../images/navicon.png') no-repeat;height:55px;width: 55px; margin: 0 0 50px}
+	.nav p{padding-left:55px;height: 35px}
+	.nav .on{background:url('../images/navicon.png') no-repeat 0 -107px ;}
+
+/* home */
+.home_txt{background: url('../images/home_txt.png') no-repeat;width: 924px;height: 323px;left:330px;top: 190px;position: absolute;}
+.home_share{position: absolute;left:600px;top: 560px}
+	.home_share a{width:193px;height: 69px;background: url('../images/home_share.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+	.home_share .home_twitter{background-position: top right}
+
+/* login */
+.login{width: 286px;height: 168px;padding:150px 0 0;border:#f00 solid 1px;position: absolute;left:50%;top:50%;margin: -160px 0 0 -144px;background: url('../images/login_weibo.png') no-repeat center 38px;}
+	.loginipt{width: 220px;height: 38px;border:#f00 solid 1px;background: #000;color:#f00;margin: 0 auto 10px;line-height: 38px;text-align: center;position: relative;}
+		.loginipt input{position: absolute;top:0;left: 0;width: 200px;height: 38px;padding:0 10px;border:0;background: #000;color:#f00;text-align: center;}
+		.login_tips{width: 220px;height: 38px;position: absolute;top:0;left: 0;background: #000;cursor:pointer;font-weight: bold;}
+		.login_sub{background: #f00;border:#f00 solid 1px;width: 220px;height: 38px;border: 0;margin: 0 auto;font-weight: bold;display: block;cursor: pointer;}
+
+/* kv */
+.kv_bg{position: absolute;left:0;right: 0;top:468px;height:48px;background: url('../images/kv_bg.png') no-repeat center; }
+.kv_txt{background: url('../images/kv_txt.png') no-repeat;width: 346px;height: 573px;left:50%;top: 110px;position: absolute;margin-left:-173px;}
+	.kv_share{background: url('../images/kv_share.png') no-repeat;width: 300px;height: 130px;margin: 318px auto 0;}
+
+
+/* rewrd */
+.rewrd{background: url('../images/REWRDpho.png') no-repeat;width: 230px;height: 364px;position: absolute;left:50%;top:50%;margin: -150px 0 0 -115px;}
+.rewrdtxt{font-size: 24px;position: absolute;right: 40px;bottom: 44px}
+
+/*fuel*/
+.fuel{width: 1140px;position: absolute;left:320px;top:128px;}
+	.fuelitem{width:283px;height: 147px;margin:1px;float: left;display: inline; position: relative;}
+		.fuelshade{position: absolute;width:283px;height: 147px;top: 0;left:0;background: #000;opacity: 0.7;filter:alpha(opacity=70);}
+		.fuelbtnbox{position: absolute;top: 50px;left:96px;}
+		.fuelbtn{background: url('../images/fuelbtn.png') no-repeat;width: 22px;height: 22px;float: left;margin: 12px;display: inline;cursor: pointer;}
+		.fuelbtn2{background-position: right top}
+	.fuelmore{margin: 75px auto;width: 278px}
+		.fuelmore a{color:#ff0000;display: block;width:276px;height: 38px;border:#f00 solid 1px;line-height: 38px;text-align: center;  }
+
+/* race */
+.race_track{background: url('../images/race_track.png') no-repeat;width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
+.race_bg{position:absolute;bottom: 0;left:0;right: 0;width: 100%}
+.race_nav{background: url('../images/race_nav.png') no-repeat;width: 116px;height: 167px;position: absolute;left:74px;top:420px;}
+	
+
+/* stand */
+.stand{background: url('../images/stand.png') no-repeat center;width:1206px;left:320px;top:0;bottom:0;position: absolute;}
+
+/* teambuild */
+.teambuild{position:absolute;left: 584px;top: 180px}
+	.teambuild_step{font-size: 24px;color:#fff;text-transform: uppercase;text-align: center;width: 400px;line-height: 30px}
+	.teambuild_tit{font-size: 48px;color:#f00;text-transform: uppercase;text-align: center;width: 400px;line-height: 80px;height: 110px}
+	.teambuild_member{padding-right:320px;}
+	.teambuild_info1{background: url('../images/member_info1.png') no-repeat right;}
+	.teambuild_info2{background: url('../images/member_info2.png') no-repeat right;}
+		.member_item{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;}
+			.member_item img{float: left:;}
+			.member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:20px 0 0;}
+	.member_add{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 0 60px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;}
+	.member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
