@@ -47,8 +47,8 @@ body{background:#000;height: 100%;width: 100%}
 	.nav .on{background:url('../images/navicon.png') no-repeat 0 -107px ;}
 
 /* home */
-.home_txt{background: url('../images/home_txt.png') no-repeat;width: 924px;height: 323px;left:330px;top: 190px;position: absolute;}
-.home_share{position: absolute;left:600px;top: 560px}
+.home_txt{background: url('../images/home_txt.png') no-repeat;width: 924px;height: 323px;left:50%;top:50%;margin: -262px 0 0 -462px;position: absolute;}
+.home_share{position: absolute;left:50%;top:50%;margin: 150px 0 0 -200px}
 	.home_share a{width:193px;height: 69px;background: url('../images/home_share.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
 	.home_share .home_twitter{background-position: top right}
 
