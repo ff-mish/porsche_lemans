@@ -8,6 +8,11 @@ seajs.config({
       src: "../jquery/jquery-1.8.3.min.js"
       , exports: "jQuery"
     }
+    ,raphaeljs: {
+      src: "../raphael/raphaeljs.min.js"
+      , deps :[ "../raphael/eve.js"]
+      , exports: "Raphael"
+    }
     ,easing:{
       src: "../plugin/jquery.easing.1.3.js"
       , deps: ['jquery']

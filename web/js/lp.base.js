@@ -8,42 +8,77 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     // ======================================================================
     var rotateAnimate = (function(){
 
-        function rotateRun( $dom , current , total , easing ){
-            $dom.html( ['<div class="rotate-wrap"><div class="display"></div>',
-                        '<div class="front left"></div>',
-                        '<div class="rotate left">',
-                            '<div class="bg left"></div>',
-                        '</div>',
-                        '<div class="rotate right">',
-                            '<div class="bg right"></div>',
-                        '</div></div>'].join("") );
-            var $rotateLeft = $dom.find( ".rotate.left" );
-            var $rotateRight = $dom.find( ".rotate.right" );
-            var $display = $dom.find('.display');
-            // Calculating the current angle:
-            var angle = (360/total)*(current+1);
-            var $element;
+        function rotateRun( $dom , current , total , easing , startAngle ){
+            var percent = current / total;
+            startAngle = startAngle / 180 * Math.PI || Math.PI*3/2;
+            LP.use('raphaeljs' , function( Raphael ){
+                // Creates canvas 320 × 200 at 10, 50
+                var width = $dom.width();
+                var height = $dom.height();
+                var r = 35 , stockWidth = 10 , stockColor = "#ff0707";
 
-            if(current==0){
-                // Hiding the right half of the background:
-                $rotateRight.hide();
-                // Resetting the rotation of the left part:
-                rotateElement($rotateLeft,0);
-            }
+                var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
+                var end = [ width / 2 + Math.cos( startAngle + percent * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * 2 * Math.PI ) * r  ]
+                console.log( start , end );
+                var path = [
+                    'M' , start[0] , ' ' , start[1] ,
+                    'A' , r , ' ' , r , ' 0 ' , percent > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
+                    ].join("");
+                var otherPath = [
+                    'M' , start[0] , ' ' , start[1] ,
+                    'A' , r , ' ' , r , ' 0 ' , percent > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
+                ].join("");
+
+                var paper = Raphael( $dom.get(2) , width , height , function(){
+                    // Creates circle at x = 50, y = 40, with radius 10
+                    var circle = this.circle( width / 2 , height / 2, 35 );
+                    // Sets the fill attribute of the circle to red (#f00)
+                    // circle.attr("stroke", "#000")
+                    //     .attr("stroke-width" , 10);
+                    this.path( otherPath )
+                        .attr("stroke", "#000")
+                        .attr("stroke-width" , 10);
+                    this.path( path )
+                        .attr("stroke" , stockColor )
+                        .attr("stroke-width" ,stockWidth );
+                });
+            });
+            // raphaeljs
+            // $dom.html( ['<div class="rotate-wrap"><div class="display"></div>',
+            //             '<div class="front left"></div>',
+            //             '<div class="rotate left">',
+            //                 '<div class="bg left"></div>',
+            //             '</div>',
+            //             '<div class="rotate right">',
+            //                 '<div class="bg right"></div>',
+            //             '</div></div>'].join("") );
+            // var $rotateLeft = $dom.find( ".rotate.left" );
+            // var $rotateRight = $dom.find( ".rotate.right" );
+            // var $display = $dom.find('.display');
+            // // Calculating the current angle:
+            // var angle = (360/total)*(current+1);
+            // var $element;
+
+            // if(current==0){
+            //     // Hiding the right half of the background:
+            //     $rotateRight.hide();
+            //     // Resetting the rotation of the left part:
+            //     rotateElement($rotateLeft,0);
+            // }
             
-            if(angle<=180){
-                // The left part is rotated, and the right is currently hidden:
-                $element = $rotateLeft;
-            } else {
-                // The first part of the rotation has completed, so we start rotating the right part:
-                $rotateRight.show();
-                $rotateLeft.show();
-                rotateElement($rotateLeft,180);
-                $element = $rotateRight;
-                angle = angle-180;
-            }
+            // if(angle<=180){
+            //     // The left part is rotated, and the right is currently hidden:
+            //     $element = $rotateLeft;
+            // } else {
+            //     // The first part of the rotation has completed, so we start rotating the right part:
+            //     $rotateRight.show();
+            //     $rotateLeft.show();
+            //     rotateElement($rotateLeft,180);
+            //     $element = $rotateRight;
+            //     angle = angle-180;
+            // }
 
-            rotateElement( $element,angle);
+            // rotateElement( $element,angle);
             
             // Setting the text inside of the display element, inserting a leading zero if needed:
             // clock.display.html(current<10?'0'+current:current);
@@ -75,6 +110,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // }
 
     })();
+
+    rotateAnimate( $('.member_speed') , 100 , 360 );
 
 
     // page actions here

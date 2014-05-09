@@ -97,7 +97,7 @@ body{background:#000;height: 100%;width: 100%}
 		.member_item{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left}
 			.member_item img{float: left:;}
 			.member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:20px 0 0;}
-		.member_speed{width: 85px;height: 85px; background:url('../images/stand.png') no-repeat -341px -101px;float: left;margin-left:60px;display:inline;}
+		.member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 		.memeber_space{float:left;font-size: 72px;font-weight: bold;color:#f00;line-height: 85px;text-align: center;width: 220px}
 	.member_add{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 0 60px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;}
 	.member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
@@ -138,3 +138,68 @@ body{background:#000;height: 100%;width: 100%}
 	.conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
 	.conut_down{background: url('../images/countdownbg.png') no-repeat;width: 565px;height: 208px;padding-left:95px;}
 		.conut_downitem{font-size: 72px;float: left;line-height:220px;margin-right:52px;display:inline;color:#cfcfcf;}
+
+
+
+/* rotate-wrap */
+.rotate-wrap{
+	/* The .rotate-wrap div. Created dynamically by jQuery */
+	height:81px;
+	width:81px;
+	position:relative;
+	overflow:hidden;
+}
+
+.rotate-wrap .rotate{
+	/* There are two .rotate divs - one for each half of the background */
+	position:absolute;
+	width:81px;
+	height:81px;
+	top:0;
+	left:0;
+}
+
+.rotate.right{
+	display:none;
+	z-index:11;
+}
+
+.rotate-wrap .bg, .rotate-wrap .front{
+	width:40px;
+	height:81px;
+	position:absolute;
+	top:0;
+}
+
+.rotate-wrap .display{
+	/* Holds the number of seconds, minutes or hours respectfully */
+	position:absolute;
+	width:81px;
+	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	z-index:20;
+	color:#F5F5F5;
+	font-size:60px;
+	text-align:center;
+	top:65px;
+	left:0;
+	
+	/* CSS3 text shadow: */
+	text-shadow:4px 4px 5px #333333;
+}
+
+/* The left part of the background: */
+.rotate-wrap .bg.left{ left:0; }
+/* Individual styles for each color: */
+.rotate-wrap .bg.left{ background:url(../images/ring-red.png) no-repeat left top; }
+/* The right part of the background: */
+.rotate-wrap .bg.right{ left:41px; }
+.rotate-wrap .bg.right{ background:url(../images/ring-red.png) no-repeat left top; }
+
+
+.rotate-wrap .front.left{
+	left:0;
+	z-index:10;
+	background:url(../images/ring-black.png) no-repeat left top;
+}
+
+
