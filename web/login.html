@@ -21,23 +21,24 @@
 			<p class="on"><a href="#">Fuel</a></p>
 		</div>
 		<!-- login -->
-		<div class="login">
+		<form class="login">
 			<div class="loginipt">
-				<input type="text" value="" />
+				<input type="text" name="name" value="" />
 				<div class="login_tips">LOGIN</div>
 			</div>
 			<div class="loginipt">
-				<input type="password" value="" />
+				<input type="password" name="password" value="" />
 				<div class="login_tips">PASSWORD</div>
 			</div>
-			<input type="submit" class="login_sub" value="CONNECT" />
-		</div>
+			<input type="submit" data-a="login" class="login_sub" value="CONNECT" />
+		</form>
 		<!-- login end -->
 	</div>
 	<!--  -->
 <!--  -->
-    <script src="js/jquery-1.8.3.min.js"></script>
-    <script src="js/index.js"></script>
+<script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config.js"></script>
+<script type="text/javascript" src="./js/lp.core.js"></script>
+<script type="text/javascript" src="./js/lp.base.js"></script>
 <!--  -->
     <!--IE6透明判断-->
     <!--[if IE 6]>
