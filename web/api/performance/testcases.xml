@@ -1,0 +1,12 @@
+
+<testcases>
+    <!-- SAMPLE TEST CASE -->
+    <param name="http_server" value="http://lemans.local/api/" />
+    
+    <case>
+        <url>${http_server}/question/add</url>
+        <method>POST</method>
+        <body><![CDATA[question=What'syourname&answer_1=jaky&answer_2=jackey&answer_3=jacky&answer_4=Jakkey&right=2]]></body>
+        <add_header>Content-type: application/x-www-form-urlencoded</add_header>
+    </case>
+</testcases>

@@ -38,5 +38,9 @@ class WebController extends Controller {
     }
     $this->responseJSON("hello, lemans", "");
   }
+  
+  public function actionInittoken() {
+    $this->render("inittoken");
+  }
 }
 

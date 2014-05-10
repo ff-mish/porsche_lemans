@@ -44,6 +44,12 @@ class WeiboController extends Controller
       $user_ar = new UserAR();
       $user_ar->login();
       
+      // 在这里 如果是系统级别的用户需要额外保存Token
+      $weibo_uid = Yii::app()->params["weibo_uid"];
+      if ($token["uid"] == $weibo_uid) {
+        SystemAR::set("weibo_token", $token["access_token"]);
+      }
+      
       // 最后跳转到首页
       $this->redirect("/");
 		} else {

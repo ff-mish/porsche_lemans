@@ -77,7 +77,7 @@ class UserController extends Controller{
     $token = UserAR::token();
     if ($token) {
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
-      $users = $weibo_api->search_users($q);
+      $users = $weibo_api->search_at_users($q);
       $this->responseJSON($users, "success");
     }
     else {

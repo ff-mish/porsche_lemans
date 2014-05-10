@@ -1,0 +1,1 @@
+<a href="<?php echo UserAR::weibo_login_url()?>">Grant Weibo Token</a>
