@@ -1,0 +1,8 @@
+<?php
+
+class ErrorAR {
+  const ERROR_MISSED_REQUIRED_PARAMS = 0x00010001;
+  const ERROR_UNKNOWN = 0x00010010;
+  const ERROR_VALIDATE_FAILED = 0x00010100;
+}
+

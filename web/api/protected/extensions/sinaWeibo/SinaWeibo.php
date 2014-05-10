@@ -6,4 +6,8 @@ class SinaWeibo extends SaeTOAuthV2{
   
 }
 
+class SinaWeibo_API extends SaeTClientV2 {
+  
+}
+
 ?>

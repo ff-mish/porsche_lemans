@@ -43,7 +43,7 @@ return array(
         ),
         // uncomment the following to use a MySQL database
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=my',
+            'connectionString' => 'mysql:host=localhost;dbname=lemans',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => 'admin',
@@ -64,7 +64,7 @@ return array(
             'routes' => array(
                 array(
                     'class' => 'CFileLogRoute',
-                    'levels' => 'error, warning',
+                    'levels' => 'error, warning, trace',
                 ),
             // uncomment the following to show log messages on web pages
             /*

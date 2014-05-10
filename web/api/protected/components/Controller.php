@@ -11,8 +11,14 @@ class Controller extends CController {
     return parent::beforeAction($action);
   }
 
-  public function responseError($message) {
-    $this->_renderjson($this->wrapperDataInRest(NULL, $message, TRUE));
+  /**
+   * 
+   * @param type 错误消息
+   * @param type 错误代码
+   * @param type 错误额外数据
+   */
+  public function responseError($message, $error = 500, $ext = array()) {
+    $this->_renderjson($this->wrapperDataInRest(NULL, $message, $error, $ext));
   }
 
   public function randomString($length = 10) {
@@ -35,13 +41,13 @@ class Controller extends CController {
 
   public function wrapperDataInRest($data, $message = '', $error = FALSE, $ext = array()) {
     $json = array(
-        "status" => !$error,
+        "status" => $error,
         "message" => $message,
         "data" => $data
     );
 
     if (!empty($ext)) {
-      $json += $ext;
+      $json["ext"] = $ext;
     }
 
     return $json;

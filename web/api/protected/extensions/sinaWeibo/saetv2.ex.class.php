@@ -2779,6 +2779,13 @@ class SaeTClientV2
 
 		return $this->oauth->post( 'trends/destroy', $params );
 	}
+  
+  public function short_url_shorten($url_long) {
+    $params = array();
+    $params["url_long"] = $url_long;
+    
+    return $this->oauth->get("short_url/shorten", $params);
+  }
 
 	/**
 	 * 返回指定用户的标签列表
