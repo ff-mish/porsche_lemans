@@ -16,10 +16,27 @@ class UserController extends Controller{
     parent::init();
   }
   
+  /**
+   * 邀请好友接口.
+   * 接受 POST 方法
+   */
   public function actionInvite() {
+    $request = Yii::app()->getRequest();
+    
+    // 参数检查
+    $msg = $request->getPost("msg");
+    if (!$msg) {
+      $this->responseError("params invalid", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS, array("msg" => "required"));
+    }
+    
     $userAr = new UserAR();
-    $userAr->post_invite_tweet();
-    $this->responseJSON("", "success");
+    $ret = $userAr->post_invite_tweet($msg);
+    if ($ret) {
+      $this->responseJSON(array(), "success");
+    }
+    else {
+      $this->responseError("invite friend failed", ErrorAR::ERROR_INVITE);
+    }
   }
   
   /**

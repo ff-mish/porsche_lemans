@@ -222,7 +222,7 @@ class UserAR extends CActiveRecord {
    * @param type $weibo
    * @return boolean
    */
-  public function post_invite_tweet() {
+  public function post_invite_tweet($msg) {
     // 发一个微博邀请 （其实是一个微博 用@用户名方式）
     if (Yii::app()->session["from"] == self::FROM_WEIBO) {
       $access_token = Yii::app()->session["weibo_token"];
@@ -239,7 +239,9 @@ class UserAR extends CActiveRecord {
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
       $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL("20120302", ""));
       $url = $short_url["urls"][0]["url_short"];
-      $ret = $weibo_api->update("@小吃米粉王 快来玩玩这个好玩的游戏吧! ". $url);
+      $ret = $weibo_api->update($msg.' '. $url);
+      
+      return $ret;
     }
     // 发一个Twitter 邀请
     else {

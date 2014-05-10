@@ -31,9 +31,11 @@ class WebController extends Controller {
   public function actionWelcome() {
     $request = Yii::app()->getRequest();
     $d = $request->getParam("d");
-    $userAr = new UserAR();
-    $data = $userAr->decryptionInvitedData($d);
-    Yii::app()->session["invited_data"] = $data;
+    if ($d) {
+      $userAr = new UserAR();
+      $data = $userAr->decryptionInvitedData($d);
+      Yii::app()->session["invited_data"] = $data;
+    }
     $this->responseJSON("hello, lemans", "");
   }
 }

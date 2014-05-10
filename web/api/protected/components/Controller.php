@@ -36,7 +36,7 @@ class Controller extends CController {
     $controllerName = Yii::app()->controller->id;
     $actioName = Yii::app()->controller->action->id;
 
-    $this->_renderjson($this->wrapperDataInRest($data, $message, FALSE, $ext));
+    $this->_renderjson($this->wrapperDataInRest($data, $message, ErrorAR::ERROR_NO_ERROR, $ext));
   }
 
   public function wrapperDataInRest($data, $message = '', $error = FALSE, $ext = array()) {
