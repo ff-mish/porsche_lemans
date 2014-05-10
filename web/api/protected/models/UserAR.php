@@ -298,5 +298,29 @@ class UserAR extends CActiveRecord {
     }
     return FALSE;
   }
+  
+  /**
+   * @
+   */
+  public static function token() {
+    $user = Yii::app()->session["user"];
+    if ($user) {
+      if ($user->from == self::FROM_WEIBO) {
+        $access_token = Yii::app()->session["weibo_token"];
+        if ($access_token) {
+          $token = $access_token["access_token"];
+          $uid = $access_token["uid"];
+        }
+        else {
+          $token = FALSE;
+        }
+        
+        return $token;
+      }
+      else {
+        
+      }
+    }
+  }
 }
 

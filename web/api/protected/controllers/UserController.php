@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('ext.sinaWeibo.SinaWeibo_API',true);
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -69,5 +69,20 @@ class UserController extends Controller{
     else {
       $this->responseError("team name is required", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS, array("name" => "required"));
     }
+  }
+  
+  public function actionFriendssuggestion() {
+    $request = Yii::app()->getRequest();
+    $q = $request->getParam("q");
+    $token = UserAR::token();
+    if ($token) {
+      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+      $users = $weibo_api->search_users($q);
+      $this->responseJSON($users, "success");
+    }
+    else {
+      $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    $this->responseJSON(array(), "HELLO");
   }
 }
