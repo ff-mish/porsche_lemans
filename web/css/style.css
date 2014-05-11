@@ -43,7 +43,7 @@ body{background:#000;height: 100%;width: 100%}
 ================================================================================================= */
 .logo{background: url('../images/logo.png') no-repeat;width: 200px;height: 20px;position: absolute;top: 56px;left: 74px;overflow: hidden;line-height: 500em}
 .nav{font-size: 18px;position: absolute;top: 155px;left:66px;font-weight: bold;}
-	.navicon{background: url('../images/navicon.png') no-repeat;height:55px;width: 55px; margin: 0 0 50px}
+	.navicon{background: url('../images/navicon.png') no-repeat;height:55px;width: 55px; margin: 0 0 50px;display: block;}
 	.nav p{padding-left:55px;height: 35px}
 	.nav .on{background:url('../images/navicon.png') no-repeat 0 -107px ;}
 

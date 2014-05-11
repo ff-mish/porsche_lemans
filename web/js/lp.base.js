@@ -50,14 +50,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             zIndex: 9999,
             width: 200,
             wrapClass: 'suggestWrap',
-            container: document.body,
             // maxHeight: 200,
             availableCssPath: 'p', // 用于hover的css path
             loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
             renderData: function(data){
                 var key = this.key , aHtml = ['<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">'];
                 $.each(data , function(i,item){
-                    aHtml.push(['<p data-insert="' , item.nk , '"><img width="30" height="30" src="', item.head ,'"/>' , item.nk.replace(key , '<b>' + key + '</b>') + '<br/><span>' + item.loc + '</span>' , '</p>'].join(''));
+                    aHtml.push(['<p data-insert="' , item.nickname , '">', item.nickname.replace(key , '<b>' + key + '</b>') + '<br/></p>'].join(''));
                 });
                 aHtml.push('</div>');
                 return aHtml.join('');
@@ -65,7 +64,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // how to get data
             getData: function(cb){
                 var key = this.key ;
-                cb([{nk:"mama",head:'hahha' ,loc:'sdcadas'} ]);
+                api.get('./api/user/Friendssuggestion' , {q: key} , function( e ){
+                    cb( e.data );
+                });
             }
         }
         var inputSuggestion = function( $textarea , cfg ){
@@ -121,8 +122,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     
                     // show suggestion
                     var pos = tUtil.getPagePos(textarea ,lastIndex);
-                    console.log( pos );
-                    suggestion.show( pos.left , pos.bottom + 3 , lastText.substring(1));
+                    var toff = $(textarea).offset()
+                    suggestion.show( pos.left - toff.left , pos.bottom + 3 - toff.top + 30 , lastText.substring(1));
                 },
                 eventFn = function(ev){
                    if(ev.keyCode == 27){
@@ -174,8 +175,33 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         LP.panel({
             content: "<textarea cols='40' rows='5'></textarea>",
             title: "邀请用户",
+            submitButton: true,
             onload: function(){
                 initSuggestion( this.$panel.find('textarea') );
+            },
+            onSubmit: function(){
+                var msg = this.$panel.find('textarea').val();
+                api.post( './api/user/invite' , {msg: msg} , function(){
+                    LP.right('success');
+                });
+            }
+        });
+    });
+
+
+    LP.action("post_weibo" , function(){
+        LP.panel({
+            content: "<textarea cols='40' rows='5'></textarea>",
+            title: "发weibo",
+            submitButton: true,
+            onload: function(){
+
+            },
+            onSubmit: function(){
+                var msg = this.$panel.find('textarea').val();
+                api.post( './api/twitte/post' , {msg: msg} , function(){
+                    LP.right('success');
+                } );
             }
         });
     });
@@ -243,7 +269,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                         $('#teambuild_info').fadeIn()
                             .find( ".member_add" )
-                            [ e.data.user.invited_by ? 'hide' : 'show' ]();
+                            [ parseInt(e.data.user.invited_by) ? 'hide' : 'show' ]();
                     } else {
                         $(".teambuild_from").fadeIn();
                     }

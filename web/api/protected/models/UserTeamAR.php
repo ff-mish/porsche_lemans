@@ -42,9 +42,10 @@ class UserTeamAR extends CActiveRecord {
     $row = $this->find($cond);
     
     if ($row) {
+      $team = $row->team;
       $row->with("user", "team");
     }
-    $team = $row->team;
+    
     
     return $row;
   }
