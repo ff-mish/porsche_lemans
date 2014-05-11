@@ -58,7 +58,7 @@ class TwitteAR extends CActiveRecord {
         $weibo_api->update($content);
       }
       else if ($this->type == UserAR::FROM_TWITTER) {
-        //Yii::app()->twitter->
+        Yii::app()->twitter->status_update($content);
       }
     }
     

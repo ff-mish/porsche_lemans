@@ -266,5 +266,24 @@ class STwitter extends CApplicationComponent {
       throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
     }
   }
+  
+  public function status_update($content) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+    $code = $twitter->request("POST", $twitter->url("1.1/statuses/update"), array(
+        "status" => $content
+    ));
+    
+    if ($code == 200) {
+      return json_decode($twitter->response["response"]);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
 
 }

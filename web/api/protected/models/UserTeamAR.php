@@ -43,8 +43,8 @@ class UserTeamAR extends CActiveRecord {
     
     if ($row) {
       $row->with("user", "team");
+      $team = $row->team;
     }
-    $team = $row->team;
     
     return $row;
   }
