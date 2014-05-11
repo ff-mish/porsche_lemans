@@ -16,7 +16,9 @@ class UserAR extends CActiveRecord {
    *
    * @var SinaWeibo
    */
-  private $weibo;
+  public $weibo;
+  
+  public $team;
   
   public function __init() {
     $this->weibo = new SinaWeibo(WB_AKEY, WB_SKEY);
@@ -214,7 +216,20 @@ class UserAR extends CActiveRecord {
    * @return UserAR
    */
   public static function crtuser() {
-    return Yii::app()->session["user"];
+    $user =  Yii::app()->session["user"];
+    // 再获取Team
+    
+    $team_ar = new UserTeamAR();
+    $team_user = $team_ar->loadUserTeam($user);
+    
+    if ($team_user) {
+      $user->team = $team_user->team;
+    }
+    else {
+      $user->team = NULL;
+    }
+    
+    return $user;
   }
   
   /**
