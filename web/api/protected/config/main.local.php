@@ -88,5 +88,6 @@ return array(
         // this is used in contact page
         'adminEmail' => 'jziwenchen@gmail.com', 
         "weibo_uid" => "5072167230",
+        "uploadedPath" => realpath((dirname(__FILE__).'/../../upload')),
     ),
 );

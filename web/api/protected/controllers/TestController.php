@@ -11,5 +11,9 @@ class TestController extends Controller {
   public function actionAddMedia() {
     $this->render("addmedia");
   }
+  
+  public function actionTwitte() {
+    $this->render("twitte");
+  }
 }
 
