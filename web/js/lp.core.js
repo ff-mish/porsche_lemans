@@ -306,6 +306,42 @@
         });
     })();
 
+    LP.mix( LP , {
+        error: function(){
+            var args = [].splice.call( arguments , 0 , arguments.length);
+            LP.use('panel' , function( exports ){
+                exports.error.apply( exports , args );
+            });
+        }
+        , right: function(){
+            var args = [].splice.call( arguments , 0 , arguments.length);
+            LP.use('panel' , function( exports ){
+                exports.right.apply( exports , args );
+            });
+        }
+        , alert: function(){
+            return this.warn.apply( this , [].splice.call( arguments , 0 , arguments.length));
+        }
+        , warn: function(){
+            var args = [].splice.call( arguments , 0 , arguments.length);
+            LP.use('panel' , function( exports ){
+                exports.warn.apply( exports , args );
+            });
+        }
+        , confirm: function(){
+            var args = [].splice.call( arguments , 0 , arguments.length);
+            LP.use('panel' , function( exports ){
+                exports.confirm.apply( exports , args );
+            });
+        }
+        , panel: function(){
+            var args = [].splice.call( arguments , 0, arguments.length );
+            LP.use('panel' , function( exports ){
+                exports.panel.apply( exports , args );
+            });
+        }
+    } , true );
+
     // cookie
     /**
      * 根据cookie名称取得cookie值

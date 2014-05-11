@@ -13,14 +13,18 @@ seajs.config({
       , deps :[ "../raphael/eve.js"]
       , exports: "Raphael"
     }
+    ,handlebars: {
+      src: "../handlebars/handlebars-v1.1.2.js"
+      , exports: "Handlebars"
+    }
     ,easing:{
       src: "../plugin/jquery.easing.1.3.js"
       , deps: ['jquery']
     }
-	,transit:{
-	  src: "../plugin/jquery.transit.min.js"
-	  , deps: ['jquery']
-	}
+  	,transit:{
+  	  src: "../plugin/jquery.transit.min.js"
+  	  , deps: ['jquery']
+  	}
     ,isotope:{
       src: "../plugin/jquery.isotope.min.js"
       , deps: ['jquery']
