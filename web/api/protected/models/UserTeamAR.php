@@ -33,5 +33,19 @@ class UserTeamAR extends CActiveRecord {
     }
     return TRUE;
   }
+  
+  public function loadUserTeam($user) {
+    $cond = array(
+        "condition" => "uid=:uid",
+        "params" => array(":uid" => $user->uid),
+    );
+    $row = $this->find($cond);
+    
+    if ($row) {
+      $row->with("user", "team");
+    }
+    
+    return $row;
+  }
 }
 

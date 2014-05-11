@@ -85,4 +85,14 @@ class UserController extends Controller{
     }
     $this->responseJSON(array(), "HELLO");
   }
+  
+  public function actionIndex() {
+    $user = UserAR::crtuser();
+    
+    $data = array(
+        "user" => $user,
+        "team" => $user->team
+    );
+    $this->responseJSON($data, "success");
+  }
 }
