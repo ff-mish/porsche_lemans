@@ -168,54 +168,9 @@ class UserAR extends CActiveRecord {
       if ($weibo_user) {
         // 获取uuid
         $uuid = $weibo_user["idstr"];
-        $user = $this->load_user_by_uuid($uuid);
-        // 用户已经注册到了我们系统了
-        if ($user && $user->status == self::STATUS_ENABLED) {
-          Yii::app()->session["user"] = $user;
-        }
-        // 用户是自动被加入到系统的， 这次还是属于第一次授权
-        elseif ($user && $user->status == self::STATUS_AUTO_JOIN) {
-          // TODO:: 是否需要前端继续授权给用户建立组和邀请用户?
-          Yii::app()->session["user"] = $user;
-        }
-        else if (!$user) {
-          // Step1, 用户如果第一次授权系统，我们要保存用户
-          $new_userar = new UserAR();
-          $invited_data = Yii::app()->session["invited_data"];
-          if ($invited_data) {
-            $inviter = $invited_data["uid"];
-          }
-          else {
-            $inviter = 0;
-          }
-          $attributes = array(
-              "name" => $weibo_user["screen_name"],
-              "from" => self::FROM_WEIBO,
-              "uuid" => $weibo_user["idstr"],
-              "invited_by" => $inviter,
-              // TODO:: 是否需要实现用户个人说明功能？
-              "profile_msg" => "", 
-              "avatar" => $weibo_user["avatar_large"],
-              "friends" => $weibo_user["friends_count"],
-              "status" => self::STATUS_ENABLED
-          );
-          foreach ($attributes as $name => $value) {
-            $new_userar->{$name} = $value;
-          }
-          if ($new_userar->save()) {
-            Yii::app()->session["user"] = $new_userar;
-          }
-          
-          // Step2, 用户保存成功后，需要把用户自动分组，分组是根据 Invite uid 来分配的.
-          // 如果用户有邀请者，则将用户加入到组中去
-          if ($inviter) {
-            $this->user_join_team($inviter);
-          }
-          // 否则用户自己创建一个组
-          else {
-            //TODO:: 用户登录成功后 有没有必要自动生成一个组???
-          }
-        }
+        $screen_name = $weibo_user["screen_name"];
+        $avatar = $weibo_user["avatar_large"];
+        $friends = $weibo_user["friends_count"];
       }
     }
     // 从Twitter 登录
@@ -225,7 +180,58 @@ class UserAR extends CActiveRecord {
       
       // 检查Twitter 用户是否已经注册系统
       $uuid = $twitter_user->id_str;
-      //
+      $screen_name = $twitter_user->screen_name;
+      $avatar = $twitter_user->profile_image_url;
+      $friends = $twitter_user->friends_count;
+    }
+    
+    $user = $this->load_user_by_uuid($uuid);
+    // 用户已经注册到了我们系统了
+    if ($user && $user->status == self::STATUS_ENABLED) {
+      Yii::app()->session["user"] = $user;
+    }
+    // 用户是自动被加入到系统的， 这次还是属于第一次授权
+    elseif ($user && $user->status == self::STATUS_AUTO_JOIN) {
+      // TODO:: 是否需要前端继续授权给用户建立组和邀请用户?
+      Yii::app()->session["user"] = $user;
+    }
+    else if (!$user) {
+      // Step1, 用户如果第一次授权系统，我们要保存用户
+      $new_userar = new UserAR();
+      $invited_data = Yii::app()->session["invited_data"];
+      if ($invited_data) {
+        $inviter = $invited_data["uid"];
+      }
+      else {
+        $inviter = 0;
+      }
+      $attributes = array(
+          "name" => $screen_name,
+          "from" => $from,
+          "uuid" => $uuid,
+          "invited_by" => $inviter,
+          // TODO:: 是否需要实现用户个人说明功能？
+          "profile_msg" => "", 
+          "avatar" => $avatar,
+          "friends" => $friends,
+          "status" => self::STATUS_ENABLED
+      );
+      foreach ($attributes as $name => $value) {
+        $new_userar->{$name} = $value;
+      }
+      if ($new_userar->save()) {
+        Yii::app()->session["user"] = $new_userar;
+      }
+
+      // Step2, 用户保存成功后，需要把用户自动分组，分组是根据 Invite uid 来分配的.
+      // 如果用户有邀请者，则将用户加入到组中去
+      if ($inviter) {
+        $this->user_join_team($inviter);
+      }
+      // 否则用户自己创建一个组
+      else {
+        //TODO:: 用户登录成功后 有没有必要自动生成一个组???
+      }
     }
   }
   
