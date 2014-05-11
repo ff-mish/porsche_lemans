@@ -1,6 +1,7 @@
 <?php
 
 class TeamAR extends CActiveRecord {
+  public $users;
   public function tableName() {
     return "teams";
   }
@@ -83,6 +84,24 @@ class TeamAR extends CActiveRecord {
     }
     
     return FALSE;
+  }
+  
+  public function loadMembers() {
+    $tid = $this->tid;
+    
+    $cond = array(
+        "condition" => "tid=:tid",
+        "params" => array(":tid" => $tid),
+    );
+    $user_teams = UserTeamAR::model()->findAll($cond);
+    $users = array();
+    foreach ($user_teams as $user_team) {
+      $uid = $user_team->uid;
+      $user = UserAR::model()->findByPk($uid);
+      $users[] = $user;
+    }
+    $this->users = $users;
+    return $users;
   }
 }
 

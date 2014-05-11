@@ -253,6 +253,11 @@ class STwitter extends CApplicationComponent {
    * @param type $uid or $screen_name
    */
   public function user_show($uid) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
     $twitter = $this->_getTwitter();
     $code = $twitter->request("get", $twitter->url("1.1/users/show"), array("user_id" => $uid));
     if ($code == 200) {
