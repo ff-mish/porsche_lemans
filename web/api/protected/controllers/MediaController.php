@@ -34,15 +34,36 @@ class MediaController extends Controller {
       if (!MediaAR::isAllowed($file_type, MediaAR::MEDIA_VIDEO)) {
         return $this->responseJSON("file type is not allowed", ErrorAR::ERROR_FILE_UPLOADED_ERROR);
       }
+      
+      $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_VIDEO);
+      $save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
+      $video->saveAs($save_to);
+      
+      // save to db
+      $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
+      $type = MediaAR::MEDIA_VIDEO;
+      
+      $media_ar->saveNew($uri, $type);
+      
+      $this->responseJSON($media_ar, "success");
     }
-    
-    print_r($video);
-    //print_r($image);
-    
-    die();
-    
-    $this->redirect("/api/test/addmedia");
   }
   
+  public function actionList() {
+    $request = Yii::app()->getRequest();
+    
+    $type = $request->getParam("type", MediaAR::MEDIA_IMAGE);
+    $page = $request->getParam("page", 1);
+    
+    $mediaAr = new MediaAR();
+    $medias = $mediaAr->getMedias($type, $page);
+    
+    
+    $this->responseJSON($medias, "success");
+  }
+  
+  public function actionShare() {
+    $request = Yii::app()->getRequest();
+  }
 }
 
