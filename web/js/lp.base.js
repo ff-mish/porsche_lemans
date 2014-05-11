@@ -43,6 +43,122 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     }
 
+    var initSuggestion = (function(){
+        var tUtil = null;
+        var BaseSelectPanel = null;
+        var atSugConfig = {
+            zIndex: 9999,
+            width: 200,
+            wrapClass: 'suggestWrap',
+            container: document.body,
+            // maxHeight: 200,
+            availableCssPath: 'p', // 用于hover的css path
+            loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
+            renderData: function(data){
+                var key = this.key , aHtml = ['<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">'];
+                $.each(data , function(i,item){
+                    aHtml.push(['<p data-insert="' , item.nk , '"><img width="30" height="30" src="', item.head ,'"/>' , item.nk.replace(key , '<b>' + key + '</b>') + '<br/><span>' + item.loc + '</span>' , '</p>'].join(''));
+                });
+                aHtml.push('</div>');
+                return aHtml.join('');
+            },
+            // how to get data
+            getData: function(cb){
+                var key = this.key ;
+                cb([{nk:"mama",head:'hahha' ,loc:'sdcadas'} ]);
+            }
+        }
+        var inputSuggestion = function( $textarea , cfg ){
+            var regx = cfg.regx,
+                tag = cfg.tag,
+                lastIndex = 0,
+                currIndex = 0,
+                lastText = '',
+                suggestion = null,
+                _timeout = null,
+                showSuggestion = function( ev ){
+                    if( suggestion && suggestion.$wrap.is(':visible')){
+                        switch(ev.keyCode){
+                            case 40: // down
+                            case 38: // up
+                            case 13: //enter
+                                return;
+                        }
+                    }
+                    
+                    var textarea = this,
+                        value = textarea.value,
+                        range = tUtil.getPos(textarea),
+                        text = value.substring(0 , range.start);
+                    
+                    currIndex = range.start;
+                    lastIndex = text.lastIndexOf(tag);
+                    lastText = text.substring(lastIndex);
+                    if(!regx.test(lastText)){
+                        suggestion && suggestion.hide();
+                        return;
+                    }
+                    if(!suggestion){
+                        suggestion = new BaseSelectPanel(textarea , cfg.selectConfig);
+                        suggestion.addListener("select" , function($dom){
+                            var name = $dom.attr('data-insert');
+                            if(!name){
+                                tUtil.setText(textarea , '\n' , currIndex);
+                            }else{
+                                cfg.afterSelect && cfg.afterSelect(textarea , name , lastIndex , lastText.length);
+                                //tUtil.setText(textarea , name , lastIndex , lastText.length);
+                            }
+                            $textarea.trigger('countwords');
+                        });
+                        suggestion.addListener("beforeShow" , function(t , data){
+                            if(cfg.beforeShow){
+                                return !!cfg.beforeShow( t , data );
+                            }
+                            return true;
+                            //return !!$(data).find('li').length;
+                        });
+                    }
+                    
+                    // show suggestion
+                    var pos = tUtil.getPagePos(textarea ,lastIndex);
+                    console.log( pos );
+                    suggestion.show( pos.left , pos.bottom + 3 , lastText.substring(1));
+                },
+                eventFn = function(ev){
+                   if(ev.keyCode == 27){
+                       return false;;
+                   }
+                   // 延迟处理
+                   clearTimeout(_timeout);
+                   var textarea = this;
+                   _timeout = setTimeout(function(){
+                       showSuggestion.call(textarea , ev);
+                   },100);
+                };
+            // key up event
+            $textarea.keyup(eventFn);
+            // mouse down event
+            $textarea.mouseup (eventFn);
+            return suggestion;
+        }
+
+
+        return function( $textarea ){
+            LP.use(['textareaUtil','suggestion'] , function( textUtil , sug ){
+                tUtil = textUtil ;
+                BaseSelectPanel = sug;
+                inputSuggestion( $textarea , {
+                    regx : /^@([^\s,)(\]\[\{\}\\\|=\+\/\-~`!#\$%\^&\*\.:;"'\?><]){1,15}$/,
+                    tag  : '@',
+                    selectConfig : atSugConfig,
+                    afterSelect : function(textarea , value , lastIndex , len){
+                        tUtil.setText(textarea , value+" " , lastIndex + 1 , len - 1);
+                    }
+                });
+            } )
+        }
+    })();
+
 
     // page actions here
     // ======================================================================
@@ -52,16 +168,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         } );
         return false;
     });
-    LP.action( "weibo-connect" , function(){
-        LP.panel({
-            title: 'weibo oauth',
-            content: 'hello world'
-        });
-    } );
+    
 
-    LP.action( "twitter-connect" , function(){
-        alert('twitter');
-    } );
+    LP.action("member_invent" , function(){
+        LP.panel({
+            content: "<textarea cols='40' rows='5'></textarea>",
+            title: "邀请用户",
+            onload: function(){
+                initSuggestion( this.$panel.find('textarea') );
+            }
+        });
+    });
 
 
 
@@ -101,9 +218,44 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         switch( CONFIG.page ){
             case "home":
                 api.get("./api/weibo/loginurl" , function( e ){
-                    LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.url} , function( html ){
+                    LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.twitter_url} , function( html ){
                         $(document.body).append( html );
                     } )
+                });
+
+                // get parameter d
+                var urlObj = LP.parseUrl();
+                if( urlObj.params.d ){
+                    api.post( "./api/web/decryptionURL" , {d: urlObj.params.d} );
+                }
+
+                break;
+            case "teambuild":
+                api.get("./api/user" , function( e ){
+                    if( !e.data.user ) return;
+                    // if current user is invited
+                    if( e.data.team ){ // show team info
+                        $.each( e.data.team.members || [] , function( i , member ){
+                            LP.compile( 'teambuild-member-tpl' , member , function( html ){
+                                $(html).insertBefore( $('#teambuild_info .member_add') );
+                            } );
+                        } );
+
+                        $('#teambuild_info').fadeIn()
+                            .find( ".member_add" )
+                            [ e.data.user.invited_by ? 'hide' : 'show' ]();
+                    } else {
+                        $(".teambuild_from").fadeIn();
+                    }
+                } );
+
+                // bind event 
+                $(".teambuild_from").submit(function(){
+                    api.post( "./api/user/BuildTeam" ,  $(this).serialize() , function( e ){
+                        $(".teambuild_from").hide();
+                        $('#teambuild_info').fadeIn();
+                    });
+                    return false;
                 });
                 break;
         }

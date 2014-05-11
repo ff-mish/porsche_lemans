@@ -29,7 +29,7 @@ seajs.config({
       src: "../plugin/jquery.isotope.min.js"
       , deps: ['jquery']
     }
-    ,jscrollpane:{
+    ,jscrollpane:{    
       src: "../plugin/jquery.jscrollpane.js"
       , deps: ['jquery']
     }
@@ -61,6 +61,8 @@ seajs.config({
   , alias: {
     api: '../api.js?_201402#'
     , panel: "../panel/panel"
+    , suggestion: '../plugin/jquery.suggestion.js'
+    , textareaUtil: '../plugin/jquery.textarea.js'
     , autoComplete: '../autocomplete/autoComplete'
     , validator: '../validator/validator'
   }

@@ -88,17 +88,11 @@ class UserController extends Controller{
   
   public function actionIndex() {
     $user = UserAR::crtuser();
-    if ($user && $user->team) {
-      $data = array(
-          "user" => $user,
-          "team" => $user->team->attributes
-      );
-      $data["team"]["users"] = $user->team->loadMembers();
-    }
-    else {
-      $data = array();
-    }
-
+    
+    $data = array(
+        "user" => $user,
+        "team" => $user->team
+    );
     $this->responseJSON($data, "success");
   }
 }
