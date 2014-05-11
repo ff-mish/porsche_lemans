@@ -59,7 +59,7 @@ class MediaAR extends CActiveRecord {
     return array(
         array("uri", "fileExit"),
         array("type, uri", "required"),
-        array("mid, cdate, udate, uid", "safe"),
+        array("mid, cdate, udate, uid, media_link", "safe"),
     );
   }
   
@@ -111,10 +111,6 @@ class MediaAR extends CActiveRecord {
     return FALSE;
   }
   
-  public function save_image($image) {
-    
-  }
-  
   /**
    * 保存新的Media
    * @param type $uri
@@ -136,6 +132,17 @@ class MediaAR extends CActiveRecord {
     $query->params = array(":type" => $type);
     
     return $this->findAll($query);
+  }
+  
+  /**
+   * 分享 Media
+   */
+  public function share($media_id, $share_text) {
+    $media = $this->findByPk($media_id);
+    $share_link = FALSE;
+    if ($media->type == self::MEDIA_VIDEO) {
+      $share_link = $media->media_link;
+    }
   }
   
 }

@@ -64,6 +64,11 @@ class MediaController extends Controller {
   
   public function actionShare() {
     $request = Yii::app()->getRequest();
+    
+    // media_id: 媒体 ID
+    // share text: 分享文本
+    $mediaAr = new MediaAR();
+    $mediaAr->share($media_id, $share_text);
   }
 }
 
