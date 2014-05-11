@@ -46,6 +46,20 @@ class TeamAR extends CActiveRecord {
     return TRUE;
   }
   
+  public function afterSave() {
+    // 自动把队长加入到team 组员里去
+    $tid = $this->tid;
+    $uid = $this->owner_uid;
+    
+    $user_team = new UserTeamAR();
+    $user_team->uid = $uid;
+    $user_team->tid = $tid;
+    
+    $user_team->save();
+    
+    return parent::afterSave();
+  }
+  
   /**
    * 添加一个新的Team. 每个用户只能创建一个Team.
    * @param type $name

@@ -56,4 +56,20 @@ class WeiboController extends Controller
 		 // TODO:: 获取Token失败后处理逻辑
 		}
 	}
+  
+  public function actionTwitterCallback() {
+    //先获取access token
+    Yii::app()->twitter->getAccess_token();
+    
+    // 把access token  放入session
+    Yii::app()->session["twitter_token"] = Yii::app()->session["access_token"];
+    
+    // 然后实现登录
+    Yii::app()->session["from"] = UserAR::FROM_TWITTER;
+    $user_ar = new UserAR();
+    $user_ar->login();
+    
+    // 最后跳转到首页
+    $this->redirect("/team_build.html");
+  }
 }

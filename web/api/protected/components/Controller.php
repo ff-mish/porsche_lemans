@@ -5,7 +5,6 @@
  * All controller classes for this application should extend from this base class.
  */
 class Controller extends CController {
-
   public function beforeAction($action) {
     // Custom logic
     return parent::beforeAction($action);
@@ -84,6 +83,10 @@ class Controller extends CController {
 
     Yii::app()->attachEventHandler("onError", array($this, "actionError"));
     Yii::app()->attachEventHandler("onException", array($this, "actionError"));
+    
+//    // 设置Twitter Token
+//    Yii::app()->twitter->user_token = Yii::app()->session["twitter_token"]["oauth_token"];
+//    Yii::app()->twitter->user_secret = Yii::app()->session["twitter_token"]["oauth_token_secret"];
   }
 
   public function actionError() {
