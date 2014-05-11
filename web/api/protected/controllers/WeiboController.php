@@ -16,7 +16,7 @@ class WeiboController extends Controller
    */
   public function actionLoginurl() {
     $weibo = new SinaWeibo(WB_AKEY, WB_SKEY);
-    $this->responseJSON(array("url" => $weibo->getAuthorizeURL(WB_CALLBACK_URL)), "");
+    $this->responseJSON(array("url" => $weibo->getAuthorizeURL(WB_CALLBACK_URL), "twitter_url" => UserAR::twitter_login_url()), "");
   }
   
 	public function actionCallback(){
