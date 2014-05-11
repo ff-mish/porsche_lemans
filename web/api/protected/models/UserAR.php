@@ -72,6 +72,19 @@ class UserAR extends CActiveRecord {
     return $user;
   }
   
+  public static  function get_twitter_user() {
+    $access_token = Yii::app()->session["twitter_token"];
+    if ($access_token) {
+      $uid = $access_token["user_id"];
+      $twitter_user = Yii::app()->twitter->user_show($uid);
+      return $twitter_user;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
+
   /**
    * 根据User 的第三方uuid (比如idstr 加载用户)
    * @param type $uuid
@@ -208,6 +221,11 @@ class UserAR extends CActiveRecord {
     // 从Twitter 登录
     else if ($from == self::FROM_TWITTER) {
       // TODO:: 从 Twitter 登录 处理
+      $twitter_user = self::get_twitter_user();
+      
+      // 检查Twitter 用户是否已经注册系统
+      $uuid = $twitter_user->id_str;
+      //
     }
   }
   
@@ -217,16 +235,18 @@ class UserAR extends CActiveRecord {
    */
   public static function crtuser() {
     $user =  Yii::app()->session["user"];
+    
     // 再获取Team
-    
-    $team_ar = new UserTeamAR();
-    $team_user = $team_ar->loadUserTeam($user);
-    
-    if ($team_user) {
-      $user->team = $team_user->team;
-    }
-    else {
-      $user->team = NULL;
+    if ($user) {
+      $team_ar = new UserTeamAR();
+      $team_user = $team_ar->loadUserTeam($user);
+
+      if ($team_user) {
+        $user->team = $team_user->team;
+      }
+      else {
+        $user->team = NULL;
+      }
     }
     
     return $user;
@@ -283,6 +303,11 @@ class UserAR extends CActiveRecord {
     return $weibo->getAuthorizeURL(WB_CALLBACK_URL);
   }
   
+  public static  function twitter_login_url() {
+    return Yii::app()->twitter->signUrl;
+  }
+
+
   /**
    * 用户创建组
    */
