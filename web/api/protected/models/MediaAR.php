@@ -139,11 +139,12 @@ class MediaAR extends CActiveRecord {
    */
   public function share($media_id, $share_text) {
     $media = $this->findByPk($media_id);
-    $share_link = FALSE;
-    if ($media->type == self::MEDIA_VIDEO) {
-      $share_link = $media->media_link;
-    }
+    $twittaAr = new TwitteAR();
+    return $twittaAr->twitteMediaPost($share_text, $media);
   }
   
+  public function realpath($uri) {
+    return realpath(Yii::app()->basePath.'/../'. $uri);
+  }
 }
 

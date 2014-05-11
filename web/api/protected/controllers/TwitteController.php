@@ -18,5 +18,32 @@ class TwitteController extends Controller {
     
     $this->responseJSON($ret, "success");
   }
+  
+  public function actionList() {
+    $request = Yii::app()->getRequest();
+    
+    $num = $request->getParam("num", 10);
+    $level = $request->getParam("level", TwitteAR::LEVEL_USER);
+    $twittes = array();
+    
+    // Web 的微博从Cron JOB 抓取
+    if ($level == TwitteAR::LEVEL_WEB) {
+      //TODO::
+    }
+    else {
+      $twitteAr = new TwitteAR();
+      $twittes = $twitteAr->getListInLevel($level, $num);
+    }
+    
+    // 返回数据
+    $data = array();
+    foreach ($twittes as $twitte) {
+      $item = $twitte->attributes;
+      $item["user"] = $twitte->user;
+      $data[] = $item;
+    }
+    
+    $this->responseJSON($data, "sucess");
+  }
 }
 
