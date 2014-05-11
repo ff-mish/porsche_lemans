@@ -7,5 +7,9 @@ class TestController extends Controller {
     
     $this->render("index", array("url" => $invited_url));
   }
+  
+  public function actionAddMedia() {
+    $this->render("addmedia");
+  }
 }
 
