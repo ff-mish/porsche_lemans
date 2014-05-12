@@ -102,7 +102,7 @@ class QuestionController extends Controller {
   public function actionAnswer() {
     $request = Yii::app()->getRequest();
     
-    if (!$requst->isPostRequest) {
+    if (!$request->isPostRequest) {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     

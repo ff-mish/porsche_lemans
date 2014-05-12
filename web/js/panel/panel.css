@@ -57,7 +57,7 @@
 */
 .lpn_wrapper .lpn_button_group button{margin:0 10px;padding:5px 20px;cursor: pointer;}
 
-.lpn_canvas{overflow:visible; min-width: 50px;min-height: 20px;}
+.lpn_canvas{overflow:visible; min-width: 50px;min-height: 20px;color:#333;}
 .lpn_panel iframe{overflow:hidden;}
 .lpn_panel .lpn_wrapper .lpn_canvas .bd{padding:0;}
 .lpn_ctrl_group {position:absolute;overflow:hidden;top:3px;right:5px;}

@@ -90,7 +90,7 @@ class QAAR extends CActiveRecord {
     return $rows;
   }
   
-  public function deleteByPk($pk) {
+  public function deleteByPk($pk , $condition = '', $params = array()) {
     // TODO:: 删除前 是否确认删除用户对应的数据？？
     return parent::deleteByPk($pk);
   }

@@ -195,7 +195,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             title: "发weibo",
             submitButton: true,
             onload: function(){
-
+                initSuggestion( this.$panel.find('textarea') );
             },
             onSubmit: function(){
                 var msg = this.$panel.find('textarea').val();
@@ -245,7 +245,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             case "home":
                 api.get("./api/weibo/loginurl" , function( e ){
                     LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.twitter_url} , function( html ){
-                        $(document.body).append( html );
+                        $(".home_share").append( html );
                     } )
                 });
 
@@ -255,6 +255,91 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     api.post( "./api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
 
+
+                // fix Q & A
+                !!(function(){
+                    var now  = new Date();
+
+                    var cookieTimes = [];
+                    var qaCookie = LP.getCookie( "__QA__") ;
+                    if( qaCookie ){
+                        cookieTimes = qaCookie.split(",");
+                    }
+
+                    // deal current hour
+                    var atimes = 0;
+                    for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
+                        if( now - cookieTimes[ _i ] < 60 * 60 * 1000
+                            && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
+                            atimes++;
+                        }
+                        break;
+                    }
+
+                    
+                    var minutes = 60 - now.getMinutes();
+                    var maxtimes = 3;
+
+                    var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
+                    times = Math.min( times , maxtimes - atimes );
+                    var sep = 10; // minutes
+                    var eachRuntime = ( minutes - times * sep ) / times ;
+                    var lastTime = 0;
+                    var getNextTime = function( ){
+                        if( qtimes < times ){
+                            return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
+                        } else {
+                            return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
+                        }
+                    }
+                    var showQa = function(){
+                        cookieTimes.push( + new Date() );
+                        LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 );
+
+                        qtimes++;
+                        var timer = null;
+                        api.get('./api/question/random' , '' , function( e ){
+                            var data = e.data;
+                            var content = "<dl><dt>";
+                            content += data.question + "</dt>";
+                            $.each( [1,2,3,4] , function( i ){
+                                content += '<dd><label><input type="radio" name="answer" value="' + ( i + 1 ) + '" />' + data['answer' + ( i + 1 ) ] + '</label></dd>';
+                            } );
+                            content += "</dl>";
+
+
+                            LP.panel({
+                                title: 'this is QA<span></span>',
+                                content: content,
+                                width: 300,
+                                height: 100,
+                                submitButton: true,
+                                onload: function(){
+                                    var times = 10;
+                                    var t = this;
+                                    timer = setInterval(function(){
+                                        t.$panel.find('.hd span').html( "( closed after " + times-- + " seconds )" );
+                                        if( times <= 0 ){
+                                            t.close();
+                                        }
+                                    } , 1000);
+                                },
+                                onClose: function(){
+                                    clearInterval( timer );
+                                },
+                                onSubmit: function(){
+                                    var t = this;
+                                    api.post("./api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
+                                        t.close();
+                                    });
+                                }
+                            });
+                        });
+                        setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+                    }
+                    var qtimes = 0;
+                    setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+                })();
                 break;
             case "teambuild":
                 api.get("./api/user" , function( e ){
