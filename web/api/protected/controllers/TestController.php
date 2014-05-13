@@ -100,14 +100,14 @@ class TestController extends Controller {
 
         //测试计算积分
         $allTeams=TeamAR::model()->findAll(
-            [
+            array(
                 'select'=>'tid,owner_uid',
-            ]
+            )
         );
         if(!$allTeams)          //没有查找到团队
             return false;
 
-        $teamScore=[];      //记录团队此次计分
+        $teamScore=array();      //记录团队此次计分
         //遍历团队
         foreach($allTeams as $key => $value)
         {
@@ -116,12 +116,14 @@ class TestController extends Controller {
             $rightSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND is_right = 1';
             $command=$connection->createCommand($rightSql);
             $command->bindParam(":tid",$value->tid);
-            $rightCount=$command->queryRow()['count'];
+            $rightCount=$command->queryRow();
+            $rightCount=$rightCount['count'];
 
             $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
             $command=$connection->createCommand($errorSql);
             $command->bindParam(":tid",$value->tid);
-            $allCount=$command->queryRow()['count'];
+            $allCount=$command->queryRow();
+            $allCount=$allCount['count'];
 
             //得到当前团队的  assiduity 百分比
             $teamScore[$value->tid]['assiduity']=round( $rightCount/$allCount , 3);
@@ -133,7 +135,8 @@ class TestController extends Controller {
             $friendSql="SELECT Sum(friends) AS count FROM users WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)";
             $command=$connection->createCommand($friendSql);
             $command->bindParam(":tid",$value->tid);
-            $friendCount=$command->queryRow()['count'];
+            $friendCount=$command->queryRow();
+            $friendCount=$friendCount['count'];
 
             //粉丝百分比
             $teamScore[$value->tid]['impact']= round( $friendCount / 20000 , 3) > 1 ? 1 : round( $friendCount / 20000 , 3) ;
@@ -145,7 +148,8 @@ class TestController extends Controller {
             $qualitySql="SELECT COUNT(*) AS count FROM twittes WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND ref_type IS NOT NULL AND ref_id IS NOT NULL";
             $command=$connection->createCommand($qualitySql);
             $command->bindParam(":tid",$value->tid);
-            $qualityCount=$command->queryRow()['count'];
+            $qualityCount=$command->queryRow();
+            $qualityCount=$qualityCount['count'];
 
             //质量百分比
             $teamScore[$value->tid]['quality']= round( $qualityCount / 100 , 3) > 1 ? 1 : round( $qualityCount / 100 , 3) ;
@@ -156,11 +160,11 @@ class TestController extends Controller {
 
             //获取团队内的所有成员信息
             $allTeamsUsers=UserTeamAR::model()->findAll(
-                [
+                array(
                     'select'=>'uid',
                     'condition'=>'tid = :tid ',
-                    'params'=>[':tid'=>$value->tid],
-                ]
+                    'params'=>array(':tid'=>$value->tid),
+                )
             );
 
             $userSpeedNum=0;

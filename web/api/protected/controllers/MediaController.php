@@ -19,11 +19,11 @@ class MediaController extends Controller {
       $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_IMAGE);
       $save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
       $image->saveAs($save_to);
-      
+
       // save to db
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_IMAGE;
-      
+
       $media_ar->saveNew($uri, $type);
       
       $this->responseJSON($media_ar, "success");

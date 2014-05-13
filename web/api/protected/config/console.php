@@ -32,7 +32,7 @@ return array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
         ),
-        // uncomment the following to enable URLs in path-format	
+        // uncomment the following to enable URLs in path-format
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
@@ -79,7 +79,8 @@ return array(
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        'adminEmail' => 'jziwenchen@gmail.com', 
+        'adminEmail' => 'jziwenchen@gmail.com',
         "weibo_uid" => "5072167230",
+        'startTime'=>'2014-05-13 02:43:07',
     ),
 );
