@@ -42,5 +42,12 @@ class WebController extends Controller {
   public function actionInittoken() {
     $this->render("inittoken");
   }
+  
+  public function actionTime() {
+    $time = date("Y-m-d H:i:s");
+    $startTime = Yii::app()->params["startTime"];
+    
+    $this->responseJSON(array("time_now" => $time, "time_start" => $startTime), "success");
+  }
 }
 
