@@ -9,7 +9,7 @@
 /**
  * 自动化执行 命令行模式
  */
-class TScoreCommand extends CConsoleCommand
+class TscoreCommand extends CConsoleCommand
 {
     public function run($args) {
         //获取所有团队
@@ -28,11 +28,13 @@ class TScoreCommand extends CConsoleCommand
         if(!$allTeams)          //没有查找到团队
             return false;
 
-        $teamScore=array();      //记录团队此次计分
         //遍历团队
         foreach($allTeams as $key => $value)
         {
-          $team_id = $value->tid;
+            $team_id = $value->tid;
+            $teamScore=new ScoreTeamAR('safe');      //记录团队此次计分
+            $teamScore->tid=$team_id;
+
             //计算团队问题回答答对率 Assiduity ，检索结果已经是按照团队总数了，直接除就好
             $connection=Yii::app()->db;
             $rightSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND is_right = 1';
@@ -48,7 +50,7 @@ class TScoreCommand extends CConsoleCommand
             $allCount=$allCount['count'];
 
             //得到当前团队的  assiduity 百分比
-            $teamScore[$value->tid]['assiduity']=round( $rightCount/$allCount , 3);
+            $teamScore->assiduity=round( $rightCount/$allCount , 3);
 
             //获取粉丝总数
             $connection->active=false;      //断开连接，
@@ -61,7 +63,7 @@ class TScoreCommand extends CConsoleCommand
             $friendCount=$friendCount['count'];
 
             //粉丝百分比
-            $teamScore[$value->tid]['impact']= round( $friendCount / 20000 , 3) > 1 ? 1 : round( $friendCount / 20000 , 3) ;
+            $teamScore->impact= round( $friendCount / 20000 , 3) > 1 ? 1 : round( $friendCount / 20000 , 3) ;
 
             //获取 Quality 百分比
             $connection->active=false;      //断开连接，
@@ -74,7 +76,7 @@ class TScoreCommand extends CConsoleCommand
             $qualityCount=$qualityCount['count'];
 
             //质量百分比
-            $teamScore[$value->tid]['quality']= round( $qualityCount / 100 , 3) > 1 ? 1 : round( $qualityCount / 100 , 3) ;
+            $teamScore->quality= round( $qualityCount / 100 , 3) > 1 ? 1 : round( $qualityCount / 100 , 3) ;
 
             //Speed 百分比
             $connection->active=false;      //断开连接，
@@ -94,7 +96,7 @@ class TScoreCommand extends CConsoleCommand
             //遍历获取当前用户的speed
             foreach($allTeamsUsers as $ke => $val)
             {
-              $user_uid = $val->uid;
+                $user_uid = $val->uid;
                 $cdate= Yii::app()->params['startTime'] ?  Yii::app()->params['startTime']  : '1970-10-10';
                 $speedSql="SELECT uid,DATE_FORMAT( cdate,'%H') AS hour, COUNT( * ) AS count
                                               FROM twittes WHERE uid = :uid  AND ref_type IS NULL AND ref_id IS NULL AND cdate > :cdate GROUP BY hour";
@@ -118,13 +120,12 @@ class TScoreCommand extends CConsoleCommand
                 }
             }
 
-            $teamScore[$value->tid]['speed']=  round( $userSpeedSum / $userSpeedNum , 3) > 1 ? 1 : round( $userSpeedSum / $userSpeedNum  , 3);
+            $teamScore->average =  round( $userSpeedSum / $userSpeedNum , 3) > 1 ? 1 : round( $userSpeedSum / $userSpeedNum  , 3);
 
-            $teamScore[$value->tid]['frontSpeed']=($teamScore[$value->tid]['impact'] + 2* ($teamScore[$value->tid]['speed'] + $teamScore[$value->tid]['quality'] + $teamScore[$value->tid]['assiduity']) / 7)* 246 ;
+            $teamScore->speed=($teamScore->impact + 2* ($teamScore->average + $teamScore->quality + $teamScore->assiduity) / 7)* 246 ;
 
+            $teamScore->save(false);
+            $teamScore->setIsNewRecord(true);
         }
-
-        print_r($teamScore);
-
     }
 }

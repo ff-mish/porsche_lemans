@@ -96,10 +96,7 @@ class TestController extends Controller {
     {
         set_time_limit(0);  //临时设置脚本运算为不限时
 
-        $t1=microtime(true);
-
-        //测试计算积分
-        $allTeams=TeamAR::model()->findAll(
+        $allTeams = TeamAR::model()->findAll(
             array(
                 'select'=>'tid,owner_uid',
             )
@@ -107,25 +104,29 @@ class TestController extends Controller {
         if(!$allTeams)          //没有查找到团队
             return false;
 
-        $teamScore=array();      //记录团队此次计分
         //遍历团队
         foreach($allTeams as $key => $value)
         {
+            $team_id = $value->tid;
+            $teamScore=new ScoreTeamAR('safe');      //记录团队此次计分
+            $teamScore->tid=$team_id;
+
             //计算团队问题回答答对率 Assiduity ，检索结果已经是按照团队总数了，直接除就好
             $connection=Yii::app()->db;
             $rightSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND is_right = 1';
             $command=$connection->createCommand($rightSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $rightCount=$command->queryRow();
- 	   $rightCount = $rightCount['count'];
-             $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
+            $rightCount=$rightCount['count'];
+
+            $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
             $command=$connection->createCommand($errorSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $allCount=$command->queryRow();
-            $allCount=$allCount["count"];
+            $allCount=$allCount['count'];
 
             //得到当前团队的  assiduity 百分比
-            $teamScore[$value->tid]['assiduity'] = round( $rightCount/$allCount , 3);
+            $teamScore->assiduity=round( $rightCount/$allCount , 3);
 
             //获取粉丝总数
             $connection->active=false;      //断开连接，
@@ -133,12 +134,12 @@ class TestController extends Controller {
 
             $friendSql="SELECT Sum(friends) AS count FROM users WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)";
             $command=$connection->createCommand($friendSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $friendCount=$command->queryRow();
             $friendCount=$friendCount['count'];
 
             //粉丝百分比
-            $teamScore[$value->tid]['impact']= round( $friendCount / 20000 , 3) > 1 ? 1 : round( $friendCount / 20000 , 3) ;
+            $teamScore->impact= round( $friendCount / 20000 , 3) > 1 ? 1 : round( $friendCount / 20000 , 3) ;
 
             //获取 Quality 百分比
             $connection->active=false;      //断开连接，
@@ -146,12 +147,12 @@ class TestController extends Controller {
 
             $qualitySql="SELECT COUNT(*) AS count FROM twittes WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND ref_type IS NOT NULL AND ref_id IS NOT NULL";
             $command=$connection->createCommand($qualitySql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid", $team_id);
             $qualityCount=$command->queryRow();
             $qualityCount=$qualityCount['count'];
 
             //质量百分比
-            $teamScore[$value->tid]['quality']= round( $qualityCount / 100 , 3) > 1 ? 1 : round( $qualityCount / 100 , 3) ;
+            $teamScore->quality= round( $qualityCount / 100 , 3) > 1 ? 1 : round( $qualityCount / 100 , 3) ;
 
             //Speed 百分比
             $connection->active=false;      //断开连接，
@@ -162,7 +163,7 @@ class TestController extends Controller {
                 array(
                     'select'=>'uid',
                     'condition'=>'tid = :tid ',
-                    'params'=>array(':tid'=>$value->tid),
+                    'params'=>array(':tid'=> $team_id),
                 )
             );
 
@@ -171,11 +172,12 @@ class TestController extends Controller {
             //遍历获取当前用户的speed
             foreach($allTeamsUsers as $ke => $val)
             {
+                $user_uid = $val->uid;
                 $cdate= Yii::app()->params['startTime'] ?  Yii::app()->params['startTime']  : '1970-10-10';
                 $speedSql="SELECT uid,DATE_FORMAT( cdate,'%H') AS hour, COUNT( * ) AS count
                                               FROM twittes WHERE uid = :uid  AND ref_type IS NULL AND ref_id IS NULL AND cdate > :cdate GROUP BY hour";
                 $command=$connection->createCommand($speedSql);
-                $command->bindParam(":uid",$val->uid);
+                $command->bindParam(":uid", $user_uid);
                 $command->bindParam(":cdate",$cdate);
                 $speedCountArray=$command->queryAll();
 
@@ -194,30 +196,13 @@ class TestController extends Controller {
                 }
             }
 
-            $teamScore[$value->tid]['speed']=  round( $userSpeedSum / $userSpeedNum , 3) > 1 ? 1 : round( $userSpeedSum / $userSpeedNum  , 3);
+            $teamScore->average =  round( $userSpeedSum / $userSpeedNum , 3) > 1 ? 1 : round( $userSpeedSum / $userSpeedNum  , 3);
 
-            $teamScore[$value->tid]['frontSpeed']=($teamScore[$value->tid]['impact'] + 2* ($teamScore[$value->tid]['speed'] + $teamScore[$value->tid]['quality'] + $teamScore[$value->tid]['assiduity']) / 7)* 246 ;
+            $teamScore->speed=($teamScore->impact + 2* ($teamScore->average + $teamScore->quality + $teamScore->assiduity) / 7)* 246 ;
 
+            $teamScore->save(false);
+            $teamScore->setIsNewRecord(true);
         }
-        echo microtime(true)-$t1;
-
-        echo '<pre>';
-        print_r($teamScore);
-        die;
-
-//        //检索团队内的所有成员
-//        foreach($allTeams as $key => $value)
-//        {
-//        $test=1;
-//            $connection=Yii::app()->db;
-//            $sql='SELECT uid FROM user_teams WHERE tid = :tid';
-//            $command=$connection->createCommand($sql);
-//            $command->bindParam(":tid",$test);
-//            $res=$command->queryAll();
-//        print_r($res);
-//        }
-
-        //sleep(2);       //休眠2秒
     }
 
 }

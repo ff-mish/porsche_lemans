@@ -113,4 +113,58 @@ class UserController extends Controller{
     
     $this->responseJSON($data, "success");
   }
+
+    /**
+     * 获取用户所属团队积分
+     */
+    public function actionGetTeamScore()
+    {
+        $user = UserAR::crtuser(TRUE);
+        if (!$user)
+            $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
+
+        $data = array(
+            "user" => $user,
+        );
+
+        if($user->team)
+        {
+            $teamScore=ScoreTeamAR::model()->getTeamScore($user->team);
+            $data += array(
+                "team" => $user->team,
+                "team_score" => $teamScore,
+            );
+        }
+        else
+        {
+            $data += array(
+                "team" => NULL,
+                "team_score" => array()
+            );
+        }
+
+        $this->responseJSON($data, "success");
+    }
+
+    /**
+     * 获取当前用户最新积分
+     */
+    public function actionGetUserScore()
+    {
+        $user = UserAR::crtuser(TRUE);
+        if (!$user)
+            $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
+
+        $data = array(
+            "user" => $user,
+        );
+
+        $userScore=ScoreUserAR::model()->getUserScore($user->uid);
+        $data += array(
+                "user_score" =>$userScore
+            );
+
+        $this->responseJSON($data, "success");
+    }
+
 }
