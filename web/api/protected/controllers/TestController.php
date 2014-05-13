@@ -100,14 +100,14 @@ class TestController extends Controller {
 
         //测试计算积分
         $allTeams=TeamAR::model()->findAll(
-            [
+            array(
                 'select'=>'tid,owner_uid',
-            ]
+            )
         );
         if(!$allTeams)          //没有查找到团队
             return false;
 
-        $teamScore=[];      //记录团队此次计分
+        $teamScore=array();      //记录团队此次计分
         //遍历团队
         foreach($allTeams as $key => $value)
         {
@@ -117,9 +117,8 @@ class TestController extends Controller {
             $command=$connection->createCommand($rightSql);
             $command->bindParam(":tid",$value->tid);
             $rightCount=$command->queryRow();
-            $rightCount = $rightCount['count'];
-
-            $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
+ 	   $rightCount = $rightCount['count'];
+             $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
             $command=$connection->createCommand($errorSql);
             $command->bindParam(":tid",$value->tid);
             $allCount=$command->queryRow();
@@ -160,11 +159,11 @@ class TestController extends Controller {
 
             //获取团队内的所有成员信息
             $allTeamsUsers=UserTeamAR::model()->findAll(
-                [
+                array(
                     'select'=>'uid',
                     'condition'=>'tid = :tid ',
-                    'params'=>[':tid'=>$value->tid],
-                ]
+                    'params'=>array(':tid'=>$value->tid),
+                )
             );
 
             $userSpeedNum=0;
