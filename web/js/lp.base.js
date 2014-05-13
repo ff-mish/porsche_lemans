@@ -161,6 +161,147 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     })();
 
 
+    // count down function 
+    var countDownMgr = (function(  ){
+        var colClass = "countdown-col";
+        var groupClass = "countdown-group";
+        // 8
+        // 9
+        // 0
+        var initCol = function ( $dom , max , origin ){
+            var htmls = [];
+            var height = $dom.height();
+
+            //save data to dom
+            $dom.data( 'max' , max )
+                .data( 'num' , origin )
+                .data( 'height' , height )
+                .addClass( groupClass );
+
+
+            // build html
+            $.each( (max + '').split("") ,  function( i , num ){
+                var max = i == 0 ? num : 9;
+                var inner = [];
+                inner.unshift( '<div>0</div>') ;
+                inner.unshift( '<div> ' + max + ' </div>') ;
+
+                var tmp = max;
+                while( tmp-- ){
+                    inner.unshift( '<div> ' + tmp + ' </div>') ;
+                }
+
+                htmls.push( '<div class="' + colClass + '" data-max="' + max + '" >' + inner.join("") + '</div>' );
+            });
+
+            $dom.html( htmls.join("") );
+
+            // set origin
+            var originArr = (origin + "").split("");
+            var $cols = $dom.children().css({
+                float: "left"
+            });
+
+            if( originArr.length < $cols.length ){
+                for( var i = 0 ;  i < $cols.length - originArr.length ; i ++ ){
+                    originArr.unshift( 0 );
+                }
+            }
+
+            for( var i = originArr.length - 1 ; i >= 0 ; i -- ){
+                var $col = $cols.eq( $cols.length - ( originArr.length - i ) );
+                var ch = (originArr[ i ] == 0 ? - ( ~~$col.data('max') + 1 ) : - originArr[ i ]) * height;
+                $col.css( "margin-top" , ch )
+                    .data('num' , originArr[ i ]);
+            }
+        }
+        var reduce = function ( $dom ){
+            var height = $dom.data( 'height');
+            var num = $dom.data('num');
+            var next = num - 1 < 0 ? $dom.data('max') : num - 1;
+            var nextArr = (next + "").split("");
+            var $cols = $dom.children();
+            if( nextArr.length < $cols.length ){
+                for( var i = 0 ;  i < $cols.length - nextArr.length ; i ++ ){
+                    nextArr.unshift( 0 );
+                }
+            }
+
+            for( var i = nextArr.length - 1 ; i >= 0 ; i -- ){
+                !!(function( i ){
+                    var ch = - nextArr[ i ] * height;
+                    var $col = $cols.eq( $cols.length - ( nextArr.length - i ) );
+                    if ( $col.data( 'num' ) != nextArr[ i ] ){
+
+                        // change to it's last num
+                        $col.css('margin-top' , ch - height ).animate({
+                                "margin-top" : ch
+                            } , 500 , '' , function(){
+                                if( ch == 0 ){
+                                    $(this).css('margin-top' , - (~~$(this).data('max') + 1) * height);
+                                }
+                                $(this).data('num' , nextArr[ i ]);
+                                $dom.data('num' , next);
+                            });
+                    }
+                })( i );
+            }
+
+            // reduce prev one
+            if( num - 1 < 0 ){
+                reduce( $dom.prevAll( "." + groupClass ).first() );
+            }
+        }
+
+        return {
+            init: function( $doms , maxs , origins ){
+                //$doms = $doms.eq(0);
+                $doms.each( function( i ){
+                    initCol( $(this) , maxs[i] , origins[i] );
+                } );
+
+                // start animate
+                setInterval(function(){
+                    reduce( $doms.last() );
+                } , 1000);
+            }
+        }
+    })();
+
+
+    var bigVideoInit = function(){
+        // init video
+        var ratio = 516 / 893;
+        LP.use('video-js' , function(){
+            videojs.options.flash.swf = "./js/video-js.swf";
+            var myVideo = videojs("bg_video_1", { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false} } , function(){
+              // Player (this) is initialized and ready.
+            });
+
+            $(window).resize(function(){
+                var w = $(window).width();
+                var h = $(window).height();
+                var vh = 0 ;
+                var vw = 0 ;
+                if( h / w > ratio ){
+                    vh = h;
+                    vw = h / ratio;
+                } else {
+                    vh = w * ratio;
+                    vw = w;
+                }
+                myVideo.dimensions( vw , vh );
+
+                $('#bg_video_1').css({
+                    "margin-top": ( h - vh ) / 2,
+                    "margin-left": ( w - vw ) / 2
+                })
+            }).trigger('resize');
+
+        });
+    }
+
+
     // page actions here
     // ======================================================================
     LP.action("login" ,function(){
@@ -241,7 +382,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
         // init first page template
-        switch( CONFIG.page ){
+        switch( $(document.body).data('page') ){
             case "home":
                 api.get("./api/weibo/loginurl" , function( e ){
                     LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.twitter_url} , function( html ){
@@ -342,6 +483,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })();
                 break;
             case "teambuild":
+                // page effect
+                $('.nav p').css({opacity:0,marginLeft:-20}).each(function( i ){
+                    $(this).delay( i * 200 )
+                        .animate({
+                            opacity: 1,
+                            marginLeft: 0
+                        } , 500);
+                });
+
+                bigVideoInit();
+
                 api.get("./api/user" , function( e ){
                     if( !e.data.user ) return;
                     // if current user is invited
@@ -368,6 +520,17 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
                     return false;
                 });
+                break;
+
+            case "countdown":
+
+                $('.conut_tit,.conut_down,.conut_watch').hide().each( function( i ){
+                    $(this).delay( i * 500 ).fadeIn( 1000 );
+                } );
+
+                countDownMgr.init( $(".conut_downitem" ) , [ 90 , 23 , 59 , 59 ] , [ 10 , 0 , 0 , 5 ] );
+                bigVideoInit();
+                
                 break;
         }
     });

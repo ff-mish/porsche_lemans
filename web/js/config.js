@@ -57,6 +57,10 @@ seajs.config({
       src: "../plugin/jquery.validate.js"
       , deps: ['jquery']
     }
+    ,"video-js":{
+      src: "../video-js/video.js"
+      , deps: ['../video-js/video-js.css']
+    }
   }
   , alias: {
     api: '../api.js?_201402#'

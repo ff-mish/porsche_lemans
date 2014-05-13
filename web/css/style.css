@@ -35,8 +35,8 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg3{background:url('../images/bg3.jpg') no-repeat center top; background-size:cover; }
 .pagebg4{background:url('../images/bg4.jpg') no-repeat center top; background-size:cover; }
 .pagebg5{background:url('../images/bg5.jpg') no-repeat center top; background-size:cover; }
-.pagebg6{background:url('../images/bg6.jpg') no-repeat center top; background-size:cover; }
-.pagebg7{background:url('../images/bg7.jpg') no-repeat center top; background-size:cover; }
+/*.pagebg6{background:url('../images/bg6.jpg') no-repeat center top; background-size:cover; }*/
+/*.pagebg7{background:url('../images/bg7.jpg') no-repeat center top; background-size:cover; }*/
 
 
 /* PAGE Used
@@ -137,7 +137,7 @@ body{background:#000;height: 100%;width: 100%}
 	.conut_tit{font-size: 36px;text-align: center;font-weight: bold;text-transform: uppercase;margin: 50px 0 0;}
 	.conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
 	.conut_down{background: url('../images/countdownbg.png') no-repeat;width: 565px;height: 208px;padding-left:95px;}
-		.conut_downitem{font-size: 72px;float: left;line-height:220px;margin-right:52px;display:inline;color:#cfcfcf;}
+		.conut_downitem{font-size: 72px;float: left;height: 70px;margin-top: 75px;line-height: 70px;overflow: hidden;margin-right:52px;display:inline;color:#cfcfcf;}
 
 
 
@@ -202,4 +202,8 @@ body{background:#000;height: 100%;width: 100%}
 	background:url(../images/ring-black.png) no-repeat left top;
 }
 
+
+
+/* video */
+#video-wrap{position: fixed;z-index: -1;top: 0; left: 0; height: 100%;width: 100%;overflow: hidden;}
 
