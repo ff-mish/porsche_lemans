@@ -8,6 +8,8 @@ class MediaController extends Controller {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     
+    $media_url = $request->getPost("media_url");
+    
     $media_ar = new MediaAR();
     if ($request->getPost("type") == MediaAR::MEDIA_IMAGE) {
       $image = CUploadedFile::getInstanceByName("uri");
@@ -24,7 +26,7 @@ class MediaController extends Controller {
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_IMAGE;
 
-      $media_ar->saveNew($uri, $type);
+      $media_ar->saveNew($uri, $type, $media_url);
       
       $this->responseJSON($media_ar, "success");
     }
@@ -43,7 +45,7 @@ class MediaController extends Controller {
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_VIDEO;
       
-      $media_ar->saveNew($uri, $type);
+      $media_ar->saveNew($uri, $type, $media_url);
       
       $this->responseJSON($media_ar, "success");
     }
@@ -57,7 +59,6 @@ class MediaController extends Controller {
     
     $mediaAr = new MediaAR();
     $medias = $mediaAr->getMedias($type, $page);
-    
     
     $this->responseJSON($medias, "success");
   }

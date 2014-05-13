@@ -174,7 +174,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action("member_invent" , function(){
         LP.panel({
             content: "<textarea cols='40' rows='5'></textarea>",
-            title: "邀请用户",
+            title: "Invite User",
+            className: "add-team-panel",
             submitButton: true,
             onload: function(){
                 initSuggestion( this.$panel.find('textarea') );
@@ -192,8 +193,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action("post_weibo" , function(){
         LP.panel({
             content: "<textarea cols='40' rows='5'></textarea>",
-            title: "发weibo",
+            title: "",
             submitButton: true,
+            className: "post-weibo-panel",
             onload: function(){
                 initSuggestion( this.$panel.find('textarea') );
             },

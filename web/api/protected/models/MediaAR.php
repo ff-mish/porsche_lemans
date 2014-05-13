@@ -116,9 +116,10 @@ class MediaAR extends CActiveRecord {
    * @param type $uri
    * @param type $type
    */
-  public function saveNew($uri, $type) {
+  public function saveNew($uri, $type, $media_url) {
     $this->uri = $uri;
     $this->type = $type;
+    $this->media_link = $media_url;
     $ret = $this->save();
     $this->afterFind();
     return $ret;

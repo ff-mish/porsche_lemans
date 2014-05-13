@@ -239,11 +239,12 @@ class UserAR extends CActiveRecord {
    * 返回当前登录的用户
    * @return UserAR
    */
-  public static function crtuser() {
+  public static function crtuser($relation = FALSE) {
     $user =  Yii::app()->session["user"];
     
     // 再获取Team
-    if ($user) {
+    if ($user && $relation == TRUE) {
+      
       $team_ar = new UserTeamAR();
       $team_user = $team_ar->loadUserTeam($user);
 
