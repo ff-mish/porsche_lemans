@@ -29,6 +29,27 @@ class TwitteAR extends CActiveRecord {
  public static function  model($classname = __CLASS__) {
    return parent::model($classname);
  }
+ 
+ // 获取最新的组的 Twitte
+ public function getTeamLastPost($tid) {
+   $uids = array();
+   $userTeamAr = new UserTeamAR();
+   $cond = array(
+       "condition" => "tid=:tid",
+       "params" => array(":tid" => $tid),
+   );
+   $rows = $userTeamAr->findAll($cond);
+   foreach ($rows as $row) {
+     $uids[] = $row->uid;
+   }
+   $cond_twitte = array(
+       "condition" => "uid in (:uid)",
+       "params" => array(":uid" => implode(",", $uids)),
+       "limit" => TeamAR::LAST_POST_NUM
+   );
+   return $this->findAll($cond_twitte);
+   
+ }
 
 
  public function beforeSave() {

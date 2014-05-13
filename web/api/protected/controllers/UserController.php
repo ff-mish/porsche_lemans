@@ -87,12 +87,30 @@ class UserController extends Controller{
   }
   
   public function actionIndex() {
-    $user = UserAR::crtuser();
+    $user = UserAR::crtuser(TRUE);
+    if (!$user) {
+      $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
     
     $data = array(
         "user" => $user,
-        "team" => $user->team
     );
+    
+    if ($user->team) {
+      $data += array(
+        "team" => $user->team,
+        "last_post" => $user->team->last_post,
+      );
+    }
+    else {
+      $data += array(
+          "team" => NULL,
+          "last_post" => array()
+      );
+    }
+    
+    // Get Last Twitte
+    
     $this->responseJSON($data, "success");
   }
 }

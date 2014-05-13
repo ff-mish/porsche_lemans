@@ -2,6 +2,8 @@
 
 class TeamAR extends CActiveRecord {
   public $users;
+  public $last_post;
+  const LAST_POST_NUM = 3;
   public function tableName() {
     return "teams";
   }
@@ -59,6 +61,12 @@ class TeamAR extends CActiveRecord {
     $user_team->save();
     
     return parent::afterSave();
+  }
+  
+  public function afterFind() {
+    $twitteAr = new TwitteAR();
+    $this->last_post = $twitteAr->getTeamLastPost($this->tid);
+    return parent::afterFind();
   }
   
   /**

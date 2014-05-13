@@ -36,14 +36,13 @@ class UserTeamAR extends CActiveRecord {
   
   public function loadUserTeam($user) {
     $cond = array(
-        "condition" => "uid=:uid",
+        "condition" => $this->getTableAlias().".uid=:uid",
         "params" => array(":uid" => $user->uid),
     );
-    $row = $this->find($cond);
+    $row = $this->with("user", "team")->find($cond);
     
     if ($row) {
       $team = $row->team;
-      $row->with("user", "team");
     }
     
     return $row;
