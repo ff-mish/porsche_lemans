@@ -15,7 +15,7 @@ class TeamScoreAR extends CActiveRecord {
   
   public function rules() {
     return array(
-        array("tsid, cdate, udate, score, tid", "safe"),
+        array("tsid, cdate, udate, score, tid,front_speed", "safe"),
     );
   }
 

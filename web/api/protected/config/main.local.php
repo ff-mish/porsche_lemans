@@ -89,5 +89,6 @@ return array(
         'adminEmail' => 'jziwenchen@gmail.com', 
         "weibo_uid" => "5072167230",
         "uploadedPath" => realpath((dirname(__FILE__).'/../../upload')),
+        'startTime'=>'2014-05-13 02:43:07',
     ),
 );
