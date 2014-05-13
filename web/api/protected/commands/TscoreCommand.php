@@ -20,7 +20,7 @@ class TScoreCommand extends CConsoleCommand
     {
         set_time_limit(0);  //临时设置脚本运算为不限时
 
-        $allTeams=TeamAR::model()->findAll(
+        $allTeams = TeamAR::model()->findAll(
             array(
                 'select'=>'tid,owner_uid',
             )
@@ -32,17 +32,18 @@ class TScoreCommand extends CConsoleCommand
         //遍历团队
         foreach($allTeams as $key => $value)
         {
+          $team_id = $value->tid;
             //计算团队问题回答答对率 Assiduity ，检索结果已经是按照团队总数了，直接除就好
             $connection=Yii::app()->db;
             $rightSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND is_right = 1';
             $command=$connection->createCommand($rightSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $rightCount=$command->queryRow();
             $rightCount=$rightCount['count'];
 
             $errorSql='SELECT is_right,COUNT(*) AS count  FROM user_question_answer WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)';
             $command=$connection->createCommand($errorSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $allCount=$command->queryRow();
             $allCount=$allCount['count'];
 
@@ -55,7 +56,7 @@ class TScoreCommand extends CConsoleCommand
 
             $friendSql="SELECT Sum(friends) AS count FROM users WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid)";
             $command=$connection->createCommand($friendSql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid",$team_id);
             $friendCount=$command->queryRow();
             $friendCount=$friendCount['count'];
 
@@ -68,7 +69,7 @@ class TScoreCommand extends CConsoleCommand
 
             $qualitySql="SELECT COUNT(*) AS count FROM twittes WHERE uid IN (SELECT uid FROM user_teams WHERE tid = :tid) AND ref_type IS NOT NULL AND ref_id IS NOT NULL";
             $command=$connection->createCommand($qualitySql);
-            $command->bindParam(":tid",$value->tid);
+            $command->bindParam(":tid", $team_id);
             $qualityCount=$command->queryRow();
             $qualityCount=$qualityCount['count'];
 
@@ -84,7 +85,7 @@ class TScoreCommand extends CConsoleCommand
                 array(
                     'select'=>'uid',
                     'condition'=>'tid = :tid ',
-                    'params'=>array(':tid'=>$value->tid),
+                    'params'=>array(':tid'=> $team_id),
                 )
             );
 
@@ -93,11 +94,12 @@ class TScoreCommand extends CConsoleCommand
             //遍历获取当前用户的speed
             foreach($allTeamsUsers as $ke => $val)
             {
+              $user_uid = $val->uid;
                 $cdate= Yii::app()->params['startTime'] ?  Yii::app()->params['startTime']  : '1970-10-10';
                 $speedSql="SELECT uid,DATE_FORMAT( cdate,'%H') AS hour, COUNT( * ) AS count
                                               FROM twittes WHERE uid = :uid  AND ref_type IS NULL AND ref_id IS NULL AND cdate > :cdate GROUP BY hour";
                 $command=$connection->createCommand($speedSql);
-                $command->bindParam(":uid",$val->uid);
+                $command->bindParam(":uid", $user_uid);
                 $command->bindParam(":cdate",$cdate);
                 $speedCountArray=$command->queryAll();
 
