@@ -32,7 +32,7 @@ class TscoreCommand extends CConsoleCommand
         foreach($allTeams as $key => $value)
         {
             $team_id = $value->tid;
-            $teamScore=new ScoreTeamAR('safe');      //记录团队此次计分
+            $teamScore=new ScoreTeamAR();      //记录团队此次计分
             $teamScore->tid=$team_id;
 
             //计算团队问题回答答对率 Assiduity ，检索结果已经是按照团队总数了，直接除就好
