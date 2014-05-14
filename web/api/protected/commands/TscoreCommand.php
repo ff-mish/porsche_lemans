@@ -113,7 +113,6 @@ class TscoreCommand extends CConsoleCommand
                     {
                         $temp=($v['count'] / 40) >1 ?  1 : ($v['count'] / 40);
                         $speedSum = $speedSum + $temp;
-                        $speedArrayCount++;
                     }
                     $userSpeedNum++;
                     $userSpeedSum=$userSpeedSum + ($speedSum / $speedArrayCount);
