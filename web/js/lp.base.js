@@ -314,7 +314,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action("member_invent" , function(){
         LP.panel({
-            content: "<textarea cols='40' rows='5'></textarea>",
+            content: "<p>email:<input name=\"email\" value=\"\" /></p><p><textarea cols='40' rows='5'></textarea></p>",
             title: "Invite User",
             className: "add-team-panel",
             submitButton: true,
@@ -322,8 +322,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 initSuggestion( this.$panel.find('textarea') );
             },
             onSubmit: function(){
+                var $input = this.$panel.find('input[name="email"]');
+                var email = $input.val();
+                if( !email.match( /^[a-zA-Z_0-9][a-zA-Z\-_.0-9]@([a-zA-Z\-_0-9]+\.)+[a-zA-Z]+$/) ){
+                    $input.css('border-color' , 'red');
+                } else {
+                    $input.css('border-color' , '');
+                }
                 var msg = this.$panel.find('textarea').val();
-                api.post( './api/user/invite' , {msg: msg} , function(){
+                api.post( './api/user/invite' , {msg: msg,email:email} , function(){
                     LP.right('success');
                 });
             }
@@ -352,20 +359,123 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
 
+    LP.action('preview' , function( ev ){
+        // show big pic or big video
+
+        var $img = $(this)
+            .closest('.fuelitem')
+            .children('img');
+        var imgH = $img.height();
+        var imgW = $img.width();;
+        LP.panel({
+            content: "<img src=\"" + $img.attr('src') + "\"/>",
+            title: "share the content",
+            submitButton: true,
+            onShow: function(){
+                this.$panel.find('.lpn_panel')
+                    .css({
+                        'margin-top': '-50%',
+                        'opacity' : 0
+                    })
+                    .animate({
+                        marginTop: 0,
+                        opacity: 1
+                    } , 500 , 'easeOutQuart');
+
+                var panel = this;
+                $(window).on('resize.fixfuel' , function(){
+                    var maxH = $(window).height() - 20;
+                    var maxW = $(window).width() - 20;
+                    var tarW = imgW , tarH = imgH;
+                    if( maxH / maxW > imgH / imgW && maxW < imgW ){
+                        tarH = imgH / imgW * maxW;
+                        tarW = maxW;
+                    } else if( maxH / maxW < imgH / imgW && maxH < imgH ){
+                        tarW = imgW / imgH * maxH;
+                        tarH = maxH;
+                    }
+
+                    // resize the panel
+                    panel.resize( tarW , tarH );
+                });
+            },
+            onBeforeClose: function(){
+                var $panel = this.$panel;
+                this.$panel.find('.lpn_panel')
+                    .animate({
+                        marginTop: '50%',
+                        opacity: 0
+                    } , 500 , 'easeInQuart' , function(){
+                        $panel.fadeOut( function(){
+                            $panel.remove();
+                        } )
+                            
+                    });
+                // unbind event
+                $(window).off('resize.fixfuel');
+                return false;
+            },
+            onSubmit: function(){
+            }
+        });
+    });
+
+    LP.action('repost' , function( ev ){
+        LP.panel({
+            content: "<textarea cols='40' rows='5'></textarea>",
+            title: "share the content",
+            submitButton: true,
+            className: "post-weibo-panel1",
+            onload: function(){
+            },
+            onSubmit: function(){
+                var msg = this.$panel.find('textarea').val();
+                api.post( './api/twitte/post' , {msg: msg} , function(){
+                    LP.right('success');
+                } );
+            }
+        });
+    });
+
+    LP.action('fuel-load' , function( ev ){
+        $(this).attr('disabled' , 'disabled');
+        var page = parseInt( $(this).data( 'page' ) || 0 ) + 1;
+        var type = $(this).data( 'type' ) || 'pic';
+
+        $(this).data( 'page' , page );
+
+        api.get('./api/media/list' , { page:page , type: type } , function( e ){
+            // DEBUG.. render fuel item
+            e = {"data" :[{},{},{},{}]};
+            $.each( e.data || [] , function( i , data ){
+                LP.compile('fuel-tpl' , data , function( html ){
+                    $('.fuellist').append( html );
+                });
+            } );
+
+            $(this).removeAttr('disabled');
+
+            LP.use('isotope' , function(){
+                // first init isotope , render no animate effect
+                $('.fuellist')
+                    .isotope({
+                        resizable: false
+                    });
+            });
+        });
+    });
+
+
+
+
     // page init here
     // =======================================================================
     $(function(){
-        //fuel
-        $('.fuelitem').live({
-            'mouseenter':function(){
-                $(this).children('.fuelshade').show()
-                $(this).children('.fuelbtnbox').show()
-            },
-            'mouseleave':function(){
-                $(this).children('.fuelshade').hide()
-                $(this).children('.fuelbtnbox').hide()
-            }
-        });
+        // init all pages fadein element 
+        $('[data-fadein]').hide().each( function( i ){
+            $(this).delay( i * 300 ).fadeIn( 800 );
+        } );
+
         // login
         $('.login_tips').live('click',function(){
             $(this).hide()
@@ -378,9 +488,105 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
 
 
+        // init memeber speed effect
         if( $('.member_speed').length ){
             rotateAnimate( $('.member_speed') , 100 , 360 );
         }
+
+        // init nav list effect
+        $('.nav p').css({opacity:0,marginLeft:-20}).each(function( i ){
+            $(this).delay( i * 200 )
+                .animate({
+                    opacity: 1,
+                    marginLeft: 0
+                } , 500);
+        });
+
+
+        // fix Q & A
+        !!(function(){
+            var now  = new Date();
+
+            var cookieTimes = [];
+            var qaCookie = LP.getCookie( "__QA__") ;
+            if( qaCookie ){
+                cookieTimes = qaCookie.split(",");
+            }
+
+            // deal current hour
+            var atimes = 0;
+            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
+                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
+                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
+                    atimes++;
+                }
+                break;
+            }
+
+            
+            var minutes = 60 - now.getMinutes();
+            var maxtimes = 3;
+
+            var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
+            times = Math.min( times , maxtimes - atimes );
+            var sep = 10; // minutes
+            var eachRuntime = ( minutes - times * sep ) / times ;
+            var lastTime = 0;
+            var getNextTime = function( ){
+                if( qtimes < times ){
+                    return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
+                } else {
+                    return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
+                }
+            }
+            var showQa = function(){
+                cookieTimes.push( + new Date() );
+                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 );
+
+                qtimes++;
+                var timer = null;
+                api.get('./api/question/random' , '' , function( e ){
+                    var data = e.data;
+                    var content = "<dl><dt>";
+                    content += data.question + "</dt>";
+                    $.each( [1,2,3,4] , function( i ){
+                        content += '<dd><label><input type="radio" name="answer" value="' + ( i + 1 ) + '" />' + data['answer' + ( i + 1 ) ] + '</label></dd>';
+                    } );
+                    content += "</dl>";
+
+
+                    LP.panel({
+                        title: 'this is QA<span></span>',
+                        content: content,
+                        width: 300,
+                        height: 100,
+                        submitButton: true,
+                        onload: function(){
+                            var times = 10;
+                            var t = this;
+                            timer = setInterval(function(){
+                                t.$panel.find('.hd span').html( "( closed after " + times-- + " seconds )" );
+                                if( times <= 0 ){
+                                    t.close();
+                                }
+                            } , 1000);
+                        },
+                        onClose: function(){
+                            clearInterval( timer );
+                        },
+                        onSubmit: function(){
+                            var t = this;
+                            api.post("./api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
+                                t.close();
+                            });
+                        }
+                    });
+                });
+                setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+            }
+            var qtimes = 0;
+            setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+        })();
 
 
         // init first page template
@@ -397,105 +603,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 if( urlObj.params.d ){
                     api.post( "./api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
-
-
-                // fix Q & A
-                !!(function(){
-                    var now  = new Date();
-
-                    var cookieTimes = [];
-                    var qaCookie = LP.getCookie( "__QA__") ;
-                    if( qaCookie ){
-                        cookieTimes = qaCookie.split(",");
-                    }
-
-                    // deal current hour
-                    var atimes = 0;
-                    for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
-                        if( now - cookieTimes[ _i ] < 60 * 60 * 1000
-                            && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
-                            atimes++;
-                        }
-                        break;
-                    }
-
-                    
-                    var minutes = 60 - now.getMinutes();
-                    var maxtimes = 3;
-
-                    var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
-                    times = Math.min( times , maxtimes - atimes );
-                    var sep = 10; // minutes
-                    var eachRuntime = ( minutes - times * sep ) / times ;
-                    var lastTime = 0;
-                    var getNextTime = function( ){
-                        if( qtimes < times ){
-                            return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
-                        } else {
-                            return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
-                        }
-                    }
-                    var showQa = function(){
-                        cookieTimes.push( + new Date() );
-                        LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 );
-
-                        qtimes++;
-                        var timer = null;
-                        api.get('./api/question/random' , '' , function( e ){
-                            var data = e.data;
-                            var content = "<dl><dt>";
-                            content += data.question + "</dt>";
-                            $.each( [1,2,3,4] , function( i ){
-                                content += '<dd><label><input type="radio" name="answer" value="' + ( i + 1 ) + '" />' + data['answer' + ( i + 1 ) ] + '</label></dd>';
-                            } );
-                            content += "</dl>";
-
-
-                            LP.panel({
-                                title: 'this is QA<span></span>',
-                                content: content,
-                                width: 300,
-                                height: 100,
-                                submitButton: true,
-                                onload: function(){
-                                    var times = 10;
-                                    var t = this;
-                                    timer = setInterval(function(){
-                                        t.$panel.find('.hd span').html( "( closed after " + times-- + " seconds )" );
-                                        if( times <= 0 ){
-                                            t.close();
-                                        }
-                                    } , 1000);
-                                },
-                                onClose: function(){
-                                    clearInterval( timer );
-                                },
-                                onSubmit: function(){
-                                    var t = this;
-                                    api.post("./api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
-                                        t.close();
-                                    });
-                                }
-                            });
-                        });
-                        setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
-                    }
-                    var qtimes = 0;
-                    setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
-                })();
+                
                 break;
             case "teambuild":
-                // page effect
-                $('.nav p').css({opacity:0,marginLeft:-20}).each(function( i ){
-                    $(this).delay( i * 200 )
-                        .animate({
-                            opacity: 1,
-                            marginLeft: 0
-                        } , 500);
-                });
-
                 bigVideoInit();
-
                 api.get("./api/user" , function( e ){
                     if( !e.data.user ) return;
                     // if current user is invited
@@ -526,13 +637,38 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
             case "countdown":
 
-                $('.conut_tit,.conut_down,.conut_watch').hide().each( function( i ){
-                    $(this).delay( i * 500 ).fadeIn( 1000 );
-                } );
-
-                countDownMgr.init( $(".conut_downitem" ) , [ 90 , 23 , 59 , 59 ] , [ 10 , 0 , 0 , 5 ] );
+                // get server time
+                api.get('./api/web/time' , function( e ){
+                    // DEBUG::
+                    e = {"status":0,"message":"success","data":{"time_now":"2014-05-15 00:05:24","time_start":"2014-09-13 02:43:07"}};
+                    var now = new Date( e.data.time_now );
+                    var start = new Date( e.data.time_start );
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
                 bigVideoInit();
                 
+                break;
+
+            case "fuel":
+                //fuel
+                $('.fuelitem').live({
+                    'mouseenter':function(){
+                        $(this).children('.fuelshade').stop().fadeIn()
+                        $(this).children('.fuelbtnbox').stop().fadeIn()
+                    },
+                    'mouseleave':function(){
+                        $(this).children('.fuelshade').stop().fadeOut()
+                        $(this).children('.fuelbtnbox').stop().fadeOut()
+                    }
+                });
+
+                // page loaded
+                LP.triggerAction('fuel-load');
                 break;
         }
     });

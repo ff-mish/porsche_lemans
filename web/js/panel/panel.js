@@ -455,9 +455,8 @@ define(function( require , exports , model ){
             var hide = function () {
                 if ( !t.isVisible ) return;
 
-                if (o.onBeforeClose && o.onBeforeClose.call(t) !== false)
+                if (o.onBeforeClose && o.onBeforeClose.call(t) === false)
                     return;
-
                 t.isVisible = false;
                 t.$panel.fadeOut(function(){
                     if (o.destroy) {
