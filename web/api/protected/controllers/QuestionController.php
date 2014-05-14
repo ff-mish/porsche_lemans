@@ -8,6 +8,9 @@ class QuestionController extends Controller {
   public function actionRandom() {
     $qa_ar = new QAAR();
     $user = UserAR::crtuser();
+    if (!$user) {
+      $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
     $question = $qa_ar->randomQuestion($user);
     $this->responseJSON($question, "success");
   }

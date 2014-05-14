@@ -69,6 +69,13 @@ class WeiboController extends Controller
     $user_ar = new UserAR();
     $user_ar->login();
     
+    $twitter_uid = Yii::app()->session["twitter_token"]["user_id"];
+    $twitter_user = Yii::app()->twitter->user_show($twitter_uid);
+    
+    if ($twitter_user->id_str == Yii::app()->params["twitter_uid"]) {
+      SystemAR::set("twitter_token", Yii::app()->session["access_token"]);
+    }
+    
     // 最后跳转到首页
     $this->redirect("/team_build.html");
   }

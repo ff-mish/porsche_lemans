@@ -43,7 +43,7 @@ class UserAR extends CActiveRecord {
   public function rules() {
     return array(
         array("uuid, name, from", "required"),
-        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends", "safe"),
+        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location", "safe"),
     );
   }
   

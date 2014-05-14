@@ -28,6 +28,13 @@ return array(
     ),
     // application components
     'components' => array(
+        "twitter" => array(
+            "class" => "ext.yii-twitter-OAuth.STwitter",
+            "consumer_key" => "UOPfUKiyPwdRX3CBP3fWK61XE",
+            "consumer_secret" => "wTu5hYsRkVnWwLnBDjTdLHI5xlmMbQW77NccxvwtIKEQuubSSw",
+            "callback" => "http://lemans.local/api/weibo/twittercallback",
+            "signinParams" => array("force_write"),
+        ),
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
@@ -54,10 +61,16 @@ return array(
             'errorAction' => 'web/error',
         ),
         "session" => array(
-            "autoStart" => true,
-            "sessionName" => "lemans_sss",
-            "cookieMode" => "only",
-            "savePath" => dirname(__FILE__). '/../sessions',
+            'class' => 'system.web.CDbHttpSession',
+            'connectionID' => 'db',
+            'sessionName' => 'LUCSID',
+            'sessionTableName' => 'session',
+            'timeout' => '3600',
+            'cookieMode' => 'allow',
+            'cookieParams' => array(
+                'lifetime' => '3600',
+                'path' => '/',
+                'httpOnly' => true),
         ),
         'log' => array(
             'class' => 'CLogRouter',
@@ -79,6 +92,9 @@ return array(
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        'adminEmail' => 'jziwenchen@gmail.com',
+        'adminEmail' => 'jziwenchen@gmail.com', 
+        "weibo_uid" => "5072167230",
+        "uploadedPath" => realpath((dirname(__FILE__).'/../../upload')),
+        'startTime'=>'2014-05-13 02:43:07',
     ),
 );

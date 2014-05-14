@@ -16,7 +16,7 @@ class TwitteAR extends CActiveRecord {
  public function rules() {
    return array(
        array("uid, content, type", "required"),
-       array("content, tid, cdate, udate, uuid, redirect_count, ref_user_count, type, owned_type, ref_type, ref_id", "safe"),
+       array("thirdpart_ref_media, is_from_thirdpart, content, tid, cdate, udate, uuid, redirect_count, ref_user_count, type, owned_type, ref_type, ref_id", "safe"),
    );
  }
  
@@ -116,7 +116,8 @@ class TwitteAR extends CActiveRecord {
   
   public function afterSave() {
     // 发布一个新微博后， 我们需要发布到对应的平台去
-    if ($this->{$this->primaryKey()}) {
+    // 发布前，我们要检查下 微博是不是已经有了uuid , 只有发布后才会有 uuid
+    if ($this->{$this->primaryKey()} && !$this->uuid) {
       $content = $this->content;
       // 用户发的微博和一个媒体有关
       if ($this->ref_type && $this->ref_id) {

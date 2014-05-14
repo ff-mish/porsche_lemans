@@ -54,7 +54,7 @@ class MediaController extends Controller {
   public function actionList() {
     $request = Yii::app()->getRequest();
     
-    $type = $request->getParam("type", MediaAR::MEDIA_IMAGE);
+    $type = $request->getParam("type", NULL);
     $page = $request->getParam("page", 1);
     
     $mediaAr = new MediaAR();

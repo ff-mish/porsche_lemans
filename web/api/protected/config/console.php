@@ -28,6 +28,13 @@ return array(
     ),
     // application components
     'components' => array(
+        "twitter" => array(
+            "class" => "ext.yii-twitter-OAuth.STwitter",
+            "consumer_key" => "UOPfUKiyPwdRX3CBP3fWK61XE",
+            "consumer_secret" => "wTu5hYsRkVnWwLnBDjTdLHI5xlmMbQW77NccxvwtIKEQuubSSw",
+            "callback" => "http://lemans.local/api/weibo/twittercallback",
+            "signinParams" => array("force_write"),
+        ),
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
