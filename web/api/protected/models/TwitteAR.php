@@ -4,6 +4,9 @@ class TwitteAR extends CActiveRecord {
   const LEVEL_WEB = "web";
   const LEVEL_TEAM = "team";
   const LEVEL_USER = "user";
+  const LEVEL_TOPIC = "topic";
+  
+  public $media;
   
  public function tableName() {
    return "twittes";
@@ -28,6 +31,30 @@ class TwitteAR extends CActiveRecord {
  
  public static function  model($classname = __CLASS__) {
    return parent::model($classname);
+ }
+ 
+ /**
+  * 获取Twitte 对应的媒体
+  */
+ public function getMedia($tid = FALSE) {
+   if (!$tid) {
+     $tid = $this->tid;
+   }
+   
+   if (!$tid) {
+     return FALSE;
+   }
+   $media = FALSE;
+   $twitte = $this->findByPk($tid);
+   if ($twitte->is_from_thirdpart) {
+     $media = $twitte->thirdpart_ref_media;
+   }
+   else if ($twitte->ref_type && $twitte->ref_id) {
+     $share_media = MediaAR::model()->findByPk($twitte->ref_id);
+     $media = $share_media->uri;
+   }
+   
+   return $media;
  }
  
  // 获取最新的组的 Twitte
@@ -167,40 +194,70 @@ class TwitteAR extends CActiveRecord {
   }
   
   public function getListInLevel($level, $num = 10) {
-    if ($level == self::LEVEL_TEAM) {
-      $user = UserAR::crtuser();
-      $team = $user->team;
-      $users = $team->loadMembers();
-      $uids = array();
-      foreach ($user as $user) {
-        $uids[] = $user->uid;
-      }
+    $query = new CDbCriteria();
+    $params = array();
+    $user = UserAR::crtuser();
+    if (!$user) {
+      return FALSE;
+    }
+    $from = $user->from;
+    // 1. 来源作为条件
+    $query->addCondition("type=:type");
+    $params[":type"] = $from;
+    // 2. 用户ID 作为条件
+    $uids = array();
+    if ($level == self::LEVEL_USER) {
+      $uids[] = $user->uid;
+      $query->addCondition("uid in (:uid)");
+      $params[":uid"] = implode(",", $uids);
+    }
+    else if ($level == self::LEVEL_TEAM) {
+      $teamAr = new TeamAR();
+      $userTeamAr = new UserTeamAR();
+      $userTeamAr->loadUserTeam($user);
+      $members = $teamAr->loadMembers($userTeamAr->tid);
+      //$uids[] = $user->uid;
       
-      // 构造条件
-      $cond = array(
-          "condition" => $this->getTableAlias().".uid in (:uid)",
-          "order" => $this->getTableAlias() .".cdate",
-          "params" => array(":uid" => implode(",", $uids)),
-          "limit" => $num,
-          "offset" => 0
-      );
-      $rows = $this->with("user")->findAll($cond);
-      return $rows;
+      foreach ($members as $member) {
+        $uids[] = $member->uid;
+      }
+      $query->addCondition("uid in (:uid)");
+      $params[":uid"] = implode(",", $uids);
     }
-    else if ($level == self::LEVEL_USER) {
-      $user = UserAR::crtuser();
-      $uid = $user->uid;
-      // 构造条件
-      $cond = array(
-          "condition" => $this->getTableAlias().".uid in (:uid)",
-          "order" =>  $this->getTableAlias() .".cdate",
-          "params" => array(":uid" => $uid),
-          "limit" => $num,
-          "offset" => 0
-      );
-      $rows = $this->with("user")->findAll($cond);
-      return $rows;
+    else if ($level == self::LEVEL_TOPIC) {
+      // 这里我们不需要判断用户uid 我们获取任意几个从第三方抓取的内容
+      $query->addCondition("is_from_thirdpart=:is_from_thirdpart");
+      $params[":is_from_thirdpart"] = 1;
     }
+    else if ($level == self::LEVEL_WEB) {
+      if ($from == UserAR::FROM_TWITTER) {
+        $uids[] = Yii::app()->params["twitter_uid"];
+      }
+      else {
+        $uids[] = Yii::app()->params["weibo_uid"];
+      }
+      $query->addCondition("uid in (:uid)");
+      $params[":uid"] = implode(",", $uids);
+    }
+    
+    $query->order = "cdate DESC";
+    $query->limit = $num;
+    $query->params = $params;
+    
+    $rows = $this->findAll($query);
+    
+    // 然后获取微博对应的媒体
+    $datas = array();
+    foreach ($rows as $row) {
+      $data = array();
+      foreach ($row as $key => $v) {
+        $data[$key] = $v;
+      }
+      $data["media"] = $row->getMedia();
+      $datas[] = $data;
+    }
+    
+    return $datas;
   }
 }
 

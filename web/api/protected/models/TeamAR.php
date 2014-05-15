@@ -94,8 +94,10 @@ class TeamAR extends CActiveRecord {
     return FALSE;
   }
   
-  public function loadMembers() {
-    $tid = $this->tid;
+  public function loadMembers($tid = FALSE) {
+    if (!$tid) {
+      $tid = $this->tid;
+    }
     
     $cond = array(
         "condition" => "tid=:tid",
