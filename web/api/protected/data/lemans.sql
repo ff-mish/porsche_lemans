@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `score_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `score_user` (
-  `suid` int(11) NOT NULL,
+  `suid` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT NULL,
   `speed` varchar(100) DEFAULT NULL,
   `quality` varchar(100) DEFAULT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `system` (
   `name` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,7 +174,7 @@ DROP TABLE IF EXISTS `twittes`;
 CREATE TABLE `twittes` (
   `tid` int(11) NOT NULL AUTO_INCREMENT COMMENT '发帖id',
   `uid` int(11) unsigned DEFAULT NULL COMMENT '用户id',
-  `content` text COMMENT '内容',
+  `content` blob COMMENT '内容',
   `cdate` datetime DEFAULT NULL COMMENT '创建时间',
   `udate` datetime DEFAULT NULL COMMENT '修改时间',
   `uuid` varchar(45) DEFAULT NULL,
@@ -184,8 +184,10 @@ CREATE TABLE `twittes` (
   `owned_type` varchar(45) DEFAULT NULL,
   `ref_type` varchar(10) DEFAULT NULL,
   `ref_id` int(11) DEFAULT NULL,
+  `is_from_thirdpart` varchar(45) DEFAULT NULL COMMENT '是否来自第三方平台(weibo/twitter)',
+  `thirdpart_ref_media` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7998 DEFAULT CHARSET=utf8 COMMENT='发帖表';
+) ENGINE=InnoDB AUTO_INCREMENT=8356 DEFAULT CHARSET=utf8 COMMENT='发帖表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,15 +242,16 @@ CREATE TABLE `users` (
   `lat` varchar(45) DEFAULT NULL,
   `lng` varchar(45) DEFAULT NULL,
   `invited_by` int(11) DEFAULT NULL,
-  `profile_msg` text,
+  `profile_msg` blob,
   `avatar` varchar(255) DEFAULT NULL,
   `score` int(11) DEFAULT NULL,
   `status` int(10) DEFAULT '1',
   `friends` int(10) DEFAULT '0',
+  `location` varchar(100) DEFAULT '',
   PRIMARY KEY (`uid`),
   UNIQUE KEY `name_from` (`name`,`from`),
   KEY `uuid` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=101012 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101647 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -260,4 +263,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-14  1:53:15
+-- Dump completed on 2014-05-15 11:16:27
