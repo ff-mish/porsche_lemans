@@ -119,7 +119,7 @@ class STwitter extends CApplicationComponent {
       $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
       unset($_SESSION['oauth']);
     } else {
-      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+      throw new CException('Twitter api - Code ' . $code . ' error -  ' . $this->outputError($this->_getTwitter()));
     }
   }
 
@@ -280,6 +280,24 @@ class STwitter extends CApplicationComponent {
     
     if ($code == 200) {
       return json_decode($twitter->response["response"]);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
+  
+  public function search_topic($keyword) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+    
+    $code = $twitter->request("GET", $twitter->url("1.1/search/tweets"), array("q" => $keyword));
+    
+    if ($code == 200) {
+      return json_decode($twitter->response["response"], TRUE);
     }
     else {
       throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));

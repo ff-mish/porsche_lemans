@@ -125,12 +125,13 @@ class MediaAR extends CActiveRecord {
     return $ret;
   }
   
-  public function getMedias($type, $page = 1) {
+  public function getMedias($type = NULL, $page = 1) {
     $query = new CDbCriteria();
-    $query->addCondition("type=:type");
+    if ($type) {
+      $query->addCondition("type=:type");
+      $query->params = array(":type" => $type);
+    }
     $query->offset = ($page - 1) * self::PAGE_ITEMS;
-    
-    $query->params = array(":type" => $type);
     
     return $this->findAll($query);
   }

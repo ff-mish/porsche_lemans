@@ -591,7 +591,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         // init first page template
         switch( $(document.body).data('page') ){
-            case "home":
+            case "index":
                 api.get("./api/weibo/loginurl" , function( e ){
                     LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.twitter_url} , function( html ){
                         $(".home_share").append( html );

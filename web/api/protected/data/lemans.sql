@@ -99,6 +99,21 @@ CREATE TABLE `score_user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `session`
+--
+
+DROP TABLE IF EXISTS `session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `session` (
+  `id` char(32) NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `data` longblob,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `statistics`
 --
 
@@ -128,7 +143,7 @@ CREATE TABLE `system` (
   `name` varchar(255) DEFAULT NULL,
   `value` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`sid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +161,7 @@ CREATE TABLE `teams` (
   `score` int(11) DEFAULT NULL,
   `owner_uid` int(11) DEFAULT '0' COMMENT '创建者uid',
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -205,7 +220,7 @@ CREATE TABLE `user_teams` (
   `cdate` datetime DEFAULT NULL,
   `udate` datetime DEFAULT NULL,
   PRIMARY KEY (`utid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1001 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1003 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +248,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `name_from` (`name`,`from`),
   KEY `uuid` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=101011 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101012 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -245,4 +260,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-13 17:31:35
+-- Dump completed on 2014-05-14  1:53:15
