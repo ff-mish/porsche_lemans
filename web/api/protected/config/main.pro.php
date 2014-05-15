@@ -94,6 +94,7 @@ return array(
         // this is used in contact page
         'adminEmail' => 'jziwenchen@gmail.com', 
         "weibo_uid" => "5072167230",
+        "twitter_uid" => "568873580",
         "uploadedPath" => realpath((dirname(__FILE__).'/../../upload')),
         'startTime'=>'2014-05-13 02:43:07',
     ),
