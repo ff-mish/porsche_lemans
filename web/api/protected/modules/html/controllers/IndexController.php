@@ -70,7 +70,7 @@ class IndexController extends CController {
         "page_name" => "teambuild"
     );
     $this->page_name = $params["page_name"];
-    $this->render("race", $params);
+    $this->render("teambuild", $params);
   }
   
   public function actionTweet() {
