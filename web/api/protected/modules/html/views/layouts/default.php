@@ -5,21 +5,21 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title>PORSCHE</title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link href="css/js.css" rel="stylesheet" type="text/css" />
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/js.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg1" data-page="<?php echo $this->page_name?>">
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->
 <!--  -->
-<script type="text/javascript" src="./js/sea/sea-debug.js" data-config="../config.js"></script>
-<script type="text/javascript" src="./js/lp.core.js"></script>
-<script type="text/javascript" src="./js/lp.base.js"></script>
+<script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>
+<script type="text/javascript" src="/js/lp.core.js"></script>
+<script type="text/javascript" src="/js/lp.base.js"></script>
 <!--  -->
     <!--IE6透明判断-->
     <!--[if IE 6]>
-    <script src="js/DD_belatedPNG.js"></script>
+    <script src="/js/DD_belatedPNG.js"></script>
     <script>
         DD_belatedPNG.fix('*');
         document.execCommand("BackgroundImageCache", false, true);
