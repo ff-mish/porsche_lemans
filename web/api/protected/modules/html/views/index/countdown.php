@@ -21,20 +21,6 @@
             </div>
             <div class="conut_watch" data-fadein><?=Yii::t('lemans','watch the trailer')?></div>
         </div>
-
-        <!-- Begin VideoJS -->
-        <div id="video-wrap">
-          <video id="bg_video_1" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"
-            preload="auto"
-              poster="/images/bg7.jpg"
-              data-setup='{"controls": false, "autoplay": true}'>
-             <source src="/videos/small.mp4" type='video/mp4' />
-             <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
-             <source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
-            </video>
-        </div>
-          <!-- End VideoJS -->
-
         <!-- count end -->
 	</div>
 	<!--  -->

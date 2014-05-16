@@ -30,7 +30,7 @@ define(function( require , exports , model ){
         var t = this;
         t.type    = 'panel';
         t.content = '';        // 弹出层的内容 ( text_string | html_string | htmlelement object )
-        t.title   = _e('提示信息');//'信息提示';// 弹出层的标题, 如果为空则不显示标题栏 ( string )
+        t.title   = _e('message tip');//'信息提示';// 弹出层的标题, 如果为空则不显示标题栏 ( string )
         t.url     = '';        // 在弹出层显示的远程页面的url，如果同时设置了content和url，url将无效
         t.mask    = true;      // 是否显示背景覆盖层
         t.style   = 'default'; // 弹出层的样式
@@ -46,8 +46,8 @@ define(function( require , exports , model ){
         t.cancelButton = false;  // 是否显示取消按钮
         t.closeText    = _e('close');//'关闭'; // 表示关闭的文字
         t.refreshText  = _e('refresh');//'刷新'; // 表示刷新的文字
-        t.submitText   = '确定'; // 表示提交按钮上面的文字
-        t.cancelText   = '取消'; // 表示取消按钮上面的文字
+        t.submitText   = 'ok'; // 表示提交按钮上面的文字
+        t.cancelText   = 'cancel'; // 表示取消按钮上面的文字
 
         // Callbacks (在函数内部，this作为当前对象的引用)
         t.onInit   = null; // 初始化时触发的事件

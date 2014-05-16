@@ -6,9 +6,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     // widgets and common functions here
     // ======================================================================
-    var rotateAnimate = function( $dom , current , total , easing , startAngle ){
-        var percent = current / total;
-        startAngle = startAngle / 180 * Math.PI || Math.PI*3/2;
+    var rotateAnimate = function( $dom , current , total ,  startAngle ){
+        if( !$dom.length ) return;
+        var percent = Math.min( current / total , 1 );
+        startAngle = startAngle / 180 * Math.PI || 0;
         LP.use('raphaeljs' , function( Raphael ){
             // Creates canvas 320 × 200 at 10, 50
             var width = $dom.width();
@@ -16,30 +17,123 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var r = 35 , stockWidth = 10 , stockColor = "#ff0707";
 
             var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
-            var end = [ width / 2 + Math.cos( startAngle + percent * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * 2 * Math.PI ) * r  ]
-            console.log( start , end );
-            var path = [
-                'M' , start[0] , ' ' , start[1] ,
-                'A' , r , ' ' , r , ' 0 ' , percent > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
-                ].join("");
-            var otherPath = [
-                'M' , start[0] , ' ' , start[1] ,
-                'A' , r , ' ' , r , ' 0 ' , percent > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
-            ].join("");
 
-            var paper = Raphael( $dom.get(2) , width , height , function(){
-                // Creates circle at x = 50, y = 40, with radius 10
-                var circle = this.circle( width / 2 , height / 2, 35 );
-                // Sets the fill attribute of the circle to red (#f00)
-                // circle.attr("stroke", "#000")
-                //     .attr("stroke-width" , 10);
-                this.path( otherPath )
-                    .attr("stroke", "#000")
-                    .attr("stroke-width" , 10);
-                this.path( path )
+            var paper = Raphael( $dom.get(0) , width , height );
+            var redPath = paper.path( "" )
                     .attr("stroke" , stockColor )
                     .attr("stroke-width" ,stockWidth );
-            });
+            var blackPath = paper.path( "" )
+                    .attr("stroke", "#000")
+                    .attr("stroke-width" , stockWidth);
+            var text = paper.text( width / 2 , height / 2 , "0%" ) 
+                .attr({stroke: "#fff"});
+
+            var now = new Date();
+            var duration = 1000;
+            var ani = function(){
+                var p = Math.min( 1 ,  ( new Date() - now ) / duration );
+                var end = [ width / 2 + Math.cos( startAngle + percent * p * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * p * 2 * Math.PI ) * r  ]
+                var path = [
+                    'M' , start[0] , ' ' , start[1] ,
+                    'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
+                    ].join("");
+                var otherPath = [
+                    'M' , start[0] , ' ' , start[1] ,
+                    'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
+                ].join("");
+
+                if( percent * p < 1 ){
+                    redPath.attr( 'path' , path );
+                    blackPath.attr( 'path' , otherPath );
+                }
+                if( percent * p == 1 ){
+                    paper.circle( width / 2 , height / 2, r )
+                        .attr("stroke" , stockColor )
+                        .attr("stroke-width" ,stockWidth );
+                    redPath.remove();
+                    blackPath.remove();
+                }
+
+                // render numbers
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + '%')
+
+                if( p != 1 ){
+                    setTimeout(ani , 60/1000);
+                }
+            }
+            ani();
+        });
+    }
+
+    // left { max: xx , tip : '' , text: yyy }
+    var dragCoordinate = function( $dom , left , right , top , bottom ){
+        var width = $dom.width();
+        var height = $dom.height();
+        var ch = ~~( height / 2 );
+        var cw = ~~( width / 2 );
+        var sw = 40; // step width
+        var sh = 7; // step height
+
+        var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
+            , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
+
+
+        var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
+
+        var pathAttr = {
+            'stroke' : '#999',
+            'opacity' : 0.7,
+            'stroke-width' : 0.4
+        }
+        var textAttr = {
+            'stroke' : '#999',
+            'opacity' : 0.7
+        }
+        LP.use('raphaeljs' , function( Raphael ){
+            // draw x 
+            var paper = Raphael( $dom.get(0) , width , height );
+            var xpath = [
+                'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
+                // 'M0 ' , ch , 'L' , width , ' ' , ch ,
+                'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
+            for( var i = 1 ; i * sw < xwidth ; i++ ){
+                xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+            }
+            paper.path( xpath.join("") )
+                .attr(pathAttr);
+
+            paper.text( xstart[0] - 30 , xstart[1] , 'Impact' )
+                .attr( textAttr );
+            paper.text( xend[0] + 30 , xend[1] , 'Quality' )
+                .attr( textAttr );
+
+            // drag y
+            var ypath = [
+                'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
+                //'M' , cw , ' 0L' , cw , ' ' , height ,
+                'M' , ystart[ 0 ] - ~~(sh/2) , ' 0l' , sh , ' 0' ];
+            for( var i = 1 ; i * sw < yheight ; i++ ){
+                ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
+            }
+            paper.path( ypath.join("") ).attr(pathAttr);
+
+            paper.text( ystart[0] , ystart[1] - 10 , 'Speed t/h' )
+                .attr( textAttr );
+            paper.text( yend[0] , yend[1] + 10  , 'Assiduite' )
+                .attr( textAttr );
+
+
+            var rpath = [];
+            $.each( [left,top , right , bottom] , function( i , dot){
+                rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
+            } );
+            rpath.push('Z');
+            console.log( rpath );
+            // drag red path
+            paper.path( rpath.join("") ).attr( {
+                "stroke": '#f00',
+                "stroke-width": 3
+            } );
         });
     }
 
@@ -64,7 +158,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             // how to get data
             getData: function(cb){
                 var key = this.key ;
-                api.get('./api/user/Friendssuggestion' , {q: key} , function( e ){
+                api.get('/api/user/Friendssuggestion' , {q: key} , function( e ){
                     cb( e.data );
                 });
             }
@@ -160,6 +254,50 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
     })();
 
+
+    var renderVideo  = (function(){
+        var tpl = '<video id="#[id]" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"\
+                preload="auto"\
+                  poster="#[poster]">\
+                 <source src="#[videoFile].mp4" type="video/mp4" />\
+                 <source src="#[videoFile].webm" type="video/webm" />\
+                 <source src="#[videoFile].ogv" type="video/ogg" />\
+            </video>';
+        var vid = 0;
+        return function( $wrap , videoFile , poster , cfg , cb ){
+            var id = 'my_video_' + ( vid++ );
+            var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
+            $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
+            LP.use('video-js' , function(){
+                videojs.options.flash.swf = "./js/video-js.swf";
+                cfg = LP.mix(defaultConfig , cfg);
+                var ratio = cfg.ratio || ( 516 / 893 );
+                var myVideo = videojs( id , cfg , function(){
+                    var v = this;
+                    $(window).resize(function(){
+                        var w = $wrap.width();
+                        var h = $wrap.height();
+                        var vh = 0 ;
+                        var vw = 0 ;
+                        if( h / w > ratio ){
+                            vh = h;
+                            vw = h / ratio;
+                        } else {
+                            vh = w * ratio;
+                            vw = w;
+                        }
+                        v.dimensions( vw , vh );
+
+                        $('#' + v.Q).css({
+                            "margin-top": ( h - vh ) / 2,
+                            "margin-left": ( w - vw ) / 2
+                        });
+                    }).trigger('resize');
+                    cb && cb.call( this );
+                } );
+            });
+        }
+    })();
 
     // count down function 
     var countDownMgr = (function(  ){
@@ -270,35 +408,49 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
     var bigVideoInit = function(){
-        // init video
         var ratio = 516 / 893;
-        LP.use('video-js' , function(){
-            videojs.options.flash.swf = "./js/video-js.swf";
-            var myVideo = videojs("bg_video_1", { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false} } , function(){
-              // Player (this) is initialized and ready.
-            });
 
-            $(window).resize(function(){
-                var w = $(window).width();
-                var h = $(window).height();
-                var vh = 0 ;
-                var vw = 0 ;
-                if( h / w > ratio ){
-                    vh = h;
-                    vw = h / ratio;
-                } else {
-                    vh = w * ratio;
-                    vw = w;
-                }
-                myVideo.dimensions( vw , vh );
+        renderVideo( $('<div></div>').css({
+            "position": "fixed",
+            "z-index": "-1",
+            "top": "0",
+            "left": "0",
+            "height": "100%",
+            "width": "100%",
+            "overflow": "hidden"
+        }).appendTo( document.body ) , "/videos/small" , "/images/bg7.jpg" ,  {} );
+        // // init video
+        // var ratio = 516 / 893;
+        // LP.use('video-js' , function(){
+        //     videojs.options.flash.swf = "./js/video-js.swf";
+        //     var myVideo = videojs("bg_video_1", { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false} } , function(){
+        //       // Player (this) is initialized and ready.
+        //       console.log( this);
+        //     });
 
-                $('#bg_video_1').css({
-                    "margin-top": ( h - vh ) / 2,
-                    "margin-left": ( w - vw ) / 2
-                })
-            }).trigger('resize');
+        //     $(window).resize(function(){
+        //         var w = $(window).width();
+        //         var h = $(window).height();
+        //         var vh = 0 ;
+        //         var vw = 0 ;
+        //         if( h / w > ratio ){
+        //             vh = h;
+        //             vw = h / ratio;
+        //         } else {
+        //             vh = w * ratio;
+        //             vw = w;
+        //         }
 
-        });
+        //         console.log( myVideo );
+        //         myVideo.dimensions( vw , vh );
+
+        //         $('#bg_video_1').css({
+        //             "margin-top": ( h - vh ) / 2,
+        //             "margin-left": ( w - vw ) / 2
+        //         })
+        //     }).trigger('resize');
+
+        // });
     }
 
 
@@ -314,25 +466,27 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action("member_invent" , function(){
         LP.panel({
-            content: "<p>email:<input name=\"email\" value=\"\" /></p><p><textarea cols='40' rows='5'></textarea></p>",
+            //content: "<p>email:<input name=\"email\" value=\"\" /></p><p><textarea cols='40' rows='5'></textarea></p>",
+            content: '<div class="member-list"></div>',
             title: "Invite User",
             className: "add-team-panel",
             submitButton: true,
             onload: function(){
-                initSuggestion( this.$panel.find('textarea') );
+                //initSuggestion( this.$panel.find('textarea') );
+                
             },
             onSubmit: function(){
-                var $input = this.$panel.find('input[name="email"]');
-                var email = $input.val();
-                if( !email.match( /^[a-zA-Z_0-9][a-zA-Z\-_.0-9]@([a-zA-Z\-_0-9]+\.)+[a-zA-Z]+$/) ){
-                    $input.css('border-color' , 'red');
-                } else {
-                    $input.css('border-color' , '');
-                }
-                var msg = this.$panel.find('textarea').val();
-                api.post( './api/user/invite' , {msg: msg,email:email} , function(){
-                    LP.right('success');
-                });
+                // var $input = this.$panel.find('input[name="email"]');
+                // var email = $input.val();
+                // if( !email.match( /^[a-zA-Z_0-9][a-zA-Z\-_.0-9]@([a-zA-Z\-_0-9]+\.)+[a-zA-Z]+$/) ){
+                //     $input.css('border-color' , 'red');
+                // } else {
+                //     $input.css('border-color' , '');
+                // }
+                // var msg = this.$panel.find('textarea').val();
+                // api.post( '/api/user/invite' , {msg: msg,email:email} , function(){
+                //     LP.right('success');
+                // });
             }
         });
     });
@@ -349,7 +503,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             },
             onSubmit: function(){
                 var msg = this.$panel.find('textarea').val();
-                api.post( './api/twitte/post' , {msg: msg} , function(){
+                api.post( '/api/twitte/post' , {msg: msg} , function(){
                     LP.right('success');
                 } );
             }
@@ -430,21 +584,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             },
             onSubmit: function(){
                 var msg = this.$panel.find('textarea').val();
-                api.post( './api/twitte/post' , {msg: msg} , function(){
+                api.post( '/api/twitte/post' , {msg: msg} , function(){
                     LP.right('success');
                 } );
             }
         });
     });
 
-    LP.action('fuel-load' , function( ev ){
+    LP.action('fuel-load' , function( data ){
         $(this).attr('disabled' , 'disabled');
         var page = parseInt( $(this).data( 'page' ) || 0 ) + 1;
         var type = $(this).data( 'type' ) || 'pic';
 
         $(this).data( 'page' , page );
 
-        api.get('./api/media/list' , { page:page , type: type } , function( e ){
+        api.get('/api/media/list' , { page:page , type: type } , function( e ){
             // DEBUG.. render fuel item
             e = {"data" :[{},{},{},{}]};
             $.each( e.data || [] , function( i , data ){
@@ -466,6 +620,25 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
 
+    LP.action('legal-mentions' , function( data ){
+        $('#legal-mentions').fadeIn();
+    });
+
+    LP.action('skip-intro' , function(data){
+        $(this).parent().fadeOut();
+    });
+
+
+
+    LP.action('leaveteam' , function( e ){
+        var self = $(this);
+        api.get("/api/user/leaveteam", function ( e ) {
+           //TODO:: 动画效果
+           self.fadeOut("fast");
+        });
+    });
+
+    
 
 
     // page init here
@@ -488,11 +661,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
 
 
-        // init memeber speed effect
-        if( $('.member_speed').length ){
-            rotateAnimate( $('.member_speed') , 100 , 360 );
-        }
-
         // init nav list effect
         $('.nav p').css({opacity:0,marginLeft:-20}).each(function( i ){
             $(this).delay( i * 200 )
@@ -500,6 +668,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     opacity: 1,
                     marginLeft: 0
                 } , 500);
+        });
+
+        $('.navicon').click(function(){
+            LP.triggerAction('post_weibo');
         });
 
 
@@ -545,7 +717,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 qtimes++;
                 var timer = null;
-                api.get('./api/question/random' , '' , function( e ){
+                api.get('/api/question/random' , '' , function( e ){
                     var data = e.data;
                     var content = "<dl><dt>";
                     content += data.question + "</dt>";
@@ -576,7 +748,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         },
                         onSubmit: function(){
                             var t = this;
-                            api.post("./api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
+                            api.post("/api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
                                 t.close();
                             });
                         }
@@ -592,22 +764,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // init first page template
         switch( $(document.body).data('page') ){
             case "index":
-                // api.get("./api/weibo/loginurl" , function( e ){
-                //     LP.compile( "init-tpl" , {weibo_url: e.data.url , twitter_url: e.data.twitter_url} , function( html ){
-                //         $(".home_share").append( html );
-                //     } )
-                // });
-
+                var ratio = 516 / 893;
+                // show the big video
+                renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
+                    $('#' + this.Q).css('z-index' , -1);
+                } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
-                    api.post( "./api/web/decryptionURL" , {d: urlObj.params.d} );
+                    api.post( "/api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
                 
                 break;
             case "teambuild":
                 bigVideoInit();
-                api.get("./api/user" , function( e ){
+                api.get("/api/user" , function( e ){
                     if( !e.data.user ) return;
                     // if current user is invited
                     if( e.data.team ){ // show team info
@@ -627,7 +798,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 // bind event 
                 $(".teambuild_from").submit(function(){
-                    api.post( "./api/user/BuildTeam" ,  $(this).serialize() , function( e ){
+                    api.post( "/api/user/BuildTeam" ,  $(this).serialize() , function( e ){
                         $(".teambuild_from").hide();
                         $('#teambuild_info').fadeIn();
                     });
@@ -636,20 +807,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 break;
 
             case "countdown":
-
-                // get server time
-                api.get('./api/web/time' , function( e ){
-                    // DEBUG::
-                    e = {"status":0,"message":"success","data":{"time_now":"2014-05-15 00:05:24","time_start":"2014-09-13 02:43:07"}};
-                    var now = new Date( e.data.time_now );
-                    var start = new Date( e.data.time_start );
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+                // TODO...
+                var start = window.start_time || '2014-09-13 02:43:07';
+                var now = window.time_now || '2014-05-15 00:05:24';
+               
+                var dura = ~~( ( start - now ) / 1000 );
+                var d = ~~( dura/86400 );
+                var h = ~~( ( dura - d * 86400 ) / 3600 );
+                var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                var s = dura - d * 86400 - h * 3600 - m * 60;
+                countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
                 bigVideoInit();
                 
                 break;
@@ -671,25 +838,23 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 LP.triggerAction('fuel-load');
                 break;
                 
-          case "stand":
-            $(".stand .teambuild_member").live({
-                'mouseenter':function(){
-                    $(this).addClass("hover");
-                },
-                'mouseleave':function(){
-                    $(this).removeClass("hover");
-                }
-            });
-            $(".stand .teambuild_member").live({
-              "click": function () {
-                var self = $(this);
-                api.get("api/user/leaveteam", function () {
-                   //TODO:: 动画效果
-                   self.fadeOut("fast");
+              case "stand":
+                $(".stand .teambuild_member").live({
+                    'mouseenter':function(){
+                        $(this).addClass("hover");
+                    },
+                    'mouseleave':function(){
+                        $(this).removeClass("hover");
+                    }
                 });
-              }
-            });
-            break;
+
+                // init member speed
+                rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
+                rotateAnimate( $('.member_speed').eq(1) , 240 , 360 , 45 );
+                rotateAnimate( $('.member_speed').eq(2) , 300 , 360 , 45 );
+
+                dragCoordinate( $('.stand_chart') );
+                break;
         }
     });
 });

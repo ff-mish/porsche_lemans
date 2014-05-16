@@ -288,5 +288,5 @@ body{background:#000;height: 100%;width: 100%}
 
 
 /* video */
-#video-wrap{position: fixed;z-index: -1;top: 0; left: 0; height: 100%;width: 100%;overflow: hidden;}
+#home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
 
