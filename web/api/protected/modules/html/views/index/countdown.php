@@ -5,10 +5,10 @@
         <!-- nav -->
         <div class="nav">
             <div class="navicon"></div>
-            <p class="on"><a href="#">The Race</a></p>
-            <p><a href="#">Monitoring</a></p>
-            <p><a href="#">My Stand</a></p>
-            <p><a href="#">Fuel</a></p>
+            <p class="on"><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
+            <p><a href="#"><?=Yii::t('lemans','Monitoring')?></a></p>
+            <p><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
+            <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
         </div>
         <!-- count -->
         <div class="count">
@@ -19,7 +19,7 @@
                 <div class="conut_downitem">00</div>
                 <div class="conut_downitem">00</div>
             </div>
-            <div class="conut_watch" data-fadein>watch the trailer</div>
+            <div class="conut_watch" data-fadein><?=Yii::t('lemans','watch the trailer')?></div>
         </div>
 
         <!-- Begin VideoJS -->

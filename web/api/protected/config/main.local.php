@@ -8,6 +8,8 @@ return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'lemans',
     "defaultController" => "web/welcome",
+    'language'=>'en_us',
+    'sourceLanguage'=>'en_us',
     // preloading 'log' component
     'preload' => array('log'),
     // autoloading model and component classes
@@ -16,6 +18,7 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
+        'html',
     // uncomment the following to enable the Gii tool
     /*
       'gii'=>array(
