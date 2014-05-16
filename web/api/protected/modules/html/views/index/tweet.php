@@ -5,10 +5,10 @@
         <!-- nav -->
         <div class="nav">
             <div class="navicon"></div>
-            <p class="on"><a href="#">The Race</a></p>
-            <p><a href="#">Monitoring</a></p>
-            <p><a href="#">My Stand</a></p>
-            <p><a href="#">Fuel</a></p>
+            <p class="on"><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
+            <p><a href="#"><?=Yii::t('lemans','Monitoring')?></a></p>
+            <p><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
+            <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
         </div>
         <!-- tweet -->
         <div class="tweet">

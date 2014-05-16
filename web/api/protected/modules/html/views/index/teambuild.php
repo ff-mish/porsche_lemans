@@ -5,21 +5,21 @@
 		<!-- nav -->
 		<div class="nav">
 			<a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-			<p><a href="/race.html">The Race</a></p>
-			<p><a href="#">Monitoring</a></p>
-			<p class="on"><a href="/stand.html">My Stand</a></p>
-			<p><a href="/fuel.html">Fuel</a></p>
+            <p><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
+            <p><a href="#"><?=Yii::t('lemans','Monitoring')?></a></p>
+            <p class="on"><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
+            <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
 		</div>
 		<!-- teambuild -->
 		<div class="teambuild">
 			<div class="teambuild_step">step 1/3</div>
-			<div class="teambuild_tit">team building</div>
+			<div class="teambuild_tit"><?=Yii::t('lemans','team building')?></div>
 			<div id="teambuild_info" style="display:none;">
 				<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>
 			</div>
 			<form role="form" class="teambuild_from" style="display:none;">
-        <input name="name" value="" placeholder="Please input your team name" class="input"/>
-				<button type="submit"> Add Team </button>
+        <input name="name" value="" placeholder="<?=Yii::t('lemans','Please input your team name')?>" class="input"/>
+				<button type="submit"> <?=Yii::t('lemans','Add Team')?> </button>
 			</form>
 			<!-- <div class="teambuild_member teambuild_info1 cs-clear">
 				<div class="member_item ">

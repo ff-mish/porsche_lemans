@@ -5,6 +5,12 @@ class IndexController extends CController {
   public $page_name;
   
   public function init() {
+      $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4); //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
+      if (preg_match("/zh-c/i", $lang))
+          Yii::app()->language='zh_cn';
+      else if (preg_match("/zh/i", $lang))
+          Yii::app()->language='zh_cn';
+
     $this->layout = "default";
     return parent::init();
   }

@@ -24,7 +24,7 @@ class WeiboController extends Controller
 		$weiboService=new SinaWeibo(WB_AKEY, WB_SKEY);
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
-      
+
 			$keys['code'] = $_REQUEST['code'];
 			$keys['redirect_uri'] = WB_CALLBACK_URL;
 			try {

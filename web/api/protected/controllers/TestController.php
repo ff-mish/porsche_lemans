@@ -252,6 +252,14 @@ class TestController extends Controller {
         echo microtime(true)-$t1;
     }
 
+    /**
+     * 测试中文英文
+     */
+    public function actionZhCn()
+    {
+        echo Yii::t('lemans','The Race') ;
+    }
+
 
 }
 
