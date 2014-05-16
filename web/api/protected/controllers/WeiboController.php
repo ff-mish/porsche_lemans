@@ -51,7 +51,7 @@ class WeiboController extends Controller
       }
       
       // 最后跳转到首页
-      $this->redirect("/team_build.html");
+      $this->redirect("/teambuild.html");
 		} else {
 		 // TODO:: 获取Token失败后处理逻辑
 		}
@@ -77,6 +77,6 @@ class WeiboController extends Controller
     }
     
     // 最后跳转到首页
-    $this->redirect("/team_build.html");
+    $this->redirect("/teambuild.html");
   }
 }

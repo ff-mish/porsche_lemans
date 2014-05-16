@@ -6,6 +6,7 @@
     <meta name="description" content="" />
     <title>PORSCHE</title>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/js.css" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg1" data-page="<?php echo $this->page_name?>">
 	<!--  -->

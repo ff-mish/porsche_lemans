@@ -17,7 +17,9 @@
 			<div class="teambuild_member stand_useritem cs-clear">
 				<div class="member_item ">
 					<img src="images/phodemo.jpg" />
-					<p class="member_name">@Mradrien_</p>
+					<p class="member_name">@Mradrien_
+            <span class="member-leave"><?php echo Yii::t("messages", "Leave Team")?></span>
+          </p>
 				</div>
 				<div class="member_speed"></div>
 				<div class="memeber_space">11K</div>

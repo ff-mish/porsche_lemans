@@ -68,7 +68,7 @@ class IndexController extends CController {
         "page_name" => "stand"
     );
     $this->page_name = $params["page_name"];
-    $this->render("race", $params);
+    $this->render("stand", $params);
   }
   
   public function actionTeambuild() {

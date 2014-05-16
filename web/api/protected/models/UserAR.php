@@ -369,5 +369,14 @@ class UserAR extends CActiveRecord {
       }
     }
   }
+  
+  public function leaveTeam($uid = FALSE) {
+    if (!$uid) {
+      $uid = $this->uid;
+    }
+    
+    $userTeamAr = new UserTeamAR();
+    return $userTeamAr->leaveTeam($uid);
+  }
 }
 

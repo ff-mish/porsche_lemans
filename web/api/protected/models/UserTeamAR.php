@@ -47,5 +47,18 @@ class UserTeamAR extends CActiveRecord {
     
     return $row;
   }
+
+  public function leaveTeam($uid) {
+    $query = new CDbCriteria();
+    $query->addCondition("uid=:uid");
+    $query->params[":uid"] = $uid;
+    $userTeam = $this->find($query);
+    if ($userTeam) {
+      return $userTeam->delete();
+    }
+    
+    return TRUE;
+  }
 }
+
 

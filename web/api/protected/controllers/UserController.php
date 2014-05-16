@@ -40,6 +40,21 @@ class UserController extends Controller{
   }
   
   /**
+   * 队员离开团队
+   */
+  public function actionLeaveteam() {
+    $request = Yii::app()->getRequest();
+    
+    $user = UserAR::crtuser();
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    $ret = $user->leaveTeam();
+    $this->responseJSON(array(), "success");
+  }
+  
+  /**
    * 用户加入一个Team
    * 注意参数不是一个 team id 而是队长的uid 后台可以根据队长uid 来获取Team id
    */

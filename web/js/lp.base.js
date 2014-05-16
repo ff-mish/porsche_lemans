@@ -670,6 +670,26 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 // page loaded
                 LP.triggerAction('fuel-load');
                 break;
+                
+          case "stand":
+            $(".stand .teambuild_member").live({
+                'mouseenter':function(){
+                    $(this).addClass("hover");
+                },
+                'mouseleave':function(){
+                    $(this).removeClass("hover");
+                }
+            });
+            $(".stand .teambuild_member").live({
+              "click": function () {
+                var self = $(this);
+                api.get("api/user/leaveteam", function () {
+                   //TODO:: 动画效果
+                   self.fadeOut("fast");
+                });
+              }
+            });
+            break;
         }
     });
 });
