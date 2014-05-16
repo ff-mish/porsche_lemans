@@ -86,6 +86,45 @@ class UserController extends Controller{
     $this->responseJSON(array(), "HELLO");
   }
   
+  public function actionFriends() {
+    $user = UserAR::crtuser();
+    if (!$user) {
+      $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    // array("uuid" => "", "screen_name" => "", "avatar" => "");
+    $ret = array();
+    if ($user->from == UserAR::FROM_WEIBO) {
+      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+      // 默认返回5000个
+      $friends = $weibo_api->friends_by_id($user->uuid);
+      if (!isset($friends["users"])) {
+        return  $this->responseError("error", ErrorAr::ERROR_UNKNOWN);
+      }
+      
+      foreach ($friends["users"] as $friend) {
+        $data = array(
+            "uuid" => $friend['idstr'],
+            "screen_name" => $friend['screen_name'],
+            "avatar_large" => $friend['avatar_large']
+        );
+        $ret[] = $data;
+      }
+    }
+    else if ($user->from == UserAR::FROM_TWITTER) {
+      $friends = Yii::app()->twitter->user_friends($user->uuid);
+      foreach ($friends["users"] as $friend) {
+        $data = array(
+            "uuid" => $friend['id_str'],
+            "screen_name" => $friend['screen_name'],
+            "avatar_large" => $friend['profile_image_url']
+        );
+        $ret[] = $data;
+      }
+    }
+    $this->responseJSON($ret, "success");
+  }
+  
   public function actionIndex() {
     $user = UserAR::crtuser(TRUE);
     if (!$user) {
@@ -123,7 +162,7 @@ class UserController extends Controller{
         if (!$user)
             $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
 
-        $data = array(
+        $data = array (
             "user" => $user,
         );
 

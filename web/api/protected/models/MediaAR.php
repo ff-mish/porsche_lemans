@@ -148,5 +148,9 @@ class MediaAR extends CActiveRecord {
   public function realpath($uri) {
     return realpath(Yii::app()->basePath.'/../'. $uri);
   }
+  
+  public function urlPath($uri) {
+    
+  }
 }
 
