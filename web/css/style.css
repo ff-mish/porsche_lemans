@@ -29,7 +29,7 @@ a:hover{color:#f00}
 /* bg Used
 ================================================================================================= */
 body{background:#000;height: 100%;width: 100%}
-.page{position: absolute;left:0;right: 0;bottom: 0;top: 0;min-width: 1800px;}
+.page{position: absolute;left:0;right: 0;bottom: 0;top: 0;}
 .pagebg1{background:url('../images/bg1.jpg') no-repeat center top; background-size:cover; }
 .pagebg2{background:url('../images/bg2.jpg') no-repeat center top; background-size:cover; }
 .pagebg3{background:url('../images/bg3.jpg') no-repeat center top; background-size:cover; }
@@ -104,7 +104,7 @@ body{background:#000;height: 100%;width: 100%}
 		
 
 /* stand */
-.stand{width:1206px;height:662px;left:50%;top:50%;bottom:50%;position: absolute;margin: -330px 0 0 -602px}
+.stand{width:1206px;height:662px;left:50%;top:50%;bottom:50%;position: absolute;margin: -330px 0 0 -450px}
 	.stand_tit{background: url('../images/stand.png') no-repeat;width: 600px;height: 100px}
 	.stand_useritem{margin-bottom:40px;}
 		.stand_useritem .member_item{margin: 0}
@@ -117,8 +117,41 @@ body{background:#000;height: 100%;width: 100%}
 	.stand_chart{width: 540px;height: 510px;position: absolute;right: 0;top: 0;background:url('../images/stand.png') no-repeat right top;}
 	.stand_add{width: 60px;height: 60px;position: absolute;top:602px;left: 1032px;background:url('../images/stand.png') no-repeat -602px -1032px;cursor: pointer;}
 
+@media screen and (max-width:1600px){
+.stand{width: 1200px;right: 10px;left:auto;margin-left:0;}
+	.member_speed{margin-left:30px;}
+	.stand_tweetitem{padding:0 50px;}
+}
+@media screen and (max-width:1500px){
+.stand{width: 1100px;right: 10px;left:auto;margin-left:0;}
+	.member_item {width: 250px}
+	.member_name{width: 160px}
+	.member_speed{margin-left:30px;}
+	.stand_tweetitem{padding:0 50px;}
+	.stand_add{right:0px;left:auto;}
+}
+@media screen and (max-width:1400px){
+.stand{width: 1000px;right: 10px;left:auto;margin-left:0;}
+	.member_item {width: 200px}
+	.member_name{width: 110px}
+	.member_speed{margin-left:30px;}
+	.stand_tweetitem{padding:0 50px;}
+	.stand_add{right:0px;left:auto;}
+	.stand_chart{width: 510px;background-size: cover}
+}
+@media screen and (max-width:1300px){
+.stand{width: 900px;right: 10px;left:auto;margin-left:0;}
+	.member_item {width: 200px}
+	.member_name{width: 110px}
+	.member_speed{margin-left:10px;}
+	.stand_tweetitem{padding:0 20px;}
+	.stand_add{right:0px;left:auto;}
+	.stand_chart{width: 450px;height:450px;background-size: cover}
+}
+
+
 /* tweet */
-.tweet{width: 960px;position: absolute;height:770px;left:50%;top:50%;margin: -385px 0 0 -480px; }
+.tweet{width: 960px;position: absolute;height:770px;left:50%;top:50%;margin: -385px 0 0 -360px; }
 	.tweet_item{width: 300px;height: 370px;border:#f00 solid 4px;color:#f00;position: absolute;}
 	.tweet_item1{top:228px;}
 	.tweet_item2{color:#06f;border-color:#06f;left:320px;}
@@ -127,9 +160,16 @@ body{background:#000;height: 100%;width: 100%}
 			.tweet_user img{float: left;}
 			.tweet_username{float: right;width: 200px;text-align: center;line-height: 74px;font-weight: bold;font-size: 14px}
 		.tweet_com{padding:10px;font-weight:bold;}
-			.tweet_com img{padding:10px 0;width: 280px}
+			.tweet_com img{padding:10px 0;width:100%}
 	.tweet_add{position: absolute;right: 0;top:50%;border: #f00 solid 3px;width:120px;height: 120px;line-height: 120px;font-size: 40px;color:#f00; text-align: center;margin-top:-63px;}
 
+@media screen and (max-width:1300px){
+.tweet{width: 800px;margin-left:-240px;}
+.tweet_item2,
+.tweet_item3{left:300px;}
+	.tweet_item{width: 250px}
+	.tweet_username{width: 150px}
+}
 
 
 /* countdown */
