@@ -8,8 +8,12 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
+      <?php if (UserAR::crtuser()): ?>
       window.from = "<?php echo UserAR::crtuser()->from?>";
       window.topic = "<?php echo Yii::app()->params["topic"]?>";
+      <?php else:?>
+        window.from = "";
+      <?php endif;?>
     </script>
 </head>
 <body class="bg1" data-page="<?php echo $this->page_name?>">

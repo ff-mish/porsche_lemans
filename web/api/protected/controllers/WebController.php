@@ -23,9 +23,14 @@ class WebController extends Controller {
   // 生成邀请链接时候我们在URL上加了密，所以这里调用接口解密
   public function actionDecryptionURL() {
     $requst = Yii::app()->getRequest();
-    $data = $requst->getParam("d");
+    $d = $requst->getParam("d", FALSE);
+    if ($d) {
+      $userAr = new UserAR();
+      $data = $userAr->decryptionInvitedData($d);
+      Yii::app()->session["invited_data"] = $data;
+    }
     
-    $this->responseJSON($params);
+    $this->responseJSON($data, "success");
   }
   
   public function actionWelcome() {

@@ -39,9 +39,9 @@ class IndexController extends CController {
     $this->render("countdown", $params);
   }
   
-  public function actionFule() {
+  public function actionFuel() {
     $params = array(
-        "page_name" => "fule"
+        "page_name" => "fuel"
     );
     $this->page_name = $params["page_name"];
     $this->render("fule", $params);

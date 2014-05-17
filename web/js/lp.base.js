@@ -539,7 +539,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             title: "Invite User",
             className: "add-team-panel",
             submitButton: true,
-            onload: function(){
+            onload: function() {
                 //initSuggestion( this.$panel.find('textarea') );
                 
             },
@@ -571,15 +571,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             },
             onSubmit: function(){
                 var msg = this.$panel.find('textarea').val();
-                api.post( '/api/twitte/post' , {msg: msg} , function(){
+                api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
                     LP.right('success');
                 } );
             }
         });
     });
-
-
-
 
     LP.action('preview' , function( ev ){
         // show big pic or big video
@@ -649,6 +646,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             submitButton: true,
             className: "post-weibo-panel1",
             onload: function(){
+              
             },
             onSubmit: function(){
                 var msg = this.$panel.find('textarea').val();
@@ -662,28 +660,36 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('fuel-load' , function( data ){
         $(this).attr('disabled' , 'disabled');
         var page = parseInt( $(this).data( 'page' ) || 0 ) + 1;
-        var type = $(this).data( 'type' ) || 'pic';
+        var type = $(this).data( 'type' ) || '';
 
         $(this).data( 'page' , page );
 
         api.get('/api/media/list' , { page:page , type: type } , function( e ){
             // DEBUG.. render fuel item
-            e = {"data" :[{},{},{},{}]};
             $.each( e.data || [] , function( i , data ){
+              if (data["type"] == "video") {
+                data["video"] = 1;
+              }
                 LP.compile('fuel-tpl' , data , function( html ){
                     $('.fuellist').append( html );
+                    if (i >= e.data.length - 1) {
+                      callback();
+                    }
                 });
+                
             } );
+            
+            function callback(){
+              $(this).removeAttr('disabled');
 
-            $(this).removeAttr('disabled');
-
-            LP.use('isotope' , function(){
-                // first init isotope , render no animate effect
-                $('.fuellist')
-                    .isotope({
-                        resizable: false
-                    });
-            });
+              LP.use('isotope' , function(){
+                 // first init isotope , render no animate effect
+                 $('.fuellist')
+                     .isotope({
+                         resizable: false
+                     });
+              });
+            }
         });
     });
 
@@ -695,8 +701,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action('skip-intro' , function(data){
         $(this).parent().fadeOut();
     });
-
-
 
     LP.action('leaveteam' , function( e ){
         var self = $(this);
@@ -723,7 +727,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $('.loginipt input').live('blur',function(){
             if($(this).val() == ''){
                 $(this).next('.login_tips').show()
-            }                
+            }   
         });
 
 
@@ -807,7 +811,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                 if( times <= 0 ){
                                     t.close();
                                 }
-                            } , 1000);
+                            } , 1000 * 30);
                         },
                         onClose: function(){
                             clearInterval( timer );
@@ -825,7 +829,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var qtimes = 0;
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
-
 
         // init first page template
         switch( $(document.body).data('page') ){
@@ -902,6 +905,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 // page loaded
                 LP.triggerAction('fuel-load');
+                
                 break;
                 
               case "stand":

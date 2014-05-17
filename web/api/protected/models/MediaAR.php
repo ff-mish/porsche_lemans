@@ -52,6 +52,8 @@ class MediaAR extends CActiveRecord {
   public function afterFind() {
     $url = Yii::app()->getBaseUrl(TRUE);
     $this->uri = $url. $this->uri;
+    
+    $this->teaser_image = $url.$this->teaser_image;
     return parent::afterFind();
   }
   
@@ -59,7 +61,7 @@ class MediaAR extends CActiveRecord {
     return array(
         array("uri", "fileExit"),
         array("type, uri", "required"),
-        array("mid, cdate, udate, uid, media_link", "safe"),
+        array("mid, cdate, udate, uid, media_link, teaser_image", "safe"),
     );
   }
   
@@ -116,10 +118,11 @@ class MediaAR extends CActiveRecord {
    * @param type $uri
    * @param type $type
    */
-  public function saveNew($uri, $type, $media_url) {
+  public function saveNew($uri, $type, $media_url, $teaser_image = "") {
     $this->uri = $uri;
     $this->type = $type;
     $this->media_link = $media_url;
+    $this->teaser_image = $teaser_image;
     $ret = $this->save();
     $this->afterFind();
     return $ret;
@@ -132,8 +135,25 @@ class MediaAR extends CActiveRecord {
       $query->params = array(":type" => $type);
     }
     $query->offset = ($page - 1) * self::PAGE_ITEMS;
+    $query->limit = self::PAGE_ITEMS;
     
-    return $this->findAll($query);
+    $rows = $this->findAll($query);
+    
+    $data = array();
+    foreach ($rows as $row) {
+      $item = array();
+      if ($row->type == self::MEDIA_VIDEO) {
+        $item["image"] = $row->teaser_image;
+      }
+      else {
+        $item["image"] = $row->uri;
+      }
+      foreach ($row as $key => $val) {
+        $item[$key] = $val;
+      }
+      $data[] = $item;
+    }
+    return $data;
   }
   
   /**

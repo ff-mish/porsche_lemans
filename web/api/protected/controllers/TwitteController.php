@@ -1,5 +1,7 @@
 <?php
 
+Yii::import("ext.sinaWeibo.SinaWeibo_API");
+
 class TwitteController extends Controller {
   public function init() {
     return parent::init();
@@ -35,13 +37,23 @@ class TwitteController extends Controller {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     $msg = $request->getPost("msg");
-    $msg .= ' '.Yii::app()->params["topic"];
     
-    // 转发一个 微博 (repost)
+    // 转发一个 微博 (repost) 需要知道原始微博的 uuid 便于统计
     $uuid = $request->getPost("uuid", FALSE);
     
-    // 评论一个微博 (reply)
+    // 评论一个微博 (reply)  需要知道评论人的 screen_name 便于统计 
     $screen_name = $request->getPost("screen_name", FALSE);
+    // 评论一个微博 (reply)  需要知道原始微博的 uuid便于统计 
+    $screen_name = $request->getPost("uuid", FALSE);
+    
+    // 自己系统发的一个微博
+    $from = $request->getPost("from", "FALSE");
+    if ($from == "web") {
+      $host = parse_url(Yii::app()->getBaseUrl(TRUE), PHP_URL_HOST);
+      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+      $short_urls = $weibo_api->short_url_shorten("http://". $host);
+      $msg = Yii::app()->params["topic"]." ". $msg. " ". $short_urls["urls"][0]["url_short"];
+    }
     
     $twitteAr = new TwitteAR();
     $ret = $twitteAr->twittePost($msg);

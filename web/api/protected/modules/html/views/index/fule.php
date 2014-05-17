@@ -24,12 +24,15 @@
 	<!--  -->
 	<script type="text/tpl" id="fuel-tpl">
 <div class="fuelitem">
-	<img src="images/fueldemo1.jpg" />
+	<img src="{{image}}" style="width:100%"/>
 	<div class="fuelshade" style="display:none"></div>
 	<div class="fuelbtnbox" style="display:none">
 		<div class="fuelbtn fuelbtn1" data-a="repost"></div>
 		<div class="fuelbtn fuelbtn2"data-a="preview"></div>
 	</div>
+  {{#if video}}
+    <div data-video="{{uri}}" class="video-uri" style="display:none"/>
+  {{/if}}
 </div>
 	</script>
 <!--  -->

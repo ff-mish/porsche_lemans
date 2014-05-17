@@ -8,6 +8,7 @@ class MediaController extends Controller {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     
+    // Fuel 的访问地址
     $media_url = $request->getPost("media_url");
     
     $media_ar = new MediaAR();
@@ -41,11 +42,24 @@ class MediaController extends Controller {
       $save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
       $video->saveAs($save_to);
       
+      
+      // Teaser image
+      $teaserImage = CUploadedFile::getInstanceByName("teaser_image");
+      $file_type = $teaserImage->getType();
+      // 图片格式应该和Fuel 的 图片格式一样
+      if (!MediaAR::isAllowed($file_type, MediaAR::MEDIA_IMAGE)) {
+        return $this->responseJSON("file type is not allowed", ErrorAR::ERROR_FILE_UPLOADED_ERROR);
+      }
+      $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_IMAGE);
+      $teaser_save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
+      $teaserImage->saveAs($teaser_save_to);
+      $teaserUri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $teaser_save_to);
+      
       // save to db
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_VIDEO;
       
-      $media_ar->saveNew($uri, $type, $media_url);
+      $media_ar->saveNew($uri, $type, $media_url, $teaserUri);
       
       $this->responseJSON($media_ar, "success");
     }

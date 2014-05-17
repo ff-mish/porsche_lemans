@@ -259,6 +259,12 @@ class TestController extends Controller {
     {
         echo Yii::t('lemans','The Race') ;
     }
+    
+    public function actionInvite() {
+      $msg = "我要邀请你 @user and @小吃米粉王 @吃_葡萄";
+      UserAR::getAtScreenNameFromMsg($msg);
+      $this->render("invite");
+    }
 
 
 }

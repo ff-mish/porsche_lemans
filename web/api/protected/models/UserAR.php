@@ -123,12 +123,15 @@ class UserAR extends CActiveRecord {
     $encrpted_str = $this->encrypt_decrypt("e", $str);
     $request = Yii::app()->getRequest();
     $base_url = $request->getBaseUrl(TRUE);
-    return $base_url. '?d='. base64_encode($encrpted_str);
+    $host = parse_url($base_url, PHP_URL_HOST);
+    $schema = parse_url($base_url, PHP_URL_SCHEME);
+    $base_host = $schema."://".$host;
+    return $base_host. '?d='. base64_encode($encrpted_str);
   }
   
   
   /**
-   * 解密强求数据
+   * 解密请求数据
    * @param type $str
    * @return boolean
    */
@@ -226,11 +229,24 @@ class UserAR extends CActiveRecord {
       // Step2, 用户保存成功后，需要把用户自动分组，分组是根据 Invite uid 来分配的.
       // 如果用户有邀请者，则将用户加入到组中去
       if ($inviter) {
-        $this->user_join_team($inviter);
+        // 这里分情况处理, 
+        // 如果用户是点击链接进来 但是又不是邀请来的用户，我们不做处理
+        // 只有是用户邀请来的，才会被自动加入到小组
+        $invited_uid = $invited_data["invited_uid"];
+        if (in_array($uuid, $invited_uid)) {
+          $userAr = new UserAR();
+          $teamOwner = $userAr->load_user_by_uuid($inviter);
+          $this->user_join_team($teamOwner->uid);
+        }
+        // 如果用户没有邀请者 我们自动生成一个team
+        else {
+          TeamAR::newteam("new team");
+        }
       }
       // 否则用户自己创建一个组
       else {
         //TODO:: 用户登录成功后 有没有必要自动生成一个组???
+          TeamAR::newteam("new team");
       }
     }
   }
@@ -279,7 +295,13 @@ class UserAR extends CActiveRecord {
         return FALSE;
       }
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
-      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL("20120302", ""));
+      // 获取邀请者的资料
+      $invited_user = array();
+      $weibo_users = UserAR::getAtScreenNameFromMsg($msg);
+      foreach ($weibo_users as $weibo_user) {
+        $invited_user[] = $weibo_user["idstr"];
+      }
+      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($uid, $invited_user));
       $url = $short_url["urls"][0]["url_short"];
       $ret = $weibo_api->update($msg.' '. $url);
       
@@ -334,10 +356,14 @@ class UserAR extends CActiveRecord {
    * @param type $uid 队长的 uid
    */
   public function user_join_team($uid) {
-    $teamAr = TeamAR::model()->find("owner_uid = :owner_uid", array(":owner_uid" => $uid));
+    $query = new CDbCriteria();
+    $query->addCondition("owner_uid=:owner_uid");
+    $query->params[":owner_uid"] = $uid;
+    $teamAr = TeamAR::model()->find($query);
     if ($teamAr) {
+      $user = self::crtuser();
       $team_user_ar = new UserTeamAR();
-      $team_user_ar->uid = $this->uid;
+      $team_user_ar->uid = $user->uid;
       $team_user_ar->tid = $teamAr->tid;
       if ($team_user_ar->save()) {
         return $team_user_ar;
@@ -377,6 +403,29 @@ class UserAR extends CActiveRecord {
     
     $userTeamAr = new UserTeamAR();
     return $userTeamAr->leaveTeam($uid);
+  }
+  
+  /**
+   * 从一段字符串中返回  @用户 
+   */
+  public static function getAtScreenNameFromMsg($msg) {
+    $matches = array();
+    header("Content-Type: text/html; charset=utf-8");
+    preg_match_all("/@([\p{L}\p{Mn}_]+)/u", $msg, $matches);
+    
+    if ($matches && count($matches) > 1) {
+        $screenNames = $matches[1];
+        $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+        // 获取用户高级接口后 开启这个方法
+        //$weibo_users = $weibo_api->users_show_batch_by_name($screenNames);
+        $weibo_users = array();
+        foreach ($screenNames as $screenName) {
+          $ret = $weibo_api->show_user_by_name($screenName);
+          $weibo_users[] = $ret;
+        }
+    }
+    
+    return $weibo_users;
   }
 }
 
