@@ -88,6 +88,6 @@ return array(
         // this is used in contact page
         'adminEmail' => 'jziwenchen@gmail.com',
         "weibo_uid" => "5072167230",
-        'startTime'=>'2014-05-13 02:43:07',
+        'startTime'=>'2014-05-13 12:00:00',
     ),
 );

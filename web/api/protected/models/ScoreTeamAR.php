@@ -15,7 +15,7 @@ class ScoreTeamAR extends CActiveRecord {
   
   public function rules() {
     return array(
-        array("tsid,tid, calculate_time, speed,quality, assiduity,impact,average", "safe"),
+        array("tsid,tid, cdate, speed,quality, assiduity,impact,average", "safe"),
     );
   }
 
@@ -29,7 +29,7 @@ class ScoreTeamAR extends CActiveRecord {
   public function beforeSave() {
 //    $this->udate = date("Y-m-d H:i:s");
     if ($this->isNewRecord) {
-      $this->calculate_time = date("Y-m-d H:i:s");
+      $this->cdate = date("Y-m-d H:i:s");
     }
     return TRUE;
   }

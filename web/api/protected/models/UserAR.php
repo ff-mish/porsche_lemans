@@ -266,6 +266,7 @@ class UserAR extends CActiveRecord {
 
       if ($team_user) {
         $user->team = $team_user->team;
+        $user->team->loadMembers();
       }
       else {
         $user->team = NULL;

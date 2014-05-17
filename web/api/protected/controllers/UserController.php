@@ -151,8 +151,13 @@ class UserController extends Controller{
     );
     
     if ($user->team) {
+      $team_data = array();
+      foreach ($user->team as $key => $val) {
+        $team_data[$key] = $val;
+      }
+      $team_data["users"] = $user->team->users;
       $data += array(
-        "team" => $user->team,
+        "team" => $team_data,
         "last_post" => $user->team->last_post,
       );
     }
@@ -162,8 +167,6 @@ class UserController extends Controller{
           "last_post" => array()
       );
     }
-    
-    // Get Last Twitte
     
     $this->responseJSON($data, "success");
   }

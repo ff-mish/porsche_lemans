@@ -11,10 +11,68 @@
  */
 class UscoreCommand extends CConsoleCommand
 {
-    public function run($args) {
-       $this->score();
-    }
+//    public function run($args) {
+//       $this->score();
+//    }
+  
+    public function actionScore() {
+      // 每小时发帖数量限制
+      $max_twitte_per_hour = 40;
+      $users = UserAR::model()->findAll();
+      
+      foreach ($users as $user) {
+        // Speed: 发帖 速度
+        // 开始时间
+        $start_date = date("Y-m-d H", strtotime(Yii::app()->params["startTime"]));
+        // 现在时间
+        $now_date = date("Y-m-d H");
 
+        // 相差几个小时？ 
+        $time_step = round( (strtotime($now_date.":00:00") - strtotime($start_date.":00:00")) / ( 60 * 60) );
+
+        // 每个小时 我分别计算出来速度，然后再平均
+        $speeds = array();
+        $s_date = $start_date;
+        for ($i = 0; $i < $time_step; $i++) {
+          // 构造查询条件
+          $t = strtotime($s_date.":00:00") + 60 * 60;
+          $n_date = date("Y-m-d H", $t);
+          $query = new CDbCriteria();
+          $query->addCondition("cdate >= :s_date AND cdate < :n_date");
+          $query->params[":s_date"] = $s_date;
+          $query->params[":n_date"] = $n_date;
+          
+          $query->addCondition("uid=:uid");
+          $query->params[":uid"] = $user->uid;
+
+          $count = TwitteAR::model()->count($query);
+          $s_speed = $count > $max_twitte_per_hour  ? "1" : round($count / $max_twitte_per_hour, 1);
+          $speeds[] = $s_speed;
+
+          // 时间轮回
+          $s_date = $n_date;
+        }
+
+        $speed = round(array_sum($speeds) / $time_step, 1);
+
+        // Impact: 粉丝数
+        // 个人只记粉丝数 不记比分
+        $impact = $user->friends;
+        
+        // 保存记录
+        $scoreUserAr = new ScoreUserAR();
+        $scoreUserAr->uid = $user->uid;
+        $scoreUserAr->speed = $speed;
+        $scoreUserAr->impact = $impact;
+        $scoreUserAr->cdate = date("Y-m-d H:i:s");
+        
+        print "run score cron job for user: [{$user->name}]"."\r\n";
+        $scoreUserAr->save();
+      }
+      
+    }
+    
+    
     public function score()
     {
         set_time_limit(0);  //临时设置脚本运算为不限时
