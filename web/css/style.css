@@ -3,17 +3,28 @@
  * PORSCHE
  * zx 2014 05 04
  */
+@font-face {
+    font-family: 'PorscheNewsGothic-Bold';
+    src: url('lt21023.eot');
+    src: url('lt21023.eot?#iefix') format('embedded-opentype'),
+    url('lt21023.woff') format('woff'),
+    url('lt21023.ttf') format('truetype'),
+    url('lt21023.svg#PorscheNewsGothic-Bold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* Reset
 ================================================================================================= */
 html{}
-body{font-family:FranklinGothicLT,"Microsoft Yahei",simsun,arial,sans-serif;color:#fff;font-size:12px;line-height:1.666em;background: #fff;}
+body{font-family:"PorscheNewsGothic-Bold",FranklinGothicLT,"Microsoft Yahei",simsun,arial,sans-serif;color:#fff;font-size:12px;line-height:1.666em;background: #fff;}
 h1,h2,h3{font-size:100%;}
 body,h1,h2,h3,h4,ul,li,p,img,div{margin:0;padding:0;border:0;}
 img{margin:0;line-height:normal;}
 em,i{font-style:normal;text-decoration:none}
 ul{list-style:none;}
 table{border-collapse:collapse;border-spacing:0;}
+textarea {font-family:"PorscheNewsGothic-Bold",FranklinGothicLT,"Microsoft Yahei",simsun,arial,sans-serif;}
 
 /* Commonly Used
 ================================================================================================= */
@@ -290,3 +301,42 @@ body{background:#000;height: 100%;width: 100%}
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
 
+.popup_box {position:fixed;left:50%;top:50%;}
+.popup_dialog {width:742px;margin:-150px 0 0 -371px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_msg {font-size:30px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_btns {text-align: center;margin:40px 0 40px 0;}
+.popup_dialog_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:38px;line-height:38px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_btns a:hover {opacity:0.7;}
+.popup_dialog_options {text-align:center;margin:20px 0 40px 0;}
+.popup_dialog_options label {cursor:pointer;display:inline-block;font-size:15px;color:#f00000;background:url(../images/qa_option.gif) no-repeat;height:22px;padding:0 0 0 30px;margin:0 20px 0 0;}
+.popup_dialog_options label:hover {background-position:0 -82px;}
+.popup_dialog_options input {display:none;}
+
+.popup_invite {background:#000;width:860px;height:450px;margin:-225px 0 0 -450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_invite .friend_item {float:left;width:214px;margin:25px 0;}
+.popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
+.popup_invite .friend_item .name {font-size:18px;margin:10px 0;}
+.popup_invite .friend_item .send {font-size:14px;color:#ff0000;cursor: pointer;}
+.popup_invite .friend_item .send:hover {opacity:0.7;}
+.popup_invite .friend_item .btns {margin:0 0 0 83px;}
+.popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}
+.popup_invite .popup_invite_btns {text-align: center;margin:20px 0 0;}
+.popup_invite .popup_invite_btns a {color:#ff0000;font-size:25px;text-decoration:underline;}
+.popup_invite .popup_invite_btns a:hover {opacity:0.7;}
+
+.popup_post textarea {resize:none;width:100%;height:100%;background:none;border:none;color:#fff;}
+.popup_post_with_photo textarea {width:470px;}
+.popup_post .popup_dialog_msg {display: block;text-align:left;font-size:20px;padding:10px 20px;}
+.popup_post .popup_post_photo {float:left;margin:0 20px 0 0;}
+
+.popup_fuel {background: #000;width:900px;padding:30px 0 0;margin:-300px 0 0 -450px;}
+.popup_fuel .popup_close {background: url('../images/fuel_close.png') no-repeat;width:50px;height:50px;position:absolute;right:20px;top:20px;}
+.popup_fuel h4 {font-size:30px;line-height: 30px;text-align: center;margin:0 0 30px 0;}
+.popup_fuel .popup_fuel_video {text-align: center;}
+.popup_fuel .popup_fuel_btns {text-align: center;margin:30px 0 40px 0;}
+.popup_fuel .popup_fuel_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:38px;line-height:38px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_fuel .popup_fuel_btns a:hover {opacity:0.7;}
+.popup_fuel .popup_fuel_btns a.repost {background:#ff0000 url('../images/icon_repost.png') no-repeat 19px 7px;text-indent:35px;}
+.popup_fuel .popup_fuel_photo_left {float:left;width:380px;margin:20px 50px 50px 50px;}
+.popup_fuel .popup_fuel_photo_right {float:left;width:340px;margin-top:45px;font-size:16px;line-height:140%;}
+.popup_fuel .popup_fuel_photo_description {text-align: justify;}
