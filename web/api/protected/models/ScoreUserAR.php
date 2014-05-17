@@ -29,9 +29,9 @@ class ScoreUserAR extends CActiveRecord {
     /**
      * 返回当前用户当前积分
      */
-    public function getUserScore($uid)
+    public static function getUserScore($uid)
     {
-        $userScore=$this->find(
+        $userScore=self::model()->find(
             array(
                 "condition" => "uid=:uid",
                 "params" => array(':uid'=>$uid),

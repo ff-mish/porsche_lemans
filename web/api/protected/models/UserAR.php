@@ -20,6 +20,8 @@ class UserAR extends CActiveRecord {
   
   public $team;
   
+  public $score;
+  
   public function __init() {
     $this->weibo = new SinaWeibo(WB_AKEY, WB_SKEY);
     return parent::init();
@@ -427,6 +429,13 @@ class UserAR extends CActiveRecord {
     }
     
     return $weibo_users;
+  }
+  
+  public function afterFind() {
+    // 获取 统计记分
+    $score = ScoreUserAR::getUserScore($this->uid);
+    $this->score = $score;
+    return parent::afterFind();
   }
 }
 

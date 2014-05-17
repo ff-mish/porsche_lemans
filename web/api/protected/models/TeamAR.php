@@ -3,7 +3,11 @@
 class TeamAR extends CActiveRecord {
   public $users;
   public $last_post;
+  public $score;
+  
   const LAST_POST_NUM = 3;
+  
+  
   public function tableName() {
     return "teams";
   }
@@ -64,8 +68,13 @@ class TeamAR extends CActiveRecord {
   }
   
   public function afterFind() {
+    // 获取最新Post
     $twitteAr = new TwitteAR();
     $this->last_post = $twitteAr->getTeamLastPost($this->tid);
+    // 获取 统计记分
+    $score = ScoreTeamAR::getTeamScore($this->tid);
+    $this->score = $score;
+    
     return parent::afterFind();
   }
   
@@ -111,6 +120,7 @@ class TeamAR extends CActiveRecord {
       $users[] = $user;
     }
     $this->users = $users;
+    
     return $users;
   }
 }

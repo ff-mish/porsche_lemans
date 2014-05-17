@@ -37,13 +37,13 @@ class ScoreTeamAR extends CActiveRecord {
     /**
      * 返回当前用户所属团队的最新积分
      */
-    public function getTeamScore($tid)
+    public static function getTeamScore($tid)
     {
-        $teamScore=$this->find(
+        $teamScore = self::model()->find (
             array(
                 "condition" => "tid=:tid",
                 "params" => array(':tid'=>$tid),
-                'order'=>'calculate_time DESC',
+                'order'=>'cdate DESC',
             )
         );
         return $teamScore;
