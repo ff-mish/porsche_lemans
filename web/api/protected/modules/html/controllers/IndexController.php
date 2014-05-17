@@ -86,5 +86,13 @@ class IndexController extends CController {
     $this->page_name = $params["page_name"];
     $this->render("tweet", $params);
   }
+  
+  public function actionMonitoring() {
+    $params = array(
+        "page_name" => "monitoring"
+    );
+    $this->page_name = $params["page_name"];
+    $this->render("monitoring", $params);
+  }
 }
 

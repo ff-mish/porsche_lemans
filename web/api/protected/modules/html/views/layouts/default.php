@@ -7,6 +7,10 @@
     <title>PORSCHE</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+      window.from = "<?php echo UserAR::crtuser()->from?>";
+      window.topic = "<?php echo Yii::app()->params["topic"]?>";
+    </script>
 </head>
 <body class="bg1" data-page="<?php echo $this->page_name?>">
 	<!--  -->

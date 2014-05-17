@@ -3,6 +3,74 @@
  */
 LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     'use strict'
+    
+    function retweetMonitoring() {
+      var self = $(this);
+      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
+      var msg = self.parents(".tweet-signle-item").find(".profile-msg").text();
+      LP.panel({
+        type: "panel",
+        "content": "<textarea name='msg'>"+msg+"</textarea><input name='uuid' type='hidden' value='"+uuid+"'/>",
+        "title": "",
+        mask: true,
+        style: "default",
+        className: "retweet popup",
+        destroy: true,
+        submitButton: true,
+        cancelButton: true,
+        submitText: _e("Repost"),
+        cancelText: _e("Cancel"),
+        closeAble: false,
+        onShow: function () {
+          //TODO::
+        },
+        onSubmit: function () {
+          var textarea = this.$panel.find('textarea');
+          var uuid  = this.$panel.find("input[name='uuid']");
+          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
+            
+          });
+        },
+        onCancel: function () {
+          
+        },
+        width: $(window).width() * 0.6,
+      });
+    }
+    
+    function commentMonitoring() {
+      var self = $(this);
+      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
+      var screen_name = self.parents(".tweet-signle-item").find(".title").text();
+      LP.panel({
+        type: "panel",
+        "content": "<textarea name='msg'>"+screen_name+" " + window.topic +"</textarea>",
+        "title": "",
+        mask: true,
+        style: "default",
+        className: "retweet popup",
+        destroy: true,
+        submitButton: true,
+        cancelButton: true,
+        submitText: _e("Repost"),
+        cancelText: _e("Cancel"),
+        closeAble: false,
+        onShow: function () {
+          //TODO::
+        },
+        onSubmit: function () {
+          var textarea = this.$panel.find('textarea');
+          var uuid  = this.$panel.find("input[name='uuid']");
+          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
+            
+          });
+        },
+        onCancel: function () {
+          
+        },
+        width: $(window).width() * 0.6,
+      });
+    }
 
     // widgets and common functions here
     // ======================================================================
@@ -638,8 +706,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     });
 
-    
-
 
     // page init here
     // =======================================================================
@@ -855,6 +921,47 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 dragCoordinate( $('.stand_chart') );
                 break;
+                
+            case "monitoring":
+              var tweetGroup = $(".tweet-con .tweet-list");
+              api.get("/api/twitte", function (e) {
+                function callbackRender(index, group) {
+                  for (var i = 0; i < group.length; i++) {
+                    var tweet = {
+                      media: group[i]["media"],
+                      date: group[i]["date"],
+                      name: group[i]["user"]["name"],
+                      from: group[i]["from"],
+                      content: group[i]["content"],
+                      uuid: group[i]["uuid"]
+                    };
+                    LP.compile("tweet-item-tpl", tweet, function(html) {
+                      $($(".item", tweetGroup).get(index)).children(".tweet-items").append(html);
+                    });
+                  }
+                  if (group.length <= 0) {
+                    $($(".item", tweetGroup).get(index)).children(".tweet-items").append("<li class='tweet-signle-item clearfix'>empty</li>");
+                  }
+                }
+                
+                var group1 = e["data"]["web"];
+                callbackRender(0, group1);
+                
+                var group2 = e["data"]["user"];
+                callbackRender(1, group2);
+                
+                var group3 = e["data"]["team"];
+                callbackRender(2, group3);
+                
+                var group4 = e["data"]["topic"];
+                callbackRender(3, group4);
+                
+                $(".btns .retweet").live("click", retweetMonitoring);
+                $(".btns .comment").live("click", commentMonitoring);
+              });
+              
+              
+              break;
         }
     });
 });

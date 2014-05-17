@@ -160,7 +160,7 @@ class TwitteAR extends CActiveRecord {
           else {
             $video_link = $media->media_link;
             $content .= " ". $video_link;
-            $weibo_api->update($content);
+            $ret = $weibo_api->update($content);
           }
         }
         else if ($this->type == UserAR::FROM_TWITTER) {
@@ -181,7 +181,13 @@ class TwitteAR extends CActiveRecord {
         if ($this->type == UserAR::FROM_WEIBO) {
           $token = UserAR::token();
           $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
-          $weibo_api->update($content);
+          $ret = $weibo_api->update($content);
+          
+          $uuid = $ret["idstr"];
+          
+          $tweet = $this->findByPk($this->tid);
+          $tweet->uuid = $uuid;
+          $tweet->update();
         }
         else if ($this->type == UserAR::FROM_TWITTER) {
           Yii::app()->twitter->status_update($content);
@@ -193,7 +199,7 @@ class TwitteAR extends CActiveRecord {
     return parent::afterSave();
   }
   
-  public function getListInLevel($level, $num = 1) {
+  public function getListInLevel($level, $num = 4) {
     $query = new CDbCriteria();
     $params = array();
     $user = UserAR::crtuser();
@@ -208,7 +214,7 @@ class TwitteAR extends CActiveRecord {
     $uids = array();
     if ($level == self::LEVEL_USER) {
       $uids[] = $user->uid;
-      $query->addCondition("uid in (:uid)");
+      $query->addCondition($this->tableAlias.".uid in (:uid)");
       $params[":uid"] = implode(",", $uids);
     }
     else if ($level == self::LEVEL_TEAM) {
@@ -221,7 +227,7 @@ class TwitteAR extends CActiveRecord {
       foreach ($members as $member) {
         $uids[] = $member->uid;
       }
-      $query->addCondition("uid in (:uid)");
+      $query->addCondition($this->tableAlias.".uid in (:uid)");
       $params[":uid"] = implode(",", $uids);
     }
     else if ($level == self::LEVEL_TOPIC) {
@@ -236,15 +242,15 @@ class TwitteAR extends CActiveRecord {
       else {
         $uids[] = Yii::app()->params["weibo_uid"];
       }
-      $query->addCondition("uid in (:uid)");
+      $query->addCondition($this->tableAlias.".uid in (:uid)");
       $params[":uid"] = implode(",", $uids);
     }
     
-    $query->order = "cdate DESC";
+    $query->order = $this->tableAlias.".cdate DESC";
     $query->limit = $num;
     $query->params = $params;
     
-    $rows = $this->findAll($query);
+    $rows = $this->with("user")->findAll($query);
     
     // 然后获取微博对应的媒体
     $datas = array();
@@ -254,10 +260,24 @@ class TwitteAR extends CActiveRecord {
         $data[$key] = $v;
       }
       $data["media"] = $row->getMedia();
+      $data["user"] = $row->user;
+      $data["date"] = self::ago(strtotime($row["cdate"]));
       $datas[] = $data;
     }
     
     return $datas;
   }
+  
+  public static  function ago($timestamp){
+    $difference = time() - $timestamp;
+    $periods = array("second", "minute", "hour", "day", "week", "month", "years", "decade");
+    $lengths = array("60","60","24","7","4.35","12","10");
+    for($j = 0; $difference >= $lengths[$j]; $j++)
+    $difference /= $lengths[$j];
+    $difference = round($difference);
+    if($difference != 1) $periods[$j].= "s";
+    $text = "$difference $periods[$j] ago";
+    return $text;
+ }
 }
 
