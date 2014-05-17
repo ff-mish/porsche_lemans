@@ -133,20 +133,86 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     }
 
+    var questionTimerInit = function( $dom  , duration , cb ){
+        var width = $dom.width();
+        var r = width / 2;
+        duration = duration || 30000;
+        LP.use('raphaeljs' , function( Raphael ){
+            var paper = Raphael( $dom.get(0) , width , width );
+            var path = paper.path("").attr('fill' , '#f00');
+            // draw a circle
+            var circle = paper.circle( ~~r , ~~r , ~~r ).attr({
+                'fill': '#f00',
+                'stroke-width': 0
+            });
+
+            var rotateBlack = paper.rect(0 , 0 , width / 2 , width).attr({
+                'fill': '#000',
+                'stroke-width': 0
+            });
+            var topCircle = paper.path(['M' , ~~r , ' 0l0 ' , width , 'A' , ~~r  , ' ', ~~r , ' 0 0 1 ' , ~~r , ' 0'].join('') )
+                .attr({
+                    'fill': '#f00',
+                    'stroke-width': 0,
+                    zIndex: 2
+                });
+            var topBlack = paper.rect(width / 2 , 0 , width / 2 , width).attr({
+                'fill': '#000',
+                zIndex: 1
+            }).hide();
+
+            var now = new Date;
+            var lastper = 0;
+            var drawCircle = function(  ){
+                var d = new Date - now;
+                var per = d / duration;
+                if( per >= 1 ){
+                    //path.remove();
+                    cb && cb();
+                    return;
+                }
+                if( per > 0.5 ){
+                    topBlack.show();
+                    topCircle.hide();
+                }
+                rotateBlack.rotate( ( per - lastper ) * 360 , r , r  );
+                // var p = [
+                //     'M' , ~~(width/2) , ' 0l0 ' , ~~(width/2) ,
+                //     'l' , ~~(Math.sin(per * Math.PI * 2) * r) , ' ' , -~~(Math.cos(per * Math.PI * 2) * r),
+                //     'A' , ~~r , ' ' , ~~r , ' 0 ' , per > 0.5 ? 0 : 1 , ' 1 ' ,  ~~(width/2) , ' ' , 0 
+                // ].join("");
+
+                // console.log( p );
+                // path.attr('path' , p);
+                setTimeout( drawCircle , 1000 / 60 );
+                lastper = per;
+            }
+            setTimeout( drawCircle , 1000 / 60 );
+        });
+    }
     // left { max: xx , tip : '' , text: yyy }
-    var dragCoordinate = function( $dom , left , right , top , bottom ){
+    var drawCoordinate = function( $dom , left , right , top , bottom ){
         var width = $dom.width();
         var height = $dom.height();
         var ch = ~~( height / 2 );
         var cw = ~~( width / 2 );
-        var sw = 40; // step width
-        var sh = 7; // step height
+        
+        var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
 
         var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
             , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
 
 
-        var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
+        var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
+        var sh = 7; // step height
+
+        var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
+
+        left = [ center[0] - xwidth / 2 * left , xstart[1] ];
+        right = [ center[0] + xwidth / 2 * right , xstart[1] ];
+        top = [ ystart[0] , center[1] - yheight / 2 * top ];
+        bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
+        //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
         var pathAttr = {
             'stroke' : '#999',
@@ -164,30 +230,38 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
                 // 'M0 ' , ch , 'L' , width , ' ' , ch ,
                 'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
-            for( var i = 1 ; i * sw < xwidth ; i++ ){
+            for( var i = 1 ; i * sw <= xwidth ; i++ ){
                 xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
             }
             paper.path( xpath.join("") )
                 .attr(pathAttr);
 
-            paper.text( xstart[0] - 30 , xstart[1] , 'Impact' )
+            paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
                 .attr( textAttr );
-            paper.text( xend[0] + 30 , xend[1] , 'Quality' )
+            paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
                 .attr( textAttr );
-
-            // drag y
+            // add hover block
+            // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
+            //     .hover( function(){
+            //         alert(1);
+            //     } , function(){
+            //         alert(2);
+            //     })
+                //.attr({'fill': '#f00',opacity: 0.4});
+            // draw y
             var ypath = [
                 'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
                 //'M' , cw , ' 0L' , cw , ' ' , height ,
-                'M' , ystart[ 0 ] - ~~(sh/2) , ' 0l' , sh , ' 0' ];
-            for( var i = 1 ; i * sw < yheight ; i++ ){
+                'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
+            for( var i = 1 ; i * sw <= yheight ; i++ ){
                 ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
             }
+            console.log( ypath );
             paper.path( ypath.join("") ).attr(pathAttr);
 
-            paper.text( ystart[0] , ystart[1] - 10 , 'Speed t/h' )
+            paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
                 .attr( textAttr );
-            paper.text( yend[0] , yend[1] + 10  , 'Assiduite' )
+            paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
                 .attr( textAttr );
 
 
@@ -203,6 +277,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 "stroke-width": 3
             } );
         });
+
+        // init hover event
+        $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
+            .hover(function(){
+                // TODO ...
+            } , function(){
+                // TODO ...
+            });
     }
 
     var initSuggestion = (function(){
@@ -522,6 +604,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     }
 
 
+
     // page actions here
     // ======================================================================
     LP.action("login" ,function(){
@@ -530,18 +613,64 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         } );
         return false;
     });
+
+    LP.action("add-invite-user" , function(){
+        if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
+            > $('.teambuild_member .member_add').length ){
+            LP.error(" too much ");
+            return false;
+        }
+
+        $(this).hide().prev().show();
+    });
+
+    LP.action("remove-invite-user" , function(){
+        $(this).hide().next().show();
+    });
     
 
     LP.action("member_invent" , function(){
         LP.panel({
-            //content: "<p>email:<input name=\"email\" value=\"\" /></p><p><textarea cols='40' rows='5'></textarea></p>",
-            content: '<div class="member-list"></div>',
-            title: "Invite User",
-            className: "add-team-panel",
-            submitButton: true,
+            content: '<div class="popup_invite">\
+                    <div class="popup_invite_friend_list"></div>\
+                    <div class="cs-clear"></div>\
+                    <div class="popup_invite_btns">\
+                        <a href="javascript:void(0);">Ok</a>\
+                    </div>\
+                </div>',
+            title: '',
+            width: 860,
+            height: 450,
             onload: function() {
-                //initSuggestion( this.$panel.find('textarea') );
-                
+                var panel = this;
+                var uTpl = '<div class="friend_item">\
+                        <div class="avatar"><img src="#[avatar]"></div>\
+                        <div class="name">@#[name]</div>\
+                        <div class="btns">\
+                            <div class="selected" data-name="#[name]" data-a="remove-invite-user" style="display:none;"></div>\
+                            <div class="send" data-a="add-invite-user">Send Invitation</div>\
+                        </div>\
+                    </div>';
+                // load user list from sina weibo or twitter
+                api.get("/api/user/" , function( e ){
+                    var html = [];
+                    $.each( e.data , function( i , user ){
+                        html.push( LP.format( uTpl , {avatar: user.avater , name: user.name} ) );
+                    } );
+
+                    panel.$panel.find('.popup_invite_friend_list').html( html.join("") );
+                });
+
+                // set invite
+                panel.$panel.find('.popup_invite_btns a')
+                    .click(function(){
+                        // get user list
+                        var users = [];
+                        $('.popup_invite_friend_list .selected:visible').each(function(){
+                            users.push( $(this).data('name') );
+                        });
+                        api.post( '/api/user/invite' , {name: users.join(",")} );
+                    });
             },
             onSubmit: function(){
                 // var $input = this.$panel.find('input[name="email"]');
@@ -562,19 +691,41 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action("post_weibo" , function(){
         LP.panel({
-            content: "<textarea cols='40' rows='5'></textarea>",
+            content: '<div class="popup_dialog popup_post">\
+            <div class="popup_dialog_msg">\
+                <textarea>They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is</textarea>\
+            </div>\
+            <div class="popup_dialog_btns">\
+                <a href="javascript:void(0);" class="p-cancel">Cancel</a>\
+                <a href="javascript:void(0);" class="p-confirm">Confirm</a>\
+            </div',
             title: "",
-            submitButton: true,
-            className: "post-weibo-panel",
+            width: 784,
+            height: 352,
             onload: function(){
-                initSuggestion( this.$panel.find('textarea') );
-            },
-            onSubmit: function(){
-                var msg = this.$panel.find('textarea').val();
-                api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
-                    LP.right('success');
-                } );
+                var panel = this;
+                this.$panel.find('.lpn_ctrl_group').hide();
+                //initSuggestion( this.$panel.find('textarea') );
+                this.$panel.find('.p-cancel')
+                    .click(function(){
+                        panel.close();
+                    });
+                this.$panel.find('.p-confirm')
+                    .click(function(){
+                        var msg = panel.$panel.find('textarea').val();
+                        api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
+                            LP.right('success');
+                            panel.close();
+                        } );
+                    });
             }
+            // ,
+            // onSubmit: function(){
+            //     var msg = this.$panel.find('textarea').val();
+            //     api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
+            //         LP.right('success');
+            //     } );
+            // }
         });
     });
 
@@ -789,38 +940,40 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
                     var data = e.data;
-                    var content = "<dl><dt>";
-                    content += data.question + "</dt>";
+                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dialog_msg">';
+                    content += data.question + '</div><div class="popup_dialog_options">';
                     $.each( [1,2,3,4] , function( i ){
-                        content += '<dd><label><input type="radio" name="answer" value="' + ( i + 1 ) + '" />' + data['answer' + ( i + 1 ) ] + '</label></dd>';
+                        content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
                     } );
-                    content += "</dl>";
-
+                    content += "</div></div>";
 
                     LP.panel({
-                        title: 'this is QA<span></span>',
+                        title: '',
                         content: content,
-                        width: 300,
-                        height: 100,
-                        submitButton: true,
+                        width: 784,
+                        height: 296,
                         onload: function(){
                             var times = 10;
                             var t = this;
-                            timer = setInterval(function(){
-                                t.$panel.find('.hd span').html( "( closed after " + times-- + " seconds )" );
-                                if( times <= 0 ){
-                                    t.close();
-                                }
-                            } , 1000 * 30);
-                        },
-                        onClose: function(){
-                            clearInterval( timer );
-                        },
-                        onSubmit: function(){
-                            var t = this;
-                            api.post("/api/question/answer" , { answer: t.$panel.find('input[name="answer"]:checked').val() , qaid: data.qaid} , function(){
-                                t.close();
-                            });
+
+                            // init select event
+                            this.$panel.find('.popup_dialog_options label')
+                                .click(function(){
+                                    $(this).addClass('active')
+                                        .unbind('click')
+                                        .siblings()
+                                        .removeClass('active')
+                                        .unbind('click');
+
+                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function(){
+                                        t.close();
+                                    });
+                                });
+
+                            // init timer
+                            questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
+                                // TODO.. 
+                            } );
                         }
                     });
                 });
@@ -835,9 +988,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             case "index":
                 var ratio = 516 / 893;
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                    $('#' + this.Q).css('z-index' , -1);
-                } );
+                // renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
+                //     $('#' + this.Q).css('z-index' , -1);
+                // } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
@@ -918,12 +1071,27 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     }
                 });
 
+                // init team name
+                $('.team_name').blur(function(){
+                    api.post("/api/saveTeanName" , {name: this.value} );
+                })
+                $('.team_name').keyup(function( ev ){ 
+                    switch( ev.which ){
+                        case 13:
+                            $(this).trigger('blur');
+                            break;
+                    }
+                 });
+
                 // init member speed
                 rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
                 rotateAnimate( $('.member_speed').eq(1) , 240 , 360 , 45 );
                 rotateAnimate( $('.member_speed').eq(2) , 300 , 360 , 45 );
 
-                dragCoordinate( $('.stand_chart') );
+                drawCoordinate( $('.stand_chart') );
+
+                // TODO.. get latest posts
+
                 break;
                 
             case "monitoring":

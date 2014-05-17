@@ -1,16 +1,16 @@
 .lpn_wrapper{
-  border: 1px solid #3276B1;
+  /*border: 1px solid #3276B1;*/
   background: white;
   position:relative;
   text-align:left;
         border-radius: 4px;
    -moz-border-radius: 4px;
 
-     -moz-box-shadow    : 0px 0px 3px 1px #3276B1;
+ /*    -moz-box-shadow    : 0px 0px 3px 1px #3276B1;
        -o-box-shadow    : 0px 0px 3px 1px #3276B1;
       -ms-box-shadow    : 0px 0px 3px 1px #3276B1;
   -webkit-box-shadow    : 0px 0px 3px 1px #3276B1;
-          box-shadow    : 0px 0px 3px 1px #3276B1;
+          box-shadow    : 0px 0px 3px 1px #3276B1;*/
 }
 .lpn_wrapper .lpn_close {
   display: inline-block;

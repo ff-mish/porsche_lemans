@@ -12,7 +12,7 @@
 		</div>
 		<!-- stand -->
 		<div class="stand">
-			<div class="stand_tit"></div>
+			<div class="stand_tit"><input class="team_name" value="team name" /></div>
 			<!--  -->
 			<div class="teambuild_member stand_useritem cs-clear">
 				<div class="member_item ">
@@ -57,7 +57,16 @@
 				</div>
 			</div>
 			<!--  -->
-			<div class="stand_chart"></div>
+			<div class="stand_chart">
+				<div class="stand_chart_speed" >
+				</div>
+				<div class="stand_chart_quality" >
+				</div>
+				<div class="stand_chart_assiduite" >
+				</div>
+				<div class="stand_chart_impact" >
+				</div>
+			</div>
 			<!--  -->
 			<div class="stand_add"></div>
 

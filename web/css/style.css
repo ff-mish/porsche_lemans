@@ -125,7 +125,7 @@ body{background:#000;height: 100%;width: 100%}
 	.stand_tweet{color:#fefefe;opacity: 0.6;filter:alpha(opacity=60);padding: 40px 0 0}
 		.stand_tweet h2{font-size: 30px;padding:20px 0 0 0;text-transform: uppercase;width: 240px}
 		.stand_tweetitem{font-size: 14px;float: left;width: 220px;padding:0 70px;}
-	.stand_chart{width: 540px;height: 510px;position: absolute;right: 0;top: 0;background:url('../images/stand.png') no-repeat right top;}
+	.stand_chart{width: 540px;height: 510px;position: absolute;right: 0;top: 0;}
 	.stand_add{width: 60px;height: 60px;position: absolute;top:602px;left: 1032px;background:url('../images/stand.png') no-repeat -602px -1032px;cursor: pointer;}
 
 @media screen and (max-width:1600px){
@@ -253,7 +253,7 @@ body{background:#000;height: 100%;width: 100%}
 	background:url(../images/ring-black.png) no-repeat left top;
 }
 
-.post-weibo-panel {
+/*.post-weibo-panel {
   width: 50%;
   height: 25%;
 }
@@ -271,9 +271,9 @@ body{background:#000;height: 100%;width: 100%}
 .post-weibo-panel .lpn_wrapper .lpn_canvas textarea {
   width: 100%;
   height: 80%;
-}
+}*/
 
-.add-team-panel {
+/*.add-team-panel {
   width: 50%;
   height: 25%;
 }
@@ -295,24 +295,33 @@ body{background:#000;height: 100%;width: 100%}
 
 .input {
   width: 50%;
-}
+}*/
 
+.lpn_ctrl_group{display: none;}
+
+/*/stand*/
+.stand_chart_speed{position: absolute;border:1px solid red;top: 79px;z-index: 1;width: 100px;height: 50px;left: 175px;}
+.stand_chart_quality{position: absolute;border:1px solid red;top: 200px;z-index: 1;width: 100px;height: 50px;left: 314px;}
+.stand_chart_assiduite{position: absolute;border:1px solid red;top: 329px;z-index: 1;width: 100px;height: 50px;left: 175px;}
+.stand_chart_impact{position: absolute;border:1px solid red;top: 200px;z-index: 1;width: 100px;height: 50px;left: 54px;}
 
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
 
 .popup_box {position:fixed;left:50%;top:50%;}
-.popup_dialog {width:742px;margin:-150px 0 0 -371px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_msg {font-size:30px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns {text-align: center;margin:40px 0 40px 0;}
 .popup_dialog_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:38px;line-height:38px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
 .popup_dialog_options {text-align:center;margin:20px 0 40px 0;}
 .popup_dialog_options label {cursor:pointer;display:inline-block;font-size:15px;color:#f00000;background:url(../images/qa_option.gif) no-repeat;height:22px;padding:0 0 0 30px;margin:0 20px 0 0;}
-.popup_dialog_options label:hover {background-position:0 -82px;}
+.popup_dialog_options label:hover,.popup_dialog_options label.active {background-position:0 -82px;}
 .popup_dialog_options input {display:none;}
+.popup_timer{position: absolute;width: 50px;height: 50px;right: 24px;top: 24px;}
 
-.popup_invite {background:#000;width:860px;height:450px;margin:-225px 0 0 -450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+
+.popup_invite {background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_invite .friend_item {float:left;width:214px;margin:25px 0;}
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .name {font-size:18px;margin:10px 0;}
