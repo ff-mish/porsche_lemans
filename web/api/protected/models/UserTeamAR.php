@@ -11,6 +11,7 @@ class UserTeamAR extends CActiveRecord {
   
   public function rules() {
     return array(
+        array("uid, tid", "required"),
         array("uid, tid", 'safe'),
     );
   }
@@ -31,6 +32,19 @@ class UserTeamAR extends CActiveRecord {
     if ($this->isNewRecord) {
       $this->cdate = date("Y-m-d H:i:s");
     }
+    
+    $uid = $this->uid;
+    $tid = $this->tid;
+    // 避免重复加组
+    $query = new CDbCriteria();
+    $query->addCondition("uid=:uid");
+    $query->addCondition("tid=:tid");
+    $query->params = array(":uid" => $uid, ":tid" => $tid);
+    if ($this->find($query)) {
+      $this->addError("uid", "User has joined team");
+      return FALSE;
+    }
+    
     return TRUE;
   }
   

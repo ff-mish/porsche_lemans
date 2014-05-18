@@ -13,6 +13,7 @@
 		<!-- stand -->
 		<div class="stand">
       <div style="display:none" id="data-stand"
+           data-is_invited="<?php echo $is_invited ? 1: 0?>"
            data-team_name="<?php echo htmlspecialchars($team_name)?>" 
            data-team_owner_uid="<?php echo $team_owner_uid?>">
       </div>

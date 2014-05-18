@@ -54,6 +54,19 @@ class TeamAR extends CActiveRecord {
   }
   
   public function afterSave() {
+    // 这里要判断下， 当新添加一个team 之前
+    // 我们需要判断用户是否属于一个Team 了 
+    // 如果是我们不能让它添加一个team
+    $_uid = $this->uid;
+    $_tid = $this->tid;
+    $query = new CDbCriteria();
+    $query->addCondition("uid=:uid")
+            ->addCondition("tid=:tid");
+    $query->params = array(":tid" => $_tid, ":uid" => $_uid);
+    if ($this->find($query)) {
+      return $this->addError("uid", "user has joined team");
+    }
+    
     // 自动把队长加入到team 组员里去
     $tid = $this->tid;
     $uid = $this->owner_uid;
