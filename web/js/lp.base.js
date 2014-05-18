@@ -93,7 +93,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var blackPath = paper.path( "" )
                     .attr("stroke", "#000")
                     .attr("stroke-width" , stockWidth);
-            var text = paper.text( width / 2 , height / 2 , "0%" ) 
+            var text = paper.text( width / 2 , height / 2 , "0 T/M" ) 
                 .attr({stroke: "#fff"});
 
             var now = new Date();
@@ -123,7 +123,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 )
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/M' );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -764,7 +764,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action("add-invite-user" , function(){
         if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
-            > $('.teambuild_member .member_add').length ){
+            >= $('.teambuild_member .member_add').length ){
             LP.error(" too much ");
             return false;
         }
@@ -881,15 +881,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action('preview' , function( ev ){
         // show big pic or big video
-
         var $img = $(this)
             .closest('.fuelitem')
             .children('img');
         var imgH = $img.height();
-        var imgW = $img.width();;
+        var imgW = $img.width();
+        var video = $(this).closest('.fuelitem').data('video');
         LP.panel({
-            content: "<img src=\"" + $img.attr('src') + "\"/>",
-            title: "share the content",
+            content: "<div class='fuel-content-wrap' style='overflow:hidden;'><img src=\"" + $img.attr('src') + "\"/></div>",
+            //title: "share the content",
+            title: '',
             submitButton: true,
             onShow: function(){
                 this.$panel.find('.lpn_panel')
@@ -900,24 +901,32 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .animate({
                         marginTop: 0,
                         opacity: 1
-                    } , 500 , 'easeOutQuart');
+                    } , 500 , 'easeOutQuart' , function(){
+                        var imgH = $('.fuel-content-wrap img').height();
+                        var imgW = $('.fuel-content-wrap img').width();
+                        if( video ){ // play the video
+                            $('.fuel-content-wrap img').hide();
+                            renderVideo( $('.fuel-content-wrap').css({width: imgW , height: imgH}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {} );
+                        }
+
+                        $(window).on('resize.fixfuel' , function(){
+                            var maxH = $(window).height() - 20;
+                            var maxW = $(window).width() - 20;
+                            var tarW = imgW , tarH = imgH;
+                            if( maxH / maxW > imgH / imgW && maxW < imgW ){
+                                tarH = imgH / imgW * maxW;
+                                tarW = maxW;
+                            } else if( maxH / maxW < imgH / imgW && maxH < imgH ){
+                                tarW = imgW / imgH * maxH;
+                                tarH = maxH;
+                            }
+
+                            // resize the panel
+                            panel.resize( tarW , tarH );
+                        });
+                    } );
 
                 var panel = this;
-                $(window).on('resize.fixfuel' , function(){
-                    var maxH = $(window).height() - 20;
-                    var maxW = $(window).width() - 20;
-                    var tarW = imgW , tarH = imgH;
-                    if( maxH / maxW > imgH / imgW && maxW < imgW ){
-                        tarH = imgH / imgW * maxW;
-                        tarW = maxW;
-                    } else if( maxH / maxW < imgH / imgW && maxH < imgH ){
-                        tarW = imgW / imgH * maxH;
-                        tarH = maxH;
-                    }
-
-                    // resize the panel
-                    panel.resize( tarW , tarH );
-                });
             },
             onBeforeClose: function(){
                 var $panel = this.$panel;
