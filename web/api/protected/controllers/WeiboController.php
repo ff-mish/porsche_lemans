@@ -22,6 +22,7 @@ class WeiboController extends Controller
 	public function actionCallback(){
     // Step1, 获取回调的 Code
 		$weiboService=new SinaWeibo(WB_AKEY, WB_SKEY);
+    $token = FALSE;
 		if (isset($_REQUEST['code'])) {
 			$keys = array();
 
@@ -33,6 +34,9 @@ class WeiboController extends Controller
         //
 			}
 		}
+    else {
+      $this->redirect("/index.html");
+    }
 		
     // Step2, 授权成功后进行登录
 		if ($token) {
@@ -58,6 +62,9 @@ class WeiboController extends Controller
 	}
   
   public function actionTwitterCallback() {
+    if ($_REQUEST["denied"]) {
+      return $this->redirect("index.html");
+    }
     //先获取access token
     Yii::app()->twitter->getAccess_token();
     

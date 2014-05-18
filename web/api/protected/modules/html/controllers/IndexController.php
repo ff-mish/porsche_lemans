@@ -76,11 +76,24 @@ class IndexController extends CController {
         "page_name" => "stand"
     );
     $user = UserAR::crtuser(TRUE);
-    if ($user) {
-      // $params["team_name"] = $user->team->name;
-      // $params["team_owner_uid"] = $user->team->owner_uid;
+
+    if ($user && $user->team) {
+      $params["team_name"] = $user->team->name;
+      $params["team_owner_uid"] = $user->team->owner_uid;
+    }
+    else {
+      $params["team_name"] = "";
+      $params["team_owner_uid"] = "";
     }
     $this->page_name = $params["page_name"];
+    
+    $invited_data = Yii::app()->session["invited_data"];
+    if ($invited_data) {
+      $params["is_invited"] = TRUE;
+    }
+    else {
+      $params["is_invited"] = FALSE;
+    }
     
     $this->render("stand", $params);
   }

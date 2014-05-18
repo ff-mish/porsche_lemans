@@ -60,13 +60,39 @@ class UserController extends Controller{
    */
   public function actionJoinTeam() {
     $request = Yii::app()->getRequest();
-    $team_owner_uid = $request->getParam("uid");
-    if ($team_owner_uid) {
+    $team_owner_uid = $request->getParam("owner", FALSE);
+    
+    $invited_data = Yii::app()->session["invited_data"];
+    if ($invited_data) {
+      $inviter = $invited_data["uid"];
+    }
+    else {
+      $inviter = 0;
+    }
+    
+    if ($team_owner_uid > 0) {
       $user_ar = UserAR::crtuser();
       if ($user_ar) {
         $user_ar->user_join_team($team_owner_uid);
+        if ($team_owner_uid == $inviter) {
+          unset(Yii::app()->session["invited_data"]);
+        }
       }
     }
+    else {
+      // 如果什么也没有传，则认为参数错误
+      if ($team_owner_uid === FALSE) {
+        $this->responseError("invalid params", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+      }
+      // 如果传了 但是又是 < 0 的值 则认为是不接受邀请
+      else {
+        if ($inviter) {
+          $user_ar->update(array("allowed_invite" => 0));
+        }
+      }
+    }
+    
+    $this->responseJSON(array(), "success");
   }
   
   public function actionBuildTeam() {
@@ -160,7 +186,6 @@ class UserController extends Controller{
         "team" => $team_data,
         "last_post" => $user->team->last_post,
       );
-      
     }
     else {
       $data += array(
@@ -168,6 +193,7 @@ class UserController extends Controller{
           "last_post" => array()
       );
     }
+    
     
     $data["team_total"] = 1000;
     $data["team_position"] = 10;
@@ -189,43 +215,4 @@ class UserController extends Controller{
     }
     return $this->responseJSON(array(), "success");
   }
-
-    /**
-     * 获取用户所属团队积分和个人积分
-     */
-    public function actionGetScore()
-    {
-        $user = UserAR::crtuser(TRUE);
-        if (!$user)
-            $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
-
-        $data = array (
-            "user" => $user,
-        );
-
-        $userScore=ScoreUserAR::model()->getUserScore($user->uid);
-        $data += array(
-            "user_score" =>$userScore
-        );
-
-        if($user->team)
-        {
-            $teamScore=ScoreTeamAR::model()->getTeamScore($user->team);
-            $data += array(
-                "team" => $user->team,
-                "team_score" => $teamScore,
-                'user_score'    =>$userScore,
-            );
-        }
-        else
-        {
-            $data += array(
-                "team" => NULL,
-                "team_score" => array(),
-                'user_score'    =>$userScore,
-            );
-        }
-
-        $this->responseJSON($data, "success");
-    }
 }

@@ -24,6 +24,15 @@ class WebController extends Controller {
   public function actionDecryptionURL() {
     $requst = Yii::app()->getRequest();
     $d = $requst->getParam("d", FALSE);
+    
+    if (!$d) {
+      return $this->responseError("invalid params", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    $user = UserAR::crtuser();
+    if (!$user) {
+      //return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
     if ($d) {
       $userAr = new UserAR();
       $data = $userAr->decryptionInvitedData($d);

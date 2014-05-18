@@ -45,7 +45,7 @@ class UserAR extends CActiveRecord {
   public function rules() {
     return array(
         array("uuid, name, from", "required"),
-        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location", "safe"),
+        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location, allowed_invite", "safe"),
     );
   }
   
@@ -231,14 +231,11 @@ class UserAR extends CActiveRecord {
       // Step2, 用户保存成功后，需要把用户自动分组，分组是根据 Invite uid 来分配的.
       // 如果用户有邀请者，则将用户加入到组中去
       if ($inviter) {
-        // 这里分情况处理, 
-        // 如果用户是点击链接进来 但是又不是邀请来的用户，我们不做处理
+        // 这里分情况处理,   
         // 只有是用户邀请来的，才会被自动加入到小组
         $invited_uid = $invited_data["invited_uid"];
         if (in_array($uuid, $invited_uid)) {
-          $userAr = new UserAR();
-          $teamOwner = $userAr->load_user_by_uuid($inviter);
-          $this->user_join_team($teamOwner->uid);
+            // 取消自动加入小组
         }
         // 如果用户没有邀请者 我们自动生成一个team
         else {

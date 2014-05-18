@@ -107,12 +107,12 @@ class STwitter extends CApplicationComponent {
     }
     $this->_getTwitter()->config['user_token'] = $_SESSION['oauth']['oauth_token'];
     $this->_getTwitter()->config['user_secret'] = $_SESSION['oauth']['oauth_token_secret'];
-
     $code = $this->_getTwitter()->request(
             'POST', $this->_getTwitter()->url('oauth/access_token', ''), array(
         'oauth_verifier' => $_REQUEST['oauth_verifier']
             )
     );
+    
     if ($code == 200) {
       $_SESSION['access_token'] = $this->_getTwitter()->extract_params($this->_getTwitter()->response['response']);
       $this->user_token = $_SESSION['access_token']['oauth_token'];
