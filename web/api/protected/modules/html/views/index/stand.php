@@ -12,6 +12,10 @@
 		</div>
 		<!-- stand -->
 		<div class="stand">
+      <div style="display:none" id="data-stand"
+           data-team_name="<?php echo htmlspecialchars($team_name)?>" 
+           data-team_owner_uid="<?php echo $team_owner_uid?>">
+      </div>
 			<div class="stand_tit"><input class="team_name" value="team name" /></div>
 			<!--  -->
 			<div class="teambuild_member stand_useritem cs-clear">
