@@ -47,7 +47,7 @@ class TwitteController extends Controller {
     $screen_name = $request->getPost("uuid", FALSE);
     
     // 自己系统发的一个微博
-    $from = $request->getPost("from", "FALSE");
+    $from = $request->getPost("from", "web");
     if ($from == "web") {
       $host = parse_url(Yii::app()->getBaseUrl(TRUE), PHP_URL_HOST);
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());

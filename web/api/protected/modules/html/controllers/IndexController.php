@@ -3,6 +3,7 @@
 class IndexController extends CController {
   
   public $page_name;
+  public $is_start = FALSE;
   
   public function init() {
       $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4); //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
@@ -12,6 +13,13 @@ class IndexController extends CController {
           Yii::app()->language='zh_cn';
 
     $this->layout = "default";
+    
+    // 判断活动是否已经开始
+    $start_data = strtotime(Yii::app()->params["startTime"]);
+    $now = time();
+    if ($now >= $start_data) {
+      $this->is_start = TRUE;
+    }
     return parent::init();
   }
   
@@ -67,7 +75,13 @@ class IndexController extends CController {
     $params = array(
         "page_name" => "stand"
     );
+    $user = UserAR::crtuser(TRUE);
+    if ($user) {
+      $params["team_name"] = $user->team->name;
+      $params["team_owner_uid"] = $user->team->owner_uid;
+    }
     $this->page_name = $params["page_name"];
+    
     $this->render("stand", $params);
   }
   

@@ -16,7 +16,11 @@
 				<input class="team_name" value="" />
 				<span id="team-score"></span>
 			</div>
-			<!--  -->
+		      <div style="display:none" id="data-stand"
+		           data-team_name="<?php echo htmlspecialchars($team_name)?>" 
+		           data-team_owner_uid="<?php echo $team_owner_uid?>">
+		      </div>
+				<!--  -->
 			<div class="teambuild_member stand_useritem cs-clear">
 				<div class="member_item ">
 					<img src="/images/phodemo.jpg" />
