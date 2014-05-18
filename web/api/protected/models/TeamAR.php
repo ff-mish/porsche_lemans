@@ -57,14 +57,14 @@ class TeamAR extends CActiveRecord {
     // 这里要判断下， 当新添加一个team 之前
     // 我们需要判断用户是否属于一个Team 了 
     // 如果是我们不能让它添加一个team
-    $_uid = $this->uid;
+    $_uid = $this->owner_uid;
     $_tid = $this->tid;
     $query = new CDbCriteria();
     $query->addCondition("uid=:uid")
             ->addCondition("tid=:tid");
     $query->params = array(":tid" => $_tid, ":uid" => $_uid);
-    if ($this->find($query)) {
-      return $this->addError("uid", "user has joined team");
+    if (UserTeamAR::model()->find($query)) {
+      return $this->addError("owner_uid", "user has joined team");
     }
     
     // 自动把队长加入到team 组员里去
@@ -135,6 +135,58 @@ class TeamAR extends CActiveRecord {
     $this->users = $users;
     
     return $users;
+  }
+  
+  /**
+   * 查找owner 的所在team
+   * owner 可能有多个team, 我们选择一个有效的team (有组员的team为有效team)
+   * 如果没有有效的Team 我们选择一个最新的一个team
+   */
+  public static function loadTeamByOwner($uid) {
+    // 先确定用户所在组
+    $query = new CDbCriteria();
+    $query->addCondition("uid=:uid");
+    $query->params[":uid"] = $uid;
+    
+    $userTeam = UserTeamAR::model()->find($query);
+    
+    if ($userTeam) {
+      $tid = $userTeam->tid;
+      $team = TeamAR::model()->findByPk($tid);
+      // 如果用户加入的小组 自己正好是team owner 则直接返回
+      if ($team->owner_uid == $uid) {
+        return $team;
+      }
+      else {
+        //如果用户不是owner 则说明用户之前退出过team, 我们要找回这个team
+        $query = new CDbCriteria();
+        $query->addCondition("owner_uid=:uid");
+        $query->order="cdate DESC";
+        $query->params[":uid"] = $uid;
+        $all_teams = TeamAR::model()->findAll($query);
+        // 遍历之前用户所有创建的team 找出一个有效的team
+        foreach ($all_teams as $team) {
+          $tid = $team->tid;
+          $query_is_valid = new CDbCriteria();
+          $query_is_valid->addCondition("tid=:tid");
+          $query_is_valid->params[":tid"] = $tid;
+          $count = UserTeamAR::model()->count($query_is_valid);
+          if ($count) {
+            return $team;
+          }
+        }
+        if (count($all_teams)) {
+          // 如果没有找到任何一个team 则返回最新创建的team
+          return $all_teams[0];
+        }
+        return $all_teams;
+      }
+      return FALSE;
+    }
+    // 用户不在任何组，说明用户已经退出了组
+    else {
+      return FALSE;
+    }
   }
 }
 

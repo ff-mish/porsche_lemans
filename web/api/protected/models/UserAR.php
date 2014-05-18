@@ -116,9 +116,17 @@ class UserAR extends CActiveRecord {
    * @param type $invited_uid 被邀请人
    */
   public function generateInvitedURL($uid, $invited_uid = "") {
+    $team = TeamAR::loadTeamByOwner($uid);
+    if ($team) {
+      $tid = $team->tid;
+    }
+    else {
+      $tid = 0;
+    }
     $data = array(
         "uid" => $uid,
         "invited_uid" => $invited_uid,
+        "tid" => $tid,
         "time" => time()
     );
     $str = serialize($data);
@@ -221,6 +229,10 @@ class UserAR extends CActiveRecord {
           "friends" => $friends,
           "status" => self::STATUS_ENABLED
       );
+      // 等于0 说明没有邀请者，我们就设置为 接受邀请了
+      if ($inviter === 0) {
+        $attributes["allowed_invite"] = 1;
+      }
       foreach ($attributes as $name => $value) {
         $new_userar->{$name} = $value;
       }
@@ -232,7 +244,7 @@ class UserAR extends CActiveRecord {
       // 如果用户有邀请者，则将用户加入到组中去
       if ($inviter) {
         // 这里分情况处理,   
-        // 只有是用户邀请来的，才会被自动加入到小组
+        // 只有是用户邀请来的，才不会被自动加入到小组
         $invited_uid = $invited_data["invited_uid"];
         if (in_array($uuid, $invited_uid)) {
             // 取消自动加入小组
