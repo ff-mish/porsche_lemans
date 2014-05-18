@@ -97,7 +97,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 .attr({stroke: "#fff"});
 
             var now = new Date();
-            var duration = 1000;
+            var duration = 700;
             var ani = function(){
                 var p = Math.min( 1 ,  ( new Date() - now ) / duration );
                 var end = [ width / 2 + Math.cos( startAngle + percent * p * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * p * 2 * Math.PI ) * r  ]
@@ -123,7 +123,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + '%')
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 )
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -191,101 +191,241 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     }
     // left { max: xx , tip : '' , text: yyy }
-    var drawCoordinate = function( $dom , left , right , top , bottom ){
-        var width = $dom.width();
-        var height = $dom.height();
-        var ch = ~~( height / 2 );
-        var cw = ~~( width / 2 );
-        
-        var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
+    var coordinate = (function(){
+        var object = {};
+        function init( $dom , cb ){
+            var width = $dom.width();
+            var height = $dom.height();
+            var ch = ~~( height / 2 );
+            var cw = ~~( width / 2 );
+            
+            //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
 
-        var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
-            , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
+            var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
+                , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
 
 
-        var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
-        var sh = 7; // step height
+            var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
+            var sh = 7; // step height
 
-        var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
+            var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
 
-        left = [ center[0] - xwidth / 2 * left , xstart[1] ];
-        right = [ center[0] + xwidth / 2 * right , xstart[1] ];
-        top = [ ystart[0] , center[1] - yheight / 2 * top ];
-        bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
-        //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
+            //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
-        var pathAttr = {
-            'stroke' : '#999',
-            'opacity' : 0.7,
-            'stroke-width' : 0.4
-        }
-        var textAttr = {
-            'stroke' : '#999',
-            'opacity' : 0.7
-        }
-        LP.use('raphaeljs' , function( Raphael ){
-            // draw x 
-            var paper = Raphael( $dom.get(0) , width , height );
-            var xpath = [
-                'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
-                // 'M0 ' , ch , 'L' , width , ' ' , ch ,
-                'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
-            for( var i = 1 ; i * sw <= xwidth ; i++ ){
-                xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+            var pathAttr = {
+                'stroke' : '#999',
+                'opacity' : 0.7,
+                'stroke-width' : 0.4
             }
-            paper.path( xpath.join("") )
-                .attr(pathAttr);
-
-            paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
-                .attr( textAttr );
-            paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
-                .attr( textAttr );
-            // add hover block
-            // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
-            //     .hover( function(){
-            //         alert(1);
-            //     } , function(){
-            //         alert(2);
-            //     })
-                //.attr({'fill': '#f00',opacity: 0.4});
-            // draw y
-            var ypath = [
-                'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
-                //'M' , cw , ' 0L' , cw , ' ' , height ,
-                'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
-            for( var i = 1 ; i * sw <= yheight ; i++ ){
-                ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
+            var textAttr = {
+                'stroke' : '#999',
+                'opacity' : 0.7
             }
-            console.log( ypath );
-            paper.path( ypath.join("") ).attr(pathAttr);
 
-            paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
-                .attr( textAttr );
-            paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
-                .attr( textAttr );
+            LP.use('raphaeljs' , function( Raphael ){
+                // draw x 
+                var paper = Raphael( $dom.get(0) , width , height );
+                var xpath = [
+                    'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
+                    // 'M0 ' , ch , 'L' , width , ' ' , ch ,
+                    'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
+                for( var i = 1 ; i * sw <= xwidth ; i++ ){
+                    xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+                }
+                paper.path( xpath.join("") )
+                    .attr(pathAttr);
+
+                paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
+                    .attr( textAttr );
+                paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
+                    .attr( textAttr );
+                // add hover block
+                // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
+                //     .hover( function(){
+                //         alert(1);
+                //     } , function(){
+                //         alert(2);
+                //     })
+                    //.attr({'fill': '#f00',opacity: 0.4});
+                // draw y
+                var ypath = [
+                    'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
+                    //'M' , cw , ' 0L' , cw , ' ' , height ,
+                    'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
+                for( var i = 1 ; i * sw <= yheight ; i++ ){
+                    ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
+                }
+                paper.path( ypath.join("") ).attr(pathAttr);
+
+                paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
+                    .attr( textAttr );
+                paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
+                    .attr( textAttr );
 
 
-            var rpath = [];
-            $.each( [left,top , right , bottom] , function( i , dot){
-                rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
-            } );
-            rpath.push('Z');
-            console.log( rpath );
-            // drag red path
-            paper.path( rpath.join("") ).attr( {
-                "stroke": '#f00',
-                "stroke-width": 3
-            } );
-        });
+                object.center = center;
+                object.xwidth = xwidth;
+                object.xstart = xstart;
+                object.ystart = ystart;
+                object.yheight = yheight;
 
-        // init hover event
-        $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
-            .hover(function(){
-                // TODO ...
-            } , function(){
-                // TODO ...
+                object.path = paper.path( "" ).attr( {
+                    "stroke": '#f00',
+                    "stroke-width": 3
+                } );
+
+                cb && cb();
             });
-    }
+
+            // init hover event
+            $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
+                .hover(function(){
+                    // TODO ...
+                } , function(){
+                    // TODO ...
+                });
+        }
+        return {
+            init: init , 
+            run: function( left , right , top , bottom  ){
+                var center = object.center;
+                var xwidth = object.xwidth;
+                var xstart = object.xstart;
+                var ystart = object.ystart;
+                var yheight = object.yheight;
+
+                var lastLeft = object.lastLeft || 0;
+                var lastTop = object.lastTop || 0;
+                var lastRight = object.lastRight || 0;
+                var lastBottom = object.lastBottom || 0;
+
+                var duration = 500;
+                var now = new Date;
+                var renderPath = function( left , right , top , bottom ){
+                    left = [ center[0] - xwidth / 2 * left , xstart[1] ];
+                    right = [ center[0] + xwidth / 2 * right , xstart[1] ];
+                    top = [ ystart[0] , center[1] - yheight / 2 * top ];
+                    bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
+
+                    var rpath = [];
+                    $.each([ left, top , right , bottom] , function( i , dot){
+                        rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
+                    });
+                    rpath.push('Z');
+
+                    object.path.attr( 'path' , rpath.join("") );
+                }
+                var ani = function(){
+                    var dur = new Date - now;
+                    var per = dur / duration;
+                    if( per > 1 ){
+                        per = 1;
+                    }
+                    var l = per * ( left - lastLeft );
+                    var r = per * ( right - lastRight );
+                    var t = per * ( top - lastTop );
+                    var b = per * ( bottom - lastBottom );
+                    renderPath( l + lastLeft , r + lastRight , t + lastTop , b + lastBottom );
+                    if( per < 1 )
+                        setTimeout( ani , 1000 / 60 );
+                }
+                ani();
+            }
+        }
+    })();
+    // function( $dom , left , right , top , bottom ){
+    //     var width = $dom.width();
+    //     var height = $dom.height();
+    //     var ch = ~~( height / 2 );
+    //     var cw = ~~( width / 2 );
+        
+    //     //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
+
+    //     var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
+    //         , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
+
+
+    //     var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
+    //     var sh = 7; // step height
+
+    //     var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
+
+    //     left = [ center[0] - xwidth / 2 * left , xstart[1] ];
+    //     right = [ center[0] + xwidth / 2 * right , xstart[1] ];
+    //     top = [ ystart[0] , center[1] - yheight / 2 * top ];
+    //     bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
+    //     //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
+
+    //     var pathAttr = {
+    //         'stroke' : '#999',
+    //         'opacity' : 0.7,
+    //         'stroke-width' : 0.4
+    //     }
+    //     var textAttr = {
+    //         'stroke' : '#999',
+    //         'opacity' : 0.7
+    //     }
+    //     LP.use('raphaeljs' , function( Raphael ){
+    //         // draw x 
+    //         var paper = Raphael( $dom.get(0) , width , height );
+    //         var xpath = [
+    //             'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
+    //             // 'M0 ' , ch , 'L' , width , ' ' , ch ,
+    //             'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
+    //         for( var i = 1 ; i * sw <= xwidth ; i++ ){
+    //             xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+    //         }
+    //         paper.path( xpath.join("") )
+    //             .attr(pathAttr);
+
+    //         paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
+    //             .attr( textAttr );
+    //         paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
+    //             .attr( textAttr );
+    //         // add hover block
+    //         // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
+    //         //     .hover( function(){
+    //         //         alert(1);
+    //         //     } , function(){
+    //         //         alert(2);
+    //         //     })
+    //             //.attr({'fill': '#f00',opacity: 0.4});
+    //         // draw y
+    //         var ypath = [
+    //             'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
+    //             //'M' , cw , ' 0L' , cw , ' ' , height ,
+    //             'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
+    //         for( var i = 1 ; i * sw <= yheight ; i++ ){
+    //             ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
+    //         }
+    //         paper.path( ypath.join("") ).attr(pathAttr);
+
+    //         paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
+    //             .attr( textAttr );
+    //         paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
+    //             .attr( textAttr );
+
+
+    //         var rpath = [];
+    //         $.each([ left, top , right , bottom] , function( i , dot){
+    //             rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
+    //         });
+    //         rpath.push('Z');
+    //         // drag red path
+    //         paper.path( rpath.join("") ).attr( {
+    //             "stroke": '#f00',
+    //             "stroke-width": 3
+    //         } );
+    //     });
+
+    //     // init hover event
+    //     $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
+    //         .hover(function(){
+    //             // TODO ...
+    //         } , function(){
+    //             // TODO ...
+    //         });
+    // }
 
     var initSuggestion = (function(){
         var tUtil = null;
@@ -810,14 +950,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     });
 
+    var fuelPage = 0;
     LP.action('fuel-load' , function( data ){
         $(this).attr('disabled' , 'disabled');
-        var page = parseInt( $(this).data( 'page' ) || 0 ) + 1;
-        var type = $(this).data( 'type' ) || '';
+        var page = ++fuelPage;
 
-        $(this).data( 'page' , page );
+        $(this).data( 'page' , fuelPage );
 
-        api.get('/api/media/list' , { page:page , type: type } , function( e ){
+        api.get('/api/media/list' , { page:page } , function( e ){
             // DEBUG.. render fuel item
             $.each( e.data || [] , function( i , data ){
               if (data["type"] == "video") {
@@ -1086,48 +1226,87 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 api.get('/api/user' , function( e ){
                     var data = e.data;
-                    var team = data.team;
+                    var team = data.team || {
+                        score: {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2},
+                        name:'xxxx',
+                        users:[{
+                            "uid":"101648",
+                            "name":"\u8299\u7f8e\u513f",
+                            "from":"weibo",
+                            "cdate":"2014-05-16 10:39:25",
+                            "udate":"2014-05-16 10:39:25",
+                            "uuid":"5072167230",
+                            "lat":null,
+                            "lng":null,
+                            "speed": 0.9,
+                            "impact": 3452,
+                            "invited_by":"0","profile_msg":"","avatar":"http:\/\/tp3.sinaimg.cn\/5072167230\/180\/40049599975\/0","status":"1","friends":"81","location":"","score":null
+                    }]};
+
+                    // 
                     $('.team_name').val( team.name );
-                    $('#team-score').html( team.team_position + '/' + team.team_total );
+                    $('#team-score').html( 'P' + data.team_position + '/' + data.team_total );
 
                     // render users
                     var utpl = '<div class="teambuild_member stand_useritem cs-clear">\
                     <div class="member_item ">\
                         <img src="#[avatar]" />\
-                        <p class="member_name">@#[name]<span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
+                        <p class="member_name">@#[name]<br/><span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
                     </div>\
                     <div class="member_speed"></div>\
-                    <div class="memeber_space">#[space]</div>';
+                    <div class="memeber_space">#[space]</div></div>';
                     var html = [];
+                    var speeds = [];
                     $.each( [0,1,2] , function( i , index ){
                         if( team.users[i] ){
-                            html.push( LP.format( utpl , {avatar: team.users[i].avatar,  name:team.users[i].name ,space: name:team.users[i].score } ) );
+                            speeds.push( team.users[i].speed );
+                            html.push( LP.format(utpl,{
+                                avatar:     team.users[i].avatar,
+                                name:       team.users[i].name,
+                                space:      team.users[i].impact / 1000 + 'K' }));
                         } else{
                             html.push( '<div class="teambuild_member stand_useritem cs-clear">\
                                 <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
                             </div>' );
                         }
                     } );
-                    var users = team.users;
-                    <div class="teambuild_member stand_useritem cs-clear">
-                    <div class="member_item ">
-                        <img src="/images/phodemo.jpg" />
-                        <p class="member_name">@Mradrien_
-                            <span class="member-leave" data-a="leaveteam"><?php echo Yii::t("messages", "Leave Team")?></span>
-                        </p>
-                    </div>
-                    <div class="member_speed"></div>
-                    <div class="memeber_space">11K</div>
-                </div>
-                    $.each(  )
+                    $('.teambuild_members').html( html.join("") );
+                    $.each( speeds , function( i , speed ){
+                        rotateAnimate( $('.member_speed').eq(i) , speed , 1 , 45 );
+                    } );
+
+                    // render achive
+                    var ahtml = [];
+                    for( var i = 0 ; i < data.team_star ; i++ ){
+                        ahtml.push('<p></p>');
+                    }
+                    $('.stand_achivmentsbox').html( ahtml.join("") );
+
+
+                    // render post
+                    var aHtml = [];
+                    $.each( data.last_post || [] , function( i , post ){
+                        aHtml.push("<div class=\"stand_achivmentsbox\">" + post + "</div>");
+                    } );
+                    $('.stand_tweet').append( aHtml.join("") );
+                    
+
+                    // render stand_chart
+                    var score = team.score || {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2};
+                    $('.stand_chart_score').html( score.average + 'Km/h' );
+
+                    coordinate.init( $('.stand_chart') , function(){
+                        coordinate.run( score.impact , score.quality , score.speed , score.assiduite );
+                    } );
+                        
                 });
 
-                // init member speed
-                rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
-                rotateAnimate( $('.member_speed').eq(1) , 240 , 360 , 45 );
-                rotateAnimate( $('.member_speed').eq(2) , 300 , 360 , 45 );
+                // // init member speed
+                // rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
+                // rotateAnimate( $('.member_speed').eq(1) , 240 , 360 , 45 );
+                // rotateAnimate( $('.member_speed').eq(2) , 300 , 360 , 45 );
 
-                drawCoordinate( $('.stand_chart') );
+                
 
 
                 break;

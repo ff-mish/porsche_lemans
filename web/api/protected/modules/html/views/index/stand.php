@@ -16,33 +16,9 @@
 				<input class="team_name" value="" />
 				<span id="team-score"></span>
 			</div>
-		      <div style="display:none" id="data-stand"
-		           data-team_name="<?php echo htmlspecialchars($team_name)?>" 
-		           data-team_owner_uid="<?php echo $team_owner_uid?>">
-		      </div>
 				<!--  -->
-			<div class="teambuild_member stand_useritem cs-clear">
-				<div class="member_item ">
-					<img src="/images/phodemo.jpg" />
-					<p class="member_name">@Mradrien_
-			            <span class="member-leave" data-a="leaveteam"><?php echo Yii::t("messages", "Leave Team")?></span>
-			        </p>
-				</div>
-				<div class="member_speed"></div>
-				<div class="memeber_space">11K</div>
-			</div>
-			<!--  -->
-			<div class="teambuild_member stand_useritem cs-clear">
-				<div class="member_item ">
-					<img src="/images/phodemo.jpg" />
-					<p class="member_name">@Mradrien_</p>
-				</div>
-				<div class="member_speed"></div>
-				<div class="memeber_space">11K</div>
-			</div>
-			<!--  -->
-			<div class="teambuild_member stand_useritem cs-clear">
-				<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>
+			<div class="teambuild_members">
+
 			</div>
 			<!--  -->
 			<div class="stand_achivments cs-clear">
@@ -56,15 +32,10 @@
 			<!--  -->
 			<div class="stand_tweet">
 				<h2 class="fl">Lastest Posts</h2>
-				<div class="stand_tweetitem">
-					@yenatweet Good news, maintenant faut attendre le montant afin voir si ça diminuera le dumping social.
-				</div>
-				<div class="stand_tweetitem">
-					@yenatweet Good news, maintenant faut attendre le montant afin voir si ça diminuera le dumping social.
-				</div>
 			</div>
 			<!--  -->
 			<div class="stand_chart">
+				<div class="stand_chart_score"></div>
 				<div class="stand_chart_speed" >
 				</div>
 				<div class="stand_chart_quality" >

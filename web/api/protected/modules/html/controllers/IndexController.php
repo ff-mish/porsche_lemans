@@ -77,8 +77,8 @@ class IndexController extends CController {
     );
     $user = UserAR::crtuser(TRUE);
     if ($user) {
-      $params["team_name"] = $user->team->name;
-      $params["team_owner_uid"] = $user->team->owner_uid;
+      // $params["team_name"] = $user->team->name;
+      // $params["team_owner_uid"] = $user->team->owner_uid;
     }
     $this->page_name = $params["page_name"];
     

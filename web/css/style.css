@@ -106,11 +106,11 @@ body{background:#000;height: 100%;width: 100%}
 	.teambuild_tit{font-size: 48px;color:#f00;text-transform: uppercase;text-align: center;width: 400px;line-height: 80px;height: 110px}
 	.teambuild_member{}
 		.member_item{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left}
-			.member_item img{float: left:;}
+			.member_item img{float: left; width: 73px;}
 			.member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:20px 0 0;}
 		.member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 		.memeber_space{float:left;font-size: 72px;font-weight: bold;color:#f00;line-height: 85px;text-align: center;width: 220px}
-	.member_add{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 0 60px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;}
+	.member_add{border:#f00 solid 4px;width: 200px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;}
 	.member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
 		
 
@@ -304,6 +304,7 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_quality{position: absolute;border:1px solid red;top: 200px;z-index: 1;width: 100px;height: 50px;left: 314px;}
 .stand_chart_assiduite{position: absolute;border:1px solid red;top: 329px;z-index: 1;width: 100px;height: 50px;left: 175px;}
 .stand_chart_impact{position: absolute;border:1px solid red;top: 200px;z-index: 1;width: 100px;height: 50px;left: 54px;}
+.stand_chart_score{position: absolute;top: 50px;left: 200px;}
 
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
