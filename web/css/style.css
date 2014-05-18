@@ -115,8 +115,8 @@ body{background:#000;height: 100%;width: 100%}
 		
 
 /* stand */
-.stand{width:1206px;height:662px;left:50%;top:50%;bottom:50%;position: absolute;margin: -330px 0 0 -450px}
-	.stand_tit{background: url('../images/stand.png') no-repeat;width: 600px;height: 100px}
+.stand{width:1206px;height:662px;left:50%;top: 150px;position: absolute;}
+	.stand_tit{width: 600px;height: 100px}
 	.stand_useritem{margin-bottom:40px;}
 		.stand_useritem .member_item{margin: 0}
 	.stand_achivments{font-size: 30px;color:#fefefe;opacity: 0.6;filter:alpha(opacity=60);text-transform: uppercase;line-height:60px; padding: 10px 0 0}
@@ -321,10 +321,12 @@ body{background:#000;height: 100%;width: 100%}
 .popup_timer{position: absolute;width: 50px;height: 50px;right: 24px;top: 24px;}
 
 
-.popup_invite {background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
-.popup_invite .friend_item {float:left;width:214px;margin:25px 0;}
+.popup_invite {background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: auto;}
+.popup_invite .popup_invite_friend_list{height: 350px;overflow: auto;}
+.popup_invite .friend_item {float:left;width:214px;margin:25px 0;height: 73px;}
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
-.popup_invite .friend_item .name {font-size:18px;margin:10px 0;}
+.popup_invite .friend_item .avatar img{width: 73px;height: 73px;}
+.popup_invite .friend_item .name {font-size:18px;margin:10px 0;color:white;}
 .popup_invite .friend_item .send {font-size:14px;color:#ff0000;cursor: pointer;}
 .popup_invite .friend_item .send:hover {opacity:0.7;}
 .popup_invite .friend_item .btns {margin:0 0 0 83px;}

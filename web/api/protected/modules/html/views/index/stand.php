@@ -12,7 +12,10 @@
 		</div>
 		<!-- stand -->
 		<div class="stand">
-			<div class="stand_tit"><input class="team_name" value="team name" /></div>
+			<div class="stand_tit">
+				<input class="team_name" value="" />
+				<span id="team-score"></span>
+			</div>
 			<!--  -->
 			<div class="teambuild_member stand_useritem cs-clear">
 				<div class="member_item ">
@@ -69,7 +72,6 @@
 			</div>
 			<!--  -->
 			<div class="stand_add"></div>
-
 		</div>
 		<!-- stand end -->
 	</div>

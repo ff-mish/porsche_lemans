@@ -652,10 +652,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         </div>\
                     </div>';
                 // load user list from sina weibo or twitter
-                api.get("/api/user/" , function( e ){
+                api.get("/api/user/friends" , function( e ){
                     var html = [];
                     $.each( e.data , function( i , user ){
-                        html.push( LP.format( uTpl , {avatar: user.avater , name: user.name} ) );
+                        html.push( LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ) );
                     } );
 
                     panel.$panel.find('.popup_invite_friend_list').html( html.join("") );
@@ -667,9 +667,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         // get user list
                         var users = [];
                         $('.popup_invite_friend_list .selected:visible').each(function(){
-                            users.push( $(this).data('name') );
+                            users.push( '@' + $(this).data('name') );
                         });
-                        api.post( '/api/user/invite' , {name: users.join(",")} );
+                        api.post( '/api/user/invite' , {msg: users.join("")} , function(){
+                            panel.close();
+                        } );
                     });
             },
             onSubmit: function(){
@@ -1073,15 +1075,52 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 // init team name
                 $('.team_name').blur(function(){
-                    api.post("/api/saveTeanName" , {name: this.value} );
-                })
-                $('.team_name').keyup(function( ev ){ 
+                    api.post("/api/user/updateteam" , {name: this.value} );
+                }).keyup(function( ev ){ 
                     switch( ev.which ){
                         case 13:
                             $(this).trigger('blur');
                             break;
                     }
                  });
+
+                api.get('/api/user' , function( e ){
+                    var data = e.data;
+                    var team = data.team;
+                    $('.team_name').val( team.name );
+                    $('#team-score').html( team.team_position + '/' + team.team_total );
+
+                    // render users
+                    var utpl = '<div class="teambuild_member stand_useritem cs-clear">\
+                    <div class="member_item ">\
+                        <img src="#[avatar]" />\
+                        <p class="member_name">@#[name]<span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
+                    </div>\
+                    <div class="member_speed"></div>\
+                    <div class="memeber_space">#[space]</div>';
+                    var html = [];
+                    $.each( [0,1,2] , function( i , index ){
+                        if( team.users[i] ){
+                            html.push( LP.format( utpl , {avatar: team.users[i].avatar,  name:team.users[i].name ,space: name:team.users[i].score } ) );
+                        } else{
+                            html.push( '<div class="teambuild_member stand_useritem cs-clear">\
+                                <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
+                            </div>' );
+                        }
+                    } );
+                    var users = team.users;
+                    <div class="teambuild_member stand_useritem cs-clear">
+                    <div class="member_item ">
+                        <img src="/images/phodemo.jpg" />
+                        <p class="member_name">@Mradrien_
+                            <span class="member-leave" data-a="leaveteam"><?php echo Yii::t("messages", "Leave Team")?></span>
+                        </p>
+                    </div>
+                    <div class="member_speed"></div>
+                    <div class="memeber_space">11K</div>
+                </div>
+                    $.each(  )
+                });
 
                 // init member speed
                 rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
@@ -1090,7 +1129,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 drawCoordinate( $('.stand_chart') );
 
-                // TODO.. get latest posts
 
                 break;
                 
