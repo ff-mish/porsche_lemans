@@ -75,7 +75,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     // widgets and common functions here
     // ======================================================================
     var rotateAnimate = function( $dom , current , total ,  startAngle ){
-        if( !$dom.length ) return;
+        current = current || 0;
         var percent = Math.min( current / total , 1 );
         startAngle = startAngle / 180 * Math.PI || 0;
         LP.use('raphaeljs' , function( Raphael ){
@@ -129,7 +129,15 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     setTimeout(ani , 60/1000);
                 }
             }
-            ani();
+            if( !percent ){
+                redPath.remove();
+                blackPath.remove();
+                paper.circle( width / 2 , height / 2, r )
+                    .attr("stroke" , '#000' )
+                    .attr("stroke-width" ,stockWidth );
+            } else {
+                ani();
+            }
         });
     }
 
@@ -1263,7 +1271,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             html.push( LP.format(utpl,{
                                 avatar:     team.users[i].avatar,
                                 name:       team.users[i].name,
-                                space:      team.users[i].impact / 1000 + 'K' }));
+                                space:      team.users[i].friends / 1000 + 'K' }));
                         } else{
                             html.push( '<div class="teambuild_member stand_useritem cs-clear">\
                                 <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
