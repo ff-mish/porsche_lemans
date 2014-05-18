@@ -14,6 +14,8 @@
       <?php else:?>
         window.from = "";
       <?php endif;?>
+        
+      window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
 </head>
 <body class="bg1" data-page="<?php echo $this->page_name?>">

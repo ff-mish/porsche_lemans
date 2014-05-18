@@ -160,6 +160,7 @@ class UserController extends Controller{
         "team" => $team_data,
         "last_post" => $user->team->last_post,
       );
+      
     }
     else {
       $data += array(
@@ -168,7 +169,25 @@ class UserController extends Controller{
       );
     }
     
+    $data["team_total"] = 1000;
+    $data["team_position"] = 10;
+    $data["team_star"] = 2;
+    
     $this->responseJSON($data, "success");
+  }
+  
+  public function actionUpdateteam() {
+    $request = Yii::app()->getRequest();
+    
+    if (!$request->isPostRequest) {
+      $this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+    }
+    
+    $teamName = $request->getPost("name");
+    if (!$teamName) {
+      $this->responseError("invlid error", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    return $this->responseJSON(array(), "success");
   }
 
     /**
