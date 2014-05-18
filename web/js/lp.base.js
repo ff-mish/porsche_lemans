@@ -93,7 +93,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var blackPath = paper.path( "" )
                     .attr("stroke", "#000")
                     .attr("stroke-width" , stockWidth);
-            var text = paper.text( width / 2 , height / 2 , "0%" ) 
+            var text = paper.text( width / 2 , height / 2 , "0 T/M" ) 
                 .attr({stroke: "#fff"});
 
             var now = new Date();
@@ -123,7 +123,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 )
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/M' );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -764,7 +764,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action("add-invite-user" , function(){
         if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
-            > $('.teambuild_member .member_add').length ){
+            >= $('.teambuild_member .member_add').length ){
             LP.error(" too much ");
             return false;
         }
@@ -880,17 +880,50 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('preview' , function( ev ){
+
         // show big pic or big video
+        var tpls = {
+            'video': '<div class="popup_fuel">\
+                    <div class="popup_close"></div>\
+                    <div class="popup_fuel_video">\
+                        <h4>Memories of Porsche in Le Mans</h4>\
+                        <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
+                    </div>\
+                    <div class="popup_fuel_btns">\
+                        <a class="repost" href="#">Repost</a>\
+                    </div>\
+                </div>',
+            'image': '<div class="popup_fuel" >\
+                <div class="popup_close"></div>\
+                <div class="popup_fuel_photo_left">\
+                    <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
+                </div>\
+                <div class="popup_fuel_photo_right">\
+                    <h4>1979 Racing Poster</h4>\
+                    <div class="popup_fuel_photo_description">\
+                        1979 goes down in Porsche motorsport history as another successful year. Private racing teams bring home 15 national and international championship victories for the Zuffenhausen brand. One is the triumph in Le Mans. The Kremer Racing team from Cologne takes to the starting line in a modified version of the 935. Brothers Bill and Don Whittington from the United States and the German Klaus Ludwig win Porsche\'s fifth overall victory after 24 hours.\
+                    </div>\
+                    <div class="popup_fuel_btns">\
+                        <a class="repost" href="#">Repost</a>\
+                    </div>\
+                </div>\
+                <div class="cs-clear"></div>\
+            </div>'
+        }
 
         var $img = $(this)
             .closest('.fuelitem')
             .children('img');
-        var imgH = $img.height();
-        var imgW = $img.width();;
+        // var imgH = $img.height();
+        // var imgW = $img.width();
+        var video = $(this).closest('.fuelitem').data('video');
+
+        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src')});
         LP.panel({
-            content: "<img src=\"" + $img.attr('src') + "\"/>",
-            title: "share the content",
-            submitButton: true,
+            content: content,
+            //title: "share the content",
+            title: '',
+            width: 900,
             onShow: function(){
                 this.$panel.find('.lpn_panel')
                     .css({
@@ -900,24 +933,37 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .animate({
                         marginTop: 0,
                         opacity: 1
-                    } , 500 , 'easeOutQuart');
+                    } , 500 , 'easeOutQuart' , function(){
+                        var imgH = $('.popup_image_wrap img').height();
+                        var imgW = $('.popup_image_wrap img').width();
+                        if( video ){ // play the video
+                            $('.popup_image_wrap img').hide();
+                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {} );
+                        }
+
+                        $(window).on('resize.fixfuel' , function(){
+                            var maxH = $(window).height() - 20;
+                            var maxW = $(window).width() - 20;
+                            var tarW = imgW , tarH = imgH;
+                            if( maxH / maxW > imgH / imgW && maxW < imgW ){
+                                tarH = imgH / imgW * maxW;
+                                tarW = maxW;
+                            } else if( maxH / maxW < imgH / imgW && maxH < imgH ){
+                                tarW = imgW / imgH * maxH;
+                                tarH = maxH;
+                            }
+
+                            // resize the panel
+                            //panel.resize( tarW , tarH );
+                        });
+                    } );
 
                 var panel = this;
-                $(window).on('resize.fixfuel' , function(){
-                    var maxH = $(window).height() - 20;
-                    var maxW = $(window).width() - 20;
-                    var tarW = imgW , tarH = imgH;
-                    if( maxH / maxW > imgH / imgW && maxW < imgW ){
-                        tarH = imgH / imgW * maxW;
-                        tarW = maxW;
-                    } else if( maxH / maxW < imgH / imgW && maxH < imgH ){
-                        tarW = imgW / imgH * maxH;
-                        tarH = maxH;
-                    }
 
-                    // resize the panel
-                    panel.resize( tarW , tarH );
-                });
+                this.$panel.find('.popup_close')
+                    .click(function(){
+                        panel.close();
+                    });
             },
             onBeforeClose: function(){
                 var $panel = this.$panel;
