@@ -163,6 +163,14 @@ class TwitteAR extends CActiveRecord {
             $video_link = $media->media_link;
             $content .= " ". $video_link;
             $ret = $weibo_api->update($content);
+                      
+            $ret = $weibo_api->update($content);
+            
+            // 把uuid 保存下来
+            $uuid = $ret["idstr"];
+            $tweet = $this->findByPk($this->tid);
+            $tweet->uuid = $uuid;
+            $tweet->update();
           }
         }
         else if ($this->type == UserAR::FROM_TWITTER) {
@@ -192,7 +200,7 @@ class TwitteAR extends CActiveRecord {
           $tweet->update();
         }
         else if ($this->type == UserAR::FROM_TWITTER) {
-          Yii::app()->twitter->status_update($content);
+          $ret = Yii::app()->twitter->status_update($content);
         }
       }
 
