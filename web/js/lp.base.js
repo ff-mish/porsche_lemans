@@ -1266,9 +1266,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             case "index":
                 var ratio = 516 / 893;
                 // show the big video
-                // renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                //     $('#' + this.Q).css('z-index' , -1);
-                // } );
+                renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
+                    $('#' + this.Q).css('z-index' , -1);
+                } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
