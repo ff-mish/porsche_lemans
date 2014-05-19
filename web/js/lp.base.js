@@ -892,7 +892,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             height: 352,
             onShow: function(){
                 var panel = this;
-                this.$panel.find('.lpn_ctrl_group').hide();
                 //initSuggestion( this.$panel.find('textarea') );
                 this.$panel.find('.p-cancel')
                     .click(function(){
@@ -931,7 +930,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-a="mid=#[mid]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -945,7 +944,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         1979 goes down in Porsche motorsport history as another successful year. Private racing teams bring home 15 national and international championship victories for the Zuffenhausen brand. One is the triumph in Le Mans. The Kremer Racing team from Cologne takes to the starting line in a modified version of the 935. Brothers Bill and Don Whittington from the United States and the German Klaus Ludwig win Porsche\'s fifth overall victory after 24 hours.\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-a="mid=#[mid]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -958,6 +957,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // var imgH = $img.height();
         // var imgW = $img.width();
         var video = $(this).closest('.fuelitem').data('video');
+
+        // init panel width and height
+        // var $img = $('<img/>')
 
         var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid});
         LP.panel({
@@ -1056,7 +1058,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .eq(1)
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
-                        api.post( '/api/twitte/post' , {msg: msg , mid: data.mid} , function(){
+                        api.post( '/api/media/share' , {share_text: msg , media_id: data.mid} , function(){
                             LP.right('success');
                         } );
                     });
@@ -1172,10 +1174,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 } , 500);
         });
 
-        $('.navicon').click(function(){
-            LP.triggerAction('post_weibo');
-        });
-
 
         // fix Q & A
         !!(function(){
@@ -1185,6 +1183,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var qaCookie = LP.getCookie( "__QA__") ;
             if( qaCookie ){
                 cookieTimes = qaCookie.split(",");
+                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
             }
 
             // deal current hour
@@ -1215,7 +1214,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             }
             var showQa = function(){
                 cookieTimes.push( + new Date() );
-                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 );
+                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
 
                 qtimes++;
                 var timer = null;
