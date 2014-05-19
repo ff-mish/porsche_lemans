@@ -22,6 +22,13 @@
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->
+
+  <div class="footer">
+    <a href="#">En|中文</a>
+    <i class="i-icon">i</i>
+    <a href="#" data-a="legal-mentions">legal mentions</a>
+    <a href="#">Share</a>
+  </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>
 <script type="text/javascript" src="/js/lp.core.js"></script>

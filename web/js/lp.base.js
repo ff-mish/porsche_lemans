@@ -211,8 +211,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             
             //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
 
-            var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
-                , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
+            var xstart = [ 70 , ch ] , xend = [ width - 70 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
+                , ystart = [ cw , 70 ] , yend = [ cw , height - 70 ] , yheight = yend[ 1 ] - ystart[ 1 ];
 
 
             var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
@@ -223,9 +223,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
             var pathAttr = {
-                'stroke' : '#999',
+                'stroke' : '#d1d1d1',
                 'opacity' : 0.7,
-                'stroke-width' : 1
+                'stroke-width' : 2
             }
             var textAttr = {
                 'fill' : '#fff',
@@ -236,34 +236,38 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             LP.use('raphaeljs' , function( Raphael ){
                 // draw x 
                 var paper = Raphael( $dom.get(0) , width , height );
+
+                paper.path( ['M' , xstart.join(" ") , 'L' , xend.join(" ")].join("") ).attr(pathAttr);
                 var xpath = [
-                    'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
+                    //'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
                     // 'M0 ' , ch , 'L' , width , ' ' , ch ,
                     'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
                 for( var i = 1 ; i * sw <= xwidth ; i++ ){
                     xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
                 }
                 paper.path( xpath.join("") )
-                    .attr(pathAttr);
+                    .attr(pathAttr)
+                    .attr({'stroke-width': 1});
 
-                paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
+                paper.text( xstart[0] - 40 , xstart[1] , _e('Impact') )
                     .attr( textAttr );
-                paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
+                paper.text( xend[0] + 40 , xend[1] , _e('Quality') )
                     .attr( textAttr );
 
                 // draw y
+                paper.path( ['M' , ystart.join(" ") , 'L' , yend.join(" ")].join("") ).attr(pathAttr);
                 var ypath = [
-                    'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
+                    //'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
                     //'M' , cw , ' 0L' , cw , ' ' , height ,
                     'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
                 for( var i = 1 ; i * sw <= yheight ; i++ ){
                     ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
                 }
-                paper.path( ypath.join("") ).attr(pathAttr);
+                paper.path( ypath.join("") ).attr(pathAttr).attr({'stroke-width': 1});;
 
-                paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
+                paper.text( ystart[0] , ystart[1] - 20 , _e('Speed t/h') )
                     .attr( textAttr );
-                paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
+                paper.text( yend[0] , yend[1] + 20  , _e('Assiduite') )
                     .attr( textAttr );
 
 
@@ -285,8 +289,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
                 .hover(function(){
                     // TODO ...
+                    $(this).find('.stand_chart_tip').fadeIn();
                 } , function(){
                     // TODO ...
+                    $(this).find('.stand_chart_tip').fadeOut();
                 });
         }
         return {
@@ -780,7 +786,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     <div class="popup_invite_friend_list"></div>\
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns">\
-                        <a href="javascript:void(0);">Ok</a>\
+                        <a href="javascript:void(0);" class="disabled">Ok</a>\
                     </div>\
                 </div>',
             title: '',
@@ -808,15 +814,43 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     panel.$panel.find('.popup_invite_friend_list').html( html.join("") );
                 });
 
+                panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
+                    if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
+                        >= $('.teambuild_member .member_add').length ){
+                        LP.error(" too much ");
+                        return false;
+                    }
+                    $(this).hide().prev().show();
+
+                    // btn status
+                    panel.$panel.find('.popup_invite_btns a')
+                        .removeClass('disabled');
+                })
+                .delegate(".selected" , "click" , function(){
+                    $(this).hide().next().show();
+
+                    if( !panel.$panel.find('.popup_invite_friend_list .selected:visible').length ){
+                        // btn status
+                        panel.$panel.find('.popup_invite_btns a')
+                            .addClass('disabled');
+                    }
+                });
+
                 // set invite
                 panel.$panel.find('.popup_invite_btns a')
                     .click(function(){
+                        if( $(this).hasClass('disabled') ) return false;
                         // get user list
                         var users = [];
                         $('.popup_invite_friend_list .selected:visible').each(function(){
                             users.push( '@' + $(this).data('name') );
                         });
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
+                            // TODO  show email input 
+                            LP.panel({
+                                title: '',
+                                content: '<input name="email"/>'
+                            });
                             panel.close();
                         } );
                     });

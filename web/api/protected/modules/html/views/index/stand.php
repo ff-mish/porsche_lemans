@@ -36,14 +36,31 @@
 			</div>
 			<!--  -->
 			<div class="stand_chart">
-				<div class="stand_chart_score"></div>
+				<div class="stand_chart_score">
+				</div>
 				<div class="stand_chart_speed" >
+					<div class="stand_chart_tip">
+						Tweet content from Fuel section to increase your quality..
+						<span>◆</span>
+					</div>
 				</div>
 				<div class="stand_chart_quality" >
+					<div class="stand_chart_tip">
+						Tweet content from Fuel section to increase your quality..
+						<span>◆</span>
+					</div>
 				</div>
 				<div class="stand_chart_assiduite" >
+					<div class="stand_chart_tip">
+						Tweet content from Fuel section to increase your quality..
+						<span>◆</span>
+					</div>
 				</div>
 				<div class="stand_chart_impact" >
+					<div class="stand_chart_tip">
+						Tweet content from Fuel section to increase your quality..
+						<span>◆</span>
+					</div>
 				</div>
 			</div>
 			<!--  -->
