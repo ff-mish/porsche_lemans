@@ -3,6 +3,7 @@
 class QAAR extends CActiveRecord {
   // 每页的“问题” 个数
   const PAGE_ITEMS = 10;
+  
   public function tableName() {
     return "question_anwser";
   }
