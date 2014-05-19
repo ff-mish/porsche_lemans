@@ -182,6 +182,30 @@ class UserController extends Controller{
         $team_data[$key] = $val;
       }
       $team_data["users"] = $user->team->users;
+      
+      // 然后计算 user team 的排名
+      $tid = $team_data["tid"];
+      $query = new CDbCriteria();
+      $query->addCondition("tid=:tid");
+      $query->params[":tid"] = $tid;
+      
+      $row = ScoreTeamAR::model()->find($query);
+      $total = ScoreTeamAR::model()->count();
+      if ($row) {
+        $score = $row->average;
+        // 得到总数
+        $pos_query = new CDbCriteria();
+        $pos_query->addCondition("average > :average");
+        $pos_query->params[":average"] = $score;
+        $pos = ScoreTeamAR::model()->count($pos_query);
+        $data["team_total"] = $total;
+        $data["team_position"] = $pos;
+      }
+      else {
+        $data["team_total"] = $total;
+        $data["team_position"] = $total;
+      }
+      
       $data += array(
         "team" => $team_data,
         "last_post" => $user->team->last_post,
@@ -194,10 +218,7 @@ class UserController extends Controller{
       );
     }
     
-    
-    $data["team_total"] = 1000;
-    $data["team_position"] = 10;
-    $data["team_star"] = 2;
+    $data["team_star"] = $user->team->achivements_total;
     
     $this->responseJSON($data, "success");
   }
@@ -214,5 +235,29 @@ class UserController extends Controller{
       $this->responseError("invlid error", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
     }
     return $this->responseJSON(array(), "success");
+  }
+  
+  public function actionLogmail() {
+    $request = Yii::app()->getRequest();
+    
+    if (!$request->isPostRequest) {
+      //$this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+    }
+    $user = UserAR::crtuser();
+    if (!$user) {
+      $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    $mail = $request->getParam("email");
+    
+    $userMailAr = new UserMailAR();
+    $ret = $userMailAr->addNewMail($mail);
+    
+    if (!$ret) {
+      $error = $userMailAr->getErrors();
+      $this->responseError($error, ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    
+    $this->responseJSON(array(), "success");
   }
 }

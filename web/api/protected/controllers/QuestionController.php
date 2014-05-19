@@ -114,8 +114,12 @@ class QuestionController extends Controller {
     
     $user_qa_ar = new UserQAAR();
     $user_qa_ar->answer($qaid, $answer_id);
+    $data = array(
+        "is_right" => $user_qa_ar->is_right,
+        "new_achivement" => $user_qa_ar->has_new_achivement
+    );
     
-    $this->responseJSON(array("right" => 1), "success");
+    $this->responseJSON($data, "success");
   }
 }
 

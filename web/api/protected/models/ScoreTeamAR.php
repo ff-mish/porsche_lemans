@@ -50,8 +50,8 @@ class ScoreTeamAR extends CActiveRecord {
     }
 
     public function afterSave() {
-    return parent::afterSave();
-  }
+      return parent::afterSave();
+    }
 
 }
 

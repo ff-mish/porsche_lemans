@@ -20,7 +20,17 @@ class IndexController extends CController {
     if ($now >= $start_data) {
       $this->is_start = TRUE;
     }
+    
     return parent::init();
+  }
+  
+  public function beforeAction($action) {
+    // 用户是否登录
+    $user = UserAR::crtuser();
+    if (!$user && $action->id != "index") {
+      return $this->redirect("/");
+    }
+    return parent::beforeAction($action);
   }
   
   public function actionIndex() {

@@ -3,6 +3,9 @@
 class UserQAAR extends CActiveRecord {
   const ANSWER_WRONG = 0;
   const ANSWER_RIGHT = 1;
+  
+  public $has_new_achivement;
+  
   public function tableName() {
     return "user_question_answer";
   }
@@ -33,6 +36,34 @@ class UserQAAR extends CActiveRecord {
   
   public function afterSave() {
     // TODO:: 用户回答后 判断用户是否回答正确，如果正确，我们则进行加分
+    // step 1, 先判断用户是否回答正确
+    if ($this->is_right == self::ANSWER_RIGHT) {
+      $uid = $this->uid;
+      $user = UserAR::model()->findByPk($uid);
+      if ($user) {
+        $userTeamAr = new UserTeamAR();
+        if ($team = $userTeamAr->loadUserTeam($user)) {
+          $old_achivement = $team->achivements_total;
+          $members = $team->loadMembers();
+          $query = new CDbCriteria();
+          $uids = array();
+          foreach ($members as $member) {
+            $uids[] = $member->uid;
+          }
+          $query->addCondition("uid in (:uid)");
+          $query->addCondition("is_right = 1");
+          $query->params[":uid"] = implode(",", $uids);
+          $count = self::model()->count($query);
+          $new_achivement = round($new_achivement / 3, 0, PHP_ROUND_HALF_DOWN);
+          // 这里说明 有新的盾牌
+          if ($old_achivement < $new_achivement ) {
+            $this->has_new_achivement = TRUE;
+            $team->achivements_total = $new_achivement;
+            $team->save();
+          }
+        }
+      }
+    }
     return parent::afterSave();
   }
   

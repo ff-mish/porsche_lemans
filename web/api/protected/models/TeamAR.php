@@ -7,6 +7,9 @@ class TeamAR extends CActiveRecord {
   
   const LAST_POST_NUM = 3;
   
+  const STATUS_OFFLINE = 0;
+  const STATUS_ONLINE = 1;
+  
   
   public function tableName() {
     return "teams";
@@ -24,7 +27,7 @@ class TeamAR extends CActiveRecord {
     return array(
         array("name, owner_uid", "required"),
         array("owner_uid", "uniqueColumn"),
-        array("name, cdate, udate, score, owner_uid", "safe"),
+        array("name, cdate, udate, score, owner_uid, achivements_total, status", "safe"),
     );
   }
   

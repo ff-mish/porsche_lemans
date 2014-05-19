@@ -48,6 +48,11 @@ class UserTeamAR extends CActiveRecord {
     return TRUE;
   }
   
+  /**
+   * 
+   * @param type $user
+   * @return TeamAR
+   */
   public function loadUserTeam($user) {
     $cond = array(
         "condition" => $this->getTableAlias().".uid=:uid",
