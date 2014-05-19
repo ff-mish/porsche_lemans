@@ -82,8 +82,21 @@ class MediaController extends Controller {
     
     // media_id: 媒体 ID
     // share text: 分享文本
+    if (!$request->isPostRequest) {
+      //return $this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+    }
+    
+    $media_id = $request->getParam("media_id");
+    $share_text = $request->getParam("share_text");
+    
+    if (!$media_id || !$share_text) {
+      return $this->responseError("http params error", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    
     $mediaAr = new MediaAR();
     $mediaAr->share($media_id, $share_text);
+    
+    $this->responseJSON(array(), "success");
   }
 }
 

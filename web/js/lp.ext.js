@@ -5,11 +5,10 @@
 LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     'use strict'
     
-    LP.action("invite_box", function() {
-      console.log(LP.panel);
+    LP.action("invite_box", function(params) {
       LP.panel({
         type: "panel",
-        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">Do you want to join {{team_name}} ?</div><div class="popup_dialog_btns"><a href="javascript:void(0);">Cancel</a><a href="javascript:void(0);">Confirm</a></div></div>',
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">Do you want to join '+params["team_name"]+' ?</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
         "title": "",
         mask: true,
         destroy: true,
@@ -17,7 +16,24 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         cancelButton: false,
         closeAble: false,
         onShow: function () {
-          //TODO::
+          var panel = this;
+          this.$panel.find(".cancel").click(function () {
+            api.post("/api/user/jointeam", {"owner": 0}, function(e) {
+              if (e["status"] == 0) {
+                panel.close();
+                window.location.reload();
+              }
+            });
+            panel.close();
+          });
+          this.$panel.find(".confirm").click(function () {
+            api.post("/api/user/jointeam", {"team_id": params["team_id"]}, function(e) {
+              if (e["status"] == 0) {
+                panel.close();
+                window.location.reload();
+              }
+            });
+          });
         },
         onSubmit: function () {
           
@@ -38,7 +54,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 var dataCon = $("#data-stand");
                 var isInvited = dataCon.attr("data-is_invited");
                 if (parseInt(isInvited) != 0) {
-                  LP.triggerAction('invite_box');
+                  LP.triggerAction('invite_box', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id")});
                 }
                 break;
         }

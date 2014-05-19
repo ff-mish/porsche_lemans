@@ -61,6 +61,22 @@ class UserController extends Controller{
   public function actionJoinTeam() {
     $request = Yii::app()->getRequest();
     $team_owner_uid = $request->getParam("owner", FALSE);
+    $team_id = $request->getParam("team_id", FALSE);
+    
+    // 2 个参数必须有一个
+    if (!$team_owner_uid && !$team_id) {
+      $this->responseError("http invlid params", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    
+    if ($team_id) {
+      $team = TeamAR::model()->findByPk($team_id);
+      $team_owner_uid = $team->owner_uid;
+    }
+    
+    $user_ar = UserAR::crtuser();
+    if (!$user_ar) {
+      $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
     
     $invited_data = Yii::app()->session["invited_data"];
     if ($invited_data) {
@@ -74,6 +90,8 @@ class UserController extends Controller{
       $user_ar = UserAR::crtuser();
       if ($user_ar) {
         $user_ar->user_join_team($team_owner_uid);
+        $user_ar->allowed_invite = 1;
+        $user_ar->save();
         if ($team_owner_uid == $inviter) {
           unset(Yii::app()->session["invited_data"]);
         }
@@ -87,7 +105,8 @@ class UserController extends Controller{
       // 如果传了 但是又是 < 0 的值 则认为是不接受邀请
       else {
         if ($inviter) {
-          $user_ar->update(array("allowed_invite" => 0));
+          $user_ar->allowed_invite = 0;
+          $user_ar->save();
         }
       }
     }

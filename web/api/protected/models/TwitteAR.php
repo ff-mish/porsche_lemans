@@ -125,7 +125,7 @@ class TwitteAR extends CActiveRecord {
     $uid = $user->uid;
     $content = $msg;
     $ref_type = $media->type;
-    $ref_id = $media->id;
+    $ref_id = $media->mid;
     $type = $user->from;
     $this->uid = $uid;
     $this->content = $content;
@@ -154,7 +154,9 @@ class TwitteAR extends CActiveRecord {
           $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
           // 是图片的分享 就分享一个图片
           if ($media->type == MediaAR::MEDIA_IMAGE) {
-            $weibo_api->upload($content, MediaAr::realpath($media->uri));
+            // the uri like: http://xxx.com/api/heldxxx.png
+            $uri = str_replace(Yii::app()->getBaseUrl(true), "", $media->uri);
+            $weibo_api->upload($content, MediaAr::realpath($uri));
           }
           // 如果是分享视频 就分享一个视频链接
           else {

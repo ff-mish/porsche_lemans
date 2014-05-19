@@ -34,7 +34,7 @@ class MediaAR extends CActiveRecord {
   }
   
   public static function model($classname = __CLASS__) {
-    return self::model($classname);
+    return parent::model($classname);
   }
   
   public function beforeSave() {

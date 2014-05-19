@@ -105,13 +105,17 @@ class IndexController extends CController {
       $team = TeamAR::model()->findByPk($tid);
       if ($team) {
         $params["team_name"] = $team->name;
+        $params["team_id"] = $team->tid;
       }
       else {
         $params["team_name"] = "";
+        $params["team_id"] = "";
       }
     }
     else {
       $params["is_invited"] = FALSE;
+      $params["team_name"] = "";
+      $params["team_id"] = "";
     }
     
     

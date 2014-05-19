@@ -160,30 +160,6 @@ class TeamAR extends CActiveRecord {
       if ($team->owner_uid == $uid) {
         return $team;
       }
-      else {
-        //如果用户不是owner 则说明用户之前退出过team, 我们要找回这个team
-        $query = new CDbCriteria();
-        $query->addCondition("owner_uid=:uid");
-        $query->order="cdate DESC";
-        $query->params[":uid"] = $uid;
-        $all_teams = TeamAR::model()->findAll($query);
-        // 遍历之前用户所有创建的team 找出一个有效的team
-        foreach ($all_teams as $team) {
-          $tid = $team->tid;
-          $query_is_valid = new CDbCriteria();
-          $query_is_valid->addCondition("tid=:tid");
-          $query_is_valid->params[":tid"] = $tid;
-          $count = UserTeamAR::model()->count($query_is_valid);
-          if ($count) {
-            return $team;
-          }
-        }
-        if (count($all_teams)) {
-          // 如果没有找到任何一个team 则返回最新创建的team
-          return $all_teams[0];
-        }
-        return $all_teams;
-      }
       return FALSE;
     }
     // 用户不在任何组，说明用户已经退出了组

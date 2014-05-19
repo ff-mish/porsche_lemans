@@ -313,7 +313,8 @@ class UserAR extends CActiveRecord {
       foreach ($weibo_users as $weibo_user) {
         $invited_user[] = $weibo_user["idstr"];
       }
-      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($uid, $invited_user));
+      $user = $this->load_user_by_uuid($uid);
+      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($user->uid, $invited_user));
       $url = $short_url["urls"][0]["url_short"];
       $ret = $weibo_api->update($msg.' '. $url);
       

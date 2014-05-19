@@ -12,7 +12,12 @@
 		</div>
 		<!-- stand -->
 		<div class="stand">
-      <div id="data-stand" data-is_invited="<?php echo $is_invited ? 1: 0?>"></div>
+      <div id="data-stand" 
+           data-is_invited="<?php echo $is_invited ? 1: 0?>"
+           data-team_id="<?php echo $team_id?>"
+           data-team_name="<?php echo $team_name?>"
+           >
+      </div>
 			<div class="stand_tit">
 				<input class="team_name" value="" />
 				<span id="team-score"></span>
