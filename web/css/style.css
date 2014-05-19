@@ -319,6 +319,10 @@ body{background:#000;height: 100%;width: 100%}
 .popup_fuel .vjs-default-skin .vjs-mute-control, 
 .popup_fuel .vjs-default-skin .vjs-volume-menu-button,
 .popup_fuel .vjs-time-divider{display: none;}
+.popup_fuel .vjs-default-skin.vjs-has-started .vjs-control-bar{
+	visibility: visible !important;
+	opacity: 1!important;
+}
 
 
 

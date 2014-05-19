@@ -25,9 +25,6 @@
 			<div class="stand_achivments cs-clear">
 				<h2 class="fl">achievements</h2>
 				<div class="stand_achivmentsbox">
-					<p></p>
-					<p></p>
-					<p></p>
 				</div>
 			</div>
 			<!--  -->
