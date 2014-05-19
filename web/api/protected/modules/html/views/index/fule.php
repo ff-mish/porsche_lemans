@@ -26,10 +26,10 @@
 	<script type="text/tpl" id="fuel-tpl">
 <div class="fuelitem" {{#if video}}data-video="{{uri}}"{{/if}}>
 	<img src="{{image}}" style="width:100%"/>
-	<div class="fuelshade" style="display:none" data-a="preview"></div>
+	<div class="fuelshade" style="display:none" data-d="mid={{mid}}" data-a="preview"></div>
 	<div class="fuelbtnbox" style="display:none">
 		<div class="fuelbtn fuelbtn1" data-img="{{image}}" data-a="repost"></div>
-		<div class="fuelbtn fuelbtn2" data-a="preview"></div>
+		<div class="fuelbtn fuelbtn2" data-d="mid={{mid}}" data-a="preview"></div>
 	</div>
 </div>
 	</script>

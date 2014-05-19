@@ -261,7 +261,9 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dialog_options label {cursor:pointer;display:inline-block;font-size:15px;color:#f00000;background:url(../images/qa_option.gif) no-repeat;height:22px;padding:0 0 0 30px;margin:0 20px 0 0;}
 .popup_dialog_options label:hover,.popup_dialog_options label.active {background-position:0 -82px;}
 .popup_dialog_options input {display:none;}
-.popup_timer{position: absolute;width: 50px;height: 50px;right: 24px;top: 24px;}
+.popup_timer{position: absolute;width: 34px;height: 34px;right: 40px;top: 40px;}
+.popup_dun{position: absolute;left: 40px;top: 40px;height: 48px;width: 36px;line-height: 48px;text-align: center;color: #ff0000; background: url(../images/dun.png) no-repeat; font-size: 14px;}
+.popup_dun span{position: absolute;left: 150%;}
 
 
 .popup_invite {position: relative; background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: auto;}
@@ -299,6 +301,26 @@ body{background:#000;height: 100%;width: 100%}
 .popup_fuel .popup_fuel_photo_left {float:left;width:380px;margin:20px 50px 50px 50px;}
 .popup_fuel .popup_fuel_photo_right {float:left;width:340px;margin-top:45px;font-size:16px;line-height:140%;}
 .popup_fuel .popup_fuel_photo_description {text-align: justify;}
+/* video */
+.popup_fuel .vjs-default-skin.vjs-has-started .vjs-control-bar{background: #000;visibility: visible;opacity: 1;bottom: -36px;}
+.popup_fuel .vjs-default-skin .vjs-play-control{line-height: 36px;}
+.popup_fuel .vjs-default-skin .vjs-play-control:before{display: none;}
+.popup_fuel .vjs-default-skin .vjs-play-control .vjs-control-text{clip: auto;width: auto;height: auto;left: 20px;}
+.popup_fuel .vjs-default-skin .vjs-progress-control{top: 17px;height: 1px;margin: 0 54px 0 60px;}
+.popup_fuel .vjs-default-skin .vjs-progress-holder{background: #800000;}
+.popup_fuel .vjs-default-skin .vjs-progress-holder .vjs-play-progress,
+.popup_fuel .vjs-default-skin .vjs-progress-holder .vjs-load-progress{background: #e00000;}
+.popup_fuel .vjs-default-skin .vjs-seek-handle{display: none;}
+.popup_fuel .vjs-default-skin .vjs-current-time{float: right;}
+.popup_fuel .vjs-time-divider,
+.popup_fuel .vjs-default-skin .vjs-duration,
+.popup_fuel .vjs-default-skin .vjs-fullscreen-control,
+.popup_fuel .vjs-default-skin .vjs-volume-control,
+.popup_fuel .vjs-default-skin .vjs-mute-control, 
+.popup_fuel .vjs-default-skin .vjs-volume-menu-button,
+.popup_fuel .vjs-time-divider{display: none;}
+
+
 
 .team_name {background: none;color: #fff;border: none;outline: none;}
 .lpn_panel .lpn_wrapper {background:none;}

@@ -566,33 +566,38 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         var vid = 0;
         return function( $wrap , videoFile , poster , cfg , cb ){
             var id = 'my_video_' + ( vid++ );
+
+            var resize = cfg.resize === undefined ? true : cfg.resize;
+
             var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
             LP.use('video-js' , function(){
-                videojs.options.flash.swf = "./js/video-js.swf";
+                videojs.options.flash.swf = "/js/video-js/video-js.swf";
                 cfg = LP.mix(defaultConfig , cfg);
                 var ratio = cfg.ratio || ( 516 / 893 );
                 var myVideo = videojs( id , cfg , function(){
                     var v = this;
-                    $(window).resize(function(){
-                        var w = $wrap.width();
-                        var h = $wrap.height();
-                        var vh = 0 ;
-                        var vw = 0 ;
-                        if( h / w > ratio ){
-                            vh = h;
-                            vw = h / ratio;
-                        } else {
-                            vh = w * ratio;
-                            vw = w;
-                        }
-                        v.dimensions( vw , vh );
+                    if( resize ){
+                        $(window).resize(function(){
+                            var w = $wrap.width();
+                            var h = $wrap.height();
+                            var vh = 0 ;
+                            var vw = 0 ;
+                            if( h / w > ratio ){
+                                vh = h;
+                                vw = h / ratio;
+                            } else {
+                                vh = w * ratio;
+                                vw = w;
+                            }
+                            v.dimensions( vw , vh );
 
-                        $('#' + v.Q).css({
-                            "margin-top": ( h - vh ) / 2,
-                            "margin-left": ( w - vw ) / 2
-                        });
-                    }).trigger('resize');
+                            $('#' + v.Q).css({
+                                "margin-top": ( h - vh ) / 2,
+                                "margin-left": ( w - vw ) / 2
+                            });
+                        }).trigger('resize');
+                    }
                     cb && cb.call( this );
                 } );
             });
@@ -915,7 +920,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
 
-    LP.action('preview' , function( ev ){
+    LP.action('preview' , function( data ){
 
         // show big pic or big video
         var tpls = {
@@ -926,7 +931,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-a="mid=#[mid]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -940,7 +945,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         1979 goes down in Porsche motorsport history as another successful year. Private racing teams bring home 15 national and international championship victories for the Zuffenhausen brand. One is the triumph in Le Mans. The Kremer Racing team from Cologne takes to the starting line in a modified version of the 935. Brothers Bill and Don Whittington from the United States and the German Klaus Ludwig win Porsche\'s fifth overall victory after 24 hours.\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-a="mid=#[mid]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -954,7 +959,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // var imgW = $img.width();
         var video = $(this).closest('.fuelitem').data('video');
 
-        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src')});
+        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid});
         LP.panel({
             content: content,
             //title: "share the content",
@@ -974,7 +979,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         var imgW = $('.popup_image_wrap img').width();
                         if( video ){ // play the video
                             $('.popup_image_wrap img').hide();
-                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {} );
+                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
+                                controls: true,
+                                resize: false
+                            } );
                         }
 
                         $(window).on('resize.fixfuel' , function(){
@@ -1022,7 +1030,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     });
 
-    LP.action('repost' , function( ev ){
+    LP.action('repost' , function( data ){
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
@@ -1048,7 +1056,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .eq(1)
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
-                        api.post( '/api/twitte/post' , {msg: msg} , function(){
+                        api.post( '/api/twitte/post' , {msg: msg , mid: data.mid} , function(){
                             LP.right('success');
                         } );
                     });
@@ -1100,7 +1108,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('skip-intro' , function(data){
-        $(this).parent().fadeOut();
+        $(this).parent().fadeOut().remove();
     });
 
     LP.action('leaveteam' , function( e ){
@@ -1213,7 +1221,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
                     var data = e.data || {};
-                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dialog_msg">';
+                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>Assiduity</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options">';
                     $.each( [1,2,3,4] , function( i ){
                         content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
