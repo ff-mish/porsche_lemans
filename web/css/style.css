@@ -92,8 +92,8 @@ body{background:#000;height: 100%;width: 100%}
 		.fuelmore a{color:#ff0000;display: block;width:276px;height: 38px;border:#f00 solid 1px;line-height: 38px;text-align: center;  }
 
 /* race */
-.race_track{background: url('../images/race_track.png') no-repeat;width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
-.race_bg{position:absolute;bottom: 0;left:0;right: 0;width: 100%}
+.race_track{width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
+.race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%}
 .race_nav{width: 116px;height: 167px;position: absolute;left:74px;top:420px;font-size: 18px;font-weight: bold;}
 .race_time{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat;height: 45px}
 	.race_speed{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat 0 -45px;margin-bottom:22px;}
@@ -190,68 +190,7 @@ body{background:#000;height: 100%;width: 100%}
 	.conut_down{background: url('../images/countdownbg.png') no-repeat;width: 565px;height: 208px;padding-left:95px;}
 		.conut_downitem{font-size: 72px;float: left;height: 70px;margin-top: 75px;line-height: 70px;overflow: hidden;margin-right:52px;display:inline;color:#cfcfcf;}
 
-
-
-/* rotate-wrap */
-.rotate-wrap{
-	/* The .rotate-wrap div. Created dynamically by jQuery */
-	height:81px;
-	width:81px;
-	position:relative;
-	overflow:hidden;
-}
-
-.rotate-wrap .rotate{
-	/* There are two .rotate divs - one for each half of the background */
-	position:absolute;
-	width:81px;
-	height:81px;
-	top:0;
-	left:0;
-}
-
-.rotate.right{
-	display:none;
-	z-index:11;
-}
-
-.rotate-wrap .bg, .rotate-wrap .front{
-	width:40px;
-	height:81px;
-	position:absolute;
-	top:0;
-}
-
-.rotate-wrap .display{
-	/* Holds the number of seconds, minutes or hours respectfully */
-	position:absolute;
-	width:81px;
-	font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	z-index:20;
-	color:#F5F5F5;
-	font-size:60px;
-	text-align:center;
-	top:65px;
-	left:0;
-	
-	/* CSS3 text shadow: */
-	text-shadow:4px 4px 5px #333333;
-}
-
-/* The left part of the background: */
-.rotate-wrap .bg.left{ left:0; }
-/* Individual styles for each color: */
-.rotate-wrap .bg.left{ background:url(../images/ring-red.png) no-repeat left top; }
-/* The right part of the background: */
-.rotate-wrap .bg.right{ left:41px; }
-.rotate-wrap .bg.right{ background:url(../images/ring-red.png) no-repeat left top; }
-
-
-.rotate-wrap .front.left{
-	left:0;
-	z-index:10;
-	background:url(../images/ring-black.png) no-repeat left top;
-}
+.loading{background: url(../images/loading.gif) no-repeat center center;min-height: 70px;min-width: 70px;height: 70px;}
 
 /*.post-weibo-panel {
   width: 50%;
@@ -322,7 +261,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_timer{position: absolute;width: 50px;height: 50px;right: 24px;top: 24px;}
 
 
-.popup_invite {background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: auto;}
+.popup_invite {position: relative; background:#000;width:860px;height:450px;padding:0 10px 0 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: auto;}
 .popup_invite .popup_invite_friend_list{height: 350px;overflow: auto;}
 .popup_invite .friend_item {float:left;width:214px;margin:25px 0;height: 73px;}
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
@@ -335,11 +274,13 @@ body{background:#000;height: 100%;width: 100%}
 .popup_invite .popup_invite_btns {text-align: center;margin:20px 0 0;}
 .popup_invite .popup_invite_btns a {color:#ff0000;font-size:25px;text-decoration:underline;}
 .popup_invite .popup_invite_btns a:hover {opacity:0.7;}
+.popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
 
 .popup_post textarea {resize:none;width:100%;height:100%;background:none;border:none;color:#fff;}
 .popup_post_with_photo textarea {width:470px;}
 .popup_post .popup_dialog_msg {display: block;text-align:left;font-size:20px;padding:10px 20px;}
-.popup_post .popup_post_photo {float:left;margin:0 20px 0 0;}
+.popup_post .popup_post_photo {float:left;margin:0 20px 0 0;width: 180px;height: 180px;}
+.popup_post .popup_post_photo  img{max-width: 100%;width: 100%;}
 
 .popup_fuel {background: #000;width: 900px;padding: 30px 0 0;color: white;}
 .popup_fuel .popup_close {cursor: pointer; background: url('../images/fuel_close.png') no-repeat;width:50px;height:50px;position:absolute;right:20px;top:20px;}

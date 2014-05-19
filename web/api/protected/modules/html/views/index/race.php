@@ -12,9 +12,8 @@
 		</div>
 		<!-- race -->
 		<div class="race">
-			<div class="race_track"></div>
-			<div class="race_bg">
-				<img src="images/race.png" width="100%" />
+			<div class="race_track" id="map"></div>
+			<div class="race_bg" id="container">
 			</div>
 			<div class="race_nav">
 				<div class="race_time">23:02:00</div>

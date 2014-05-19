@@ -94,7 +94,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .attr("stroke", "#000")
                     .attr("stroke-width" , stockWidth);
             var text = paper.text( width / 2 , height / 2 , "0 T/M" ) 
-                .attr({stroke: "#fff"});
+                .attr({fill: "#fff",'font-size':'13px'});
 
             var now = new Date();
             var duration = 700;
@@ -141,6 +141,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         });
     }
 
+    var questionTimerInitTimer = null;
     var questionTimerInit = function( $dom  , duration , cb ){
         var width = $dom.width();
         var r = width / 2;
@@ -192,10 +193,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 // console.log( p );
                 // path.attr('path' , p);
-                setTimeout( drawCircle , 1000 / 60 );
+                
+                questionTimerInitTimer = setTimeout( drawCircle , 1000 / 60 );
                 lastper = per;
             }
-            setTimeout( drawCircle , 1000 / 60 );
+            questionTimerInitTimer = setTimeout( drawCircle , 1000 / 60 );
         });
     }
     // left { max: xx , tip : '' , text: yyy }
@@ -223,11 +225,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var pathAttr = {
                 'stroke' : '#999',
                 'opacity' : 0.7,
-                'stroke-width' : 0.4
+                'stroke-width' : 1
             }
             var textAttr = {
-                'stroke' : '#999',
-                'opacity' : 0.7
+                'fill' : '#fff',
+                'font-size' : '14px',
+                'opacity' : 1
             }
 
             LP.use('raphaeljs' , function( Raphael ){
@@ -247,14 +250,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .attr( textAttr );
                 paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
                     .attr( textAttr );
-                // add hover block
-                // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
-                //     .hover( function(){
-                //         alert(1);
-                //     } , function(){
-                //         alert(2);
-                //     })
-                    //.attr({'fill': '#f00',opacity: 0.4});
+
                 // draw y
                 var ypath = [
                     'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
@@ -780,6 +776,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     LP.action("member_invent" , function(){
         LP.panel({
             content: '<div class="popup_invite">\
+                    <div class="loading"></div>\
                     <div class="popup_invite_friend_list"></div>\
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns">\
@@ -799,8 +796,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             <div class="send" data-a="add-invite-user">Send Invitation</div>\
                         </div>\
                     </div>';
+
                 // load user list from sina weibo or twitter
                 api.get("/api/user/friends" , function( e ){
+                    panel.$panel.find('.loading').hide();
                     var html = [];
                     $.each( e.data , function( i , user ){
                         html.push( LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ) );
@@ -852,7 +851,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             title: "",
             width: 784,
             height: 352,
-            onload: function(){
+            onShow: function(){
                 var panel = this;
                 this.$panel.find('.lpn_ctrl_group').hide();
                 //initSuggestion( this.$panel.find('textarea') );
@@ -877,7 +876,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             //     } );
             // }
         });
+
+        return false;
     });
+
 
     LP.action('preview' , function( ev ){
 
@@ -890,7 +892,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -904,7 +906,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         1979 goes down in Porsche motorsport history as another successful year. Private racing teams bring home 15 national and international championship victories for the Zuffenhausen brand. One is the triumph in Le Mans. The Kremer Racing team from Cologne takes to the starting line in a modified version of the 935. Brothers Bill and Don Whittington from the United States and the German Klaus Ludwig win Porsche\'s fifth overall victory after 24 hours.\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-a="repost" href="#">Repost</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -987,19 +989,35 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('repost' , function( ev ){
+        var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
+                    <div class="popup_dialog_msg">\
+                        <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
+                        <textarea>They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is</textarea>\
+                    </div>\
+                    <div class="popup_dialog_btns">\
+                        <a href="javascript:void(0);">Cancel</a>\
+                        <a href="javascript:void(0);">Confirm</a>\
+                    </div>\
+                </div>';
+
         LP.panel({
-            content: "<textarea cols='40' rows='5'></textarea>",
-            title: "share the content",
-            submitButton: true,
-            className: "post-weibo-panel1",
+            content: LP.format( tpl , {imgsrc: $(this).data('img')}),
+            title: "",
             onload: function(){
-              
-            },
-            onSubmit: function(){
-                var msg = this.$panel.find('textarea').val();
-                api.post( '/api/twitte/post' , {msg: msg} , function(){
-                    LP.right('success');
-                } );
+                var panel = this;
+                panel.$panel.find('.popup_dialog_btns a')
+                    .eq(0)
+                    .click(function(){
+                        panel.close();
+                    })
+                    .end()
+                    .eq(1)
+                    .click(function(){
+                        var msg = panel.$panel.find('textarea').val();
+                        api.post( '/api/twitte/post' , {msg: msg} , function(){
+                            LP.right('success');
+                        } );
+                    });
             }
         });
     });
@@ -1009,9 +1027,11 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         $(this).attr('disabled' , 'disabled');
         var page = ++fuelPage;
 
+        $('.fuel .loading').show();
         $(this).data( 'page' , fuelPage );
 
         api.get('/api/media/list' , { page:page } , function( e ){
+            $('.fuel .loading').hide();
             // DEBUG.. render fuel item
             $.each( e.data || [] , function( i , data ){
               if (data["type"] == "video") {
@@ -1051,9 +1071,32 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action('leaveteam' , function( e ){
         var self = $(this);
-        api.get("/api/user/leaveteam", function ( e ) {
-           //TODO:: 动画效果
-           self.fadeOut("fast");
+        var tpl = '<div class="popup_box popup_dialog">\
+                <div class="popup_dialog_msg">#[content]</div>\
+                <div class="popup_dialog_btns">\
+                    <a href="javascript:void(0);">Cancel</a>\
+                    <a href="javascript:void(0);">Confirm</a>\
+                </div>\
+            </div>';
+        LP.panel({
+            title: '',
+            content: LP.format( tpl , {content: _e('do you want to leave the team?')} ),
+            onShow: function(){
+                var panel = this;
+                this.$panel.find('.popup_dialog_btns a')
+                    .eq(0)
+                    .click(function(){
+                        panel.close();
+                    })
+                    .end()
+                    .eq(1)
+                    .click(function(){
+                        api.get("/api/user/leaveteam", function ( e ) {
+                           //TODO:: 动画效果
+                           self.fadeOut("fast");
+                        });  
+                    });
+            }
         });
     });
 
@@ -1135,7 +1178,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 qtimes++;
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
-                    var data = e.data;
+                    var data = e.data || {};
                     var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options">';
                     $.each( [1,2,3,4] , function( i ){
@@ -1161,6 +1204,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                                         .removeClass('active')
                                         .unbind('click');
 
+                                    clearTimeout( questionTimerInitTimer );
+
                                     api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function(){
                                         t.close();
                                     });
@@ -1169,6 +1214,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             // init timer
                             questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
                                 // TODO.. 
+                                api.post("/api/question/answer" , { answer: '' , qaid: data.qaid} , function(){
+                                    t.close();
+                                });
                             } );
                         }
                     });
@@ -1403,8 +1451,27 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 $(".btns .comment").live("click", commentMonitoring);
               });
               
-              
               break;
+
+            case "race":
+                if(document.createElement("canvas").getContext){
+                    LP.use('../race/race');
+                } else {
+                    // render flash
+                    $('.race_nav,.nav').hide();
+                    $('#container').html(
+                        '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
+                            <param name="movie" value="/js/raceflash/track.swf"/>\
+                            <param name="quality" value="high"/>\
+                            <param name="wmode" value="transparent"/>\
+                            <param name="flashVars" value="xml=/js/raceflash/xml/track.xml"/>\
+                            <embed name="flash" src="/js/raceflash/track.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/track.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
+                        </object>'
+                        );
+                     
+                }
+                
+                break;
         }
     });
 });

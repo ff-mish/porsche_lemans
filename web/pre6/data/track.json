@@ -1,0 +1,89 @@
+{
+    "svgFile":"track.svg",
+    "startDistance":100,
+    "slopeScale":1,
+    "slopes":[
+        {
+            "percent":30,
+            "offset":5
+        },
+        {
+            "percent":50,
+            "offset":-5
+        },
+        {
+            "percent":60,
+            "offset":5
+        },
+        {
+            "percent":80,
+            "offset":-5
+        }
+    ],
+    "particle": {
+        "count":1000,
+        "size":0.2
+    },
+    "cameraFollow": {
+        "initPosition":{"x":10000, "y":10000, "z":10000},
+        "followFactor":0.2,
+        "lookAtFactor":0.2,
+        "locationsNode":"location的trackPercent必须按由小到大的顺序",
+        "locations":[
+            {
+                "trackPercent":10,
+                "name":"后视",
+                "distance": -30,
+                "height":20
+            },
+            {
+                "trackPercent":20,
+                "name":"高角度仰视",
+                "distance": -20,
+                "height":200
+            },
+            {
+                "trackPercent":30,
+                "name":"低角度仰视",
+                "distance": -50,
+                "height":50
+            },
+            {
+                "trackPercent":40,
+                "name":"后视",
+                "distance": -30,
+                "height":20
+            },
+            {
+                "trackPercent":50,
+                "name":"高角度仰视",
+                "distance": -20,
+                "height":200
+            },
+            {
+                "trackPercent":60,
+                "name":"低角度仰视",
+                "distance": -50,
+                "height":50
+            },
+            {
+                "trackPercent":70,
+                "name":"后视",
+                "distance": -30,
+                "height":20
+            },
+            {
+                "trackPercent":80,
+                "name":"高角度仰视",
+                "distance": -20,
+                "height":200
+            },
+            {
+                "trackPercent":90,
+                "name":"低角度仰视",
+                "distance": -50,
+                "height":50
+            }
+        ]
+    }
+}
