@@ -68,11 +68,9 @@ class UserTeamAR extends CActiveRecord {
         "params" => array(":uid" => $user->uid),
     );
     $row = $this->with("user", "team")->find($cond);
-    
     if ($row) {
       $team = $row->team;
     }
-    
     return $row;
   }
   

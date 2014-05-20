@@ -230,8 +230,8 @@ class TwitteAR extends CActiveRecord {
     else if ($level == self::LEVEL_TEAM) {
       $teamAr = new TeamAR();
       $userTeamAr = new UserTeamAR();
-      $userTeamAr->loadUserTeam($user);
-      $members = $teamAr->loadMembers($userTeamAr->tid);
+      $teamuser = $userTeamAr->loadUserTeam($user);
+      $members = $teamAr->loadMembers($teamuser->team->tid);
       //$uids[] = $user->uid;
       
       foreach ($members as $member) {
