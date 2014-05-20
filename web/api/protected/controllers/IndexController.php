@@ -3,6 +3,7 @@
 class IndexController extends CController {
   
   public $page_name;
+  public $classname;
   public $is_start = FALSE;
   
   public function init() {
@@ -96,6 +97,7 @@ class IndexController extends CController {
       $params["team_owner_uid"] = "";
     }
     $this->page_name = $params["page_name"];
+    $this->classname = "pagebg8";
     
     $invited_data = Yii::app()->session["invited_data"];
     $code = $invited_data["code"];
@@ -144,6 +146,7 @@ class IndexController extends CController {
         "page_name" => "monitoring"
     );
     $this->page_name = $params["page_name"];
+    $this->classname = "pagebg10";
     $this->render("monitoring", $params);
   }
 }

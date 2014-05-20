@@ -18,18 +18,18 @@
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
 </head>
-<body class="bg1" data-page="<?php echo $this->page_name?>">
+<body class="bg1 <?php echo $this->classname ?>" data-page="<?php echo $this->page_name?>">
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->
 
-  <div class="footer">
-      <div class="">
-          <p>Legal Mentions</p>
-          <p>Share</p>
-      </div>
-      <div class="">EN | 中文</div>
-  </div>
+<div class="footer">
+        <div class="footer_link cs-clear">
+            <p>Legal Mentions</p>
+            <p>Share</p>
+        </div>
+        <div class="footer_language"><a href="#">En</a> | <a href="#">中文</a></div>
+    </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>
 <script type="text/javascript" src="/js/lp.core.js"></script>
