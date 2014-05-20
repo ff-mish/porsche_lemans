@@ -28,7 +28,7 @@
           <span id="team-score"></span>
         </div>
           <!--  -->
-        <div class="teambuild_member stand_useritem cs-clear">
+        <div class="teambuild_members cs-clear">
 			</div>
 			<!--  -->
 			<div class="stand_achivments cs-clear">

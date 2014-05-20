@@ -14,7 +14,7 @@
   </div>
 
     <div id="home_video">
-        <a href="#" data-a="skip-intro">Skip intro</a>
+        <a href="#" data-a="skip-intro" style="float: right;margin: 20px;font-size: 24px;text-decoration: underline;">Skip intro</a>
     </div>
 </div>
 

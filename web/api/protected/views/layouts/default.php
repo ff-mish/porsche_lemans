@@ -25,10 +25,22 @@
 
 <div class="footer">
         <div class="footer_link cs-clear">
-            <p>Legal Mentions</p>
-            <p>Share</p>
+            <p data-a="legal-mentions">Legal Mentions</p>
+            <div id="share">Share
+              <div class="share-btns">
+                <a href="#" class="i-fb"></a>
+                <a href="#" class="i-tw"></a>
+                <a href="#" class="i-g"></a>
+                <a href="#" class="i-in"></a>
+                <a href="#" class="i-p"></a>
+              </div>
+            </div>
         </div>
         <div class="footer_language"><a href="#">En</a> | <a href="#">中文</a></div>
+    </div>
+    <div id="legal-notice">
+      <div class="popup_close"></div>
+      <h2>Legal Notice</h2>
     </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>

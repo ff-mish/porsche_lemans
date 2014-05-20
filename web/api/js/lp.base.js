@@ -1102,7 +1102,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
 
     LP.action('legal-mentions' , function( data ){
-        $('#legal-mentions').fadeIn();
+        $('#legal-notice').fadeIn();
     });
 
     LP.action('skip-intro' , function(data){
@@ -1174,6 +1174,22 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     marginLeft: 0
                 } , 500);
         });
+
+        // init share btn
+        $('#share').hover(function(){
+            $('.share-btns').stop().animate({
+                width: 240
+            } , 500 );
+        } , function(){
+            $('.share-btns').delay(200).animate({
+                width: 0
+            } , 500 );
+        });
+
+        // init #legal-notice
+        $('#legal-notice .popup_close').click(function(){
+            $('#legal-notice').fadeOut();
+        })
 
 
         // fix Q & A
@@ -1473,7 +1489,6 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     // render stand_chart
                     var score = team.score || {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2};
                     $('.stand_chart_score').html( score.average + 'Km/h' );
-
                     coordinate.init( $('.stand_chart') , function(){
                         coordinate.run( score.impact , score.quality , score.speed , score.assiduite );
                     } );

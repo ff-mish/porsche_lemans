@@ -108,6 +108,23 @@ outline: none !important;
   color: #fff;
 }
 
+#legal-notice{position: fixed;top: 80px; bottom: 0; width: 80%; margin: 0 10%; background: rgba(0,0,0,.5); display: none;}
+#legal-notice h2{text-align: center;font-size: 30px;padding: 30px;}
+#share{float: left;padding: 0 6px;position: relative;}
+.share-btns{position:absolute; left: 100%; top: 0px; overflow: hidden;margin-top: -4px;width: 0;height: 33px;}
+.share-btns a{display: inline-block; width: 33px;height: 33px;background: url(../images/share.png) no-repeat;margin: 0 5px;}
+.share-btns a.i-fb{background-position: 0 -44px;}
+.share-btns a.i-tw{background-position: -45px -44px;}
+.share-btns a.i-g{background-position: -90px -44px;}
+.share-btns a.i-in{background-position: -135px -44px;}
+.share-btns a.i-p{background-position: -180px -44px;}
+.share-btns a.i-fb:hover{background-position: 0 -1px;}
+.share-btns a.i-tw:hover{background-position: -45px -1px;}
+.share-btns a.i-g:hover{background-position: -90px -1px;}
+.share-btns a.i-in:hover{background-position: -135px -1px;}
+.share-btns a.i-p:hover{background-position: -180px -1px;}
+
+#home_video{top:80px;}
 
 .popup_fuel{width: auto;}
 .popup_fuel_video .video-js{margin-bottom: 30px;}
