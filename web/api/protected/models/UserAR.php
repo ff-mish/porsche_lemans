@@ -202,6 +202,20 @@ class UserAR extends CActiveRecord {
     // 用户已经注册到了我们系统了
     if ($user && $user->status == self::STATUS_ENABLED) {
       Yii::app()->session["user"] = $user;
+    // 如果用户已经登录授权过了， 但是又没有建造一个team
+      $userteamAr = new UserTeamAR();
+      $team = $userteamAr->loadUserTeam($user);
+      if (!$team) {
+        // TODO:: 我们让他去team build 页面
+        // 测试代码， 我们要删除掉
+        TeamAR::newteam("new team");
+      }
+      else {
+        
+      }
+    }
+    elseif ($user && $user->status == self::STATUS_ENABLED) {
+      
     }
     // 用户是自动被加入到系统的， 这次还是属于第一次授权
     elseif ($user && $user->status == self::STATUS_AUTO_JOIN) {
@@ -277,7 +291,9 @@ class UserAR extends CActiveRecord {
 
       if ($team_user) {
         $user->team = $team_user->team;
-        $user->team->loadMembers();
+        if ($user->team) {
+          $user->team->loadMembers();
+        }
       }
       else {
         $user->team = NULL;

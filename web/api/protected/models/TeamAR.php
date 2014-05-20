@@ -26,7 +26,6 @@ class TeamAR extends CActiveRecord {
   public function rules() {
     return array(
         array("name, owner_uid", "required"),
-        array("owner_uid", "uniqueColumn"),
         array("name, cdate, udate, score, owner_uid, achivements_total, status", "safe"),
     );
   }
@@ -138,6 +137,18 @@ class TeamAR extends CActiveRecord {
     $this->users = $users;
     
     return $users;
+  }
+  
+  public function offlineIt($tid = FALSE) {
+    if (!$tid) {
+      $tid = $this->tid;
+    }
+    $team = self::model()->findByPk($tid);
+    
+    if ($team) {
+      $team->status = self::STATUS_OFFLINE;
+      $team->save();
+    }
   }
   
   /**

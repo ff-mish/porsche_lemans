@@ -91,8 +91,12 @@ class WeiboCommand extends CConsoleCommand {
           if (isset($status["original_pic"])) {
             $twitteAr->thirdpart_ref_media = $status["original_pic"];
           }
-          
-          $twitteAr->save();
+          try {
+            $twitteAr->save();
+          }
+          catch (Exception $e) {
+            continue;
+          }
 
           print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] being to insert system.'. "\r\n";
         }

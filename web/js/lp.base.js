@@ -1137,8 +1137,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     .click(function(){
                         api.get("/api/user/leaveteam", function ( e ) {
                            //TODO:: 动画效果
-                           self.fadeOut("fast");
-                        });  
+                           panel.close("fast");
+                        });
                     });
             }
         });
@@ -1369,32 +1369,44 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                 api.get('/api/user' , function( e ){
                     var data = e.data;
-                    var team = data.team || {
-                        score: {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2},
-                        name:'xxxx',
-                        users:[{
-                            "uid":"101648",
-                            "name":"\u8299\u7f8e\u513f",
-                            "from":"weibo",
-                            "cdate":"2014-05-16 10:39:25",
-                            "udate":"2014-05-16 10:39:25",
-                            "uuid":"5072167230",
-                            "lat":null,
-                            "lng":null,
-                            "speed": 0.9,
-                            "impact": 3452,
-                            "invited_by":"0","profile_msg":"","avatar":"http:\/\/tp3.sinaimg.cn\/5072167230\/180\/40049599975\/0","status":"1","friends":"81","location":"","score":null
-                    }]};
+                    var crtuser = data["user"];
+                    
+                    var team = data.team;
+                    
+                    // TODO:: 如果发现team 是空， 则需要返回到team building 页面
+                    
+//                    var team = data.team || {
+//                        score: {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2},
+//                        name:'xxxx',
+//                        users:[{
+//                            "uid":"101648",
+//                            "name":"\u8299\u7f8e\u513f",
+//                            "from":"weibo",
+//                            "cdate":"2014-05-16 10:39:25",
+//                            "udate":"2014-05-16 10:39:25",
+//                            "uuid":"5072167230",
+//                            "lat":null,
+//                            "lng":null,
+//                            "speed": 0.9,
+//                            "impact": 3452,
+//                            "invited_by":"0","profile_msg":"","avatar":"http:\/\/tp3.sinaimg.cn\/5072167230\/180\/40049599975\/0","status":"1","friends":"81","location":"","score":null
+//                    }]};
 
                     // 
                     $('.team_name').val( team.name );
                     $('#team-score').html( 'P' + data.team_position + '/' + data.team_total );
 
                     // render users
-                    var utpl = '<div class="teambuild_member stand_useritem cs-clear">\
+                    var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
                     <div class="member_item ">\
                         <img src="#[avatar]" />\
                         <p class="member_name">@#[name]<br/><span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
+                    </div>\
+                    <div class="member_speed"></div>\
+                    <div class="memeber_space">#[space]</div></div>';
+                  var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
+                    <div class="member_item ">\
+                        <img src="#[avatar]" />\
                     </div>\
                     <div class="member_speed"></div>\
                     <div class="memeber_space">#[space]</div></div>';
@@ -1402,11 +1414,19 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     var speeds = [];
                     $.each( [0,1,2] , function( i , index ){
                         if( team.users[i] ){
-                            speeds.push( team.users[i].speed );
-                            html.push( LP.format(utpl,{
+                          if (team.users[i].uid == crtuser["uid"]) {
+                            html.push( LP.format(utpl_crtuser,{
                                 avatar:     team.users[i].avatar,
                                 name:       team.users[i].name,
                                 space:      team.users[i].friends / 1000 + 'K' }));
+                          }
+                          else {
+                            html.push( LP.format(utpl_teammem,{
+                                avatar:     team.users[i].avatar,
+                                name:       team.users[i].name,
+                                space:      team.users[i].friends / 1000 + 'K' }));
+                          }
+                          speeds.push( team.users[i].speed );
                         } else{
                             html.push( '<div class="teambuild_member stand_useritem cs-clear">\
                                 <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
@@ -1429,7 +1449,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     // render post
                     var aHtml = [];
                     $.each( data.last_post || [] , function( i , post ){
-                        aHtml.push("<div class=\"stand_achivmentsbox\">" + post + "</div>");
+                        aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
                     } );
                     $('.stand_tweet').append( aHtml.join("") );
                     

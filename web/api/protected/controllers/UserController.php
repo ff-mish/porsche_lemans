@@ -51,6 +51,9 @@ class UserController extends Controller{
     }
     
     $ret = $user->leaveTeam();
+    // 用户登出
+    unset(Yii::app()->session["user"]);
+    
     $this->responseJSON(array(), "success");
   }
   
@@ -237,7 +240,9 @@ class UserController extends Controller{
       );
     }
     
-    $data["team_star"] = $user->team->achivements_total;
+    if ($user->team) {
+      $data["team_star"] = $user->team->achivements_total;
+    }
     
     $this->responseJSON($data, "success");
   }
@@ -253,6 +258,18 @@ class UserController extends Controller{
     if (!$teamName) {
       $this->responseError("invlid error", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
     }
+    $userteamAr = new UserTeamAR();
+    $user = UserAR::crtuser();
+    $userteam = $userteamAr->loadUserTeam($user);
+    if ($userteam) {
+      $team = $userteam->team;
+      $team->name = $teamName;
+      $ret = $team->save();
+      if (!$ret) {
+        $errors = $userteam->team->getErrors();
+      }
+    }
+    
     return $this->responseJSON(array(), "success");
   }
   

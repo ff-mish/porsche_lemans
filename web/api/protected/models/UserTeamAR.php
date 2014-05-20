@@ -66,6 +66,24 @@ class UserTeamAR extends CActiveRecord {
     
     return $row;
   }
+  
+  /**
+   * 用户退组后进行一些逻辑处理
+   * @return type
+   */
+  public function afterDelete() {
+    // 用户退组 如果组里面没有任何成员，我们则把组状态修改掉
+    $tid = $this->tid;
+    $team = TeamAR::model()->findByPk($tid);
+    if ($team) {
+      $members = $team->loadMembers();
+      // 发现没有组员了，则改变状态吧
+      if (count($members) <= 0) {
+        $team->offlineIt();
+      }
+    }
+    return parent::beforeDelete();
+  }
 
   public function leaveTeam($uid) {
     $query = new CDbCriteria();
