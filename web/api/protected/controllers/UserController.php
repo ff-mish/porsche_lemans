@@ -95,6 +95,10 @@ class UserController extends Controller{
         $user_ar->user_join_team($team_owner_uid);
         $user_ar->allowed_invite = 1;
         $user_ar->save();
+        // 保存用户接受请求的日志
+        $code = $invited_data["code"];
+        InviteLogAR::logUserAllowInvite($user_ar->uuid, $code);
+        
         if ($team_owner_uid == $inviter) {
           unset(Yii::app()->session["invited_data"]);
         }
@@ -110,6 +114,9 @@ class UserController extends Controller{
         if ($inviter) {
           $user_ar->allowed_invite = 0;
           $user_ar->save();
+          
+          $code = $invited_data["code"];
+          InviteLogAR::logUserAllowInvite($user_ar->uuid, $code);
         }
       }
     }

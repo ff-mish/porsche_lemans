@@ -45,6 +45,15 @@ class UserTeamAR extends CActiveRecord {
       return FALSE;
     }
     
+    //避免一个组超过3个人
+    $query = new CDbCriteria();
+    $query->addCondition("tid=:tid");
+    $query->params[":tid"] = $tid;
+    $count = self::model()->count($query);
+    if ($count >= 3) {
+      return FALSE;
+    }
+    
     return TRUE;
   }
   

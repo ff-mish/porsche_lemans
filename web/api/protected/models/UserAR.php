@@ -115,7 +115,7 @@ class UserAR extends CActiveRecord {
    * @param type $uid 邀请人
    * @param type $invited_uid 被邀请人
    */
-  public function generateInvitedURL($uid, $invited_uid = "") {
+  public function generateInvitedURL($uid, $invited_uid = "", $code = "") {
     $team = TeamAR::loadTeamByOwner($uid);
     if ($team) {
       $tid = $team->tid;
@@ -123,11 +123,16 @@ class UserAR extends CActiveRecord {
     else {
       $tid = 0;
     }
+    // 没有tid 就不要去邀请了
+    if (!$tid) {
+      return FALSE;
+    }
     $data = array(
         "uid" => $uid,
         "invited_uid" => $invited_uid,
         "tid" => $tid,
-        "time" => time()
+        "time" => time(),
+        "code" => $code
     );
     $str = serialize($data);
     $encrpted_str = $this->encrypt_decrypt("e", $str);
@@ -198,6 +203,8 @@ class UserAR extends CActiveRecord {
       $friends = $twitter_user->friends_count;
     }
     
+    // 把用户从数据库加载进来
+    
     $user = $this->load_user_by_uuid($uuid);
     // 用户已经注册到了我们系统了
     if ($user && $user->status == self::STATUS_ENABLED) {
@@ -213,9 +220,6 @@ class UserAR extends CActiveRecord {
       else {
         
       }
-    }
-    elseif ($user && $user->status == self::STATUS_ENABLED) {
-      
     }
     // 用户是自动被加入到系统的， 这次还是属于第一次授权
     elseif ($user && $user->status == self::STATUS_AUTO_JOIN) {
@@ -257,8 +261,7 @@ class UserAR extends CActiveRecord {
       // Step2, 用户保存成功后，需要把用户自动分组，分组是根据 Invite uid 来分配的.
       // 如果用户有邀请者，则将用户加入到组中去
       if ($inviter) {
-        // 这里分情况处理,   
-        // 只有是用户邀请来的，才不会被自动加入到小组
+        // 这里分情况处理
         $invited_uid = $invited_data["invited_uid"];
         if (in_array($uuid, $invited_uid)) {
             // 取消自动加入小组
@@ -330,9 +333,16 @@ class UserAR extends CActiveRecord {
         $invited_user[] = $weibo_user["idstr"];
       }
       $user = $this->load_user_by_uuid($uid);
-      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($user->uid, $invited_user));
+      $code = InviteLogAR::newInviteCode();
+      $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($user->uid, $invited_user, $code));
       $url = $short_url["urls"][0]["url_short"];
       $ret = $weibo_api->update($msg.' '. $url);
+      
+      // 发送邀请后，我们把邀请数据保存在数据库
+      $team = TeamAR::loadTeamByOwner($user->uid);
+      if ($team) {
+        InviteLogAR::logInvite($user->uid, $invited_user, $team->tid, $code);
+      }
       
       return $ret;
     }
