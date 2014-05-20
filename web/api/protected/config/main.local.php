@@ -7,7 +7,7 @@
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
     'name' => 'lemans',
-    "defaultController" => "web/welcome",
+    "defaultController" => "index",
     'language'=>'en_us',
     'sourceLanguage'=>'en_us',
     // preloading 'log' component
@@ -18,7 +18,7 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
-        'html',
+        'api',
     // uncomment the following to enable the Gii tool
     /*
       'gii'=>array(
@@ -45,10 +45,13 @@ return array(
         // uncomment the following to enable URLs in path-format	
         'urlManager' => array(
             'urlFormat' => 'path',
-            'rules' => array(
+              'urlSuffix'=>'.html',
+            'rules' => array(  
+                '<action:\w+>' => 'index/<action>',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '<module:\w+>/<controller:\w+>/<action:\w+>'=>'<module>/<controller>/<action>', 
             ),
         ),
         // uncomment the following to use a MySQL database
@@ -61,7 +64,7 @@ return array(
         ),
         'errorHandler' => array(
             // use 'site/error' action to display errors
-            'errorAction' => 'web/error',
+            //'errorAction' => 'api/web/error',
         ),
         "session" => array(
             "autoStart" => true,

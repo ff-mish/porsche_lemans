@@ -1,0 +1,10 @@
+{
+    "red": {
+        "speed":90,
+        "distance":1800
+    },
+    "blue": {
+        "speed":100,
+        "distance":2000
+    }
+}
