@@ -25,8 +25,8 @@
         "size":0.2
     },
     "cameraFollow": {
-        "initPosition":{"x":10000, "y":10000, "z":10000},
-        "followFactor":0.2,
+        "initPosition":{"x":100000, "y":100000, "z":100000},
+        "followFactor":0.4,
         "lookAtFactor":0.2,
         "locationsNode":"location的trackPercent必须按由小到大的顺序",
         "locations":[

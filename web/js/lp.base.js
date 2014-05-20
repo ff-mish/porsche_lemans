@@ -1110,7 +1110,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('skip-intro' , function(data){
-        $(this).parent().fadeOut().remove();
+        $(this).parent().animate({
+            top: $(window).height(),
+            opacity: 0.5
+        } , 400 , '' , function(){
+           $(this).remove();
+        } )
     });
 
     LP.action('leaveteam' , function( e ){

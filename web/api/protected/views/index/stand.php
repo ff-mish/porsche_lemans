@@ -34,7 +34,9 @@
 			</div>
 			<!--  -->
 			<div class="stand_tweet">
+				<a class="stand_add"><img src="/images/stand_add.png"></a>
 				<h2 class="fl">Lastest Posts</h2>
+				<div class="stand_posts"><div class="stand_posts_inner"></div></div>
 			</div>
 			<!--  -->
 			<div class="stand_chart">
@@ -65,8 +67,6 @@
 					</div>
 				</div>
 			</div>
-			<!--  -->
-			<div class="stand_add"></div>
 		</div>
 		<!-- stand end -->
 	</div>

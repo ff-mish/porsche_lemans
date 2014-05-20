@@ -769,29 +769,16 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         return false;
     });
 
-    LP.action("add-invite-user" , function(){
-        if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
-            >= $('.teambuild_member .member_add').length ){
-            LP.error(" too much ");
-            return false;
-        }
-
-        $(this).hide().prev().show();
-    });
-
-    LP.action("remove-invite-user" , function(){
-        $(this).hide().next().show();
-    });
-    
-
     LP.action("member_invent" , function(){
         LP.panel({
             content: '<div class="popup_invite">\
+                    <div class="popup_close"></div>\
                     <div class="loading"></div>\
                     <div class="popup_invite_friend_list"></div>\
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns">\
-                        <a href="javascript:void(0);" class="disabled">Ok</a>\
+                        <p class="popup_error">&nbsp;</p>\
+                        <a href="javascript:void(0);" class="disabled">Ok</a> \
                     </div>\
                 </div>',
             title: '',
@@ -803,8 +790,8 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         <div class="avatar"><img src="#[avatar]"></div>\
                         <div class="name">@#[name]</div>\
                         <div class="btns">\
-                            <div class="selected" data-name="#[name]" data-a="remove-invite-user" style="display:none;"></div>\
-                            <div class="send" data-a="add-invite-user">Send Invitation</div>\
+                            <div class="selected" data-name="#[name]" style="display:none;"></div>\
+                            <div class="send" >Send Invitation</div>\
                         </div>\
                     </div>';
 
@@ -822,9 +809,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
                         >= $('.teambuild_member .member_add').length ){
-                        LP.error(" too much ");
+                        panel.$panel.find('.popup_error').html(_e(' you can\'t invite too many people '));
                         return false;
                     }
+                    panel.$panel.find('.popup_error').html('');
                     $(this).hide().prev().show();
 
                     // btn status
@@ -833,13 +821,18 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 })
                 .delegate(".selected" , "click" , function(){
                     $(this).hide().next().show();
-
+                    panel.$panel.find('.popup_error').html('');
                     if( !panel.$panel.find('.popup_invite_friend_list .selected:visible').length ){
                         // btn status
                         panel.$panel.find('.popup_invite_btns a')
                             .addClass('disabled');
                     }
-                });
+                })
+
+                panel.$panel.find('.popup_close')
+                    .click( function(){
+                        panel.close();
+                    });
 
                 // set invite
                 panel.$panel.find('.popup_invite_btns a')
@@ -921,12 +914,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     LP.action('preview' , function( data ){
 
+        var media = $(this).closest('.fuelitem').data('media');
         // show big pic or big video
         var tpls = {
             'video': '<div class="popup_fuel">\
                     <div class="popup_close"></div>\
                     <div class="popup_fuel_video">\
-                        <h4>Memories of Porsche in Le Mans</h4>\
+                        <h4>#[title]</h4>\
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
@@ -939,9 +933,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                 </div>\
                 <div class="popup_fuel_photo_right">\
-                    <h4>1979 Racing Poster</h4>\
+                    <h4>#[title]</h4>\
                     <div class="popup_fuel_photo_description">\
-                        1979 goes down in Porsche motorsport history as another successful year. Private racing teams bring home 15 national and international championship victories for the Zuffenhausen brand. One is the triumph in Le Mans. The Kremer Racing team from Cologne takes to the starting line in a modified version of the 935. Brothers Bill and Don Whittington from the United States and the German Klaus Ludwig win Porsche\'s fifth overall victory after 24 hours.\
+                        #[description]\
                     </div>\
                     <div class="popup_fuel_btns">\
                         <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">Repost</a>\
@@ -961,12 +955,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         // init panel width and height
         // var $img = $('<img/>')
 
-        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid});
+        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
         LP.panel({
             content: content,
             //title: "share the content",
             title: '',
-            width: 900,
+            height: 'auto',
+            width: 'auto',
             onShow: function(){
                 this.$panel.find('.lpn_panel')
                     .css({
@@ -981,7 +976,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         var imgW = $('.popup_image_wrap img').width();
                         if( video ){ // play the video
                             $('.popup_image_wrap img').hide();
-                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
+                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH + 30}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
                                 controls: true,
                                 resize: false
                             } );
@@ -1082,7 +1077,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 data["video"] = 1;
               }
                 LP.compile('fuel-tpl' , data , function( html ){
-                    $('.fuellist').append( html );
+                    $( html ).appendTo( $('.fuellist') ).data( 'media' , data );
                     if (i >= e.data.length - 1) {
                       callback();
                     }
@@ -1102,6 +1097,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
               });
             }
         });
+        return false;
     });
 
 
@@ -1110,7 +1106,12 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
     });
 
     LP.action('skip-intro' , function(data){
-        $(this).parent().fadeOut().remove();
+        $(this).parent().animate({
+            top: $(window).height(),
+            opacity: 0.5
+        } , 400 , '' , function(){
+           $(this).remove();
+        } )
     });
 
     LP.action('leaveteam' , function( e ){
@@ -1445,15 +1446,29 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         ahtml.push('<p></p>');
                     }
                     $('.stand_achivmentsbox').html( ahtml.join("") );
-
-
+                    //data.last_post || 
+                    var posts = data.last_post || [];
                     // render post
                     var aHtml = [];
-                    $.each( data.last_post || [] , function( i , post ){
+                    $.each( posts , function( i , post ){
                         aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
                     } );
-                    $('.stand_tweet').append( aHtml.join("") );
+                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * 300)
+                        .data('index' , 0 );
                     
+                    // redner next page
+                    $('.stand_add').click(function(){
+                        if($(this).hasClass('disabled') ) return;
+                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
+                        >= $('.stand_posts_inner').width()) return;
+
+                        $(this).addClass('disabled');
+                        $('.stand_posts_inner').animate({
+                            marginLeft: '-=600'
+                        } , 500 , '' , function(){
+                            $('.stand_add').removeClass('disabled');
+                        });
+                    })
 
                     // render stand_chart
                     var score = team.score || {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2};
@@ -1518,6 +1533,36 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             case "race":
                 if(document.createElement("canvas").getContext){
                     LP.use('../race/race');
+
+                    // get server time 
+                    var getServerTime = function(){
+                        api.get('/api/web/time' , function( e ){
+                            clearInterval( interval );
+                            var now = +new Date( e.data.time_now ) / 1000;
+                            var start = +new Date( e.data.time_start ) / 1000;
+                            
+                            interval = setInterval( function(){
+                                now += 1;
+                                var duration = now - start;
+                                var hour = ~~(duration / 3600);
+                                var minute = ~~( ( duration - hour * 3600 ) / 60 );
+                                var seconds = duration - hour * 3600 - minute * 60;
+
+                                $('.race_time').html( ( hour > 9 ? hour : '0' + hour ) + ':' + 
+                                 ( minute > 9 ? minute : '0' + minute ) + ':' + 
+                                 ( seconds > 9 ? seconds : '0' + seconds ) );
+                            } , 1000 );
+                        });
+
+
+                        api.get('/api/user' , function( e ){
+                            var speed = e.data.team.score ? e.data.team.score.average : 0;
+                            $('.race_speed').html( speed + 'Kp/h' );
+                        });
+                    }
+                    var interval;
+                    setInterval(getServerTime , 30 * 1000);
+                    getServerTime();
                 } else {
                     // render flash
                     $('.race_nav,.nav').hide();

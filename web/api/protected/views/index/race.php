@@ -16,8 +16,8 @@
 			<div class="race_bg" id="container">
 			</div>
 			<div class="race_nav">
-				<div class="race_time">23:02:00</div>
-				<div class="race_speed">2Kp/h</div>
+				<div class="race_time"></div>
+				<div class="race_speed"></div>
 				<div class="race_navitem "><?=Yii::t('lemans','Networks')?></div>
 				<div class="race_navitem race_navitemon"><?=Yii::t('lemans','Teams')?></div>
 			</div>
