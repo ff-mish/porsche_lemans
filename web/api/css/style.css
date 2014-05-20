@@ -40,7 +40,7 @@ a:hover{color:#f00}
 /* bg Used
 ================================================================================================= */
 body{background:#000;height: 100%;width: 100%}
-.page{position: absolute;left:0;right: 0;bottom: 0;top: 0;}
+.page{position: absolute;left:0;right: 0;bottom: 0;top: 80px;}
 .pagebg1{background:url('../images/bg1.jpg') no-repeat center top; background-size:cover; }
 .pagebg2{background:url('../images/bg2.jpg') no-repeat center top; background-size:cover; }
 .pagebg3{background:url('../images/bg3.jpg') no-repeat center top; background-size:cover; }
@@ -52,17 +52,20 @@ body{background:#000;height: 100%;width: 100%}
 
 /* PAGE Used
 ================================================================================================= */
-.logo{background: url('../images/logo.png') no-repeat;width: 200px;height: 20px;position: absolute;top: 56px;left: 74px;overflow: hidden;line-height: 500em}
+.header{background: #fff;height: 80px;position: relative;}
+.logo{background: url('../images/logo2.png') no-repeat;width: 95px;height: 55px;top: 14px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
+.hd_info{background:url('../images/hd_info.png') no-repeat;width: 258px;height: 22px;position: absolute;right: 34px;top: 30px}
 .nav{font-size: 18px;position: absolute;top: 155px;left:66px;font-weight: bold;}
 	.navicon{background: url('../images/navicon.png') no-repeat;height:55px;width: 55px; margin: 0 0 50px;display: block;}
 	.nav p{padding-left:55px;height: 35px}
 	.nav .on{background:url('../images/navicon.png') no-repeat 0 -107px ;}
 
 /* home */
-.home_txt{background: url('../images/home_txt.png') no-repeat;width: 924px;height: 323px;left:50%;top:50%;margin: -262px 0 0 -462px;position: absolute;}
-.home_share{position: absolute;left:50%;top:50%;margin: 150px 0 0 -200px}
-	.home_share a{width:193px;height: 69px;background: url('../images/home_share.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+.home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
+.home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}
+	.home_share a{width:193px;height: 48px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
 	.home_share .home_twitter{background-position: top right}
+	.home_winners{color:#fff;font-size: 25px;text-align: center;text-decoration: underline;position: absolute;top: 50%;width: 200px;left:50%;margin: 175px 0 0 -100px}
 
 /* login */
 .login{width: 286px;height: 168px;padding:150px 0 0;border:#f00 solid 1px;position: absolute;left:50%;top:50%;margin: -160px 0 0 -144px;background: url('../images/login_weibo.png') no-repeat center 38px;}

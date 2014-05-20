@@ -24,7 +24,7 @@ class UserController extends Controller{
     $request = Yii::app()->getRequest();
     
     // 参数检查
-    $msg = $request->getPost("msg");
+    $msg = $request->getParam("msg");
     if (!$msg) {
       $this->responseError("params invalid", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS, array("msg" => "required"));
     }

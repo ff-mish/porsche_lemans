@@ -267,6 +267,25 @@ class STwitter extends CApplicationComponent {
     }
   }
   
+    /**
+   * 根据Screen name 查询用户资料 
+   * @param type $uid or $screen_name
+   */
+  public function user_show_with_screename($screen_name) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+    $code = $twitter->request("get", $twitter->url("1.1/users/show"), array("screen_name" => $screen_name));
+    if ($code == 200) {
+      return json_decode($twitter->response["response"]);
+    } else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
+  
   public function status_update($content) {
     $this->user_token = $_SESSION['access_token']['oauth_token'];
     $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];

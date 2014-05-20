@@ -24,10 +24,11 @@
 	<!--  -->
 
   <div class="footer">
-    <a href="#">En|中文</a>
-    <i class="i-icon">i</i>
-    <a href="#" data-a="legal-mentions">legal mentions</a>
-    <a href="#">Share</a>
+      <div class="">
+          <p>Legal Mentions</p>
+          <p>Share</p>
+      </div>
+      <div class="">EN | 中文</div>
   </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>

@@ -62,7 +62,7 @@ class WeiboController extends Controller
 	}
   
   public function actionTwitterCallback() {
-    if ($_REQUEST["denied"]) {
+    if (isset($_REQUEST["denied"])) {
       return $this->redirect("index.html");
     }
     //先获取access token
