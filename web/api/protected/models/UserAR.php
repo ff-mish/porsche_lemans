@@ -313,7 +313,8 @@ class UserAR extends CActiveRecord {
    */
   public function post_invite_tweet($msg) {
     // 发一个微博邀请 （其实是一个微博 用@用户名方式）
-    if (Yii::app()->session["from"] == self::FROM_WEIBO) {
+    $user = UserAR::crtuser();
+    if ($user->from == self::FROM_WEIBO) {
       $access_token = Yii::app()->session["weibo_token"];
       if ($access_token) {
         $token = $access_token["access_token"];
@@ -348,6 +349,33 @@ class UserAR extends CActiveRecord {
     }
     // 发一个Twitter 邀请
     else {
+      $invited_user = array();
+      try {
+        $weibo_users = UserAR::getAtScreenNameFromMsg($msg);
+      }
+      catch (Exception $e) {
+        return FALSE;
+      }
+      foreach ($weibo_users as $weibo_user) {
+        $invited_user[] = $weibo_user->id_str;
+      }
+      
+      $uuid = $user->uuid;
+      $user = $this->load_user_by_uuid($uuid);
+      $code = InviteLogAR::newInviteCode();
+      $url = $this->generateInvitedURL($user->uid, $invited_user, $code);
+      // Status 应该超过有  140 个  char 
+      $ret = Yii::app()->twitter->status_update($msg. ' URL IS NOT READY');
+      
+      // 发送邀请后，我们把邀请数据保存在数据库
+      $team_ar = new UserTeamAR();
+      $team_user = $team_ar->loadUserTeam($user);
+      $team = $team_user->team;
+      if ($team) {
+        InviteLogAR::logInvite($user->uid, $invited_user, $team->tid, $code);
+      }
+      
+      return $ret;
       
     }
   }
@@ -448,22 +476,32 @@ class UserAR extends CActiveRecord {
    * 从一段字符串中返回  @用户 
    */
   public static function getAtScreenNameFromMsg($msg) {
+    $user = UserAR::crtuser();
     $matches = array();
     header("Content-Type: text/html; charset=utf-8");
     preg_match_all("/@([\p{L}\p{Mn}_]+)/u", $msg, $matches);
     
+    $weibo_users = array();
+
     if ($matches && count($matches) > 1) {
         $screenNames = $matches[1];
-        $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
-        // 获取用户高级接口后 开启这个方法
-        //$weibo_users = $weibo_api->users_show_batch_by_name($screenNames);
-        $weibo_users = array();
-        foreach ($screenNames as $screenName) {
-          $ret = $weibo_api->show_user_by_name($screenName);
-          $weibo_users[] = $ret;
+        if ($user->from == self::FROM_WEIBO) {
+            $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+            // 获取用户高级接口后 开启这个方法
+            //$weibo_users = $weibo_api->users_show_batch_by_name($screenNames);
+            $weibo_users = array();
+            foreach ($screenNames as $screenName) {
+              $ret = $weibo_api->show_user_by_name($screenName);
+              $weibo_users[] = $ret;
+            }
+        }
+        else {
+            foreach ($screenNames as $screenName) {
+              $ret = Yii::app()->twitter->user_show_with_screename($screenName);
+              $weibo_users[] = $ret;
+            }
         }
     }
-    
     return $weibo_users;
   }
   

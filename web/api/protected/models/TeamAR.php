@@ -5,7 +5,7 @@ class TeamAR extends CActiveRecord {
   public $last_post;
   public $score;
   
-  const LAST_POST_NUM = 3;
+  const LAST_POST_NUM = 20;
   
   const STATUS_OFFLINE = 0;
   const STATUS_ONLINE = 1;

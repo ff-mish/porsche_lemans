@@ -33,9 +33,9 @@ return array(
     'components' => array(
         "twitter" => array(
             "class" => "ext.yii-twitter-OAuth.STwitter",
-            "consumer_key" => "UOPfUKiyPwdRX3CBP3fWK61XE",
-            "consumer_secret" => "wTu5hYsRkVnWwLnBDjTdLHI5xlmMbQW77NccxvwtIKEQuubSSw",
-            "callback" => "http://lemans.local/api/weibo/twittercallback",
+            "consumer_key" => "PPkV34sNq4j71zFL2D8LwO8XE",
+            "consumer_secret" => "XZb0aKj7QlwWXQalyb4VHNQmk9LyV9eeTXxN5b43VO7zUQsVb0",
+            "callback" => "http://www.letustestit.eu/api/weibo/twittercallback",
             "signinParams" => array("force_write"),
         ),
         'user' => array(
@@ -58,8 +58,8 @@ return array(
         'db' => array(
             'connectionString' => 'mysql:host=localhost;dbname=lemans',
             'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => '77df2371f1',
+            'username' => 'lemans',
+            'password' => '@lemans',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
