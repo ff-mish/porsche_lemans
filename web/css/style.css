@@ -52,6 +52,8 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg9{background:url('../images/bg9.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg10{background:url('../images/bg10.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg11{background:url('../images/bg11.jpg') no-repeat center top fixed; background-size:cover; }
+.pagebg12{background:url('../images/bg12.jpg') no-repeat center top fixed; background-size:cover; }
+
 
 
 /* PAGE Used
@@ -85,6 +87,13 @@ body{background:#000;height: 100%;width: 100%}
 	.home_share a{width:193px;height: 48px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
 	.home_share .home_twitter{background-position: top right}
 	.home_winners{color:#fff;font-size: 22px;text-align: center;text-decoration: underline;position: absolute;top: 50%;width: 200px;left:50%;margin: 175px 0 0 -100px}
+
+/*winners*/
+.winners{text-align: center;position: relative;}
+	.winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
+	.winners_pho{background: url('../images/winners_pho.png') no-repeat;width: 350px;height: 410px;margin: 0 auto}
+	.winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;}
+	.winners_close{background: url('../images/winners_close.png') no-repeat;width: 50px;height: 50px;position: absolute;right: 70px;top: 60px;cursor: pointer;}
 
 /* login */
 .login{width: 286px;height: 168px;padding:150px 0 0;border:#f00 solid 1px;position: absolute;left:50%;top:50%;margin: -160px 0 0 -144px;background: url('../images/login_weibo.png') no-repeat center 38px;}
