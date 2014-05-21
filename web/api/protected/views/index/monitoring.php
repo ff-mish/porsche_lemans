@@ -6,10 +6,10 @@
 		<!-- nav -->
 		<div class="nav">
 	        <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/race.html">The Race</a></p>
-	        <p class="on" style="opacity: 1; margin-left: 0px;"><a href="/monitoring.html">Monitoring</a></p>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/stand.html">My Stand</a></p>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/fuel.html">Fuel</a></p>
+	        <p style="opacity: 1; margin-left: 0px;"><a href="/race">The Race</a></p>
+	        <p class="on" style="opacity: 1; margin-left: 0px;"><a href="/monitoring">Monitoring</a></p>
+	        <p style="opacity: 1; margin-left: 0px;"><a href="/stand">My Stand</a></p>
+	        <p style="opacity: 1; margin-left: 0px;"><a href="/fuel">Fuel</a></p>
 	        <div class="logout">Log out</div>
 		</div>
 		<!-- monitoring -->

@@ -35,7 +35,7 @@ class WeiboController extends Controller
 			}
 		}
     else {
-      $this->redirect("/index.html");
+      $this->redirect("/index");
     }
 		
     // Step2, 授权成功后进行登录
@@ -55,7 +55,7 @@ class WeiboController extends Controller
       }
       
       // 最后跳转到首页
-      $this->redirect("/stand.html");
+      $this->redirect("/stand");
 		} else {
 		 // TODO:: 获取Token失败后处理逻辑
 		}
@@ -63,7 +63,7 @@ class WeiboController extends Controller
   
   public function actionTwitterCallback() {
     if (isset($_REQUEST["denied"])) {
-      return $this->redirect("index.html");
+      return $this->redirect("index");
     }
     //先获取access token
     Yii::app()->twitter->getAccess_token();
@@ -84,6 +84,6 @@ class WeiboController extends Controller
     }
     
     // 最后跳转到首页
-    $this->redirect("/stand.html");
+    $this->redirect("/stand");
   }
 }

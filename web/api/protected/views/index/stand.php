@@ -9,10 +9,10 @@
       <!-- nav -->
       <div class="nav">
           <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-          <p><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
-          <p><a href="/monitoring.html"><?=Yii::t('lemans','Monitoring')?></a></p>
-          <p class="on"><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
-          <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
+          <p><a href="/race"><?=Yii::t('lemans','The Race')?></a></p>
+          <p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
+          <p class="on"><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
+          <p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
       </div>
       <!-- stand -->
       <div class="stand">
