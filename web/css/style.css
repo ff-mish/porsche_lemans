@@ -62,7 +62,7 @@ body{background:#000;height: 100%;width: 100%}
 .header{background: #fff;height: 80px;position: fixed;left:0;right: 0;top:0;z-index: 5}
 .logo{background: url('../images/logo2.png') no-repeat;width: 95px;height: 55px;top: 14px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 258px;height: 22px;position: absolute;right: 34px;top: 30px}
-.nav{font-size: 15px;position: fixed;top: 180px;left:66px;}
+.nav{font-size: 15px;position: fixed;top: 50%;margin-top:-220px;left:66px;}
 	.navicon{background: url('../images/navicon2.png') no-repeat;height:55px;width: 55px; margin: 0 0 50px;display: block;}
 	.nav p{padding-left:55px;height: 35px;}
 		.nav p a{color:#717171}
@@ -154,8 +154,8 @@ body{background:#000;height: 100%;width: 100%}
 /* race */
 .race_track{width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
 .race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%}
-.race_nav{width: 116px;height: 167px;position: absolute;left:74px;top:420px;font-size: 18px;font-weight: bold;}
-.race_time{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat;height: 45px}
+.race_nav{width: 116px;height: 167px;position: fixed;left:74px;top:50%;margin-top:120px;font-size: 18px;font-weight: bold;}
+.race_time{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat;height: 40px}
 	.race_speed{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat 0 -45px;margin-bottom:22px;}
 	.race_navitem{background: url('../images/race_nav.png') no-repeat 0 -107px;height: 31px;line-height: 30px;padding-left:45px;}
 	.race_navitemon{background-position: 0 -138px;}
