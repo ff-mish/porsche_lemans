@@ -53,6 +53,7 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg10{background:url('../images/bg10.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg11{background:url('../images/bg11.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg12{background:url('../images/bg12.jpg') no-repeat center top fixed; background-size:cover; }
+.pagebg13{background:url('../images/bg13.jpg') no-repeat center top fixed; background-size:cover; }
 
 
 
@@ -106,6 +107,13 @@ body{background:#000;height: 100%;width: 100%}
 .kv_bg{position: absolute;left:0;right: 0;top:468px;height:48px;background: url('../images/kv_bg.png') no-repeat center; }
 .kv_txt{background: url('../images/kv_txt.png') no-repeat;width: 346px;height: 573px;left:50%;top: 110px;position: absolute;margin-left:-173px;}
 	.kv_share{background: url('../images/kv_share.png') no-repeat;width: 300px;height: 130px;margin: 318px auto 0;}
+.kv_new{color:#000;text-align: center}
+	.kv_tit2{font-size: 28px;line-height: 30px;padding: 50px 0 0}
+		.kv_tit2 p{font-size: 80px;line-height:100px }
+		.kv_txt2{font-size: 32px;line-height: 130px}
+		.kv_new .home_share{margin-top: 0;top:auto;bottom:100px;}
+		.kv_new .home_winners{margin-top: 0;top:auto;bottom:50px;color:#000;}
+
 
 /*monitor*/
 .monitor{width: 1320px;position: absolute;top: 70px;left:50%;margin-left:-530px;}
