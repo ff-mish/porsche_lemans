@@ -94,7 +94,7 @@ body{background:#000;height: 100%;width: 100%}
 .winners{text-align: center;position: relative;}
 	.winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
 	.winners_pho{background: url('../images/winners_pho.png') no-repeat;width: 350px;height: 410px;margin: 0 auto}
-	.winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;}
+	.winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;padding:0 0 80px;}
 	.winners_close{background: url('../images/winners_close.png') no-repeat;width: 50px;height: 50px;position: absolute;right: 70px;top: 60px;cursor: pointer;}
 
 /* login */
