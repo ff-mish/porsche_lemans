@@ -176,9 +176,11 @@ body{background:#000;height: 100%;width: 100%}
 		
 
 /* stand */
-.stand{width:1206px;height:662px;left:50%;top: 100px;position: absolute;}
+.stand{width:1206px;height:662px;left:50%;top: 100px;position: absolute;margin-left:-470px;}
 	.stand_tit{width: 600px;height: 90px;font-size: 38px;line-height: 40px;}	
-		.stand_tit p{float: left}
+		.stand_tit p{float: left;}
+			.stand_tituser{width: 330px}
+	.stand_tit2{position: absolute;top:0;right:0px;width: 540px;text-align: center}
 	.stand_useritem{margin-bottom:35px;}
 		.stand_useritem .member_item{margin: 0}
 	.stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0}
@@ -200,10 +202,12 @@ body{background:#000;height: 100%;width: 100%}
 .nav{left:30px;}
 .stand{width: 1100px;right: 10px;left:auto;margin-left:0;}
 	.member_item {width: 250px}
+	.member_add {width: 250px}
 	.member_name{width: 160px}
 	.member_speed{margin-left:30px;}
 	.stand_tweetitem{padding:0 50px;}
 	.stand_add{right:0px;left:auto;}
+			.stand_tituser{width: 300px}
 }
 @media screen and (max-width:1400px){
 .nav{left:30px;}
@@ -214,6 +218,8 @@ body{background:#000;height: 100%;width: 100%}
 	.stand_tweetitem{padding:0 50px;}
 	.stand_add{right:0px;left:auto;}
 	.stand_chart{width: 510px;background-size: cover}
+	.member_add {width: 200px}
+			.stand_tituser{width: 250px}
 }
 @media screen and (max-width:1300px){
 .nav{left:30px;}
@@ -409,6 +415,8 @@ body{background:#000;height: 100%;width: 100%}
 
 .home_v{display: none}
 @media screen and (max-width:640px){
+	/*nav*/
+	.nav{display: none}
 	/*home*/
 	.home_txt{width: 525px;background: url('../images/home_txt2m.png');height: 300px;margin-left:-262px;}
 	.home_share{width: 289px;margin: 300px 0 0 -144px;}
@@ -429,4 +437,18 @@ body{background:#000;height: 100%;width: 100%}
 	.conut_downitem{font-size: 50px}
 	.count .home_share{margin-top: 290px}
 	.count .home_winners{margin-top:490px;}
+
+	/*stand*/
+	.stand{width: 590px;position: absolute;top: 130px}
+	.member_item {width: 260px}
+	.member_add {width: 260px}
+	.member_name{width: 180px}
+	.memeber_space{width: 210px}
+	.stand_chart{top: 550px;left: 0}
+	.stand_tit2{top:500px;}
+	.stand_achivments{position: absolute;top:1100px;}
+	.stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px}
+	.stand_tweet h2{width: 500px;line-height: 40px;height: 60px}
+	.stand_tweetitem{padding: 0 40px 0 0 }
+	.stand_add{top:1400px;}
 }
