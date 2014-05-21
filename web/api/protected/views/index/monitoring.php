@@ -2,13 +2,13 @@
         <div class="logo">PORSCHE</div>
         <div class="hd_info"></div>
     </div>
-<div class="page ">
+<div class="page pagebg1">
 		<!-- nav -->
 		<div class="nav">
 	        <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
 	        <p style="opacity: 1; margin-left: 0px;"><a href="/race.html">The Race</a></p>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="#">Monitoring</a></p>
-	        <p class="on" style="opacity: 1; margin-left: 0px;"><a href="/stand.html">My Stand</a></p>
+	        <p class="on" style="opacity: 1; margin-left: 0px;"><a href="/monitoring.html">Monitoring</a></p>
+	        <p style="opacity: 1; margin-left: 0px;"><a href="/stand.html">My Stand</a></p>
 	        <p style="opacity: 1; margin-left: 0px;"><a href="/fuel.html">Fuel</a></p>
 	        <div class="logout">Log out</div>
 		</div>
@@ -22,7 +22,7 @@
 					<div class="monitor_list">
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -35,7 +35,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -48,7 +48,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -61,7 +61,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -77,11 +77,11 @@
 				</div>
 				<!--  -->
 				<div class="monitor_item">
-					<h2>Porsche</h2>
+					<h2>Profile</h2>
 					<div class="monitor_list">
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -94,7 +94,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -107,7 +107,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -120,7 +120,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -136,7 +136,7 @@
 				</div>
 				<!--  -->
 				<div class="monitor_item tweet-con">
-					<h2>Porsche</h2>
+					<h2>Team</h2>
 					<div class="monitor_list">
 						<!--  -->
 						<div class="monitor_box cs-clear">
@@ -166,7 +166,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -179,7 +179,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -195,7 +195,7 @@
 				</div>
 				<!--  -->
 				<div class="monitor_item tweet-con">
-					<h2>Porsche</h2>
+					<h2>#24SocialRace</h2>
 					<div class="monitor_list">
 						<!--  -->
 						<div class="monitor_box cs-clear">
@@ -212,7 +212,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -225,7 +225,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -238,7 +238,7 @@
 						</div>
 						<!--  -->
 						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/logo2.png" width="70" height="70"></div>
+							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
 							<div class="monitor_info">
 								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
 								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
@@ -257,7 +257,6 @@
 		</div>
 		<!-- monitoring end -->
 	</div>
-
 <div class="tweet-con">
   <ul class="tweet-list clearfix">
     <li class="item clearfix">

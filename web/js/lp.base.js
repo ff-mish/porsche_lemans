@@ -93,7 +93,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             var blackPath = paper.path( "" )
                     .attr("stroke", "#000")
                     .attr("stroke-width" , stockWidth);
-            var text = paper.text( width / 2 , height / 2 , "0 T/M" ) 
+            var text = paper.text( width / 2 , height / 2 , "0 T/H" )
                 .attr({fill: "#fff",'font-size':'13px'});
 
             var now = new Date();

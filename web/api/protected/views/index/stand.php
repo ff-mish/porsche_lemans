@@ -1,18 +1,18 @@
 	<!--  -->
-	<div class="bg1">
+	<div class="bg1 ">
 		<!-- logo -->
     <div class="header">
         <div class="logo">PORSCHE</div>
         <div class="hd_info"></div>
     </div>
-    <div class="page">
+    <div class="page pagebg1">
       <!-- nav -->
       <div class="nav">
           <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-              <p><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
-              <p><a href="/monitoring.html"><?=Yii::t('lemans','Monitoring')?></a></p>
-              <p class="on"><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
-              <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
+          <p><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
+          <p><a href="/monitoring.html"><?=Yii::t('lemans','Monitoring')?></a></p>
+          <p class="on"><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
+          <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
       </div>
       <!-- stand -->
       <div class="stand">
@@ -32,7 +32,7 @@
 			</div>
 			<!--  -->
 			<div class="stand_achivments cs-clear">
-				<h2 class="fl">achievements</h2>
+				<h2 class="fl">Achievements</h2>
 				<div class="stand_achivmentsbox">
 				</div>
 			</div>

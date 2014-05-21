@@ -23,6 +23,8 @@
 	<?php echo $content?>
 	<!--  -->
 
+
+
 <div class="footer">
         <div class="footer_link cs-clear">
             <p data-a="legal-mentions">Legal Mentions</p>

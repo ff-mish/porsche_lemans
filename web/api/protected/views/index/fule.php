@@ -1,26 +1,32 @@
 	<!--  -->
 	<div class="page pagebg1">
-		<!-- logo -->
-		<div class="logo">PORSCHE</div>
-		<!-- nav -->
-		<div class="nav">
-        <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-            <p class="on"><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
-            <p><a href="#"><?=Yii::t('lemans','Monitoring')?></a></p>
-            <p><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
-            <p><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
+		<!--  -->
+		<div class="header">
+			<div class="logo">PORSCHE</div>
+			<div class="hd_info"></div>
 		</div>
-		<!-- fuel -->
-		<div class="fuel">
-			<div class="fuellist cs-clear">
+		<!--  -->
+		<div class="page ">
+			<!-- nav -->
+			<div class="nav">
+				<a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
+				<p><a href="/race.html"><?=Yii::t('lemans','The Race')?></a></p>
+				<p><a href="/monitoring.html"><?=Yii::t('lemans','Monitoring')?></a></p>
+				<p><a href="/stand.html"><?=Yii::t('lemans','My Stand')?></a></p>
+				<p class="on"><a href="/fuel.html"><?=Yii::t('lemans','Fuel')?></a></p>
 			</div>
-			<div class="loading"></div>
-			<!-- fuellist -->
-			<div class="fuelmore">
-				<a href="#" data-a="fuel-load">LOAD MORE</a>
+			<!-- fuel -->
+			<div class="fuel">
+				<div class="fuellist cs-clear">
+				</div>
+				<div class="loading"></div>
+				<!-- fuellist -->
+				<div class="fuelmore">
+					<a href="#" data-a="fuel-load">LOAD MORE</a>
+				</div>
 			</div>
+			<!-- fuel end -->
 		</div>
-		<!-- fuel end -->
 	</div>
 	<!--  -->
 	<script type="text/tpl" id="fuel-tpl">
