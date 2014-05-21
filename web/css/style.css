@@ -451,4 +451,11 @@ body{background:#000;height: 100%;width: 100%}
 	.stand_tweet h2{width: 500px;line-height: 40px;height: 60px}
 	.stand_tweetitem{padding: 0 40px 0 0 }
 	.stand_add{top:1400px;}
+
+	/*fuel*/
+	.fuel{width:570px;position: static;margin:130px auto 0;padding:0 0 50px;}
+
+	/*winners*/
+	.winners_txt{margin: 0 20px}
+	.winners_close{right: 20px}
 }
