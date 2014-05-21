@@ -414,11 +414,19 @@ body{background:#000;height: 100%;width: 100%}
 	.home_share{width: 289px;margin: 300px 0 0 -144px;}
 	.home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 3px}
 	.home_share .home_twitter{background-position: bottom left}
-	.home_winners{margin-top:490px;padding:0 0 50px;}
+	.home_winners{margin-top:490px;padding:0 0 80px;}
 	.home_v{width: 289px;height: 144px;background: url('../images/home_v.jpg') no-repeat;position: absolute;left:50%;top:50%;margin: 100px 0 0 -144px;display: block;}
 	/*ft*/
 	.footer_link{background: url('../images/footer_linkm.png') no-repeat;height: 27px;right:25px;padding:0;}
 		.footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
 		.footer_share{position: absolute;right: 0}
 	.footer_language{display: none}
+	/*conutdown*/
+	.count{width: 580px;margin-left:-290px;}
+	.conut_tips{font-size: 28px;color:#fff;}
+	.conut_down{width: 580px;height: 110px}
+	.conut_downinfo{font-size: 50px;margin-right:20px;}
+	.conut_downitem{font-size: 50px}
+	.count .home_share{margin-top: 290px}
+	.count .home_winners{margin-top:490px;}
 }
