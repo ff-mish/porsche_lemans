@@ -74,7 +74,7 @@ body{background:#000;height: 100%;width: 100%}
 /*FOOTER*/
 .footer{font-size: 14px;}
 	.footer_link{position: fixed;bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 25px;}
-		.footer_link p{float: left;padding:0 6px;}
+		.footer_link p{float: left;padding:0 6px;cursor: pointer;}
 	.footer_language{position: fixed;bottom: 15px;right: 25px;}
 		.footer_language a{padding: 0 5px}
 
@@ -400,3 +400,25 @@ body{background:#000;height: 100%;width: 100%}
 
 .team_name {background: none;color: #fff;border: none;outline: none;}
 .lpn_panel .lpn_wrapper {background:none;}
+
+
+
+
+
+
+
+.home_v{display: none}
+@media screen and (max-width:640px){
+	/*home*/
+	.home_txt{width: 525px;background: url('../images/home_txt2m.png');height: 300px;margin-left:-262px;}
+	.home_share{width: 289px;margin: 300px 0 0 -144px;}
+	.home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 3px}
+	.home_share .home_twitter{background-position: bottom left}
+	.home_winners{margin-top:490px;padding:0 0 50px;}
+	.home_v{width: 289px;height: 144px;background: url('../images/home_v.jpg') no-repeat;position: absolute;left:50%;top:50%;margin: 100px 0 0 -144px;display: block;}
+	/*ft*/
+	.footer_link{background: url('../images/footer_linkm.png') no-repeat;height: 27px;right:25px;padding:0;}
+		.footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
+		.footer_share{position: absolute;right: 0}
+	.footer_language{display: none}
+}
