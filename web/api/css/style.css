@@ -124,8 +124,8 @@ body{background:#000;height: 100%;width: 100%}
 .rewrdtxt{font-size: 24px;position: absolute;right: 40px;bottom: 44px}
 
 /*fuel*/
-.fuel{width: 1140px;position: absolute;left:50%;top:70px;margin-left:-470px;}
-.fuelitem{width:283px;height: 147px;margin:1px;float: left;display: inline; position: relative;}
+.fuel{width: 1180px;position: absolute;left:250px;top:70px;}
+.fuelitem{width:283px;height: 147px;margin:1px 10px 10px 1px;float: left;display: inline; position: relative;}
 .fuelshade{position: absolute;width:283px;height: 147px;top: 0;left:0;background: #000;opacity: 0.7;filter:alpha(opacity=70);}
 .fuelbtnbox{position: absolute;top: 50px;left:96px;}
 .fuelbtn{background: url('../images/fuelbtn.png') no-repeat;width: 22px;height: 22px;float: left;margin: 12px;display: inline;cursor: pointer;}
