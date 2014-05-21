@@ -95,8 +95,8 @@ define(function( require , exports , model ){
                     */
                     return;
                 }
-
-                LP.error( result[msg] || _api[api].m + _e('出错啦，请稍候重试...') );
+                console.log( result[msg] || _api[api].m + _e('出错啦，请稍候重试...')  );
+                //LP.error( result[msg] || _api[api].m + _e('出错啦，请稍候重试...') );
             }
             error && error( result[msg] , result );
         } else if ( success ) {

@@ -108,6 +108,11 @@ outline: none !important;
   color: #fff;
 }
 
+.member-leave{display: none;}
+
+.stand_del{position: absolute;right: 58px;top: 592px;cursor: pointer;}
+
+
 #legal-notice{position: fixed;top: 80px; bottom: 0; width: 80%; margin: 0 10%; background: rgba(0,0,0,.5); display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 30px;}
 #share{float: left;padding: 0 6px;position: relative;}
@@ -137,6 +142,9 @@ outline: none !important;
 .popup_invite .popup_error{height: 50px;line-height: 50px;color: red;font-size: 24px;}
 
 
+
+.tutr{position: absolute;top: 0px;bottom:0;width: 100%; height: 762px;display: none;}
+.tutr-step1-top{height: 100px;background: black; opacity: 0.5;}
 
 
 

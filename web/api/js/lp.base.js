@@ -295,147 +295,76 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     $(this).find('.stand_chart_tip').fadeOut();
                 });
         }
+
+        function easeOutElastic( x, t, b, c, d ) {
+            var s=1.70158;var p=0;var a=c;
+            if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
+            if (a < Math.abs(c)) { a=c; var s=p/4; }
+            else var s = p/(2*Math.PI) * Math.asin (c/a);
+            return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+        }
+
+        function runAnimate( left , right , top , bottom ){
+
+            // left = 0.5;
+            // right = 0.7;
+            // top = 0.9;
+            // bottom = 0.3;
+
+            var center = object.center;
+            var xwidth = object.xwidth;
+            var xstart = object.xstart;
+            var ystart = object.ystart;
+            var yheight = object.yheight;
+
+            var lastLeft = object.lastLeft || 0;
+            var lastTop = object.lastTop || 0;
+            var lastRight = object.lastRight || 0;
+            var lastBottom = object.lastBottom || 0;
+
+            var duration = 1000;
+            var now = new Date;
+            var renderPath = function( left , right , top , bottom ){
+                left = [ center[0] - xwidth / 2 * left , xstart[1] ];
+                right = [ center[0] + xwidth / 2 * right , xstart[1] ];
+                top = [ ystart[0] , center[1] - yheight / 2 * top ];
+                bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
+
+                var rpath = [];
+                $.each([ left, top , right , bottom] , function( i , dot){
+                    rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
+                });
+                rpath.push('Z');
+
+                object.path.attr( 'path' , rpath.join("") );
+            }
+            var ani = function(){
+                var dur = new Date - now;
+                var per = dur / duration;
+                if( per > 1 ){
+                    per = 1;
+                }
+                var l = easeOutElastic('' , dur , lastLeft , left - lastLeft , duration ) ;// per * ( left - lastLeft );
+                var r = easeOutElastic('' , dur , lastRight , right - lastRight , duration ) ;// per * ( right - lastRight );
+                var t = easeOutElastic('' , dur , lastTop , top - lastTop , duration ) ;//per * ( top - lastTop );
+                var b = easeOutElastic('' , dur , lastBottom , bottom - lastBottom , duration ) ;//per * ( bottom - lastBottom );
+                renderPath( l || 0 , r || 0 , t || 0 , b || 0 );
+                // renderPath( l + lastLeft , r + lastRight , t + lastTop , b + lastBottom );
+                if( per < 1 )
+                    setTimeout( ani , 1000 / 60 );
+            }
+            ani();
+        }
         return {
             init: init , 
-            run: function( left , right , top , bottom  ){
-                var center = object.center;
-                var xwidth = object.xwidth;
-                var xstart = object.xstart;
-                var ystart = object.ystart;
-                var yheight = object.yheight;
-
-                var lastLeft = object.lastLeft || 0;
-                var lastTop = object.lastTop || 0;
-                var lastRight = object.lastRight || 0;
-                var lastBottom = object.lastBottom || 0;
-
-                var duration = 500;
-                var now = new Date;
-                var renderPath = function( left , right , top , bottom ){
-                    left = [ center[0] - xwidth / 2 * left , xstart[1] ];
-                    right = [ center[0] + xwidth / 2 * right , xstart[1] ];
-                    top = [ ystart[0] , center[1] - yheight / 2 * top ];
-                    bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
-
-                    var rpath = [];
-                    $.each([ left, top , right , bottom] , function( i , dot){
-                        rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
-                    });
-                    rpath.push('Z');
-
-                    object.path.attr( 'path' , rpath.join("") );
-                }
-                var ani = function(){
-                    var dur = new Date - now;
-                    var per = dur / duration;
-                    if( per > 1 ){
-                        per = 1;
-                    }
-                    var l = per * ( left - lastLeft );
-                    var r = per * ( right - lastRight );
-                    var t = per * ( top - lastTop );
-                    var b = per * ( bottom - lastBottom );
-                    renderPath( l + lastLeft , r + lastRight , t + lastTop , b + lastBottom );
-                    if( per < 1 )
-                        setTimeout( ani , 1000 / 60 );
-                }
-                ani();
-            }
+            run: runAnimate
         }
     })();
-    // function( $dom , left , right , top , bottom ){
-    //     var width = $dom.width();
-    //     var height = $dom.height();
-    //     var ch = ~~( height / 2 );
-    //     var cw = ~~( width / 2 );
+
+
+    var renderTure = function(){
         
-    //     //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
-
-    //     var xstart = [ 100 , ch ] , xend = [ width - 100 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
-    //         , ystart = [ cw , 100 ] , yend = [ cw , height - 100 ] , yheight = yend[ 1 ] - ystart[ 1 ];
-
-
-    //     var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
-    //     var sh = 7; // step height
-
-    //     var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
-
-    //     left = [ center[0] - xwidth / 2 * left , xstart[1] ];
-    //     right = [ center[0] + xwidth / 2 * right , xstart[1] ];
-    //     top = [ ystart[0] , center[1] - yheight / 2 * top ];
-    //     bottom = [ ystart[0] , center[1] + yheight / 2 * bottom ];
-    //     //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
-
-    //     var pathAttr = {
-    //         'stroke' : '#999',
-    //         'opacity' : 0.7,
-    //         'stroke-width' : 0.4
-    //     }
-    //     var textAttr = {
-    //         'stroke' : '#999',
-    //         'opacity' : 0.7
-    //     }
-    //     LP.use('raphaeljs' , function( Raphael ){
-    //         // draw x 
-    //         var paper = Raphael( $dom.get(0) , width , height );
-    //         var xpath = [
-    //             'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
-    //             // 'M0 ' , ch , 'L' , width , ' ' , ch ,
-    //             'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
-    //         for( var i = 1 ; i * sw <= xwidth ; i++ ){
-    //             xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
-    //         }
-    //         paper.path( xpath.join("") )
-    //             .attr(pathAttr);
-
-    //         paper.text( xstart[0] - 30 , xstart[1] , _e('Impact') )
-    //             .attr( textAttr );
-    //         paper.text( xend[0] + 30 , xend[1] , _e('Quality') )
-    //             .attr( textAttr );
-    //         // add hover block
-    //         // paper.rect( xstart[0] - 30 - 30 , xstart[1] - 25 , 70 , 60 )
-    //         //     .hover( function(){
-    //         //         alert(1);
-    //         //     } , function(){
-    //         //         alert(2);
-    //         //     })
-    //             //.attr({'fill': '#f00',opacity: 0.4});
-    //         // draw y
-    //         var ypath = [
-    //             'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
-    //             //'M' , cw , ' 0L' , cw , ' ' , height ,
-    //             'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
-    //         for( var i = 1 ; i * sw <= yheight ; i++ ){
-    //             ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
-    //         }
-    //         paper.path( ypath.join("") ).attr(pathAttr);
-
-    //         paper.text( ystart[0] , ystart[1] - 10 , _e('Speed t/h') )
-    //             .attr( textAttr );
-    //         paper.text( yend[0] , yend[1] + 10  , _e('Assiduite') )
-    //             .attr( textAttr );
-
-
-    //         var rpath = [];
-    //         $.each([ left, top , right , bottom] , function( i , dot){
-    //             rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
-    //         });
-    //         rpath.push('Z');
-    //         // drag red path
-    //         paper.path( rpath.join("") ).attr( {
-    //             "stroke": '#f00',
-    //             "stroke-width": 3
-    //         } );
-    //     });
-
-    //     // init hover event
-    //     $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
-    //         .hover(function(){
-    //             // TODO ...
-    //         } , function(){
-    //             // TODO ...
-    //         });
-    // }
+    }
 
     var initSuggestion = (function(){
         var tUtil = null;
@@ -1417,7 +1346,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
                     <div class="member_item ">\
                         <img src="#[avatar]" />\
-                        <p class="member_name">@#[name]<br/><span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
+                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
                     </div>\
                     <div class="member_speed"></div>\
                     <div class="memeber_space">#[space]</div></div>';
@@ -1484,13 +1413,38 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         } , 500 , '' , function(){
                             $('.stand_add').removeClass('disabled');
                         });
-                    })
+                    });
+
+                    $('.stand_del').click(function(){
+                        if($(this).hasClass('disabled') ) return;
+                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ) return;
+
+                        $(this).addClass('disabled');
+                        $('.stand_posts_inner').animate({
+                            marginLeft: '+=600'
+                        } , 500 , '' , function(){
+                            $('.stand_add').removeClass('disabled');
+                        });
+                    });
+
+                    // hover to show the leave team
+                    $('.member_item').hover(function(){
+                        $(this).find('.member-leave').fadeIn()
+                            .end()
+                            .find('.member_name_span')
+                            .hide();
+                    } , function(){
+                        $(this).find('.member-leave').hide()
+                            .end()
+                            .find('.member_name_span')
+                            .fadeIn();
+                    });
 
                     // render stand_chart
-                    var score = team.score || {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2};
-                    $('.stand_chart_score').html( score.average + 'Km/h' );
+                    var score = team.score || {};
+                    $('.stand_chart_score').html( (score.average || 0) + 'Km/h' );
                     coordinate.init( $('.stand_chart') , function(){
-                        coordinate.run( score.impact , score.quality , score.speed , score.assiduite );
+                        coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduite || 0 );
                     } );
                         
                 });

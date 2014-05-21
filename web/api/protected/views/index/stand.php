@@ -38,6 +38,7 @@
 			</div>
 			<!--  -->
 			<div class="stand_tweet">
+				<a class="stand_del"><img src="/images/stand_del.png"></a>
 				<a class="stand_add"><img src="/images/stand_add.png"></a>
 				<h2 class="fl">Lastest Posts</h2>
 				<div class="stand_posts"><div class="stand_posts_inner"></div></div>
@@ -70,6 +71,15 @@
 						<span>◆</span>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="tutr">
+			<div class="tutr-step1">
+				<div class="tutr-step1-top"></div>
+				<div class="tutr-step1-bottom"></div>
+				<div class="tutr-step1-left"></div>
+				<div class="tutr-step1-right"></div>
+				<div class="tutr-step1-tip"></div>
 			</div>
 		</div>
 		<!-- stand end -->
