@@ -361,10 +361,85 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         }
     })();
 
+    var animateTure =  (function(){
+        $('.tutr-step').find('.step-btn')
+            .click(function(){
+                animateTure.showStep( $(this).data('step') );
+                return false;
+            });
 
-    var renderTure = function(){
-        
-    }
+        var renderTure = function( top , left , width , height , isAni ){
+            var $step = $('.tutr-step').fadeIn();
+            
+            var winHeight = $(document).height();
+            var winWidth = $(document).width();
+
+            $step.find('.tutr-step-top')
+                .animate({
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: top
+                } , 500);
+            $step.find('.tutr-step-left')
+                .animate({
+                    top: top,
+                    left: 0,
+                    width: left,
+                    height: height
+                } , 500);
+            $step.find('.tutr-step-right')
+                .animate({
+                    top: top,
+                    left: left + width,
+                    width: winWidth - left - width,
+                    height: height
+                } , 500);
+            $step.find('.tutr-step-bottom')
+                .animate({
+                    top: top + height,
+                    left: 0,
+                    width: '100%',
+                    height: winHeight - top - height
+                } , 500);
+        }
+        return {
+            showStep: function( num ){
+                switch( num ){
+                    case 1:
+                        var off = $('.stand_tit').offset();
+                        renderTure( off.top , off.left - 20 , 566 , 440 );
+                        $('.tutr-step').find('.tutr-step-tip1')
+                            .delay( 700 )
+                            .css({left: off.left + 566 })
+                            .fadeIn();
+                        break;
+                    case 2:
+                        var off = $('.stand_chart').offset();
+                        $('.tutr-step-tip1').fadeOut();
+                        renderTure( off.top , off.left - 20 , $('.stand_chart').width() + 20 , $('.stand_chart').height() );
+                        $('.tutr-step').find('.tutr-step-tip2')
+                            .delay( 700 )
+                            .css({left: off.left  - 600 })
+                            .fadeIn();
+                        break;
+                    case 3:
+                        var off = $('.stand_achivments').offset();
+                        $('.tutr-step-tip2').fadeOut();
+                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
+                        $('.tutr-step').find('.tutr-step-tip3')
+                            .delay( 700 )
+                            .css({left: off.left })
+                            .fadeIn();
+                        break;
+                    default:
+                        $('.tutr-step').fadeOut();
+
+                }
+            }
+        }
+    })();
+
 
     var initSuggestion = (function(){
         var tUtil = null;
@@ -839,7 +914,10 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         return false;
     });
-
+    
+    LP.action('start-tutr' , function(){
+        animateTure.showStep( 1 );
+    });
 
     LP.action('preview' , function( data ){
 

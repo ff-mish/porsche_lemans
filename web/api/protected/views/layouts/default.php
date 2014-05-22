@@ -27,6 +27,7 @@
 
 <div class="footer">
         <div class="footer_link cs-clear">
+            <p class="footer-icon" data-a="start-tutr"></p>
             <p data-a="legal-mentions">Legal Mentions</p>
             <div id="share">Share
               <div class="share-btns">
