@@ -70,12 +70,12 @@ class Controller extends CController {
   public function __construct($id, $module = null) {
     parent::__construct($id, $module);
 
-    $id = Yii::app()->user->getId();
-    // 未登陆情况下 设置一个默认的 useridentity
-    if (!$id) {
-      $userIdentity = new UserIdentity("", "");
-      Yii::app()->user->login($userIdentity);
-    }
+//    $id = Yii::app()->user->getId();
+//    // 未登陆情况下 设置一个默认的 useridentity
+//    if (!$id) {
+//      $userIdentity = new UserIdentity("", "");
+//      Yii::app()->user->login($userIdentity);
+//    }
   }
 
   public function init() {

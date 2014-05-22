@@ -1,10 +1,15 @@
 <?php
 
 class GoogleShortUrl extends CApplicationComponent {
+  private $apiURL;
+  public function init() {
+    $this->GoogleURLAPI();
+  }
+  
 	// Constructor
 	function GoogleURLAPI($apiURL = 'https://www.googleapis.com/urlshortener/v1/url') {
 		// Keep the API Url
-		$this->apiURL = $apiURL.'?key='.$key;
+		$this->apiURL = $apiURL.'?key=AIzaSyD0ApIz6IX0szMZniIfzvyMMlAaIofSs84';
 	}
 	
 	// Shorten a URL
