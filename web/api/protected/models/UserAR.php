@@ -212,13 +212,13 @@ class UserAR extends CActiveRecord {
     // 如果用户已经登录授权过了， 但是又没有建造一个team
       $userteamAr = new UserTeamAR();
       $team = $userteamAr->loadUserTeam($user);
-      if (!$team) {
+      if (!$team && !Yii::app()->session["invited_data"]) {
         // TODO:: 我们让他去team build 页面
         // 测试代码， 我们要删除掉
         TeamAR::newteam("new team");
       }
       else {
-        
+        //
       }
     }
     // 用户是自动被加入到系统的， 这次还是属于第一次授权
@@ -479,7 +479,7 @@ class UserAR extends CActiveRecord {
     $user = UserAR::crtuser();
     $matches = array();
     header("Content-Type: text/html; charset=utf-8");
-    preg_match_all("/@([\p{L}\p{Mn}_]+)/u", $msg, $matches);
+    preg_match_all("/@([\p{L}\p{Mn}\w_0-9]+)/u", $msg, $matches);
     
     $weibo_users = array();
 
