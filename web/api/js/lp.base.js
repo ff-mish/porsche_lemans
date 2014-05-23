@@ -727,7 +727,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( document.body ) , "/videos/small" , "/images/bg7.jpg" ,  {} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "/images/bg7.jpg" ,  {} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -1538,9 +1538,9 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                 break;
                 
             case "monitoring":
+              bigVideoInit();
               var tweetGroup = $(".tweet-con .tweet-list");
-              api.get("/api/twitte", function (e) {
-                function callbackRender(index, group) {
+              var callbackRender = function(index, group) {
                   for (var i = 0; i < group.length; i++) {
                     var tweet = {
                       media: group[i]["media"],
@@ -1551,14 +1551,14 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                       uuid: group[i]["uuid"]
                     };
                     LP.compile("tweet-item-tpl", tweet, function(html) {
-                      $($(".item", tweetGroup).get(index)).children(".tweet-items").append(html);
+                      $(".monitor_item").eq(index).children(".monitor_list").append(html);
                     });
                   }
                   if (group.length <= 0) {
-                    $($(".item", tweetGroup).get(index)).children(".tweet-items").append("<li class='tweet-signle-item clearfix'>empty</li>");
+                    $(".monitor_item").eq(index).children(".monitor_list").append("<li class='tweet-signle-item clearfix'>empty</li>");
                   }
                 }
-                
+              api.get("/api/twitte", function (e) {
                 var group1 = e["data"]["web"];
                 callbackRender(0, group1);
                 
