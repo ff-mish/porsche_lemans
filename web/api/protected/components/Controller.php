@@ -5,6 +5,7 @@
  * All controller classes for this application should extend from this base class.
  */
 class Controller extends CController {
+  
   public function beforeAction($action) {
     // Custom logic
     return parent::beforeAction($action);
@@ -69,6 +70,8 @@ class Controller extends CController {
 
   public function __construct($id, $module = null) {
     parent::__construct($id, $module);
+    
+    Yii::app()->session["server_start"] = time();
 
 //    $id = Yii::app()->user->getId();
 //    // 未登陆情况下 设置一个默认的 useridentity
