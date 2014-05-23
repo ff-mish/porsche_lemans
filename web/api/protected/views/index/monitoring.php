@@ -20,236 +20,24 @@
 				<div class="monitor_item">
 					<h2>Porsche</h2>
 					<div class="monitor_list">
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
 					</div>
 				</div>
 				<!--  -->
 				<div class="monitor_item">
 					<h2>Profile</h2>
 					<div class="monitor_list">
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
 					</div>
 				</div>
 				<!--  -->
 				<div class="monitor_item tweet-con">
 					<h2>Team</h2>
 					<div class="monitor_list">
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
 					</div>
 				</div>
 				<!--  -->
 				<div class="monitor_item tweet-con">
 					<h2>#24SocialRace</h2>
 					<div class="monitor_list">
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
-						<div class="monitor_box cs-clear">
-							<div class="monitor_pho"><img src="images/phodemo2.jpg" width="70" height="70"></div>
-							<div class="monitor_info">
-								<div class="monitor_name">@Porsche <img src="images/monitor_icon1.png"></div>
-								<div class="monitor_txt">Yes our pilot is first now ! It’s really amainzing. Our mission is on its way. #OurMission# #24SocialRace#</div>
-								<div class="monitor_time">7min ago</div>
-								<div class="monitor_btn">
-									<a href="#" class="monitor_btn1"></a>
-									<a href="#" class="monitor_btn2"></a>
-								</div>
-							</div>
-						</div>
-						<!--  -->
 					</div>
 				</div>
 				<!--  -->

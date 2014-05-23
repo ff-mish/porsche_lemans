@@ -113,7 +113,7 @@ outline: none !important;
 .stand_del{position: absolute;right: 58px;top: 592px;cursor: pointer;}
 
 
-#legal-notice{position: fixed;top: 80px; bottom: 0; width: 80%; margin: 0 10%; background: rgba(0,0,0,.5); display: none;}
+#legal-notice{position: fixed;top: 80px; bottom: 0; width: 100%; background: rgba(0,0,0,.5); display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 30px;}
 #share{float: left;padding: 0 6px;position: relative;}
 .share-btns{position:absolute; left: 100%; top: 0px; overflow: hidden;margin-top: -4px;width: 0;height: 33px;}
@@ -163,4 +163,13 @@ outline: none !important;
 .tutr-step-tip3 .step-btn{position: absolute;bottom: 30px;right: 40px;}
 
 
+.conut_tit span{font-size: 90px;}
+.count-unit{margin-right: 20px;font-size: 72px;float: left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display: inline;opacity: 0.3;filter: alpha(opacity=30);}
+
+
+.legal-con{ padding: 20px 0px; position: absolute;width: 100%; top: 100px; bottom: 50px; overflow: auto; font-size: 20px;line-height: 1.5em;}
+.legal-left{float: left; width: 40%;margin-right: 6%;margin-left: 7%;}
+.legal-right{float: left; width: 40%;}
+
+.conut_watch{background: none;}
 
