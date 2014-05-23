@@ -351,21 +351,22 @@ class UserAR extends CActiveRecord {
     else {
       $invited_user = array();
       try {
-        $weibo_users = UserAR::getAtScreenNameFromMsg($msg);
+        $twitter_users = UserAR::getAtScreenNameFromMsg($msg);
       }
       catch (Exception $e) {
         return FALSE;
       }
-      foreach ($weibo_users as $weibo_user) {
-        $invited_user[] = $weibo_user->id_str;
+      foreach ($twitter_users as $twitter_user) {
+        $invited_user[] = $twitter_user->id_str;
       }
       
       $uuid = $user->uuid;
       $user = $this->load_user_by_uuid($uuid);
       $code = InviteLogAR::newInviteCode();
       $url = $this->generateInvitedURL($user->uid, $invited_user, $code);
+      $short_url = Yii::app()->shorturl->shorten($url);
       // Status 应该超过有  140 个  char 
-      $ret = Yii::app()->twitter->status_update($msg. ' URL IS NOT READY');
+      $ret = Yii::app()->twitter->status_update($msg. ' '. $short_url);
       
       // 发送邀请后，我们把邀请数据保存在数据库
       $team_ar = new UserTeamAR();
