@@ -204,22 +204,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var coordinate = (function(){
         var object = {};
         function init( $dom , cb ){
-            var width = $dom.width();
-            var height = $dom.height();
-            var ch = ~~( height / 2 );
-            var cw = ~~( width / 2 );
             
-            //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
-
-            var xstart = [ 70 , ch ] , xend = [ width - 70 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
-                , ystart = [ cw , 70 ] , yend = [ cw , height - 70 ] , yheight = yend[ 1 ] - ystart[ 1 ];
-
-
-            var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
-            var sh = 7; // step height
-
-            var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
-
             //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
             var pathAttr = {
@@ -234,54 +219,82 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
 
             LP.use('raphaeljs' , function( Raphael ){
+
                 // draw x 
-                var paper = Raphael( $dom.get(0) , width , height );
+                var paper = Raphael( $dom.get(0) , $dom.width() , $dom.height() );
 
-                paper.path( ['M' , xstart.join(" ") , 'L' , xend.join(" ")].join("") ).attr(pathAttr);
-                var xpath = [
-                    //'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
-                    // 'M0 ' , ch , 'L' , width , ' ' , ch ,
-                    'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
-                for( var i = 1 ; i * sw <= xwidth ; i++ ){
-                    xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+                var drawCoordinate = function( ){
+                    var width = $dom.width();
+                    var height = $dom.height();
+                    var ch = ~~( height / 2 );
+                    var cw = ~~( width / 2 );
+                    
+                    //var left = 0.5 , right = 0.7 , top = 0.3 , bottom = 0.9;
+
+                    var xstart = [ 70 , ch ] , xend = [ width - 70 , ch ] , xwidth = xend[ 0 ] - xstart[ 0 ]
+                        , ystart = [ cw , 70 ] , yend = [ cw , height - 70 ] , yheight = yend[ 1 ] - ystart[ 1 ];
+
+
+                    var sw = ( xend[0] - xstart[0] ) / 10 ; // step width
+                    var sh = 7; // step height
+
+                    var center = [ xwidth / 2 + xstart[0] , yheight / 2 + ystart[1] ];
+
+                    paper.path( ['M' , xstart.join(" ") , 'L' , xend.join(" ")].join("") ).attr(pathAttr);
+                    var xpath = [
+                        //'M' , xstart.join(" ") , 'L' , xend.join(" ") ,
+                        // 'M0 ' , ch , 'L' , width , ' ' , ch ,
+                        'M' , xstart[ 0 ] , ' ' , xstart[1] - ~~(sh/2) , 'l0 ' , sh ];
+                    for( var i = 1 ; i * sw <= xwidth ; i++ ){
+                        xpath.push( 'm' + sw + ' 0l0 ' + ( i % 2 == 1 ? '-' : '' ) + sh );
+                    }
+                    paper.path( xpath.join("") )
+                        .attr(pathAttr)
+                        .attr({'stroke-width': 1});
+
+                    paper.text( xstart[0] - 40 , xstart[1] , _e('Impact') )
+                        .attr( textAttr );
+                    paper.text( xend[0] + 40 , xend[1] , _e('Quality') )
+                        .attr( textAttr );
+
+                    // draw y
+                    paper.path( ['M' , ystart.join(" ") , 'L' , yend.join(" ")].join("") ).attr(pathAttr);
+                    var ypath = [
+                        //'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
+                        //'M' , cw , ' 0L' , cw , ' ' , height ,
+                        'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
+                    for( var i = 1 ; i * sw <= yheight ; i++ ){
+                        ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
+                    }
+                    paper.path( ypath.join("") ).attr(pathAttr).attr({'stroke-width': 1});;
+
+                    paper.text( ystart[0] , ystart[1] - 20 , _e('Speed t/h') )
+                        .attr( textAttr );
+                    paper.text( yend[0] , yend[1] + 20  , _e('Assiduite') )
+                        .attr( textAttr );
+
+
+                    object.center = center;
+                    object.xwidth = xwidth;
+                    object.xstart = xstart;
+                    object.ystart = ystart;
+                    object.yheight = yheight;
+
+                    object.path = paper.path( "" ).attr( {
+                        "stroke": '#f00',
+                        "stroke-width": 3
+                    } );
                 }
-                paper.path( xpath.join("") )
-                    .attr(pathAttr)
-                    .attr({'stroke-width': 1});
 
-                paper.text( xstart[0] - 40 , xstart[1] , _e('Impact') )
-                    .attr( textAttr );
-                paper.text( xend[0] + 40 , xend[1] , _e('Quality') )
-                    .attr( textAttr );
-
-                // draw y
-                paper.path( ['M' , ystart.join(" ") , 'L' , yend.join(" ")].join("") ).attr(pathAttr);
-                var ypath = [
-                    //'M' , ystart.join(" ") , 'L' , yend.join(" ") ,
-                    //'M' , cw , ' 0L' , cw , ' ' , height ,
-                    'M' , ystart[ 0 ] - ~~(sh/2) , ' ' , ystart[1] , 'l' , sh , ' 0' ];
-                for( var i = 1 ; i * sw <= yheight ; i++ ){
-                    ypath.push( 'm0 ' + sw + 'l' + ( i % 2 == 1 ? '-' : '' ) + sh + ' 0' );
-                }
-                paper.path( ypath.join("") ).attr(pathAttr).attr({'stroke-width': 1});;
-
-                paper.text( ystart[0] , ystart[1] - 20 , _e('Speed t/h') )
-                    .attr( textAttr );
-                paper.text( yend[0] , yend[1] + 20  , _e('Assiduite') )
-                    .attr( textAttr );
-
-
-                object.center = center;
-                object.xwidth = xwidth;
-                object.xstart = xstart;
-                object.ystart = ystart;
-                object.yheight = yheight;
-
-                object.path = paper.path( "" ).attr( {
-                    "stroke": '#f00',
-                    "stroke-width": 3
-                } );
-
+                $(window).resize(function(){
+                    paper.clear();
+                    paper.setSize( $dom.width() , $dom.height() );
+                    drawCoordinate();
+                    object.path.attr('path' , '');
+                    runAnimate.call( '' , target[0],target[1],target[2],target[3] , true );
+                    console.log( );
+                });
+                drawCoordinate();
                 cb && cb();
             });
 
@@ -304,12 +317,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
         }
 
-        function runAnimate( left , right , top , bottom ){
+        var target = [];
 
-            // left = 0.5;
-            // right = 0.7;
-            // top = 0.9;
-            // bottom = 0.3;
+        function runAnimate( left , right , top , bottom , noAnimate ){
+            left = 0.5;
+            right = 0.7;
+            top = 0.9;
+            bottom = 0.3;
+            target = [left , right , top , bottom];
+            
 
             var center = object.center;
             var xwidth = object.xwidth;
@@ -338,6 +354,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 object.path.attr( 'path' , rpath.join("") );
             }
+
+            if( noAnimate ){
+                renderPath( left , right , top , bottom  );
+                object.lastLeft = left;
+                object.lastRight = right;
+                object.lastTop = top;
+                object.lastBottom = bottom;
+                return;
+            }
             var ani = function(){
                 var dur = new Date - now;
                 var per = dur / duration;
@@ -350,8 +375,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var b = easeOutElastic('' , dur , lastBottom , bottom - lastBottom , duration ) ;//per * ( bottom - lastBottom );
                 renderPath( l || 0 , r || 0 , t || 0 , b || 0 );
                 // renderPath( l + lastLeft , r + lastRight , t + lastTop , b + lastBottom );
-                if( per < 1 )
+                if( per < 1 ) {
                     setTimeout( ani , 1000 / 60 );
+                } else {
+                    object.lastLeft = left;
+                    object.lastRight = right;
+                    object.lastTop = top;
+                    object.lastBottom = bottom;
+                }
             }
             ani();
         }
@@ -450,7 +481,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             wrapClass: 'suggestWrap',
             // maxHeight: 200,
             availableCssPath: 'p', // 用于hover的css path
-            loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
+            //loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
             renderData: function(data){
                 var key = this.key , aHtml = ['<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">'];
                 $.each(data , function(i,item){
@@ -903,7 +934,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 					} , 500 , 'easeOutQuart');
 
                 var panel = this;
-                //initSuggestion( this.$panel.find('textarea') );
                 this.$panel.find('.p-cancel')
                     .click(function(){
                         panel.close();
@@ -1404,6 +1434,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
+        bigVideoInit();
+
         // init first page template
         switch( $(document.body).data('page') ){
             case "index":
@@ -1420,7 +1452,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 
                 break;
             case "teambuild":
-                bigVideoInit();
                 api.get("/api/user" , function( e ){
                     if( !e.data.user ) return;
                     // if current user is invited
@@ -1460,7 +1491,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
                 var s = dura - d * 86400 - h * 3600 - m * 60;
                 countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                bigVideoInit();
                 
                 break;
 
@@ -1502,6 +1532,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             break;
                     }
                  });
+
+                var start = window.start_time || '2014-09-13 02:43:07';
+                var now = window.time_now || '2014-05-15 00:05:24';
+               
+                var dura = ~~( ( start - now ) / 1000 );
+                var d = ~~( dura/86400 );
+                var h = ~~( ( dura - d * 86400 ) / 3600 );
+                var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                var s = dura - d * 86400 - h * 3600 - m * 60;
+                countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+
 
                 api.get('/api/user' , function( e ){
                     var data = e.data;
@@ -1646,18 +1687,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         
                 });
 
-                // // init member speed
-                // rotateAnimate( $('.member_speed').eq(0) , 200 , 360 , 45 );
-                // rotateAnimate( $('.member_speed').eq(1) , 240 , 360 , 45 );
-                // rotateAnimate( $('.member_speed').eq(2) , 300 , 360 , 45 );
-
-                
-
-
                 break;
                 
             case "monitoring":
-              bigVideoInit();
               var tweetGroup = $(".tweet-con .tweet-list");
               var callbackRender = function(index, group) {
                   for (var i = 0; i < group.length; i++) {
