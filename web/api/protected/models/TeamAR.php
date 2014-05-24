@@ -64,7 +64,8 @@ class TeamAR extends CActiveRecord {
     $query = new CDbCriteria();
     $query->addCondition("uid=:uid")
             ->addCondition("tid=:tid");
-    $query->params = array(":tid" => $_tid, ":uid" => $_uid);
+    $query->params[":tid"] = $_tid;
+    $query->params[":uid"] = $_uid;
     if (UserTeamAR::model()->find($query)) {
       return $this->addError("owner_uid", "user has joined team");
     }

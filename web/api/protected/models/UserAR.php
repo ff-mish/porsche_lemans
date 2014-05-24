@@ -306,6 +306,11 @@ class UserAR extends CActiveRecord {
       }
     }
     
+    if ($user) {
+      // 获取 user score
+      $user->score = ScoreUserAR::getUserScore($user->uid);
+    }
+    
     return $user;
   }
   

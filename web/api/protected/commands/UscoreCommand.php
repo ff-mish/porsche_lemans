@@ -24,6 +24,7 @@ class UscoreCommand extends CConsoleCommand
         // Speed: 发帖 速度
         // 开始时间
         $start_date = date("Y-m-d H", strtotime(Yii::app()->params["startTime"]));
+        
         // 现在时间
         $now_date = date("Y-m-d H");
 
@@ -33,7 +34,7 @@ class UscoreCommand extends CConsoleCommand
         // 每个小时 我分别计算出来速度，然后再平均
         $speeds = array();
         $s_date = $start_date;
-        for ($i = 0; $i < $time_step; $i++) {
+        for ($i = 0; $i <= $time_step; $i++) {
           // 构造查询条件
           $t = strtotime($s_date.":00:00") + 60 * 60;
           $n_date = date("Y-m-d H", $t);
@@ -44,16 +45,21 @@ class UscoreCommand extends CConsoleCommand
           
           $query->addCondition("uid=:uid");
           $query->params[":uid"] = $user->uid;
-
+          
           $count = TwitteAR::model()->count($query);
-          $s_speed = $count > $max_twitte_per_hour  ? "1" : round($count / $max_twitte_per_hour, 1);
+          
+          $s_speed = $count > $max_twitte_per_hour  ? "1" : round($count / $max_twitte_per_hour, 3);
           $speeds[] = $s_speed;
 
           // 时间轮回
           $s_date = $n_date;
         }
-
-        $speed = round(array_sum($speeds) / $time_step, 1);
+        if ($time_step) {
+          $speed = round(array_sum($speeds) / $time_step, 3);
+        }
+        else {
+          $speed = array_shift($speeds);
+        }
 
         // Impact: 粉丝数
         // 个人只记粉丝数 不记比分

@@ -64,9 +64,9 @@ class ScoreTeamAR extends CActiveRecord {
               . "WHERE average_score.average > ".$average;
       
       $command = Yii::app()->db->createCommand($sql);
-      $row = $command->query();
+      $row = $command->query()->read();
       
-      return $row["count"];
+      return $row["count"] + 1;
     }
 
 }
