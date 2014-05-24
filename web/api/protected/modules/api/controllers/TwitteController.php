@@ -32,6 +32,11 @@ class TwitteController extends Controller {
   
   public function actionPost() {
     $request = Yii::app()->getRequest();
+    $user = UserAR::crtuser();
+    
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
     
     if (!$request->isPostRequest) {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
@@ -49,10 +54,17 @@ class TwitteController extends Controller {
     // 自己系统发的一个微博
     $from = $request->getPost("from", "web");
     if ($from == "web") {
+      // Weibo 
       $host = parse_url(Yii::app()->getBaseUrl(TRUE), PHP_URL_HOST);
-      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
-      $short_urls = $weibo_api->short_url_shorten("http://". $host);
-      $msg = Yii::app()->params["topic"]." ". $msg. " ". $short_urls["urls"][0]["url_short"];
+      if ($user->from == UserAR::FROM_WEIBO) {
+        $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+        $short_urls = $weibo_api->short_url_shorten("http://". $host);
+        $msg = Yii::app()->params["topic"]." ". $msg. " ". $short_urls["urls"][0]["url_short"];
+      }
+      else {
+        $short_url = Yii::app()->shorturl->shorten("http://". $host);
+        $msg = Yii::app()->params["topic"]. " ". $msg .' '.$short_url;
+      }
     }
     
     $twitteAr = new TwitteAR();

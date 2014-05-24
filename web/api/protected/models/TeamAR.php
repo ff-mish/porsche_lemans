@@ -178,5 +178,31 @@ class TeamAR extends CActiveRecord {
       return FALSE;
     }
   }
+  
+  /**
+   * 获取Team 总数
+   */
+  public function getTotalTeam() {
+    $query = new CDbCriteria();
+    $query->addCondition("status = :status");
+    $query->params[":status"] = self::STATUS_ONLINE;
+    
+    return $this->count($query);
+  }
+  
+  public function getTeamPosition() {
+      // 先把自己的分数拿出来
+      $tid = $this->tid;
+      if (!$tid) {
+        return FALSE;
+      }
+      
+      $score = ScoreTeamAR::getTeamScore($tid);
+      if (!$score) {
+        return FALSE;
+      }
+      
+      return $score->getScorePosition();
+  }
 }
 

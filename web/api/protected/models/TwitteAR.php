@@ -163,8 +163,6 @@ class TwitteAR extends CActiveRecord {
             $video_link = $media->media_link;
             $content .= " ". $video_link;
             $ret = $weibo_api->update($content);
-                      
-            $ret = $weibo_api->update($content);
             
             // 把uuid 保存下来
             $uuid = $ret["idstr"];

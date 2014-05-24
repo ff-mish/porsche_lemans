@@ -52,6 +52,22 @@ class ScoreTeamAR extends CActiveRecord {
     public function afterSave() {
       return parent::afterSave();
     }
+    
+    /**
+     * 计算分数的排名位置
+     * 算法： SQL 选择出比它大的分数，然后 count() 操作就可以获得排名位置
+     */
+    public function getScorePosition() {
+      $average = $this->average;
+      $sql = "SELECT count(*) as count from (SELECT max(cdate), average "
+              . "FROM ".$this->tableName()." GROUP BY tid) as average_score "
+              . "WHERE average_score.average > ".$average;
+      
+      $command = Yii::app()->db->createCommand($sql);
+      $row = $command->query();
+      
+      return $row["count"];
+    }
 
 }
 
