@@ -1481,17 +1481,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
 
             case "countdown":
-                // TODO...
-                var start = window.start_time || '2014-09-13 02:43:07';
-                var now = window.time_now || '2014-05-15 00:05:24';
-               
-                var dura = ~~( ( start - now ) / 1000 );
-                var d = ~~( dura/86400 );
-                var h = ~~( ( dura - d * 86400 ) / 3600 );
-                var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                var s = dura - d * 86400 - h * 3600 - m * 60;
-                countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                
+                api.get('/api/web/time' , function( e ){
+                    var start = new Date(e.data.time_start );
+                    var now = new Date(e.data.time_now );
+                   
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
                 break;
 
             case "fuel":
@@ -1533,15 +1534,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                  });
 
-                var start = window.start_time || '2014-09-13 02:43:07';
-                var now = window.time_now || '2014-05-15 00:05:24';
-               
-                var dura = ~~( ( start - now ) / 1000 );
-                var d = ~~( dura/86400 );
-                var h = ~~( ( dura - d * 86400 ) / 3600 );
-                var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                var s = dura - d * 86400 - h * 3600 - m * 60;
-                countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                api.get('/api/web/time' , function( e ){
+                    var start = new Date(e.data.time_start );
+                    var now = new Date(e.data.time_now );
+                   
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
 
 
                 api.get('/api/user' , function( e ){
@@ -1590,20 +1594,36 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     <div class="memeber_space">#[space]</div></div>';
                     var html = [];
                     var speeds = [];
+                    var spaces = [1000000 , 1000 , 100];
+                    var spacesUnit = ['M' , 'K' , 'H'];
                     $.each( [0,1,2] , function( i , index ){
                         if( team.users[i] ){
-                          if (team.users[i].uid == crtuser["uid"]) {
-                            html.push( LP.format(utpl_crtuser,{
+                            var space = '';
+                            $.each( spaces , function( k , sp ){
+                                space = Math.round((team.users[i].friends / sp)*10) / 10;
+                                if( space >= 1 ){
+                                    space += spacesUnit[k];
+                                    return false;
+                                }
+                                space += spacesUnit[k];
+                            } );
+                            html.push( LP.format( team.users[i].uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
                                 avatar:     team.users[i].avatar,
                                 name:       team.users[i].name,
-                                space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
-                          }
-                          else {
-                            html.push( LP.format(utpl_teammem,{
-                                avatar:     team.users[i].avatar,
-                                name:       team.users[i].name,
-                                space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
-                          }
+                                space:      space}));
+
+                          // if (team.users[i].uid == crtuser["uid"]) {
+                          //   html.push( LP.format(utpl_crtuser,{
+                          //       avatar:     team.users[i].avatar,
+                          //       name:       team.users[i].name,
+                          //       space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
+                          // }
+                          // else {
+                          //   html.push( LP.format(utpl_teammem,{
+                          //       avatar:     team.users[i].avatar,
+                          //       name:       team.users[i].name,
+                          //       space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
+                          // }
                           speeds.push( team.users[i].speed );
                         } else{
                             html.push( '<div class="teambuild_member stand_useritem cs-clear">\
