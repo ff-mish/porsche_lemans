@@ -313,7 +313,17 @@ class UserAR extends CActiveRecord {
    */
   public function post_invite_tweet($msg) {
     // 发一个微博邀请 （其实是一个微博 用@用户名方式）
-    $user = UserAR::crtuser();
+    $user = UserAR::crtuser(true);
+    // 发送邀请前 需要判断用户是否有了team
+    if ($user && !$user->team) {
+      return ErrorAR::ERROR_NO_TAEM;
+    }
+    // 然后要判断用户是否达到了发送邀请的上限
+    $invited_users = InviteLogAR::userInvited($user->uid, $user->team->tid);
+    if (count($invited_users) >= 2) {
+      return ErrorAR::ERROR_TEAM_MEMBER_FULL;
+    }
+    
     if ($user->from == self::FROM_WEIBO) {
       $access_token = Yii::app()->session["weibo_token"];
       if ($access_token) {
@@ -333,6 +343,14 @@ class UserAR extends CActiveRecord {
       foreach ($weibo_users as $weibo_user) {
         $invited_user[] = $weibo_user["idstr"];
       }
+      // 在这里还需要判断一下 用户邀请的好友总数是不能超过2个的
+      if (count($invited_user) > 2) {
+        return ErrorAR::ERROR_TEAM_MEMBER_LIMITED;
+      }
+      
+      if (count($invited_user) + count($invited_users) > 2) {
+        return ErrorAR::ERROR_TEAM_MEMBER_LIMITED;
+      }
       $user = $this->load_user_by_uuid($uid);
       $code = InviteLogAR::newInviteCode();
       $short_url = $weibo_api->short_url_shorten($this->generateInvitedURL($user->uid, $invited_user, $code));
@@ -345,7 +363,7 @@ class UserAR extends CActiveRecord {
         InviteLogAR::logInvite($user->uid, $invited_user, $team->tid, $code);
       }
       
-      return $ret;
+      return TRUE;
     }
     // 发一个Twitter 邀请
     else {
@@ -376,7 +394,7 @@ class UserAR extends CActiveRecord {
         InviteLogAR::logInvite($user->uid, $invited_user, $team->tid, $code);
       }
       
-      return $ret;
+      return TRUE;
       
     }
   }

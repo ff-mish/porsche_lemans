@@ -101,7 +101,7 @@ class IndexController extends CController {
     
     $invited_data = Yii::app()->session["invited_data"];
     $code = $invited_data["code"];
-    if ($invited_data && $user && !InviteLogAR::useWasAllowedInvite($user->uuid, $code)) {
+    if ($invited_data && $user && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
       $params["is_invited"] = TRUE;
       // 在这里还要获取一下用户的被邀请的team的名字
       $tid = $invited_data["tid"];

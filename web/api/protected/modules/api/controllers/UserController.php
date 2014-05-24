@@ -31,11 +31,14 @@ class UserController extends Controller{
     
     $userAr = new UserAR();
     $ret = $userAr->post_invite_tweet($msg);
-    if ($ret) {
+    if ($ret === TRUE) {
       $this->responseJSON(array(), "success");
     }
-    else {
+    elseif ($ret === FALSE) {
       $this->responseError("invite friend failed", ErrorAR::ERROR_INVITE);
+    }
+    else {
+      $this->responseError("invite friend failed", $ret);
     }
   }
   

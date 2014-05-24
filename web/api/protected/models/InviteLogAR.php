@@ -95,7 +95,7 @@ class InviteLogAR extends CActiveRecord {
    * @param type $idstr
    * @param type $code
    */
-  public static function useWasAllowedInvite($idstr, $code) {
+  public static function userWasAllowedInvite($idstr, $code) {
       $query = new CDbCriteria();
       $query->addCondition("invited_idstr=:invited_idstr")
               ->addCondition("invite_code=:code")
@@ -114,6 +114,30 @@ class InviteLogAR extends CActiveRecord {
   
   public static function newInviteCode() {
     return uniqid("invite_");
+  }
+  
+  /**
+   * 获取用户邀请的加入有效的记录 (有效记录为： 邀请已经发出的，邀请已经接受的)
+   * @param type $uid
+   * @params type $tid
+   */
+  public static function userInvited($uid, $tid) {
+    $query = new CDbCriteria();
+    $query->addCondition("invitor=:invitor")
+            // 只需要计算还没有接受邀请的和接受邀请的用户
+            ->addInCondition("status", array(self::STATUS_ALLOW_INVITE, self::STATUS_DEFAULT))
+            ->addCondition("tid=:tid");
+    $query->params[":tid"] = $tid;
+    $query->params[":invitor"] = $uid;
+    
+    $rows = InviteLogAR::model()->findAll($query);
+    
+    $invited_uids = array();
+    foreach ($rows as $row) {
+      $invited_uids[] = $row->invited_idstr;
+    }
+    
+    return $invited_uids;
   }
 }
 
