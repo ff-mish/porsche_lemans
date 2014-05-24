@@ -142,6 +142,7 @@ class TwitteAR extends CActiveRecord {
   }
   
   public function afterSave() {
+    debug_info($this);
     // 发布一个新微博后， 我们需要发布到对应的平台去
     // 发布前，我们要检查下 微博是不是已经有了uuid , 只有发布后才会有 uuid
     if ($this->{$this->primaryKey()} && !$this->uuid) {
@@ -174,13 +175,30 @@ class TwitteAR extends CActiveRecord {
         else if ($this->type == UserAR::FROM_TWITTER) {
           // 是图片的分享 就分享一个图片
           if ($media->type == MediaAR::MEDIA_IMAGE) {
-            $weibo_api->upload($content, MediaAr::realpath($media->uri));
+            $path = MediaAr::realpath($media->uri);
+            if (!is_file($path)) {
+              return FALSE;
+            }
+            $file_data = (file_get_contents($path));
+            $ret = Yii::app()->twitter->status_update_with_media($content, array($file_data));
+            
+            $uuid = $ret->id_str;
+
+            $tweet = $this->findByPk($this->tid);
+            $tweet->uuid = $uuid;
+            $tweet->update();
           }
           // 如果是分享视频 就分享一个视频链接
           else {
             $video_link = $media->media_link;
             $content .= " ". $video_link;
-            Yii::app()->twitter->status_update($content);
+            $ret = Yii::app()->twitter->status_update($content);
+            
+            $uuid = $ret->id_str;
+
+            $tweet = $this->findByPk($this->tid);
+            $tweet->uuid = $uuid;
+            $tweet->update();
           }
         }
       }
@@ -199,6 +217,12 @@ class TwitteAR extends CActiveRecord {
         }
         else if ($this->type == UserAR::FROM_TWITTER) {
           $ret = Yii::app()->twitter->status_update($content);
+          
+          $uuid = $ret->id_str;
+          
+          $tweet = $this->findByPk($this->tid);
+          $tweet->uuid = $uuid;
+          $tweet->update();
         }
       }
 

@@ -305,6 +305,31 @@ class STwitter extends CApplicationComponent {
     }
   }
   
+  /**
+   * 发布一个带图片的Media
+   * @param type $content
+   * @param type $medias
+   */
+  public function status_update_with_media($content, $medias) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+    $code = $twitter->request("POST", $twitter->url("1.1/statuses/update_with_media"), array(
+        "status" => $content,
+        "media[]" => array_shift($medias)
+    ), TRUE, TRUE);
+    
+    if ($code == 200) {
+      return json_decode($twitter->response["response"]);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
+  
   public function search_topic($keyword) {
     $this->user_token = $_SESSION['access_token']['oauth_token'];
     $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];

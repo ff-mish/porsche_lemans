@@ -166,6 +166,15 @@ class MediaAR extends CActiveRecord {
   }
   
   public function realpath($uri) {
+    // 是一个包含了 全地址的 Media
+    if (strpos($uri, "http://") !== FALSE || strpos($uri, "https://") !== FALSE) {
+      debug_info("BEGIN REPLACE");
+      $base_url = Yii::app()->getBaseUrl(true);
+      debug_info("BASE URL". $base_url);
+      $uri = str_replace($base_url, "", $uri);
+    }
+    debug_info("URI". $uri);
+    debug_info("abspath: ". Yii::app()->basePath.'/../'. $uri);
     return realpath(Yii::app()->basePath.'/../'. $uri);
   }
   
