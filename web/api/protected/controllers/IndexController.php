@@ -39,7 +39,14 @@ class IndexController extends CController {
         "page_name" => "index"
     );
     $this->page_name = $params["page_name"];
-    $this->render("index", $params);
+    $startTime = strtotime(Yii::app()->params["startTime"]);
+    $now = time();
+    if ($now >= $startTime || TRUE) {
+      $this->render("index", $params);
+    }
+    else {
+      $this->render("countdown");
+    }
   }
   
   public function actionAchieve() {

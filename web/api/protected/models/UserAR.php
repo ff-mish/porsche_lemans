@@ -189,6 +189,7 @@ class UserAR extends CActiveRecord {
         $screen_name = $weibo_user["screen_name"];
         $avatar = $weibo_user["avatar_large"];
         $friends = $weibo_user["friends_count"];
+        $location = $weibo_user["location"];
       }
     }
     // 从Twitter 登录
@@ -201,6 +202,7 @@ class UserAR extends CActiveRecord {
       $screen_name = $twitter_user->screen_name;
       $avatar = $twitter_user->profile_image_url;
       $friends = $twitter_user->friends_count;
+      $location = $twitter_user->location;
     }
     
     // 把用户从数据库加载进来
@@ -245,6 +247,7 @@ class UserAR extends CActiveRecord {
           "profile_msg" => "", 
           "avatar" => $avatar,
           "friends" => $friends,
+          "location" => $location,
           "status" => self::STATUS_ENABLED
       );
       // 等于0 说明没有邀请者，我们就设置为 接受邀请了

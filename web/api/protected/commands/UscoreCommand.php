@@ -72,7 +72,10 @@ class UscoreCommand extends CConsoleCommand
       
     }
     
-    
+    /**
+     * @author  小东
+     * @return boolean
+     */
     public function score()
     {
         set_time_limit(0);  //临时设置脚本运算为不限时
