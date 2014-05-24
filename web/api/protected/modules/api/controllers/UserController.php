@@ -303,4 +303,15 @@ class UserController extends Controller{
     
     $this->responseJSON(array(), "success");
   }
+  
+  public function actionLogout() {
+    $user = UserAR::crtuser();
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    UserAR::logout();
+    
+    $this->responseJSON(array(), "success");
+  }
 }

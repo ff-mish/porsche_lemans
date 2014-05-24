@@ -512,5 +512,11 @@ class UserAR extends CActiveRecord {
     $this->score = $score;
     return parent::afterFind();
   }
+  
+  public function logout() {
+    Yii::app()->session["user"] = NULL;
+    
+    return TRUE;
+  }
 }
 
