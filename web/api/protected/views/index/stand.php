@@ -8,7 +8,7 @@
     <div class="page pagebg1">
       <!-- nav -->
       <div class="nav">
-          <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
+          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span><?=Yii::t('lemans','Make a tweet')?></span></div>
           <p><a href="/race"><?=Yii::t('lemans','The Race')?></a></p>
           <p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
           <p class="on"><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						Tweet content from Fuel section to increase your quality..
+						This display the number of tweets per hour.
 						<span>◆</span>
 					</div>
 				</div>
@@ -61,13 +61,13 @@
 				</div>
 				<div class="stand_chart_assiduite" >
 					<div class="stand_chart_tip">
-						Tweet content from Fuel section to increase your quality..
+						Answer right to Porsche challenges to improve your assiduity
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_impact" >
 					<div class="stand_chart_tip">
-						Tweet content from Fuel section to increase your quality..
+						This represents the number of your followers
 						<span>◆</span>
 					</div>
 				</div>

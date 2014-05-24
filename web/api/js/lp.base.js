@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     'use strict'
     
     function retweetMonitoring() {
@@ -34,7 +34,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
         onCancel: function () {
           
         },
-        width: $(window).width() * 0.6,
+        width: $(window).width() * 0.6
       });
     }
     
@@ -883,11 +883,25 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">Cancel</a>\
                 <a href="javascript:void(0);" class="p-confirm">Confirm</a>\
-            </div',
+                <span class="loading"></span>\
+            </div>\
+            <div class="popup_dialog_status">\
+                <span>Success!</span>\
+            </div>',
             title: "",
             width: 784,
             height: 352,
             onShow: function(){
+				this.$panel.find('.popup_dialog')
+					.css({
+						'margin-top': '-100%',
+						'opacity' : 0
+					})
+					.animate({
+						marginTop: 0,
+						opacity: 1
+					} , 500 , 'easeOutQuart');
+
                 var panel = this;
                 //initSuggestion( this.$panel.find('textarea') );
                 this.$panel.find('.p-cancel')
@@ -896,10 +910,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                     });
                 this.$panel.find('.p-confirm')
                     .click(function(){
+						if($(this).hasClass('disable')) {
+							return;
+						}
                         var msg = panel.$panel.find('textarea').val();
+						$(this).addClass('disable');
+						$(this).next().fadeIn();
                         api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
-                            LP.right('success');
-                            panel.close();
+							var height = panel.$panel.find('.popup_dialog').height();
+							panel.$panel.find('.popup_dialog').height(height);
+							panel.$panel.find('.popup_dialog_btns').fadeOut();
+							panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
+                            	setTimeout(function(){
+									panel.close();
+								}, 500);
+							});
                         } );
                     });
             }
@@ -1155,7 +1180,78 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
     // page init here
     // =======================================================================
+	var isComplete = false;
+	var initComplete = function(){
+		if(isComplete) return;
+		$('.loading-wrap').fadeOut();
+
+		/* for animation */
+		var isUglyIe = $.browser.msie && $.browser.version <= 8;
+		if(isUglyIe && $('#scheme').length > 0)
+			return;
+		var ANIMATE_NAME = "data-animate";
+		$('[' + ANIMATE_NAME + ']')
+			.each(function(){
+				var $dom = $(this);
+				var tar = $dom.data('animate');
+				var browser = $dom.data('browser');
+				var style = $dom.data('style');
+				var time = parseInt( $dom.data('time') );
+				var delay = $dom.data('delay') || 0;
+				var easing = $dom.data('easing');
+				var begin = $dom.data('begin');
+				tar = tar.split(';');
+				var tarCss = {} , tmp;
+				if(browser == 'uglyie' && isUglyIe) {
+					return;
+				}
+				for (var i = tar.length - 1; i >= 0; i--) {
+					tmp = tar[i].split(':');
+					if( tmp.length == 2 )
+						tarCss[ tmp[0] ] = $.trim(tmp[1]);
+				}
+				if( isUglyIe && tarCss.opacity !== undefined ){
+					delete tarCss.opacity;
+				}
+
+
+				style = style.split(';');
+				var styleCss = {} , tmp;
+				for (var i = style.length - 1; i >= 0; i--) {
+					tmp = style[i].split(':');
+					if( tmp.length == 2 )
+						styleCss[ tmp[0] ] = $.trim(tmp[1]);
+				}
+				if( isUglyIe && styleCss.opacity !== undefined ){
+					delete styleCss.opacity;
+				}
+				$dom.css(styleCss).delay( delay )
+					.animate( tarCss , time , easing );
+				if( begin ){
+					setTimeout(function(){
+						animation_begins[begin].call( $dom );
+					} , delay);
+				}
+			});
+
+	}
     $(function(){
+		$(document.body).queryLoader2({
+			onLoading : function( percentage ){
+				var per = parseInt(percentage);
+				$('.loading-percentage').html(per+'%');
+				$('.loading-bar').css({'width':per+'%'});
+				if(per == 100) {
+					initComplete();
+					isComplete = true;
+				}
+			},
+			onComplete : function(){
+				initComplete();
+			}
+		});
+
+
         // init all pages fadein element 
         $('[data-fadein]').hide().each( function( i ){
             $(this).delay( i * 300 ).fadeIn( 800 );
@@ -1184,14 +1280,21 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
         // init share btn
         $('#share').hover(function(){
-            $('.share-btns').stop().animate({
+            $('.share-btns').stop().fadeIn().dequeue().animate({
                 width: 240
-            } , 500 );
+            } , 300 );
         } , function(){
-            $('.share-btns').delay(200).animate({
+            $('.share-btns').delay(200).fadeOut().dequeue().animate({
                 width: 0
             } , 500 );
         });
+
+		// init post twitter button
+		$('.post_link').hover(function(){
+			$(this).find('span').fadeIn();
+		}, function(){
+			$(this).find('span').fadeOut();
+		});
 
         // init #legal-notice
         $('#legal-notice .popup_close').click(function(){
@@ -1418,7 +1521,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
 
                     // 
                     $('.team_name').val( team.name );
-                    $('#team-score').html( 'P' + data.team_position + '/' + data.team_total );
+                    $('#team-score').html( 'P' + data.team_position + ' / ' + data.team_total );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -1443,13 +1546,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                             html.push( LP.format(utpl_crtuser,{
                                 avatar:     team.users[i].avatar,
                                 name:       team.users[i].name,
-                                space:      team.users[i].friends / 1000 + 'K' }));
+                                space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
                           }
                           else {
                             html.push( LP.format(utpl_teammem,{
                                 avatar:     team.users[i].avatar,
                                 name:       team.users[i].name,
-                                space:      team.users[i].friends / 1000 + 'K' }));
+                                space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
                           }
                           speeds.push( team.users[i].speed );
                         } else{
@@ -1459,6 +1562,13 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
                         }
                     } );
                     $('.teambuild_members').html( html.join("") );
+					// init member effect
+					$('.teambuild_member').css({opacity:0}).each(function( i ){
+						$(this).delay( i * 200 )
+							.animate({
+								opacity: 1
+							} , 500);
+					});
                     $.each( speeds , function( i , speed ){
                         rotateAnimate( $('.member_speed').eq(i) , speed , 1 , 45 );
                     } );

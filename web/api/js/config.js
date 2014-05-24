@@ -61,6 +61,10 @@ seajs.config({
       src: "../video-js/video.js"
       , deps: ['../video-js/video-js.css']
     }
+	  ,queryloader:{
+		  src: "../plugin/jquery.queryloader22.js"
+		  ,deps: ['jquery']
+	  }
   }
   , alias: {
     api: '../api.js?_201402#'

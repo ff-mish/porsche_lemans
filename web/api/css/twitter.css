@@ -1,0 +1,35 @@
+a:hover{color:#065be0;}
+.fuelmore a{background:#065be0;  }
+.callto{background: #065be0;}
+.navicon {color:#065be0;border:2px solid #065be0;background:url('../images/icon_plus_t.png') no-repeat center;}
+.login{border:#065be0 solid 1px;}
+.loginipt{border:#065be0 solid 1px;color:#065be0;}
+.loginipt input{color:#065be0;}
+.login_sub{background: #065be0;border:#065be0 solid 1px;}
+.teambuild_tit{color:#065be0;}
+.member_item{border:#065be0 solid 4px;}
+.member_name{color:#065be0;}
+.memeber_space{color:#065be0;}
+.member_add{border:#065be0 solid 4px;color:#065be0;}
+.member_ok{color:#065be0;}
+
+
+.nav .on{background:url('../images/navicon2_t.png') no-repeat 0 -107px ;}
+
+.popup_dialog {border:1px solid #065be0;}
+.popup_dialog_msg {border:1px solid #065be0;}
+.popup_dialog_btns a {background:#065be0;color:#fff;}
+.popup_dialog_status {color:#065be0;}
+.popup_dialog_options label {color:#065be0;}
+.popup_dun{color: #065be0; }
+.popup_invite .friend_item .send {color:#065be0;}
+.popup_invite .popup_invite_btns a {color:#065be0;border:3px solid #065be0;}
+.popup_invite .friend_item .selected {background: url("../images/icon_checked_t.png");}
+.popup_fuel .popup_fuel_btns a {background:#065be0;}
+.popup_fuel .popup_fuel_btns a.repost {background-color:#065be0;}
+.popup_fuel .vjs-default-skin .vjs-progress-holder{background: #0044ae;}
+.popup_fuel .vjs-default-skin .vjs-progress-holder .vjs-load-progress{background: #065be0;}
+.lpn_panel_panel.popup .lpn_wrapper .lpn_canvas textarea {border: 1px solid #065be0;}
+.lpn_panel_panel.popup .lpn_wrapper .lpn_canvas textarea:focus {border: 1px solid #065be0;}
+.lpn_panel_panel.popup .lpn_wrapper  .ft button {border: 1px solid #065be0;background: #065be0;}
+.popup_invite .popup_error{color: #065be0;}
