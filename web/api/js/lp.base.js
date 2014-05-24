@@ -1137,6 +1137,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         $('#legal-notice').fadeIn();
     });
 
+	LP.action('winners-prizes' , function( data ){
+		$('#winners-prizes').fadeIn();
+	});
+
     LP.action('skip-intro' , function(data){
         $(this).parent().animate({
             top: $(window).height(),
@@ -1300,6 +1304,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         $('#legal-notice .popup_close').click(function(){
             $('#legal-notice').fadeOut();
         })
+
+		// init #legal-notice
+		$('#winners-prizes .popup_close').click(function(){
+			$('#winners-prizes').fadeOut();
+		})
 
 
         // fix Q & A
