@@ -552,31 +552,51 @@ class UserAR extends CActiveRecord {
    * @param type $uuids
    */
   public static function getUserInfoFromThirdPart($uuids) {
+
     $user = UserAR::crtuser();
     if ($user) {
       if ($user->from == UserAR::FROM_WEIBO) {
         $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+        //$weibo_users = $weibo_api->users_show_batch_by_id(implode(",", $uuids));
         $weibo_users = array();
         foreach ($uuids as $uid) {
           $weibo_user = $weibo_api->show_user_by_id($uid);
-          unset($weibo_user["status"]);
-          $weibo_users[] = $weibo_user;
+          $uuid = $weibo_user["idstr"];
+          $screen_name = $weibo_user["screen_name"];
+          $avatar = $weibo_user["avatar_large"];
+          $friends = $weibo_user["friends_count"];
+          $location = $weibo_user["location"];
+          $weibo_users[] = array(
+              "uuid" => $uuid, 
+              "screen_name" => $screen_name,
+              "avatar" => $avatar,
+              "friends" => $friends,
+              "location" => $location,
+          );
         }
         // 高级接口有了后 调用此接口
-        //$weibo_users = $weibo_api->users_show_batch_by_id(implode(",", $uuids));
         return $weibo_users;
       }
       else {
         $twitter_users = array();
         foreach ($uuids as $uid) {
           $twitter_user = Yii::app()->twitter->user_show($uid);
-          $twitter_users[] = $twitter_user;
+          $uuid = $twitter_user->id_str;
+          $screen_name = $twitter_user->screen_name;
+          $avatar = $twitter_user->profile_image_url;
+          $friends = $twitter_user->friends_count;
+          $location = $twitter_user->location;
+          $twitter_users[] = array(
+              "uuid" => $uuid, 
+              "screen_name" => $screen_name,
+              "avatar" => $avatar,
+              "friends" => $friends,
+              "location" => $location,
+          );
         }
         return $twitter_users;
       }
-
     }
-    
     
     return array();
   }
