@@ -31,7 +31,7 @@ CREATE TABLE `invite_log` (
   `status` int(11) DEFAULT NULL COMMENT '接受邀请的状态 (可能是接受邀请了，没有接受邀请)',
   `cdate` datetime DEFAULT NULL,
   PRIMARY KEY (`ilid`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `teams` (
   `achivements_total` int(11) DEFAULT '0' COMMENT '盾牌个数',
   `status` int(11) DEFAULT '1' COMMENT '组的状态',
   PRIMARY KEY (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -227,7 +227,7 @@ CREATE TABLE `user_mails` (
   `mail` varchar(200) DEFAULT NULL,
   `cdate` datetime DEFAULT NULL,
   PRIMARY KEY (`umid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `user_teams` (
   `cdate` datetime DEFAULT NULL,
   `udate` datetime DEFAULT NULL,
   PRIMARY KEY (`utid`)
-) ENGINE=InnoDB AUTO_INCREMENT=1054 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1055 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -292,7 +292,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `name_from` (`name`,`from`),
   KEY `uuid` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=101784 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101785 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -304,4 +304,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-25 15:30:15
+-- Dump completed on 2014-05-25 17:28:14
