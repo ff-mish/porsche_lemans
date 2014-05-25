@@ -179,7 +179,7 @@ body{background:#000;height: 100%;width: 100%}
 
 /* stand */
 .stand{width:1206px;height:662px;left:250px;top: 100px;position: absolute;}
-.stand_tit{width: 600px;height: 90px;font-size: 38px;line-height: 40px;}
+.stand_tit{width: 530px;height: 90px;font-size: 38px;line-height: 40px;}
 .stand_tit p{float: left}
 .stand_useritem{margin-bottom:35px;}
 .stand_inviting{opacity: 0.5;}
@@ -423,7 +423,10 @@ body{background:#000;height: 100%;width: 100%}
 
 
 
-.team_name {background: none;color: #fff;border: none;outline: none;font-size:38px;text-transform: uppercase;}
+.team_name { border-radius: 4px;padding:0 5px; background: none;color: #fff;border: none;outline: none;font-size:38px;text-transform: uppercase;}
+.team_name.focus{background: red;}
+.twitter .team_name.focus{background: blue;}
+
 .lpn_panel .lpn_wrapper {background:none;}
 
 /* mobile */

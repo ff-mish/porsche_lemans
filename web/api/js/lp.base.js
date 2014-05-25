@@ -447,15 +447,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         }
 
         var isCoordinateEmpty = false;
+        var isNoAchivmentsbox = false;
         return {
             showStep: function( num ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        renderTure( off.top , off.left - 20 , 380 , 60 );
+                        renderTure( off.top - 10 , off.left - 20 , 380 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + 380 , top: off.top })
+                            .css({left: off.left + 380 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
@@ -487,7 +488,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         if( isCoordinateEmpty ){
                             coordinate.run( 0,0,0,0 );
                         }
-
+                        // add demo 
+                        isNoAchivmentsbox = !$('.stand_achivments .stand_achivmentsbox').children().length;
+                        if( isNoAchivmentsbox ){
+                            $('.stand_achivments .stand_achivmentsbox').html('<p></p><p></p><p></p>');
+                        }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
                         renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
@@ -497,6 +502,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .fadeIn();
                         break;
                     case 5:
+                        if( isNoAchivmentsbox ){
+                            $('.stand_achivments .stand_achivmentsbox').html('');
+                        }
                         LP.panel({
                             title: '',
                             content: '<div class="popup_box popup_dialog popup_email" >\
@@ -848,7 +856,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "/images/bg7.jpg" ,  {} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "/images/bg7.jpg" ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -905,12 +913,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_invite">\
                     <div class="popup_close"></div>\
-                    <div class="loading"></div>\
                     <div class="popup_invite_friend_list"></div>\
                     <div class="cs-clear"></div>\
-                    <div class="popup_invite_btns">\
+                    <div class="popup_invite_btns" style="position:relative;">\
                         <p class="popup_error">&nbsp;</p>\
                         <a href="javascript:void(0);" class="disabled">' + _e('Ok') + '</a> \
+                        <p class="loading" style="position:absolute;width: 70px;height70px;display: none;left: 50%;top: 25px;margin-left: 100px;"></p>\
                     </div>\
                 </div>',
             title: '',
@@ -933,7 +941,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     isLoading = true;
                     panel.$panel.find('.loading').show();
                     // load user list from sina weibo or twitter
-                    api.get("/api/user/friends" , { page: page } , function( e ){
+                    api.get("/api/user/friends" , next_cursor == -1 ? '' : { next_cursor: next_cursor } , function( e ){
+                        next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading').hide();
                         var html = [];
                         $.each( e.data , function( i , user ){
@@ -950,13 +959,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 var hasMore = true;
                 var isLoading = false;
-                var page = 1;
-                loadFriends( page );
+                var next_cursor = -1;
+                loadFriends( );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
                         >= $('.teambuild_member .member_add').length ){
                         panel.$panel.find('.popup_error').html(_e(' you can\'t invite too many people '));
+                        setTimeout(function(){panel.$panel.find('.popup_error').html('')} , 5000);
                         return false;
                     }
                     panel.$panel.find('.popup_error').html('');
@@ -981,7 +991,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var scrollTop = $(this).scrollTop();
                     var height = $(this).height();
                     if( this.scrollHeight - scrollTop - height < 100 )
-                        loadFriends( ++page );
+                        loadFriends( next_cursor );
                 });
 
                 panel.$panel.find('.popup_close')
@@ -993,6 +1003,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find('.popup_invite_btns a')
                     .click(function(){
                         if( $(this).hasClass('disabled') ) return false;
+                        var $btn = $(this).addClass('disabled');
+
+                        panel.$panel.find('.loading').show();
                         // get user list
                         var users = [];
                         $('.popup_invite_friend_list .selected:visible').each(function(){
@@ -1000,6 +1013,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         });
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
                             panel.close();
+                        } , null ,  function(){
+                            $btn.removeClass('disabled');
+                            panel.$panel.find('.loading').hide();
                         } );
                     });
             },
@@ -1384,24 +1400,25 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 					} , delay);
 				}
 			});
-
 	}
-    $(function(){
-		$(document.body).queryLoader2({
-			onLoading : function( percentage ){
-				var per = parseInt(percentage);
-				$('.loading-percentage').html(per+'%');
-				$('.loading-bar').css({'width':per+'%'});
-				if(per == 100) {
-					initComplete();
-					isComplete = true;
-				}
-			},
-			onComplete : function(){
-				initComplete();
-			}
-		});
 
+    // page load event
+    $(document.body).queryLoader2({
+        onLoading : function( percentage ){
+            var per = parseInt(percentage);
+            $('.loading-percentage').html(per+'%');
+            $('.loading-bar').css({'width':per+'%'});
+            if(per == 100) {
+                initComplete();
+                isComplete = true;
+            }
+        },
+        onComplete : function(){
+            initComplete();
+        }
+    });
+
+    $(function(){
 
         // init all pages fadein element 
         $('[data-fadein]').hide().each( function( i ){
@@ -1431,11 +1448,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // init share btn
         $('#share').hover(function(){
-            $('.share-btns').stop().fadeIn().dequeue().animate({
+            $('.share-btns').stop( true , true ).fadeIn().dequeue().animate({
                 width: 240
             } , 300 );
         } , function(){
-            $('.share-btns').delay(200).fadeOut().dequeue().animate({
+            $('.share-btns').stop(true , true).delay(200).fadeOut().dequeue().animate({
                 width: 0
             } , 500 );
         });
@@ -1460,6 +1477,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // fix Q & A
         !!(function(){
+            // ban qa
+            return false;
             var now  = new Date();
 
             var cookieTimes = [];
@@ -1560,16 +1579,30 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 var ratio = 516 / 893;
-                // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                    $('#' + this.Q).css('z-index' , -1);
-                } );
+                if( !LP.parseUrl().params.debug ){
+                    // show the big video
+                    renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
+                        $('#' + this.Q).css('z-index' , -1);
+                    } );
+                }
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
                     api.post( "/api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
-                
+                api.get('/api/web/time' , function( e ){
+                    var start = new Date(e.data.time_start );
+                    var now = new Date(e.data.time_now );
+                   
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
+
                 break;
             case "teambuild":
                 api.get("/api/user" , function( e ){
@@ -1637,21 +1670,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // init hover event
                 $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
-                .hover(function(){
-                    // TODO ...
-                    $(this).find('.stand_chart_tip').fadeIn();
-                } , function(){
-                    // TODO ...
-                    $(this).find('.stand_chart_tip').fadeOut();
-                });
+                    .hover(function(){
+                        // TODO ...
+                        $(this).find('.stand_chart_tip').fadeIn();
+                    } , function(){
+                        // TODO ...
+                        $(this).find('.stand_chart_tip').fadeOut();
+                    });
 
                 $('.stand_tit .team_name').hover(function(){
-                    $(this).next().fadeIn();
-                } , function(){
-                    $(this).next().fadeOut();
-                });
-
-
+                        $(this).next().fadeIn();
+                    } , function(){
+                        $(this).next().fadeOut();
+                    });
 
 
                 $(".stand .teambuild_member").live({
@@ -1665,14 +1696,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // init team name
                 $('.team_name').blur(function(){
-                    api.post("/api/user/updateteam" , {name: this.value} );
-                }).keyup(function( ev ){ 
+                    $(this).removeClass('focus');
+                    api.post("/api/user/updateteam" , {name: $(this).text()} );
+                }).keydown(function( ev ){ 
                     switch( ev.which ){
                         case 13:
                             $(this).trigger('blur');
+                            return false;
                             break;
                     }
-                 });
+                 })
+                .focus(function(){
+                    $(this).addClass('focus');
+                });
 
                 api.get('/api/web/time' , function( e ){
                     var start = new Date(e.data.time_start );
@@ -1720,7 +1756,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 //                    }]};
 
                     // 
-                    $('.team_name').val( team.name );
+                    $('.team_name').html( team.name );
                     $('#team-score').html( 'P' + data.team_position + ' / ' + data.team_total );
 
                     // render users
@@ -1827,13 +1863,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                     $('.stand_achivmentsbox').html( ahtml.join("") );
                     //data.last_post || 
-                    var posts = data.last_post || [];
+                    var posts =  data.last_post || [];
                     // render post
                     var aHtml = [];
                     $.each( posts , function( i , post ){
                         aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
                     } );
-                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * 300)
+
+                    var postWidth = 345;
+                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
                         .data('index' , 0 );
                     
                     // redner next page
@@ -1844,9 +1882,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                         $(this).addClass('disabled');
                         $('.stand_posts_inner').animate({
-                            marginLeft: '-=600'
+                            marginLeft: '-=' + ( postWidth * 2 )
                         } , 500 , '' , function(){
-                            $('.stand_add').removeClass('disabled');
+                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
+                                >= $('.stand_posts_inner').width()){
+                                $('.stand_add').adddlass('disabled');
+                            }
+                            $('.stand_del').removeClass('disabled');
                         });
                     });
 
@@ -1856,8 +1898,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                         $(this).addClass('disabled');
                         $('.stand_posts_inner').animate({
-                            marginLeft: '+=600'
+                            marginLeft: '+=' + ( postWidth * 2 )
                         } , 500 , '' , function(){
+                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ){
+                                $('.stand_del').addClass('disabled');
+                            }
                             $('.stand_add').removeClass('disabled');
                         });
                     });

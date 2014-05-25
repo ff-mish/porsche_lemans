@@ -22,7 +22,7 @@
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
 </head>
-<body class="bg1 <?php echo $this->classname ?>" data-page="<?php echo $this->page_name?>">
+<body class="bg1 <?php echo $this->classname ?> <?php if (UserAR::crtuser()){echo UserAR::crtuser()->from;} ?>" data-page="<?php echo $this->page_name?>">
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->

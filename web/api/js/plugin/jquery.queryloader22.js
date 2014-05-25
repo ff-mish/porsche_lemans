@@ -55,7 +55,7 @@
         var match = null;
         if( bg != "none" ){
             bg = $.trim( bg );
-            match = bg.match(/^url\((['"])([^'"]+)\1\)/);
+            match = bg.match(/^url\((['"])?([^'"]+)\1\)/);
             url = match ? match[2] : null;
         } else if ( src && element.nodeName.toLowerCase() == "img" ) {
             url = src;

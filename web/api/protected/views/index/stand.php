@@ -34,12 +34,13 @@
         </div>
         
         <div class="stand_tit">
-          <input class="team_name" value="" />
+          <span style="float:right" id="team-score"></span>
+          <span class="team_name" contenteditable="true"></span>
           <div class="stand_chart_tip" style="width: auto;left: 36px;">
 			 Edit team name
 			 <span>◆</span>
 		  </div>
-          <span id="team-score"></span>
+          
         </div>
           <!--  -->
         <div class="teambuild_members cs-clear">
@@ -52,7 +53,7 @@
 			</div>
 			<!--  -->
 			<div class="stand_tweet">
-				<a class="stand_del"><img src="/images/stand_del.png"></a>
+				<a class="stand_del disabled"><img src="/images/stand_del.png"></a>
 				<a class="stand_add"><img src="/images/stand_add.png"></a>
 				<h2 class="fl">Lastest Posts</h2>
 				<div class="stand_posts"><div class="stand_posts_inner"></div></div>
