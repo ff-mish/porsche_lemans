@@ -38,7 +38,12 @@ class UserController extends Controller{
       $this->responseError("invite friend failed", ErrorAR::ERROR_INVITE);
     }
     else {
-      $this->responseError("invite friend failed", $ret);
+      if ($ret == ErrorAR::ERROR_TEAM_MEMBER_FULL) {
+        $this->responseError("invite friend faileds - team full", $ret);
+      }
+      if ($ret == ErrorAR::ERROR_TEAM_MEMBER_LIMITED) {
+        $this->responseError("invite friend faileds - team limited", $ret);
+      }
     }
   }
   
@@ -160,7 +165,7 @@ class UserController extends Controller{
   }
   
   public function actionFriends() {
-    $user = UserAR::crtuser();
+    $user = UserAR::crtuser(TRUE);
     if (!$user) {
       $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
     }
@@ -195,6 +200,17 @@ class UserController extends Controller{
         $ret[] = $data;
       }
     }
+    
+    // 去掉已经邀请过的好友
+    if ($user->team) {
+      $invited_uuids = InviteLogAR::userInvited($user->uid, $user->team->tid);
+      foreach ($ret as $key => $sns_user) {
+        if (in_array($sns_user["uuid"], $invited_uuids)) {
+          unset($ret[$key]);
+        }
+      } 
+    }
+    
     $this->responseJSON($ret, "success");
   }
   
