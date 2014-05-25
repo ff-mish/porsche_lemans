@@ -546,5 +546,19 @@ class UserAR extends CActiveRecord {
     
     return TRUE;
   }
+  
+  /**
+   * 返回用户在第三方的数据资料
+   * @param type $uuids
+   */
+  public static function getUserInfoFromThirdPart($uuids) {
+    $user = UserAR::crtuser();
+    if ($user) {
+      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+      
+    }
+    
+    return array();
+  }
 }
 

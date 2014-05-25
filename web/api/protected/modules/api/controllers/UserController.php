@@ -236,6 +236,12 @@ class UserController extends Controller{
       $data["team_star"] = $user->team->achivements_total;
     }
     
+    // 用户邀请的已经加入的好友
+    if ($user->team) {
+      $uuids = InviteLogAR::userInvited($user->uid, $user->team->tid, TRUE);
+      $thirdpartUsers = UserAR::getUserInfoFromThirdPart($uuids);
+    }
+    
     $this->responseJSON($data, "success");
   }
   

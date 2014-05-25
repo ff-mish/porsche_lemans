@@ -121,11 +121,18 @@ class InviteLogAR extends CActiveRecord {
    * @param type $uid
    * @params type $tid
    */
-  public static function userInvited($uid, $tid) {
+  public static function userInvited($uid, $tid, $only_inviting = FALSE) {
     $query = new CDbCriteria();
+    if (!$only_inviting) {
+      $status = array(self::STATUS_ALLOW_INVITE, self::STATUS_DEFAULT);
+    }
+    else {
+      $status = array(self::STATUS_DEFAULT);
+    }
+    
     $query->addCondition("invitor=:invitor")
             // 只需要计算还没有接受邀请的和接受邀请的用户
-            ->addInCondition("status", array(self::STATUS_ALLOW_INVITE, self::STATUS_DEFAULT))
+            ->addInCondition("status", $status)
             ->addCondition("tid=:tid");
     $query->params[":tid"] = $tid;
     $query->params[":invitor"] = $uid;
