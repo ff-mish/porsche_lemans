@@ -14,6 +14,14 @@
           <p class="on"><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
           <p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
       </div>
+      <div class="stand_bg" style="padding-top:280px;">
+      	<div class="conut_down cs-clear" data-fadein>
+			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
+			<div class="conut_downitem">00</div><span class="conut_downinfo">h</span>
+			<div class="conut_downitem">00</div><span class="conut_downinfo">min</span>
+			<div class="conut_downitem">00</div><span class="conut_downinfo">sec</span>
+		</div>
+      </div>
       <!-- stand -->
       <div class="stand">
         <div id="data-stand" style="display:none" 
