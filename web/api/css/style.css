@@ -167,13 +167,13 @@ body{background:#000;height: 100%;width: 100%}
 .teambuild_step{font-size: 24px;color:#fff;text-transform: uppercase;text-align: center;width: 400px;line-height: 30px}
 .teambuild_tit{font-size: 48px;color:#f00;text-transform: uppercase;text-align: center;width: 400px;line-height: 80px;height: 110px}
 .teambuild_member{}
-.member_item{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left;
+.member_item{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left;
     border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;}
 .member_item img{float: left; width: 73px;}
 .member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:26px 0 0;}
 .member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 .memeber_space{float:left;font-size: 62px;font-weight: bold;color:#f00;line-height: 85px;text-align: center;width: 220px}
-.member_add{border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;}
+.member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;}
 .member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
 
 
