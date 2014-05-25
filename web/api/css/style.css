@@ -80,11 +80,11 @@ body{background:#000;height: 100%;width: 100%}
 
 /* Loading Used
 ================================================================================================= */
-.loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;display: none;}
-.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-100px;display: none;}
-.loading-loader {width:100%;position: absolute;top:50%;left:0;display: none;}
-.loading-bar {width:0;background:#000;height:1px;display: none;}
-.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:20px;left:50%;width:80px;text-align:center;margin-left:-40px;display: none;}
+.loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;}
+.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-100px;}
+.loading-loader {width:100%;position: absolute;top:50%;left:0;}
+.loading-bar {width:0;background:#000;height:1px;}
+.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:20px;left:50%;width:80px;text-align:center;margin-left:-40px;}
 
 
 /*FOOTER*/
