@@ -227,7 +227,7 @@ CREATE TABLE `user_mails` (
   `mail` varchar(200) DEFAULT NULL,
   `cdate` datetime DEFAULT NULL,
   PRIMARY KEY (`umid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,7 +284,6 @@ CREATE TABLE `users` (
   `invited_by` varchar(200) DEFAULT NULL,
   `profile_msg` blob,
   `avatar` varchar(255) DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
   `status` int(10) DEFAULT '1',
   `friends` int(10) DEFAULT '0',
   `location` varchar(100) DEFAULT '',
@@ -305,4 +304,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-25 14:34:04
+-- Dump completed on 2014-05-25 15:30:15

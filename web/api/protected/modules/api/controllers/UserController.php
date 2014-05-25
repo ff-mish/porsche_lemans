@@ -333,7 +333,7 @@ class UserController extends Controller{
       return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
     }
     
-    $user->read_toturial = UserAR::STATUS_HAS_READ_TOTURIAL;
+    $user->read_tutorial = UserAR::STATUS_HAS_READ_TOTURIAL;
     $user->update();
     
     $this->responseJSON(array(), "success");
