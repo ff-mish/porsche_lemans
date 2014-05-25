@@ -78,7 +78,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     // ======================================================================
     var rotateAnimate = function( $dom , current , total ,  startAngle ){
         current = current || 0;
-        var percent = Math.min( current / total , 1 );
+        var percent = Math.min( current / total , 1 ) || 0.5;
         startAngle = startAngle / 180 * Math.PI || 0;
         LP.use('raphaeljs' , function( Raphael ){
             // Creates canvas 320 × 200 at 10, 50
@@ -89,16 +89,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
             var paper = Raphael( $dom.get(0) , width , height );
+
+            var circleBg = paper.circle( width / 2 , height / 2, r )
+                    .attr("stroke" , '#000' )
+                    .attr("stroke-width" , 0 )
+                    .animate({'stroke-width': stockWidth} , 700);
+
             var redPath = paper.path( "" )
                     .attr("stroke" , stockColor )
                     .attr("stroke-width" ,stockWidth );
-            var blackPath = paper.path( "" )
-                    .attr("stroke", "#000")
-                    .attr("stroke-width" , stockWidth);
+            // var blackPath = paper.path( "" )
+            //         .attr("stroke", "#000")
+            //         .attr("stroke-width" , stockWidth);
             var text = paper.text( width / 2 , height / 2 , "0 T/H" )
                 .attr({fill: "#fff",'font-size':'13px'});
 
-            var now = new Date();
+
+
+            var now ;
             var duration = 700;
             var ani = function(){
                 var p = Math.min( 1 ,  ( new Date() - now ) / duration );
@@ -107,14 +115,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     'M' , start[0] , ' ' , start[1] ,
                     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
                     ].join("");
-                var otherPath = [
-                    'M' , start[0] , ' ' , start[1] ,
-                    'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
-                ].join("");
+                // var otherPath = [
+                //     'M' , start[0] , ' ' , start[1] ,
+                //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
+                // ].join("");
 
                 if( percent * p < 1 ){
                     redPath.attr( 'path' , path );
-                    blackPath.attr( 'path' , otherPath );
+                    //blackPath.attr( 'path' , otherPath );
                 }
                 if( percent * p == 1 ){
                     paper.circle( width / 2 , height / 2, r )
@@ -131,15 +139,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     setTimeout(ani , 60/1000);
                 }
             }
-            if( !percent ){
-                redPath.remove();
-                blackPath.remove();
-                paper.circle( width / 2 , height / 2, r )
-                    .attr("stroke" , '#000' )
-                    .attr("stroke-width" ,stockWidth );
-            } else {
-                ani();
+            if( percent ){
+                setTimeout( function(){
+                    now = new Date();
+                    ani();
+                } , 700 );
             }
+            //if( !percent ){
+                // redPath.remove();
+                // blackPath.remove();
+                // paper.circle( width / 2 , height / 2, r )
+                //     .attr("stroke" , '#000' )
+                //     .attr("stroke-width" ,stockWidth );
+            // } else {
+            //     ani();
+            // }
         });
     }
 
@@ -301,16 +315,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 drawCoordinate();
                 cb && cb();
             });
-
-            // init hover event
-            $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
-                .hover(function(){
-                    // TODO ...
-                    $(this).find('.stand_chart_tip').fadeIn();
-                } , function(){
-                    // TODO ...
-                    $(this).find('.stand_chart_tip').fadeOut();
-                });
         }
 
         function easeOutElastic( x, t, b, c, d ) {
@@ -324,10 +328,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var target = [];
 
         function runAnimate( left , right , top , bottom , noAnimate ){
-            left = 0.5;
-            right = 0.7;
-            top = 0.9;
-            bottom = 0.3;
+            // left = 0.5;
+            // right = 0.7;
+            // top = 0.9;
+            // bottom = 0.3;
             target = [left , right , top , bottom];
             
 
@@ -392,7 +396,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         }
         return {
             init: init , 
-            run: runAnimate
+            run: runAnimate ,
+            isEmpty: function(){
+                return !target[0] && !target[1] && !target[2] && !target[3];
+            }
         }
     })();
 
@@ -438,6 +445,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     height: winHeight - top - height
                 } , 500);
         }
+
+        var isCoordinateEmpty = false;
         return {
             showStep: function( num ){
                 switch( num ){
@@ -466,8 +475,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .delay( 700 )
                             .css({left: off.left  - 600 , top: off.top })
                             .fadeIn();
+
+                        // if there is no data , render the demo data;
+                        isCoordinateEmpty = coordinate.isEmpty();
+                        if( isCoordinateEmpty ){
+                            coordinate.run( Math.random(),Math.random(),Math.random(),Math.random() );
+                        }
                         break;
                     case 4:
+
+                        if( isCoordinateEmpty ){
+                            coordinate.run( 0,0,0,0 );
+                        }
+
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
                         renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
@@ -499,30 +519,36 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 var $tip = this.$panel.find('.error-tip');
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
                                     var email = $input.val();
-                                    if( !email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
+                                    if( email &&
+                                        (!email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
                                         !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
-                                        !email.match(/^[a-zA-Z_0-9.]+@[a-zA-Z_.0-9]+$/) ){
+                                        !email.match(/^[a-zA-Z_0-9.]+@[a-zA-Z_.0-9]+$/)) ){
                                         $tip.html( _e('wrong email') );
                                     }
 
                                     if($(this).hasClass('disable')) {
                                         return;
                                     }
-                                    var msg = panel.$panel.find('textarea').val();
-                                    var $btn = $(this).addClass('disable');
-                                    $(this).next().fadeIn();
-                                    api.post( '/api/user/logmail' , {email: email} , function(){
-                                        var height = panel.$panel.find('.popup_dialog').height();
-                                        panel.$panel.find('.popup_dialog').height(height);
-                                        panel.$panel.find('.popup_dialog_btns').fadeOut();
-                                        panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
-                                            setTimeout(function(){
-                                                panel.close();
-                                            }, 500);
-                                        });
-                                    } , function(){
-                                        $btn.removeClass('disable');
-                                    } );
+                                    if( email ){
+                                        var $btn = $(this).addClass('disable');
+                                        $(this).next().fadeIn();
+                                        api.post( '/api/user/logmail' , {email: email} , function(){
+                                            var height = panel.$panel.find('.popup_dialog').height();
+                                            panel.$panel.find('.popup_dialog').height(height);
+                                            panel.$panel.find('.popup_dialog_btns').fadeOut();
+                                            panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
+                                                setTimeout(function(){
+                                                    panel.close();
+                                                }, 500);
+                                            });
+                                        } , function(){
+                                            $btn.removeClass('disable');
+                                        } );
+                                    } else {
+                                        panel.close();
+                                    }
+
+                                    api.get('/api/user/readtoturial');
                                 });
                             }
                         });
@@ -868,6 +894,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         return false;
     });
 
+    LP.action('logout' , function(){
+        api.ajax('/api/user/logout', function(){
+            window.location.href = '/';
+        });
+        return false;
+    })
+
     LP.action("member_invent" , function(){
         LP.panel({
             content: '<div class="popup_invite">\
@@ -1030,7 +1063,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
     
     LP.action('start-tutr' , function(){
-        animateTure.showStep( 1 );
+        if( $(document.body).data('page') != 'stand' ){
+            // set cookit 
+            LP.setCookie('_t_' , 1);
+        } else {
+            animateTure.showStep( 1 );
+            return false;
+        }
     });
 
     LP.action('preview' , function( data ){
@@ -1573,6 +1612,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
                 
               case "stand":
+
+                // init hover event
+                $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')
+                .hover(function(){
+                    // TODO ...
+                    $(this).find('.stand_chart_tip').fadeIn();
+                } , function(){
+                    // TODO ...
+                    $(this).find('.stand_chart_tip').fadeOut();
+                });
+
+                $('.stand_tit .team_name').hover(function(){
+                    $(this).next().fadeIn();
+                } , function(){
+                    $(this).next().fadeOut();
+                });
+
+
+
+
                 $(".stand .teambuild_member").live({
                     'mouseenter':function(){
                         $(this).addClass("hover");
@@ -1610,6 +1669,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 api.get('/api/user' , function( e ){
                     var data = e.data;
                     var crtuser = data["user"];
+
+                    // auto render tuto
+                    if( LP.getCookie('_t_') || !crtuser.read_toturial ){
+                        LP.triggerAction( 'start-tutr' );
+                        LP.removeCookie('_t_');
+                    }
+
                     
                     var team = data.team;
                     

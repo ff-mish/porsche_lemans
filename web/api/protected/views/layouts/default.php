@@ -29,7 +29,7 @@
   
 	<div class="footer">
         <div class="footer_link cs-clear">
-            <p class="btn footer-icon" data-a="start-tutr"></p>
+            <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
             <p class="btn legal" data-a="legal-mentions">Legal Mentions</p>
             <div class="btn" id="share">Share
               <div class="share-btns">

@@ -333,9 +333,8 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_assiduite{position: absolute;z-index: 1;width: 100px;height: 50px;left: 50%;bottom: 30px;margin-left: -50px;}
 .stand_chart_impact{position: absolute;top: 50%;z-index: 1;width: 100px;height: 50px;left: -15px;margin-top: -25px;}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
-.stand_chart_tip{display: none; position: absolute;background: black;color:#666;border-radius: 4px;top: -120%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
+.stand_chart_tip{line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
 .stand_chart_tip span{position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
-.stand_chart_assiduite .stand_chart_tip{top: -150%;}
 
 /* video */
 #home_video{background:#000;position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
