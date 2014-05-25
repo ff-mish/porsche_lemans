@@ -1030,7 +1030,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
     
     LP.action('start-tutr' , function(){
-        animateTure.showStep( 1 );
+        if( $(document.body).data('page') != 'stand' ){
+            // set cookit 
+            LP.setCookie('_t_' , 1);
+        } else {
+            animateTure.showStep( 1 );
+            return false;
+        }
     });
 
     LP.action('preview' , function( data ){
@@ -1573,6 +1579,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
                 
               case "stand":
+
+                // auto render tuto
+                if( LP.getCookie('_t_') ){
+                    LP.triggerAction( 'start-tutr' );
+                    LP.removeCookie('_t_');
+                }
+
                 $(".stand .teambuild_member").live({
                     'mouseenter':function(){
                         $(this).addClass("hover");
