@@ -329,7 +329,7 @@ class UserAR extends CActiveRecord {
       return ErrorAR::ERROR_NO_TAEM;
     }
     // 然后要判断用户是否达到了发送邀请的上限
-    $invited_users = InviteLogAR::userInvited($user->uid, $user->team->tid);
+    $invited_users = InviteLogAR::userInvited($user->team->tid);
     if (count($invited_users) >= 2) {
       return ErrorAR::ERROR_TEAM_MEMBER_FULL;
     }

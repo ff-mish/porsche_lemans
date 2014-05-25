@@ -170,12 +170,23 @@ class UserController extends Controller{
       $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
     }
     
+    $request = Yii::app()->getRequest();
+    $next_cursor = $request->getParam("next_cursor");
+    if (!$next_cursor || !is_numeric($next_cursor) || $next_cursor < 0) {
+      if ($user->from == UserAR::FROM_WEIBO) {
+        $next_cursor = 0;
+      }
+      else {
+        $next_cursor = -1;
+      }
+    }
+    
     // array("uuid" => "", "screen_name" => "", "avatar" => "");
     $ret = array();
     if ($user->from == UserAR::FROM_WEIBO) {
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
       // 默认返回5000个
-      $friends = $weibo_api->friends_by_id($user->uuid);
+      $friends = $weibo_api->friends_by_id($user->uuid, $next_cursor);
       if (!isset($friends["users"])) {
         return  $this->responseError("error", ErrorAr::ERROR_UNKNOWN);
       }
@@ -188,9 +199,11 @@ class UserController extends Controller{
         );
         $ret[] = $data;
       }
+      
+      $next_cursor = $friends["next_cursor"];
     }
     else if ($user->from == UserAR::FROM_TWITTER) {
-      $friends = Yii::app()->twitter->user_friends($user->uuid);
+      $friends = Yii::app()->twitter->user_friends($user->uuid, $next_cursor);
       foreach ($friends["users"] as $friend) {
         $data = array(
             "uuid" => $friend['id_str'],
@@ -199,11 +212,13 @@ class UserController extends Controller{
         );
         $ret[] = $data;
       }
+      
+      $next_cursor = $friends["next_cursor_str"];
     }
     
     // 去掉已经邀请过的好友
     if ($user->team) {
-      $invited_uuids = InviteLogAR::userInvited($user->uid, $user->team->tid);
+      $invited_uuids = InviteLogAR::userInvited($user->team->tid);
       foreach ($ret as $key => $sns_user) {
         if (in_array($sns_user["uuid"], $invited_uuids)) {
           unset($ret[$key]);
@@ -211,7 +226,7 @@ class UserController extends Controller{
       } 
     }
     
-    $this->responseJSON($ret, "success");
+    $this->responseJSON($ret, "success", array("next_cursor" => $next_cursor));
   }
   
   public function actionIndex() {
@@ -236,7 +251,7 @@ class UserController extends Controller{
       $data["team_position"] = $user->team->getTeamPosition();
       $data["team_position"] = $data["team_position"] ? $data["team_position"] : 0;
       
-      $data += array(
+      $data += array (
         "team" => $team_data,
         "last_post" => $user->team->last_post,
       );
@@ -254,8 +269,16 @@ class UserController extends Controller{
     
     // 用户邀请的已经加入的好友
     if ($user->team) {
-      $uuids = InviteLogAR::userInvited($user->uid, $user->team->tid, TRUE);
+      $uuids = InviteLogAR::userInvited($user->team->tid, TRUE);
+      $rows = InviteLogAR::userInvited($user->team->tid, TRUE, FALSE);
       $thirdpartUsers = UserAR::getUserInfoFromThirdPart($uuids);
+      foreach ($thirdpartUsers as &$thirdpartUser) {
+        foreach ($rows as $row) {
+          if ($thirdpartUser["uuid"] == $row["invited_idstr"]) {
+            $thirdpartUser["invitor"] = $row["invitor"];
+          }
+        }
+      }
       $data["inviting"] = $thirdpartUsers;
     }
     else {

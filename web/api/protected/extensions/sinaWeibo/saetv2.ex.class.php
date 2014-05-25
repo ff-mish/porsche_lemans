@@ -1468,9 +1468,9 @@ class SaeTClientV2
 	 * <br />对应API：{@link http://open.weibo.com/wiki/2/friendships/friends friendships/friends}
 	 * 
 	 * @access public
+	 * @param int $uid  要获取的用户的ID。
 	 * @param int $cursor 返回结果的游标，下一页用返回值里的next_cursor，上一页用previous_cursor，默认为0。
 	 * @param int $count 单页返回的记录条数，默认为50，最大不超过200。
-	 * @param int $uid  要获取的用户的ID。
 	 * @return array
 	 */
 	function friends_by_id( $uid, $cursor = 0, $count = 50 )

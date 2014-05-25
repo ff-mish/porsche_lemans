@@ -348,7 +348,7 @@ class STwitter extends CApplicationComponent {
     }
   }
   
-  public function user_friends($uid) {
+  public function user_friends($uid, $next_cursor = -1) {
     $this->user_token = $_SESSION['access_token']['oauth_token'];
     $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
     $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
@@ -356,7 +356,7 @@ class STwitter extends CApplicationComponent {
     
     $twitter = $this->_getTwitter();
     
-    $code = $twitter->request("GET", $twitter->url("1.1/friends/list"), array("user_id" => $uid));
+    $code = $twitter->request("GET", $twitter->url("1.1/friends/list"), array("user_id" => $uid, "cursor" => $next_cursor));
     
     if ($code == 200) {
       return json_decode($twitter->response["response"], TRUE);
