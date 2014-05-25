@@ -156,5 +156,15 @@ class IndexController extends CController {
     $this->classname = "pagebg10";
     $this->render("monitoring", $params);
   }
+  
+  public function actionWinnerprices() {
+    $params = array(
+        "page_name" => "winnerprices"
+    );
+    $this->page_name = $params["page_name"];
+    $this->classname = "pagebg12";
+    
+    $this->render("winnerprices");
+  }
 }
 

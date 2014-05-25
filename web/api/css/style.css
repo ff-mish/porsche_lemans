@@ -56,6 +56,8 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg9{background:url('../images/bg9.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg10{background:url('../images/bg10.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg11{background:url('../images/bg11.jpg') no-repeat center top fixed; background-size:cover; }
+.pagebg12{background:url('../images/bg12.jpg') no-repeat center top fixed; background-size:cover; }
+.pagebg13{background:url('../images/bg13.jpg') no-repeat center top fixed; background-size:cover; }
 
 
 /* PAGE Used
@@ -78,11 +80,11 @@ body{background:#000;height: 100%;width: 100%}
 
 /* Loading Used
 ================================================================================================= */
-.loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;}
-.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-100px;}
-.loading-loader {width:100%;position: absolute;top:50%;left:0;}
-.loading-bar {width:0;background:#000;height:1px;}
-.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:20px;left:50%;width:80px;text-align:center;margin-left:-40px;}
+.loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;display: none;}
+.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-100px;display: none;}
+.loading-loader {width:100%;position: absolute;top:50%;left:0;display: none;}
+.loading-bar {width:0;background:#000;height:1px;display: none;}
+.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:20px;left:50%;width:80px;text-align:center;margin-left:-40px;display: none;}
 
 
 /*FOOTER*/
@@ -466,6 +468,14 @@ body{background:#000;height: 100%;width: 100%}
     .winners_txt{margin: 0 20px}
     .winners_close{right: 20px}
 }
+
+/*winners*/
+.winners{text-align: center;position: relative;}
+	.winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
+	.winners_pho{background: url('../images/winners_pho.png') no-repeat;width: 350px;height: 410px;margin: 0 auto}
+	.winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;padding:0 0 80px;}
+	.winners_close{background: url('../images/winners_close.png') no-repeat;width: 50px;height: 50px;position: absolute;right: 70px;top: 60px;cursor: pointer;}
+
 
 /* animation */
 .popup_close {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease-out;-o-transition:  all 0.2s ease-out;-ms-transition:  all 0.2s ease-out;transition:  all 0.2s ease-out;}

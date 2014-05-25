@@ -23,9 +23,7 @@
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->
-
-
-
+  
 	<div class="footer">
         <div class="footer_link cs-clear">
             <p class="btn footer-icon" data-a="start-tutr"></p>
