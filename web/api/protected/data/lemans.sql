@@ -259,7 +259,6 @@ CREATE TABLE `teams` (
   `name` varchar(200) DEFAULT NULL,
   `cdate` datetime DEFAULT NULL,
   `udate` datetime DEFAULT NULL,
-  `score` int(11) DEFAULT NULL,
   `owner_uid` int(11) DEFAULT '0' COMMENT '创建者uid',
   `achivements_total` int(11) DEFAULT '0' COMMENT '盾牌个数',
   `status` int(11) DEFAULT '1' COMMENT '组的状态',
@@ -273,7 +272,7 @@ CREATE TABLE `teams` (
 
 LOCK TABLES `teams` WRITE;
 /*!40000 ALTER TABLE `teams` DISABLE KEYS */;
-INSERT INTO `teams` VALUES (38,'new team','2014-05-24 14:59:03','2014-05-24 15:00:01',NULL,101782,0,1),(39,'new team','2014-05-24 16:46:34','2014-05-24 16:46:34',NULL,101783,0,1);
+INSERT INTO `teams` VALUES (38,'My Team ','2014-05-24 14:59:03','2014-05-25 10:13:06',101782,0,1),(39,'new team','2014-05-24 16:46:34','2014-05-24 16:46:34',101783,0,1);
 /*!40000 ALTER TABLE `teams` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -445,4 +444,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-25 10:07:56
+-- Dump completed on 2014-05-25 10:13:36
