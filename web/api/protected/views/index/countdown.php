@@ -19,8 +19,8 @@
 			<div class="home_v"></div>
 			<div class="home_share">
 				<!--   -->
-				<a href="#" class="home_weibo"></a>
-				<a href="#" class="home_twitter"></a>
+      <a href="<?php echo UserAR::weibo_login_url() ?>" class="home_weibo"></a>
+      <a href="<?php echo UserAR::twitter_login_url()  ?>" class="home_twitter"></a>
 			</div>
 			<div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
 		</div>
