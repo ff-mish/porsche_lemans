@@ -421,6 +421,17 @@ define(function( require , exports , model ){
             t.$panel.hide()
                 .fadeIn(400);
 
+            // insert code 
+            t.$panel.find('.popup_dialog')
+                .css({
+                    'margin-top': '-100%',
+                    'opacity' : 0
+                })
+                .animate({
+                    marginTop: 0,
+                    opacity: 1
+                } , 500 , 'easeOutQuart');
+
             // Show CB
             o.onShow && o.onShow.call(t);
 
@@ -499,8 +510,15 @@ define(function( require , exports , model ){
                     }
                 }*/
                 // LEGACY ----------
+                // fade out
+                t.$panel.find('.popup_dialog')
+                    .animate({
+                        marginTop: '50%',
+                        opacity: 0.4
+                    } , 500 , 'easeOutQuart' , function(){
+                        o.onClose && o.onClose.call(t, status);
+                    });
                 
-                o.onClose && o.onClose.call(t, status);
             }
 
             if (seconds == 0) {

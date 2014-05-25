@@ -133,7 +133,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/M' );
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/H' );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -927,16 +927,31 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         </div>\
                     </div>';
 
-                // load user list from sina weibo or twitter
-                api.get("/api/user/friends" , function( e ){
-                    panel.$panel.find('.loading').hide();
-                    var html = [];
-                    $.each( e.data , function( i , user ){
-                        html.push( LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ) );
-                    } );
 
-                    panel.$panel.find('.popup_invite_friend_list').html( html.join("") );
-                });
+
+                var loadFriends = function( page ){
+                    isLoading = true;
+                    panel.$panel.find('.loading').show();
+                    // load user list from sina weibo or twitter
+                    api.get("/api/user/friends" , { page: page } , function( e ){
+                        panel.$panel.find('.loading').hide();
+                        var html = [];
+                        $.each( e.data , function( i , user ){
+                            html.push( LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ) );
+                        } );
+
+                        panel.$panel.find('.popup_invite_friend_list').append( html );
+                    } , null, function(){
+                        isLoading = false;
+                    });
+                }
+                
+                
+
+                var hasMore = true;
+                var isLoading = false;
+                var page = 1;
+                loadFriends( page );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
@@ -960,6 +975,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .addClass('disabled');
                     }
                 })
+                .bind('scroll' , function(){
+                    if( !hasMore || isLoading ) return;
+
+                    var scrollTop = $(this).scrollTop();
+                    var height = $(this).height();
+                    if( this.scrollHeight - scrollTop - height < 100 )
+                        loadFriends( ++page );
+                });
 
                 panel.$panel.find('.popup_close')
                     .click( function(){
@@ -1015,16 +1038,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             width: 784,
             height: 352,
             onShow: function(){
-				this.$panel.find('.popup_dialog')
-					.css({
-						'margin-top': '-100%',
-						'opacity' : 0
-					})
-					.animate({
-						marginTop: 0,
-						opacity: 1
-					} , 500 , 'easeOutQuart');
-
                 var panel = this;
                 this.$panel.find('.p-cancel')
                     .click(function(){
@@ -1309,6 +1322,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         });
     });
 
+    
+    // TODO ...
+    LP.action('cancel-invit' , function( data ){
+
+    });
+
 
     // page init here
     // =======================================================================
@@ -1483,6 +1502,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 qtimes++;
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
+
                     var data = e.data || {};
                     var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options">';
@@ -1532,7 +1552,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
-        bigVideoInit();
+        if( !LP.parseUrl().params.debug ){
+            bigVideoInit();
+        }
 
         // init first page template
         switch( $(document.body).data('page') ){
@@ -1669,9 +1691,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 api.get('/api/user' , function( e ){
                     var data = e.data;
                     var crtuser = data["user"];
-
                     // auto render tuto
-                    if( LP.getCookie('_t_') || !crtuser.read_toturial ){
+                    if( LP.getCookie('_t_') || !crtuser.read_tutorial ){
                         LP.triggerAction( 'start-tutr' );
                         LP.removeCookie('_t_');
                     }
@@ -1704,61 +1725,92 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
-                    <div class="member_item ">\
-                        <img src="#[avatar]" />\
-                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
-                    </div>\
-                    <div class="member_speed"></div>\
-                    <div class="memeber_space">#[space]</div></div>';
-                  var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
-                    <div class="member_item ">\
-                        <img src="#[avatar]" />\
-                        <p class="member_name">@#[name]<br/></p>\
-                    </div>\
-                    <div class="member_speed"></div>\
-                    <div class="memeber_space">#[space]</div></div>';
+                        <div class="member_item ">\
+                            <img src="#[avatar]" />\
+                            <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
+                        </div>\
+                        <div class="member_speed"></div>\
+                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                    var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
+                        <div class="member_item ">\
+                            <img src="#[avatar]" />\
+                            <p class="member_name">@#[name]<br/></p>\
+                        </div>\
+                        <div class="member_speed"></div>\
+                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                    var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
+                        <div class="member_item ">\
+                            <img src="#[avatar]" />\
+                            <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-a="cancel-invit">' + _e('Cancel Invit') + '</span></p>\
+                        </div></div>';
                     var html = [];
                     var speeds = [];
                     var spaces = [1000000 , 1000 , 100];
                     var spacesUnit = ['M' , 'K' , 'H'];
-                    $.each( [0,1,2] , function( i , index ){
-                        if( team.users[i] ){
-                            var space = '';
-                            $.each( spaces , function( k , sp ){
-                                space = Math.round((team.users[i].friends / sp)*10) / 10;
-                                if( space >= 1 ){
-                                    space += spacesUnit[k];
-                                    return false;
-                                }
-                                space += spacesUnit[k];
-                            } );
-                            html.push( LP.format( team.users[i].uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
-                                avatar:     team.users[i].avatar,
-                                name:       team.users[i].name,
-                                space:      space}));
 
-                          // if (team.users[i].uid == crtuser["uid"]) {
-                          //   html.push( LP.format(utpl_crtuser,{
-                          //       avatar:     team.users[i].avatar,
-                          //       name:       team.users[i].name,
-                          //       space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
-                          // }
-                          // else {
-                          //   html.push( LP.format(utpl_teammem,{
-                          //       avatar:     team.users[i].avatar,
-                          //       name:       team.users[i].name,
-                          //       space:      Math.round((team.users[i].friends / 1000)*10)/10 + 'K' }));
-                          // }
-                          speeds.push( team.users[i].speed );
-                        } else{
-                            html.push( '<div class="teambuild_member stand_useritem cs-clear">\
+                    var duration = 1000;
+                    var now = (+new Date()) + 1000;
+                    var animateTo = function(  $dom , num , unit ){
+                        var dur = new Date() - now;
+                        var per = dur / duration;
+                        if( per > 1 ){
+                            per = 1;
+                        }
+                        $dom.html( parseFloat((num * per).toFixed(1)) + unit );
+                        if( per < 1 ){
+                            setTimeout( function(){
+                                animateTo( $dom , num , unit );
+                            } , 1000 / 60);
+                        }
+                    } 
+
+                    // render invited user
+                    $.each( team.users || [] , function( i , user ){
+                        var space = '';
+                        var unit = '';
+                        $.each( spaces , function( k , sp ){
+                            space = Math.round((user.friends / sp)*10) / 10;
+                            if( space >= 1 ){
+                                unit = spacesUnit[k];
+                                return false;
+                            }
+                            unit = spacesUnit[k];
+                        } );
+
+                        html.push( LP.format( user.uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
+                            avatar:     user.avatar,
+                            name:       user.name,
+                            num:        space,
+                            unit:       unit,
+                            space:      space + unit}));
+                        speeds.push( user.speed );
+                    } );
+                    // render inviting user
+                    $.each( data.inviting || [] , function( i , user ){
+
+                        html.push( LP.format( utpl_inviting ,{
+                            avatar:     user.avatar,
+                            name:       user.screen_name
+                        } ) );
+                    } );
+
+                    // render plus 
+                    for (var i = (data.inviting || []).length + (team.users || []).length; i < 3; i++) {
+                        html.push( '<div class="teambuild_member stand_useritem cs-clear">\
                                 <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
                             </div>' );
-                        }
-                    } );
-                    $('.teambuild_members').html( html.join("") );
+                    }
+                    $('.teambuild_members').html( html.join("") )
+                        .find('.memeber_space')
+                        .each( function(){
+                            var $this = $(this);
+                            setTimeout(function(){
+                                animateTo( $this , $this.data('num') , $this.data('unit') );
+                            } , 1000);
+                            
+                        } );
 					// init member effect
-					$('.teambuild_member').css({opacity:0}).each(function( i ){
+					$('.teambuild_member:not(.stand_inviting)').css({opacity:0}).each(function( i ){
 						$(this).delay( i * 200 )
 							.animate({
 								opacity: 1
@@ -1812,12 +1864,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // hover to show the leave team
                     $('.member_item').hover(function(){
-                        $(this).find('.member-leave').fadeIn()
+                        $(this).find('.member-leave,.cancel-invit').fadeIn()
                             .end()
                             .find('.member_name_span')
                             .hide();
                     } , function(){
-                        $(this).find('.member-leave').hide()
+                        $(this).find('.member-leave,.cancel-invit').hide()
                             .end()
                             .find('.member_name_span')
                             .fadeIn();

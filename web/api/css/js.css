@@ -150,7 +150,7 @@ outline: none !important;
 .stand_achivmentsbox{width: 260px;padding:0;margin-right:85px;}
 
 .popup_close {cursor: pointer;width:50px;height:50px;background:url('../images/callto_close.png') no-repeat center;color:#fff;line-height:50px;border:2px solid #fff;position:absolute;right:0px;top:0px;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
-.popup_close:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg); }
+.popup_close:hover {background:url('../images/callto_close_2.png') no-repeat center;transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg); border:2px solid #ff0000;}
 
 .popup_invite .popup_invite_btns{margin-top: 0;}
 .popup_invite .popup_error{height: 50px;line-height: 50px;color: red;font-size: 24px;}
@@ -158,7 +158,7 @@ outline: none !important;
 
 .footer-icon{position: absolute;height: 23px;width: 20px; left: -4px; top:0;}
 
-.tutr-step{display: none;position: relative;z-index: 4;}
+.tutr-step{display: none;position: relative;z-index: 5;}
 .tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.6;position: absolute;}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step-tip1{display: none;position: absolute;top: 180px;background: black;left: 765px;width: 263px;padding: 40px;height: 342px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
