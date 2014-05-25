@@ -10,6 +10,8 @@ class UserAR extends CActiveRecord {
   const STATUS_AUTO_JOIN = 2;
   const STATUS_ENABLED = 1;
   const STATUS_DISABLED = 0;
+  const STATUS_NOT_READ_TOTURIAL = 0;
+  const STATUS_HAS_READ_TOTURIAL = 1;
   
   const STEP_AT_GROUP = 2;
   /**
@@ -45,7 +47,7 @@ class UserAR extends CActiveRecord {
   public function rules() {
     return array(
         array("uuid, name, from", "required"),
-        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location, allowed_invite", "safe"),
+        array("read_tutorial, uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location, allowed_invite", "safe"),
     );
   }
   
@@ -543,6 +545,40 @@ class UserAR extends CActiveRecord {
     Yii::app()->session["user"] = NULL;
     
     return TRUE;
+  }
+  
+  /**
+   * 返回用户在第三方的数据资料
+   * @param type $uuids
+   */
+  public static function getUserInfoFromThirdPart($uuids) {
+    $user = UserAR::crtuser();
+    if ($user) {
+      if ($user->from == UserAR::FROM_WEIBO) {
+        $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+        $weibo_users = array();
+        foreach ($uuids as $uid) {
+          $weibo_user = $weibo_api->show_user_by_id($uid);
+          unset($weibo_user["status"]);
+          $weibo_users[] = $weibo_user;
+        }
+        // 高级接口有了后 调用此接口
+        //$weibo_users = $weibo_api->users_show_batch_by_id(implode(",", $uuids));
+        return $weibo_users;
+      }
+      else {
+        $twitter_users = array();
+        foreach ($uuids as $uid) {
+          $twitter_user = Yii::app()->twitter->user_show($uid);
+          $twitter_users[] = $twitter_user;
+        }
+        return $twitter_users;
+      }
+
+    }
+    
+    
+    return array();
   }
 }
 

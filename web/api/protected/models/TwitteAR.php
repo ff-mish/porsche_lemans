@@ -142,7 +142,6 @@ class TwitteAR extends CActiveRecord {
   }
   
   public function afterSave() {
-    debug_info($this);
     // 发布一个新微博后， 我们需要发布到对应的平台去
     // 发布前，我们要检查下 微博是不是已经有了uuid , 只有发布后才会有 uuid
     if ($this->{$this->primaryKey()} && !$this->uuid) {

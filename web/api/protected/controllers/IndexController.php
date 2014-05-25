@@ -41,7 +41,7 @@ class IndexController extends CController {
     $this->page_name = $params["page_name"];
     $startTime = strtotime(Yii::app()->params["startTime"]);
     $now = time();
-    if ($now >= $startTime || TRUE) {
+    if ($now >= $startTime) {
       $this->render("index", $params);
     }
     else {
@@ -155,6 +155,16 @@ class IndexController extends CController {
     $this->page_name = $params["page_name"];
     $this->classname = "pagebg10";
     $this->render("monitoring", $params);
+  }
+  
+  public function actionWinnerprices() {
+    $params = array(
+        "page_name" => "winnerprices"
+    );
+    $this->page_name = $params["page_name"];
+    $this->classname = "pagebg12";
+    
+    $this->render("winnerprices");
   }
 }
 

@@ -26,7 +26,7 @@ class TeamAR extends CActiveRecord {
   public function rules() {
     return array(
         array("name, owner_uid", "required"),
-        array("name, cdate, udate, score, owner_uid, achivements_total, status", "safe"),
+        array("name, cdate, udate, owner_uid, achivements_total, status", "safe"),
     );
   }
   
@@ -59,26 +59,29 @@ class TeamAR extends CActiveRecord {
     // 这里要判断下， 当新添加一个team 之前
     // 我们需要判断用户是否属于一个Team 了 
     // 如果是我们不能让它添加一个team
-    $_uid = $this->owner_uid;
-    $_tid = $this->tid;
-    $query = new CDbCriteria();
-    $query->addCondition("uid=:uid")
-            ->addCondition("tid=:tid");
-    $query->params[":tid"] = $_tid;
-    $query->params[":uid"] = $_uid;
-    if (UserTeamAR::model()->find($query)) {
-      return $this->addError("owner_uid", "user has joined team");
+    if ($this->isNewRecord) {
+      $_uid = $this->owner_uid;
+      $_tid = $this->tid;
+      $query = new CDbCriteria();
+      $query->addCondition("uid=:uid")
+              ->addCondition("tid=:tid");
+      $query->params[":tid"] = $_tid;
+      $query->params[":uid"] = $_uid;
+      if (UserTeamAR::model()->find($query)) {
+        return $this->addError("owner_uid", "user has joined team");
+      }
+
+      // 自动把队长加入到team 组员里去
+      $tid = $this->tid;
+      $uid = $this->owner_uid;
+
+      $user_team = new UserTeamAR();
+      $user_team->uid = $uid;
+      $user_team->tid = $tid;
+
+      $user_team->save();
     }
-    
-    // 自动把队长加入到team 组员里去
-    $tid = $this->tid;
-    $uid = $this->owner_uid;
-    
-    $user_team = new UserTeamAR();
-    $user_team->uid = $uid;
-    $user_team->tid = $tid;
-    
-    $user_team->save();
+
     
     return parent::afterSave();
   }

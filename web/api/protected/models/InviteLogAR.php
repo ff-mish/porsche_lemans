@@ -121,11 +121,42 @@ class InviteLogAR extends CActiveRecord {
    * @param type $uid
    * @params type $tid
    */
-  public static function userInvited($uid, $tid) {
+  public static function userInvited($uid, $tid, $only_inviting = FALSE) {
+    $query = new CDbCriteria();
+    if (!$only_inviting) {
+      $status = array(self::STATUS_ALLOW_INVITE, self::STATUS_DEFAULT);
+    }
+    else {
+      $status = array(self::STATUS_DEFAULT);
+    }
+    
+    $query->addCondition("invitor=:invitor")
+            // 只需要计算还没有接受邀请的和接受邀请的用户
+            ->addInCondition("status", $status)
+            ->addCondition("tid=:tid");
+    $query->params[":tid"] = $tid;
+    $query->params[":invitor"] = $uid;
+    
+    $rows = InviteLogAR::model()->findAll($query);
+    
+    $invited_uids = array();
+    foreach ($rows as $row) {
+      $invited_uids[] = $row->invited_idstr;
+    }
+    
+    return $invited_uids;
+  }
+  
+  /**
+   * 获取用户邀请中的有效记录
+   * @param type $uid
+   * @param type $tid
+   */
+  public static  function userInviting($uid, $tid) {
     $query = new CDbCriteria();
     $query->addCondition("invitor=:invitor")
             // 只需要计算还没有接受邀请的和接受邀请的用户
-            ->addInCondition("status", array(self::STATUS_ALLOW_INVITE, self::STATUS_DEFAULT))
+            ->addInCondition("status", array(self::STATUS_DEFAULT))
             ->addCondition("tid=:tid");
     $query->params[":tid"] = $tid;
     $query->params[":invitor"] = $uid;
