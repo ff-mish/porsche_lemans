@@ -554,9 +554,29 @@ class UserAR extends CActiveRecord {
   public static function getUserInfoFromThirdPart($uuids) {
     $user = UserAR::crtuser();
     if ($user) {
-      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
-      
+      if ($user->from == UserAR::FROM_WEIBO) {
+        $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+        $weibo_users = array();
+        foreach ($uuids as $uid) {
+          $weibo_user = $weibo_api->show_user_by_id($uid);
+          unset($weibo_user["status"]);
+          $weibo_users[] = $weibo_user;
+        }
+        // 高级接口有了后 调用此接口
+        //$weibo_users = $weibo_api->users_show_batch_by_id(implode(",", $uuids));
+        return $weibo_users;
+      }
+      else {
+        $twitter_users = array();
+        foreach ($uuids as $uid) {
+          $twitter_user = Yii::app()->twitter->user_show($uid);
+          $twitter_users[] = $twitter_user;
+        }
+        return $twitter_users;
+      }
+
     }
+    
     
     return array();
   }
