@@ -336,11 +336,11 @@ class UserController extends Controller{
     $tid = $user->team->tid;
     
     $request = Yii::app()->getRequest();
-    if ($request->isPostRequest) {
+    if (!$request->isPostRequest) {
       $this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     
-    $uuid = $request->getParam("uuid");
+    $uuid = $request->getPost("uuid");
     if (!$uuid) {
         $this->responseError("invalid params", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
     }
