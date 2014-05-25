@@ -10,6 +10,8 @@ class UserAR extends CActiveRecord {
   const STATUS_AUTO_JOIN = 2;
   const STATUS_ENABLED = 1;
   const STATUS_DISABLED = 0;
+  const STATUS_NOT_READ_TOTURIAL = 0;
+  const STATUS_HAS_READ_TOTURIAL = 1;
   
   const STEP_AT_GROUP = 2;
   /**
@@ -45,7 +47,7 @@ class UserAR extends CActiveRecord {
   public function rules() {
     return array(
         array("uuid, name, from", "required"),
-        array("uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location, allowed_invite", "safe"),
+        array("read_tutorial, uid, cdate, udate, lat, lng, invited_by, profile_msg, avatar, score, status, friends, location, allowed_invite", "safe"),
     );
   }
   

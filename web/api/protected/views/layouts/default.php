@@ -6,8 +6,11 @@
     <meta name="description" content="" />
     <title>PORSCHE</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
-	<link href="/css/twitter.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
+    
+    <?php if (UserAR::crtuser() && UserAR::crtuser()->from == UserAR::FROM_TWITTER): ?>
+    <link href="/css/twitter.css" rel="stylesheet" type="text/css" />
+    <?php endif;?>
     <script type="text/javascript">
       <?php if (UserAR::crtuser()): ?>
       window.from = "<?php echo UserAR::crtuser()->from?>";

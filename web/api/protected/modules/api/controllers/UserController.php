@@ -299,4 +299,17 @@ class UserController extends Controller{
     
     $this->responseJSON(array(), "success");
   }
+  
+  public function actionReadtoturial() {
+    $user = UserAR::crtuser();
+    
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    $user->read_toturial = UserAR::STATUS_HAS_READ_TOTURIAL;
+    $user->update();
+    
+    $this->responseJSON(array(), "success");
+  }
 }
