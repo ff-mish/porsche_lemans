@@ -62,7 +62,7 @@ body{background:#000;height: 100%;width: 100%}
 
 /* PAGE Used
 ================================================================================================= */
-.header{background: #fff;height: 80px;position: fixed;left:0;right: 0;top:0;z-index: 5}
+.header{background: #fff;height: 80px;position: fixed;left:0;right: 0;top:0;z-index: 10}
 .logo{background: url('../images/logo2.png') no-repeat;width: 95px;height: 55px;top: 14px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 258px;height: 22px;position: absolute;right: 34px;top: 30px}
 .nav{font-size: 15px;position: fixed;top: 180px;left:66px;z-index:3;}

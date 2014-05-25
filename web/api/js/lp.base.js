@@ -1483,6 +1483,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 qtimes++;
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
+
                     var data = e.data || {};
                     var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options">';
@@ -1532,7 +1533,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
-        bigVideoInit();
+        if( !LP.parseUrl().params.debug ){
+            bigVideoInit();
+        }
 
         // init first page template
         switch( $(document.body).data('page') ){
@@ -1669,9 +1672,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 api.get('/api/user' , function( e ){
                     var data = e.data;
                     var crtuser = data["user"];
-
                     // auto render tuto
-                    if( LP.getCookie('_t_') || !crtuser.read_toturial ){
+                    if( LP.getCookie('_t_') || !crtuser.read_tutorial ){
                         LP.triggerAction( 'start-tutr' );
                         LP.removeCookie('_t_');
                     }
