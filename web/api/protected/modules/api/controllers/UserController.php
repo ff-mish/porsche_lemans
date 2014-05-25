@@ -240,6 +240,10 @@ class UserController extends Controller{
     if ($user->team) {
       $uuids = InviteLogAR::userInvited($user->uid, $user->team->tid, TRUE);
       $thirdpartUsers = UserAR::getUserInfoFromThirdPart($uuids);
+      $data["inviting"] = $thirdpartUsers;
+    }
+    else {
+      $data["inviting"] = array();
     }
     
     $this->responseJSON($data, "success");
@@ -317,5 +321,31 @@ class UserController extends Controller{
     $user->update();
     
     $this->responseJSON(array(), "success");
+  }
+  
+  /**
+   * 取消邀请
+   */
+  public function actionCancelinvite() {
+    $user = UserAR::crtuser(TRUE);
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+    
+    $uid = $user->uid;
+    $tid = $user->team->tid;
+    
+    $request = Yii::app()->getRequest();
+    if ($request->isPostRequest) {
+      $this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+    }
+    
+    $uuid = $request->getParam("uuid");
+    if (!$uuid) {
+        $this->responseError("invalid params", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
+    InviteLogAR::cancelInvite($uid, $tid, $uuid);
+    
+    return $this->responseJSON(array(), "success");
   }
 }

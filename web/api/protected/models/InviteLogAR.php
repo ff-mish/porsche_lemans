@@ -170,5 +170,26 @@ class InviteLogAR extends CActiveRecord {
     
     return $invited_uids;
   }
+  
+  /**
+   * 取消用户邀请
+   * @param type $uid
+   * @param type $tid
+   * @param type $uuid
+   */
+  public static function cancelInvite($uid, $tid, $uuid) {
+    $query = new CDbCriteria();
+    $query->addCondition("invitor=:uid")
+            ->addCondition("tid=:tid")
+            ->addCondition("status=:status")
+            ->addCondition("invited_idstr=:uuid");
+    $query->params[":uid"] = $uid;
+    $query->params[":tid"] = $tid;
+    $query->params[":uuid"] = $uuid;
+    // 只有在用户没有接受邀请之前取消邀请
+    $query->params[":status"] = self::STATUS_DEFAULT;
+    
+    return self::model()->deleteAll($query);
+  }
 }
 
