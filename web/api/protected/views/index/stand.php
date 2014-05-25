@@ -13,6 +13,8 @@
           <p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
           <p class="on"><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
           <p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
+          <p> &nbsp; </p>
+          <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
       </div>
       <div class="stand_bg" style="padding-top:280px;">
       	<div class="conut_down cs-clear" data-fadein>
@@ -33,6 +35,10 @@
         
         <div class="stand_tit">
           <input class="team_name" value="" />
+          <div class="stand_chart_tip" style="width: auto;left: 36px;">
+			 Edit team name
+			 <span>◆</span>
+		  </div>
           <span id="team-score"></span>
         </div>
           <!--  -->
