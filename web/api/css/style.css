@@ -87,7 +87,7 @@ body{background:#000;height: 100%;width: 100%}
 
 /*FOOTER*/
 .footer{font-size: 14px;}
-.footer_link{position: fixed;bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 25px;}
+.footer_link{position: fixed;z-index: 4; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 25px;}
 .footer_link p{float: left;padding:0 6px;}
 .footer_language{position: fixed;bottom: 15px;right: 25px;}
 .footer_language a{padding: 0 5px}
@@ -354,6 +354,11 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dun{position: absolute;left: 40px;top: 40px;height: 48px;width: 36px;line-height: 48px;text-align: center;color: #ff0000; background: url(../images/dun.png) no-repeat; font-size: 14px;}
 .popup_dun span{position: absolute;left: 150%;}
 
+.popup_email{border: none !important;overflow: hidden;text-align: center;}
+.popup_email h4{font-size: 35px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
+.popup_email input{width: 600px;background: none;color:white;}
+.popup_email .con-step{position: absolute;left: 30px;}
+.popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
 .popup_invite {position: relative; background:#000;width:860px;height:450px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;}
