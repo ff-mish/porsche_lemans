@@ -160,22 +160,19 @@ outline: none !important;
 
 .tutr-step{display: none;position: relative;z-index: 4;}
 .tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.6;position: absolute;}
-
-.tutr-step-tip1{ display: none; position: absolute;top: 183px;background: black;left: 765px;width: 250px;padding: 50px;height: 338px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
-.tutr-step-tip1 .step-con{overflow: auto;height: 75%;}
-.tutr-step-tip1 .step-con p {margin: 1.5em 0;}
+.tutr-step .step-con{margin: 25px 0;}
+.tutr-step-tip1{display: none;position: absolute;top: 180px;background: black;left: 765px;width: 263px;padding: 40px;height: 342px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
 .tutr-step-tip1 .step-btn{position: absolute;bottom: 30px;right: 40px;}
 
-.tutr-step-tip2{display: none;position: absolute;top: 183px;background: black;left: 765px;width: 462px;padding: 50px;height: 409px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
-.tutr-step-tip2 .step-con{overflow: auto;height: 75%;}
-.tutr-step-tip2 .step-con p {margin: 1.5em 0;}
+.tutr-step-tip2{display: none;position: absolute;top: 183px;background: black;left: 765px;width: 276px;padding: 40px;height: 324px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
 .tutr-step-tip2 .step-btn{position: absolute;bottom: 30px;right: 40px;}
 
-.tutr-step-tip3{display: none;position: absolute;top: 320px;background: black;left: 0;width: 800px;padding: 50px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
-.tutr-step-tip3 .step-con{overflow: auto;height: 75%;}
-.tutr-step-tip3 .step-con p {margin: 1.5em 0;}
-.tutr-step-tip3 .step-btn{position: absolute;bottom: 30px;right: 40px;}
+.tutr-step-tip3{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
+.tutr-step-tip3 .step-btn{position: absolute;bottom: 20px;right: 40px;}
+.tutr-step-tip3 .step-con-tit{text-decoration: underline;}
 
+.tutr-step-tip4{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 20px;line-height: 1.5em;}
+.tutr-step-tip4 .step-btn{position: absolute;bottom: 20px;right: 40px;}
 
 .conut_tit span{font-size: 90px;}
 .count-unit{margin-right: 20px;font-size: 72px;float: left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display: inline;opacity: 0.3;filter: alpha(opacity=30);}

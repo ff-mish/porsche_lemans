@@ -343,6 +343,13 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dun span{position: absolute;left: 150%;}
 
 
+.popup_email{border: none;overflow: hidden;text-align: center;}
+.popup_email h4{font-size: 35px;text-align: center;line-height: 2em;margin-bottom: 20px;}
+.popup_email input{width: 600px;background: none;color:white;}
+.popup_email .con-step{position: absolute;left: 30px;}
+.popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 100%;bottom: 77px;}
+
+
 .popup_invite {position: relative; background:#000;width:860px;height:450px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {}
 .popup_invite .popup_invite_friend_list{height: 350px;overflow: auto;}

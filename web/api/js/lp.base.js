@@ -4,6 +4,8 @@
 LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     'use strict'
     
+    var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
+
     function retweetMonitoring() {
       var self = $(this);
       var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
@@ -151,7 +153,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             var path = paper.path("").attr('fill' , '#f00');
             // draw a circle
             var circle = paper.circle( ~~r , ~~r , ~~r ).attr({
-                'fill': '#f00',
+                'fill': COLOR,
                 'stroke-width': 0
             });
 
@@ -161,7 +163,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             });
             var topCircle = paper.path(['M' , ~~r , ' 0l0 ' , width , 'A' , ~~r  , ' ', ~~r , ' 0 0 1 ' , ~~r , ' 0'].join('') )
                 .attr({
-                    'fill': '#f00',
+                    'fill': COLOR,
                     'stroke-width': 0,
                     zIndex: 2
                 });
@@ -280,8 +282,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     object.ystart = ystart;
                     object.yheight = yheight;
 
+
+
                     object.path = paper.path( "" ).attr( {
-                        "stroke": '#f00',
+                        "stroke": COLOR,
                         "stroke-width": 3
                     } );
                 }
@@ -439,30 +443,90 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        renderTure( off.top , off.left - 20 , 566 , 440 );
+                        renderTure( off.top , off.left - 20 , 380 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + 566 })
+                            .css({left: off.left + 380 , top: off.top })
                             .fadeIn();
                         break;
                     case 2:
-                        var off = $('.stand_chart').offset();
+                        var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_chart').width() + 20 , $('.stand_chart').height() );
+                        renderTure( off.top , off.left - 20 , 566 , 440 );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css({left: off.left  - 600 })
+                            .css({left: off.left + 560 , top: off.top })
                             .fadeIn();
                         break;
                     case 3:
-                        var off = $('.stand_achivments').offset();
+                        var off = $('.stand_chart').offset();
                         $('.tutr-step-tip2').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
+                        renderTure( off.top , off.left - 20 , $('.stand_chart').width() + 20 , $('.stand_chart').height() );
                         $('.tutr-step').find('.tutr-step-tip3')
                             .delay( 700 )
-                            .css({left: off.left })
+                            .css({left: off.left  - 600 , top: off.top })
                             .fadeIn();
                         break;
+                    case 4:
+                        var off = $('.stand_achivments').offset();
+                        $('.tutr-step-tip3').fadeOut();
+                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
+                        $('.tutr-step').find('.tutr-step-tip4')
+                            .delay( 700 )
+                            .css({left: off.left - 20 , top: 387 , width: $('.stand_achivments').width() - 80 })
+                            .fadeIn();
+                        break;
+                    case 5:
+                        LP.panel({
+                            title: '',
+                            content: '<div class="popup_box popup_dialog popup_email" >\
+                                    <span class="con-step">5/5</span>\
+                                    <h4>' + _e('Receive a reminder for the d-day') + '</h4>\
+                                    <input class="popup_dialog_msg" placeholder="' + _e('Enter your email address') + '" />\
+                                    <p class="error-tip"></p>\
+                                    <div class="popup_dialog_btns">\
+                                        <a href="javascript:void(0);">' + _e('Finish tutorial') + '</a>\
+                                    </div>\
+                                    <div class="popup_dialog_status">\
+                                        <span>' + _e('Success!') + '</span>\
+                                    </div>\
+                                </div>',
+                            onShow: function(){
+                                var panel = this;
+                                var $input = this.$panel.find('input').focus(function(){
+                                    $tip.html('');
+                                });
+                                var $tip = this.$panel.find('.error-tip');
+                                panel.$panel.find('.popup_dialog_btns a').click(function(){
+                                    var email = $input.val();
+                                    if( !email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
+                                        !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
+                                        !email.match(/^[a-zA-Z_0-9.]+@[a-zA-Z_.0-9]+$/) ){
+                                        $tip.html( _e('wrong email') );
+                                    }
+
+                                    if($(this).hasClass('disable')) {
+                                        return;
+                                    }
+                                    var msg = panel.$panel.find('textarea').val();
+                                    var $btn = $(this).addClass('disable');
+                                    $(this).next().fadeIn();
+                                    api.post( '/api/user/logmail' , {email: email} , function(){
+                                        var height = panel.$panel.find('.popup_dialog').height();
+                                        panel.$panel.find('.popup_dialog').height(height);
+                                        panel.$panel.find('.popup_dialog_btns').fadeOut();
+                                        panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
+                                            setTimeout(function(){
+                                                panel.close();
+                                            }, 500);
+                                        });
+                                    } , function(){
+                                        $btn.removeClass('disable');
+                                    } );
+                                });
+                            }
+                        });
+                        
                     default:
                         $('.tutr-step').fadeOut();
 
@@ -472,122 +536,122 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     })();
 
 
-    var initSuggestion = (function(){
-        var tUtil = null;
-        var BaseSelectPanel = null;
-        var atSugConfig = {
-            zIndex: 9999,
-            width: 200,
-            wrapClass: 'suggestWrap',
-            // maxHeight: 200,
-            availableCssPath: 'p', // 用于hover的css path
-            //loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
-            renderData: function(data){
-                var key = this.key , aHtml = ['<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">'];
-                $.each(data , function(i,item){
-                    aHtml.push(['<p data-insert="' , item.nickname , '">', item.nickname.replace(key , '<b>' + key + '</b>') + '<br/></p>'].join(''));
-                });
-                aHtml.push('</div>');
-                return aHtml.join('');
-            },
-            // how to get data
-            getData: function(cb){
-                var key = this.key ;
-                api.get('/api/user/Friendssuggestion' , {q: key} , function( e ){
-                    cb( e.data );
-                });
-            }
-        }
-        var inputSuggestion = function( $textarea , cfg ){
-            var regx = cfg.regx,
-                tag = cfg.tag,
-                lastIndex = 0,
-                currIndex = 0,
-                lastText = '',
-                suggestion = null,
-                _timeout = null,
-                showSuggestion = function( ev ){
-                    if( suggestion && suggestion.$wrap.is(':visible')){
-                        switch(ev.keyCode){
-                            case 40: // down
-                            case 38: // up
-                            case 13: //enter
-                                return;
-                        }
-                    }
+    // var initSuggestion = (function(){
+    //     var tUtil = null;
+    //     var BaseSelectPanel = null;
+    //     var atSugConfig = {
+    //         zIndex: 9999,
+    //         width: 200,
+    //         wrapClass: 'suggestWrap',
+    //         // maxHeight: 200,
+    //         availableCssPath: 'p', // 用于hover的css path
+    //         //loadingContent: '<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">',
+    //         renderData: function(data){
+    //             var key = this.key , aHtml = ['<h4>想用@提到谁？</h4><div class="suggest-list" node-type="suggestion-list">'];
+    //             $.each(data , function(i,item){
+    //                 aHtml.push(['<p data-insert="' , item.nickname , '">', item.nickname.replace(key , '<b>' + key + '</b>') + '<br/></p>'].join(''));
+    //             });
+    //             aHtml.push('</div>');
+    //             return aHtml.join('');
+    //         },
+    //         // how to get data
+    //         getData: function(cb){
+    //             var key = this.key ;
+    //             api.get('/api/user/Friendssuggestion' , {q: key} , function( e ){
+    //                 cb( e.data );
+    //             });
+    //         }
+    //     }
+    //     var inputSuggestion = function( $textarea , cfg ){
+    //         var regx = cfg.regx,
+    //             tag = cfg.tag,
+    //             lastIndex = 0,
+    //             currIndex = 0,
+    //             lastText = '',
+    //             suggestion = null,
+    //             _timeout = null,
+    //             showSuggestion = function( ev ){
+    //                 if( suggestion && suggestion.$wrap.is(':visible')){
+    //                     switch(ev.keyCode){
+    //                         case 40: // down
+    //                         case 38: // up
+    //                         case 13: //enter
+    //                             return;
+    //                     }
+    //                 }
                     
-                    var textarea = this,
-                        value = textarea.value,
-                        range = tUtil.getPos(textarea),
-                        text = value.substring(0 , range.start);
+    //                 var textarea = this,
+    //                     value = textarea.value,
+    //                     range = tUtil.getPos(textarea),
+    //                     text = value.substring(0 , range.start);
                     
-                    currIndex = range.start;
-                    lastIndex = text.lastIndexOf(tag);
-                    lastText = text.substring(lastIndex);
-                    if(!regx.test(lastText)){
-                        suggestion && suggestion.hide();
-                        return;
-                    }
-                    if(!suggestion){
-                        suggestion = new BaseSelectPanel(textarea , cfg.selectConfig);
-                        suggestion.addListener("select" , function($dom){
-                            var name = $dom.attr('data-insert');
-                            if(!name){
-                                tUtil.setText(textarea , '\n' , currIndex);
-                            }else{
-                                cfg.afterSelect && cfg.afterSelect(textarea , name , lastIndex , lastText.length);
-                                //tUtil.setText(textarea , name , lastIndex , lastText.length);
-                            }
-                            $textarea.trigger('countwords');
-                        });
-                        suggestion.addListener("beforeShow" , function(t , data){
-                            if(cfg.beforeShow){
-                                return !!cfg.beforeShow( t , data );
-                            }
-                            return true;
-                            //return !!$(data).find('li').length;
-                        });
-                    }
+    //                 currIndex = range.start;
+    //                 lastIndex = text.lastIndexOf(tag);
+    //                 lastText = text.substring(lastIndex);
+    //                 if(!regx.test(lastText)){
+    //                     suggestion && suggestion.hide();
+    //                     return;
+    //                 }
+    //                 if(!suggestion){
+    //                     suggestion = new BaseSelectPanel(textarea , cfg.selectConfig);
+    //                     suggestion.addListener("select" , function($dom){
+    //                         var name = $dom.attr('data-insert');
+    //                         if(!name){
+    //                             tUtil.setText(textarea , '\n' , currIndex);
+    //                         }else{
+    //                             cfg.afterSelect && cfg.afterSelect(textarea , name , lastIndex , lastText.length);
+    //                             //tUtil.setText(textarea , name , lastIndex , lastText.length);
+    //                         }
+    //                         $textarea.trigger('countwords');
+    //                     });
+    //                     suggestion.addListener("beforeShow" , function(t , data){
+    //                         if(cfg.beforeShow){
+    //                             return !!cfg.beforeShow( t , data );
+    //                         }
+    //                         return true;
+    //                         //return !!$(data).find('li').length;
+    //                     });
+    //                 }
                     
-                    // show suggestion
-                    var pos = tUtil.getPagePos(textarea ,lastIndex);
-                    var toff = $(textarea).offset()
-                    suggestion.show( pos.left - toff.left , pos.bottom + 3 - toff.top + 30 , lastText.substring(1));
-                },
-                eventFn = function(ev){
-                   if(ev.keyCode == 27){
-                       return false;;
-                   }
-                   // 延迟处理
-                   clearTimeout(_timeout);
-                   var textarea = this;
-                   _timeout = setTimeout(function(){
-                       showSuggestion.call(textarea , ev);
-                   },100);
-                };
-            // key up event
-            $textarea.keyup(eventFn);
-            // mouse down event
-            $textarea.mouseup (eventFn);
-            return suggestion;
-        }
+    //                 // show suggestion
+    //                 var pos = tUtil.getPagePos(textarea ,lastIndex);
+    //                 var toff = $(textarea).offset()
+    //                 suggestion.show( pos.left - toff.left , pos.bottom + 3 - toff.top + 30 , lastText.substring(1));
+    //             },
+    //             eventFn = function(ev){
+    //                if(ev.keyCode == 27){
+    //                    return false;;
+    //                }
+    //                // 延迟处理
+    //                clearTimeout(_timeout);
+    //                var textarea = this;
+    //                _timeout = setTimeout(function(){
+    //                    showSuggestion.call(textarea , ev);
+    //                },100);
+    //             };
+    //         // key up event
+    //         $textarea.keyup(eventFn);
+    //         // mouse down event
+    //         $textarea.mouseup (eventFn);
+    //         return suggestion;
+    //     }
 
 
-        return function( $textarea ){
-            LP.use(['textareaUtil','suggestion'] , function( textUtil , sug ){
-                tUtil = textUtil ;
-                BaseSelectPanel = sug;
-                inputSuggestion( $textarea , {
-                    regx : /^@([^\s,)(\]\[\{\}\\\|=\+\/\-~`!#\$%\^&\*\.:;"'\?><]){1,15}$/,
-                    tag  : '@',
-                    selectConfig : atSugConfig,
-                    afterSelect : function(textarea , value , lastIndex , len){
-                        tUtil.setText(textarea , value+" " , lastIndex + 1 , len - 1);
-                    }
-                });
-            } )
-        }
-    })();
+    //     return function( $textarea ){
+    //         LP.use(['textareaUtil','suggestion'] , function( textUtil , sug ){
+    //             tUtil = textUtil ;
+    //             BaseSelectPanel = sug;
+    //             inputSuggestion( $textarea , {
+    //                 regx : /^@([^\s,)(\]\[\{\}\\\|=\+\/\-~`!#\$%\^&\*\.:;"'\?><]){1,15}$/,
+    //                 tag  : '@',
+    //                 selectConfig : atSugConfig,
+    //                 afterSelect : function(textarea , value , lastIndex , len){
+    //                     tUtil.setText(textarea , value+" " , lastIndex + 1 , len - 1);
+    //                 }
+    //             });
+    //         } )
+    //     }
+    // })();
 
 
     var renderVideo  = (function(){
@@ -813,7 +877,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns">\
                         <p class="popup_error">&nbsp;</p>\
-                        <a href="javascript:void(0);" class="disabled">Ok</a> \
+                        <a href="javascript:void(0);" class="disabled">' + _e('Ok') + '</a> \
                     </div>\
                 </div>',
             title: '',
@@ -826,7 +890,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         <div class="name">@#[name]</div>\
                         <div class="btns">\
                             <div class="selected" data-name="#[name]" style="display:none;"></div>\
-                            <div class="send" >Send Invitation</div>\
+                            <div class="send" >' + _e('Send Invitation') + '</div>\
                         </div>\
                     </div>';
 
@@ -879,11 +943,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             users.push( '@' + $(this).data('name') );
                         });
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
-                            // TODO  show email input 
-                            LP.panel({
-                                title: '',
-                                content: '<input name="email"/>'
-                            });
                             panel.close();
                         } );
                     });
@@ -909,15 +968,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_dialog popup_post">\
             <div class="popup_dialog_msg">\
-                <textarea>They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is</textarea>\
+                <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
-                <a href="javascript:void(0);" class="p-cancel">Cancel</a>\
-                <a href="javascript:void(0);" class="p-confirm">Confirm</a>\
+                <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
+                <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>\
                 <span class="loading"></span>\
             </div>\
             <div class="popup_dialog_status">\
-                <span>Success!</span>\
+                <span>' + _e('Success!') + '</span>\
             </div>',
             title: "",
             width: 784,
@@ -986,7 +1045,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -1000,7 +1059,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         #[description]\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">Repost</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -1093,11 +1152,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
-                        <textarea>They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is</textarea>\
+                        <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
                     </div>\
                     <div class="popup_dialog_btns">\
-                        <a href="javascript:void(0);">Cancel</a>\
-                        <a href="javascript:void(0);">Confirm</a>\
+                        <a href="javascript:void(0);">' + _e('Cancel') + '</a>\
+                        <a href="javascript:void(0);">' + _e('Confirm') + '</a>\
                     </div>\
                 </div>';
 
@@ -1185,8 +1244,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var tpl = '<div class="popup_box popup_dialog">\
                 <div class="popup_dialog_msg">#[content]</div>\
                 <div class="popup_dialog_btns">\
-                    <a href="javascript:void(0);">Cancel</a>\
-                    <a href="javascript:void(0);">Confirm</a>\
+                    <a href="javascript:void(0);">' + _e('Cancel') + '</a>\
+                    <a href="javascript:void(0);">' + _e('Confirm') + '</a>\
                 </div>\
             </div>';
         LP.panel({
@@ -1386,7 +1445,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
                     var data = e.data || {};
-                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>Assiduity</span></div><div class="popup_dialog_msg">';
+                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options">';
                     $.each( [1,2,3,4] , function( i ){
                         content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
@@ -1581,7 +1640,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
                     <div class="member_item ">\
                         <img src="#[avatar]" />\
-                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">Leave Team</span></p>\
+                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                     </div>\
                     <div class="member_speed"></div>\
                     <div class="memeber_space">#[space]</div></div>';
