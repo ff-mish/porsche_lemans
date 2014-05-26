@@ -6,7 +6,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     if( $.browser.msie && $.browser.version == 8 ){
         $(document.body).addClass('ie8');
     }
-    
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
     function retweetMonitoring() {
@@ -92,7 +91,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             // Creates canvas 320 × 200 at 10, 50
             var width = $dom.width();
             var height = $dom.height();
-            var r = 35 , stockWidth = 10 , stockColor = "#ff0707";
+            var r = 35 , stockWidth = 10 , stockColor = COLOR;
 
             var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
@@ -177,6 +176,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 'fill': COLOR,
                 'stroke-width': 0
             });
+
 
             var rotateBlack = paper.rect(0 , 0 , width / 2 , width).attr({
                 'fill': '#000',
@@ -959,7 +959,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             },
             onload: function() {
                 var panel = this;
-                var uTpl = '<div class="friend_item">\
+                var uTpl = '<div class="friend_item" data-uuid="#[uuid]">\
                         <div class="avatar"><img src="#[avatar]"></div>\
                         <div class="name">@#[name]</div>\
                         <div class="btns">\
@@ -980,14 +980,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                         var $list = panel.$panel.find('.popup_invite_friend_list ');
                         $.each( e.data , function( i , user ){
-                            $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ))
-                                .css({marginTop:-30 , opacity: 0})
+                            $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
+                                .css({top:-30 , opacity: 0 , 'position': 'relative'})
                                 .appendTo( $list )
                                 .delay( 100 * i )
                                 .animate({
-                                    marginTop: 0,
+                                    top: 0,
                                     opacity: 1
-                                } , 100);
+                                } , 100 , '' , function(){
+                                });
                         } );
 
                         setTimeout( function(){isLoading = false;} , 120 * e.data.length );
@@ -1049,14 +1050,35 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         panel.$panel.find('.loading').show();
                         // get user list
                         var users = [];
+                        var us = [];
                         $('.popup_invite_friend_list .selected:visible').each(function(){
                             users.push( '@' + $(this).data('name') );
+                            var $p = $(this).closest('.friend_item');
+                            us.push( {
+                                'avatar' : $p.find('.avatar img').attr('src'),
+                                'name' : $p.find('.name').html().replace('@' , ''),
+                                'uuid' : $p.data('uuid')
+                            } );
                         });
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
+                            $.each( us , function( i , u ){
+                                // add user to panel
+                                $(LP.format('<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
+                                    <div class="member_item ">\
+                                        <img src="#[avatar]" />\
+                                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=#[uuid]" data-a="cancel-invit">' + _e('Cancel Invit') + '</span></p>\
+                                    </div></div>' , u ))
+                                    .insertBefore( $('.teambuild_member .member_add').eq(0) )
+                                    .next()
+                                    .remove();
+                            } );
+                            
+
                             panel.close();
                         } , null ,  function(){
                             $btn.removeClass('disabled');
                             panel.$panel.find('.loading').hide();
+
                         } );
                     });
             },
@@ -1424,7 +1446,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     // TODO ...
     LP.action('cancel-invit' , function( data ){
-
+        var $dom = $(this).closest('.teambuild_member ');
+        api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
+            $dom.children().fadeOut( function(){
+                $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
+            } );
+        });
     });
 
 
@@ -1913,7 +1940,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         html.push( LP.format( utpl_inviting ,{
                             avatar:     user.avatar,
                             name:       user.screen_name,
-                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-a="cancel-invit">' + _e('Cancel Invit') + '</span>' : ''
+                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=' + user.uuid + '" data-a="cancel-invit">' + _e('Cancel Invit') + '</span>' : ''
                         } ) );
                     } );
 
@@ -1948,7 +1975,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     for( var i = 0 ; i < data.team_star ; i++ ){
                         ahtml.push('<p></p>');
                     }
+
                     $('.stand_achivmentsbox').html( ahtml.join("") );
+                    $('.stand_achivments').fadeIn();
                     //data.last_post || 
                     var posts =  data.last_post || [];
                     // render post
@@ -1960,6 +1989,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var postWidth = 345;
                     $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
                         .data('index' , 0 );
+                    $('.stand_tweet').fadeIn();
                     
                     // redner next page
                     $('.stand_add').click(function(){
@@ -1995,18 +2025,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     });
 
                     // hover to show the leave team
-                    $('.member_item').hover(function(){
+                    $('.teambuild_members').delegate( '.member_item' , 'mouseenter' , function(){
                         if(!$(this).find('.member-leave,.cancel-invit').length) return;
-                        $(this).find('.member-leave,.cancel-invit').fadeIn()
+                        $(this).find('.member-leave,.cancel-invit').stop( true , true ).fadeIn()
                             .end()
                             .find('.member_name_span')
                             .hide();
-                    } , function(){
+                    })
+                    .delegate('.member_item' , 'mouseleave' , function(){
                         $(this).find('.member-leave,.cancel-invit').hide()
                             .end()
                             .find('.member_name_span')
+                            .stop( true , true )
                             .fadeIn();
-                    });
+                    })
 
                     // render stand_chart
                     var score = team.score || {};

@@ -193,12 +193,12 @@ body{background:#000;height: 100%;width: 100%}
 .stand_tit{width: 530px;height: 90px;font-size: 38px;line-height: 40px;}
 .stand_tit p{float: left}
 .stand_useritem{margin-bottom:35px;}
-.stand_inviting{opacity: 0.5;}
+.stand_inviting{opacity: 0.5;filter: alpha(opacity=50);}
 .stand_useritem .member_item{margin: 0}
-.stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0}
+.stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0;display: none;}
 .stand_achivmentsbox{float: left;padding:0 0 0 50px;}
 .stand_achivmentsbox p{width: 46px;height: 55px;background:url('../images/stand.png') no-repeat -291px -507px; float: left;}
-.stand_tweet{color:#fefefe;padding: 40px 0 50px;position: relative; }
+.stand_tweet{color:#fefefe;padding: 40px 0 50px;position: relative; display: none;}
 .stand_tweet h2{font-size: 28px;padding:20px 0 0 0;width: 240px}
 .stand_tweetitem{font-size: 14px;float: left;width: 220px;padding:0 70px;}
 .stand_chart{width: 540px;height: 510px;position: absolute;right: 0;top: 0;padding-top:25px;}
@@ -347,6 +347,11 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
 .stand_chart_tip{line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
 .stand_chart_tip span{position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
+.ie8 .stand_chart_speed,
+.ie8 .stand_chart_quality,
+.ie8 .stand_chart_assiduite,
+.ie8 .stand_chart_impact,
+.ie8 .stand_chart_score{background: url(about:blank);}
 
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
@@ -387,7 +392,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_invite .friend_item .btns {margin:0 0 0 83px;}
 .popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}
 .popup_invite .popup_invite_btns {text-align: center;margin:50px 0 0;}
-.popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 11px 80px;color:#ff0000;font-size:25px;}
+.popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 11px 80px;color:#ff0000;font-size:25px; }
 .popup_invite .popup_invite_btns a.disabled{color: gray; border-color: gray;}
 .popup_invite .popup_invite_btns a:hover {opacity:0.7;}
 .popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
@@ -502,3 +507,26 @@ body{background:#000;height: 100%;width: 100%}
 .popup_close {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease-out;-o-transition:  all 0.2s ease-out;-ms-transition:  all 0.2s ease-out;transition:  all 0.2s ease-out;}
 a:hover {opacity:0.7;}
 a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease-out;-o-transition:  all 0.2s ease-out;-ms-transition:  all 0.2s ease-out;transition:  all 0.2s ease-out;}
+
+
+
+
+/* fix twitter  */
+.twitter .memeber_space,
+.twitter .member_name,
+.twitter .popup_invite .friend_item .send{ color: #065be0;}
+.twitter a:hover,
+.twitter .member_add,
+.twitter .navicon,
+.twitter .member_item,
+.twitter .popup_close:hover,
+.twitter .popup_invite .popup_invite_btns a{color: #065be0; border-color: #065be0;}
+
+.twitter .popup_invite .popup_invite_btns a.disabled {
+    color: gray;
+    border-color: gray;
+}
+
+
+
+
