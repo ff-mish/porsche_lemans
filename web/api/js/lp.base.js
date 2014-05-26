@@ -705,7 +705,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var vid = 0;
         return function( $wrap , videoFile , poster , cfg , cb ){
             var id = 'my_video_' + ( vid++ );
-
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
             var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
@@ -739,6 +738,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                     cb && cb.call( this );
                 } );
+                myVideo.muted( true );
+
+                $wrap.data('video' , myVideo);
             });
         }
     })();
@@ -1320,6 +1322,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             top: $(window).height(),
             opacity: 0.5
         } , 400 , '' , function(){
+           $(this).find('.video-js')
+                .parent()
+                .data('video').dispose();
+
            $(this).remove();
         } )
     });
@@ -1641,7 +1647,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 if( !LP.parseUrl().params.debug ){
                     // show the big video
                     renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                        $('#' + this.Q).css('z-index' , -1);
+                        $('#' + this.Q).css('z-index' , 0);
                     } );
                 }
                 // get parameter d

@@ -338,7 +338,7 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_tip span{position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
 
 /* video */
-#home_video{background:#000;position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
+#home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
 
 .popup_box {}
 .popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
