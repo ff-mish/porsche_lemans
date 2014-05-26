@@ -723,6 +723,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var v = this;
                     if( resize ){
                         $(window).resize(function(){
+                            if( v.isRemoved  ) return;
                             var w = $wrap.width();
                             var h = $wrap.height();
                             var vh = 0 ;
@@ -1377,12 +1378,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $(this).parent().animate({
-            top: $(window).height(),
-            opacity: 0.5
+            top: $(window).height()
         } , 400 , '' , function(){
-           $(this).find('.video-js')
+           var video = $(this).find('.video-js')
                 .parent()
-                .data('video').dispose();
+                .data('video');
+            video.dispose();
+            video.isRemoved = true;
 
            $(this).remove();
         } )
@@ -1549,7 +1551,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     total += buff;
                 } ) ;
                 if( total >= globalVideos.length ){
-                    initComplete();
+                    setTimeout( initComplete , 1000 );
                     $.each( globalVideoInterval , function( i , intval ){
                         clearInterval( intval );
                     } );
@@ -1712,6 +1714,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
+        // if( $(document.body).data('page') )
         bigVideoInit();
 
 
