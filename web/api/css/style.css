@@ -45,7 +45,7 @@ a:hover{color:#f00}
 ================================================================================================= */
 body{background:#000;height: 100%;width: 100%}
 .page{position: absolute;left:0;right: 0;bottom: 0;top: 80px;}
-.pagebg1{background:url('../images/bg1.jpg') no-repeat center top fixed ; background-size:cover; }
+/*.pagebg1{background:url('../images/bg1.jpg') no-repeat center top fixed ; background-size:cover; }
 .pagebg2{background:url('../images/bg2.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg3{background:url('../images/bg3.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg4{background:url('../images/bg4.jpg') no-repeat center top fixed; background-size:cover; }
@@ -57,7 +57,7 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg10{background:url('../images/bg10.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg11{background:url('../images/bg11.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg12{background:url('../images/bg12.jpg') no-repeat center top fixed; background-size:cover; }
-.pagebg13{background:url('../images/bg13.jpg') no-repeat center top fixed; background-size:cover; }
+.pagebg13{background:url('../images/bg13.jpg') no-repeat center top fixed; background-size:cover; }*/
 
 
 /* PAGE Used
@@ -512,7 +512,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 
 /* fix twitter  */
-.twitter .memeber_space,
+/*.twitter .memeber_space,
 .twitter .member_name,
 .twitter .popup_invite .friend_item .send{ color: #065be0;}
 .twitter a:hover,
@@ -525,7 +525,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 .twitter .popup_invite .popup_invite_btns a.disabled {
     color: gray;
     border-color: gray;
-}
+}*/
 
 
 

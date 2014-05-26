@@ -3,7 +3,8 @@
  */
 LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     'use strict'
-    if( $.browser.msie && $.browser.version == 8 ){
+
+    if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
@@ -696,6 +697,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     // })();
 
 
+    var globalVideos = [];
+    var globalVideoInterval = [];
+
     var renderVideo  = (function(){
         var tpl = '<video id="#[id]" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"\
                 preload="auto"\
@@ -737,11 +741,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 "margin-left": ( w - vw ) / 2
                             });
                         }).trigger('resize');
+
+                        if( $.browser.msie && $.browser.version <= 8 ){
+                            setTimeout(function(){
+                                $(window).trigger('resize');
+                            } , 100);
+                        }
                     }
                     cb && cb.call( this );
                 } );
-                myVideo.muted( true );
+                var index = globalVideos.length;
+                globalVideos[index] = 0;
+                globalVideoInterval[index] = setInterval( function(){
+                    globalVideos[index] = myVideo.bufferedPercent();
+                } , 100 );
 
+
+                myVideo.muted( true );
                 $wrap.data('video' , myVideo);
             });
         }
@@ -884,7 +900,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "/images/bg7.jpg" ,  {muted:1} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "" ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -1313,7 +1329,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         api.get('/api/media/list' , { page:page } , function( e ){
             $('.fuel .loading').hide();
-            // DEBUG.. render fuel item
+            //  render fuel item
             $.each( e.data || [] , function( i , data ){
               if (data["type"] == "video") {
                 data["video"] = 1;
@@ -1524,7 +1540,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         },
         onComplete : function(){
-            initComplete();
+
+            // load all the video
+            var timer = setInterval(function(){
+                if( globalVideos.length == 0 ) return ;
+                var total = 0;
+                $.each( globalVideos , function( i , buff){
+                    total += buff;
+                } ) ;
+                if( total >= globalVideos.length ){
+                    initComplete();
+                    $.each( globalVideoInterval , function( i , intval ){
+                        clearInterval( intval );
+                    } );
+                    clearInterval( timer );
+                }
+            } , 100);
         }
     });
 
@@ -1681,9 +1712,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
-        if( !LP.parseUrl().params.debug ){
-            bigVideoInit();
-        }
+        bigVideoInit();
 
 
         var needTriggerTutr = false;
@@ -1691,12 +1720,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 var ratio = 516 / 893;
-                if( !LP.parseUrl().params.debug ){
-                    // show the big video
-                    renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                        $('#' + this.Q).css('z-index' , 0);
-                    } );
-                }
+                // show the big video
+                renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
+                    $('#' + this.Q).css('z-index' , 0);
+                } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
