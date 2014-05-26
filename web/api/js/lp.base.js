@@ -3,6 +3,9 @@
  */
 LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     'use strict'
+    if( $.browser.msie && $.browser.version == 8 ){
+        $(document.body).addClass('ie8');
+    }
     
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
@@ -108,7 +111,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             //         .attr("stroke-width" , stockWidth);
             var text = paper.text( width / 2 , height / 2 , "0 T/H" )
                 .attr({fill: "#fff",'font-size':'13px'});
-
 
 
             var now ;
@@ -795,8 +797,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             for( var i = originArr.length - 1 ; i >= 0 ; i -- ){
                 var $col = $cols.eq( $cols.length - ( originArr.length - i ) );
                 var ch = (originArr[ i ] == 0 ? - ( ~~$col.data('max') + 1 ) : - originArr[ i ]) * height;
-                $col.css( "margin-top" , ch )
-                    .data('num' , originArr[ i ]);
+                $col.children().first().css( "margin-top" , ch )
+                    .parent().data('num' , originArr[ i ]);
             }
         }
         var reduce = function ( $dom ){
@@ -815,16 +817,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 !!(function( i ){
                     var ch = - nextArr[ i ] * height;
                     var $col = $cols.eq( $cols.length - ( nextArr.length - i ) );
+                    
                     if ( $col.data( 'num' ) != nextArr[ i ] ){
-
                         // change to it's last num
-                        $col.css('margin-top' , ch - height ).animate({
+                        $col.children().first().css('margin-top' , ch - height ).animate({
                                 "margin-top" : ch
                             } , 500 , '' , function(){
                                 if( ch == 0 ){
-                                    $(this).css('margin-top' , - (~~$(this).data('max') + 1) * height);
+                                    $(this).css('margin-top' , - (~~$(this).parent().data('max') + 1) * height);
                                 }
-                                $(this).data('num' , nextArr[ i ]);
+                                $(this).parent().data('num' , nextArr[ i ]);
                                 $dom.data('num' , next);
                             });
                     }
@@ -846,8 +848,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // start animate
                 setInterval(function(){
+                    if( window.aaa )return;
                     reduce( $doms.last() );
                 } , 1000);
+            },
+
+            initCountDown: function(){
+                 api.get('/api/web/time' , function( e ){
+                    var times = e.data.time_start.split(/[- :]/);
+                    var start = new Date(times[0] , times[1] - 1 , times[2], times[3], times[4], times[5]);
+                    times = e.data.time_now.split(/[- :]/);
+                    var now = new Date(times[0] , times[1] - 1 , times[2], times[3], times[4], times[5]);
+
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
             }
         }
     })();
@@ -1061,7 +1081,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_dialog popup_post">\
             <div class="popup_dialog_msg">\
-                <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
+                <textarea style="overflow:auto;">' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
@@ -1655,18 +1675,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 if( urlObj.params.d ){
                     api.post( "/api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
-                   
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
 
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+                countDownMgr.initCountDown();
+                // api.get('/api/web/time' , function( e ){
+                //     var start = new Date(e.data.time_start );
+                //     var now = new Date(e.data.time_now );
+                    
+                //     var dura = ~~( ( start - now ) / 1000 );
+                //     var d = ~~( dura/86400 );
+                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
+                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                //     var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                // });
 
                 break;
             case "teambuild":
@@ -1699,18 +1721,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
 
             case "countdown":
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
+                // api.get('/api/web/time' , function( e ){
+                //     var start = new Date(e.data.time_start );
+                //     var now = new Date(e.data.time_now );
                    
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
 
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+                //     var dura = ~~( ( start - now ) / 1000 );
+                //     var d = ~~( dura/86400 );
+                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
+                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                //     var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                // });
+                countDownMgr.initCountDown();
                 break;
 
             case "fuel":
@@ -1781,18 +1805,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     $(this).addClass('focus');
                 });
 
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
-                   
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+               countDownMgr.initCountDown();
 
 
                 api.get('/api/user' , function( e ){
