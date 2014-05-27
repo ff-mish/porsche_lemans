@@ -86,7 +86,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     // ======================================================================
     var rotateAnimate = function( $dom , current , total ,  startAngle ){
         current = current || 0;
-        var percent = Math.min( current / total , 1 ) || 0.5;
+        var percent = Math.min( current / total , 1 ) ;
         startAngle = startAngle / 180 * Math.PI || 0;
         LP.use('raphaeljs' , function( Raphael ){
             // Creates canvas 320 × 200 at 10, 50
