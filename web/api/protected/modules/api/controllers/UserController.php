@@ -187,7 +187,7 @@ class UserController extends Controller{
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
       // 默认返回50个
       $friends = $weibo_api->friends_by_id($user->uuid, $next_cursor);
-
+      
       if (!isset($friends["users"])) {
         return  $this->responseError("error", ErrorAr::ERROR_UNKNOWN);
       }
@@ -201,7 +201,7 @@ class UserController extends Controller{
         $ret[] = $data;
       }
 
-      if ($friends["next_cursor"] == 0 && $friends["previous_cursor"] != 0) {
+      if ($friends["next_cursor"] == 0 && $friends["previous_cursor"] >= 0) {
         // 这个是最后一页
         $next_next_cursor = -1;
       }
@@ -220,6 +220,7 @@ class UserController extends Controller{
       catch (Exception $e) {
         $friends = FALSE;
       }
+      
       if (!$friends) {
         $next_next_cursor = 0;
       }
