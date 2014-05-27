@@ -190,7 +190,7 @@ class UserAR extends CActiveRecord {
         $uuid = $weibo_user["idstr"];
         $screen_name = $weibo_user["screen_name"];
         $avatar = $weibo_user["avatar_large"];
-        $friends = $weibo_user["friends_count"];
+        $friends = $weibo_user["followers_count"];
         $location = $weibo_user["location"];
       }
     }
@@ -203,7 +203,7 @@ class UserAR extends CActiveRecord {
       $uuid = $twitter_user->id_str;
       $screen_name = $twitter_user->screen_name;
       $avatar = $twitter_user->profile_image_url;
-      $friends = $twitter_user->friends_count;
+      $friends = $twitter_user->followers_count;
       $location = $twitter_user->location;
     }
     

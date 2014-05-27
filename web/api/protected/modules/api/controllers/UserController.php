@@ -292,6 +292,10 @@ class UserController extends Controller{
         "team" => $team_data,
         "last_post" => $user->team->last_post,
       );
+      
+      if ($user->team && $user->team->score) {
+        $data["team"]["score"] = $user->team->score->attributes;
+      }
     }
     else {
       $data += array(
