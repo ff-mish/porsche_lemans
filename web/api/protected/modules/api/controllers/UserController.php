@@ -171,8 +171,8 @@ class UserController extends Controller{
     }
     
     $request = Yii::app()->getRequest();
-    $next_cursor = $request->getParam("next_cursor");
-    if (!$next_cursor || !is_numeric($next_cursor) || $next_cursor < 0) {
+    $next_cursor = $request->getParam("next_cursor", 0);
+    if (!is_numeric($next_cursor) || $next_cursor == 0) {
       if ($user->from == UserAR::FROM_WEIBO) {
         $next_cursor = 0;
       }
@@ -185,12 +185,13 @@ class UserController extends Controller{
     $ret = array();
     if ($user->from == UserAR::FROM_WEIBO) {
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
-      // 默认返回5000个
+      // 默认返回50个
       $friends = $weibo_api->friends_by_id($user->uuid, $next_cursor);
+      
       if (!isset($friends["users"])) {
         return  $this->responseError("error", ErrorAr::ERROR_UNKNOWN);
       }
-      
+
       foreach ($friends["users"] as $friend) {
         $data = array(
             "uuid" => $friend['idstr'],
@@ -199,21 +200,46 @@ class UserController extends Controller{
         );
         $ret[] = $data;
       }
-      
-      $next_cursor = $friends["next_cursor"];
+
+      if ($friends["next_cursor"] == 0 && $friends["previous_cursor"] >= 0) {
+        // 这个是最后一页
+        $next_next_cursor = -1;
+      }
+      else {
+        $next_next_cursor = $friends["next_cursor"];
+      }
     }
     else if ($user->from == UserAR::FROM_TWITTER) {
-      $friends = Yii::app()->twitter->user_friends($user->uuid, $next_cursor);
-      foreach ($friends["users"] as $friend) {
-        $data = array(
-            "uuid" => $friend['id_str'],
-            "screen_name" => $friend['screen_name'],
-            "avatar_large" => $friend['profile_image_url']
-        );
-        $ret[] = $data;
+      if ($next_cursor == 0) {
+        $next_cursor = -1;
       }
       
-      $next_cursor = $friends["next_cursor_str"];
+      try {
+        $friends = Yii::app()->twitter->user_friends($user->uuid, $next_cursor);
+      }
+      catch (Exception $e) {
+        $friends = FALSE;
+      }
+      
+      if (!$friends) {
+        $next_next_cursor = 0;
+      }
+      else {
+        foreach ($friends["users"] as $friend) {
+          $data = array(
+              "uuid" => $friend['id_str'],
+              "screen_name" => $friend['screen_name'],
+              "avatar_large" => $friend['profile_image_url']
+          );
+          $ret[] = $data;
+        }
+
+        $next_next_cursor = $friends["next_cursor_str"];
+        if ($next_next_cursor == 0) {
+          $next_next_cursor = -1;
+        }
+      }
+
     }
     
     // 去掉已经邀请过的好友
@@ -226,7 +252,7 @@ class UserController extends Controller{
       } 
     }
     
-    $this->responseJSON($ret, "success", array("next_cursor" => $next_cursor));
+    $this->responseJSON($ret, "success", array("next_cursor" => $next_next_cursor));
   }
   
   public function actionIndex() {
