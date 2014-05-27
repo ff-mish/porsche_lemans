@@ -261,16 +261,27 @@ class UserController extends Controller{
       $this->responseError("user is not login", ErrorAR::ERROR_NOT_LOGIN);
     }
     
-    $data = array(
-        "user" => $user,
-    );
+    $data["user"] = $user->attributes;
+    
+    if ($user->score) {
+      $data["user"]["score"] = $user->score->attributes;
+    }
     
     if ($user->team) {
       $team_data = array();
       foreach ($user->team as $key => $val) {
         $team_data[$key] = $val;
       }
-      $team_data["users"] = $user->team->users;
+      //$team_data["users"] = $user->team->users;
+      $users = array();
+      foreach ($user->team->users as $team_user) {
+        $tmp_user = $team_user->attributes;
+        if ($team_user->score) {
+          $tmp_user["score"] = $team_user->score->attributes;
+        }
+        $users[] = $tmp_user;
+      }
+      $team_data["users"] = $users;
       
       // 然后计算 user team 的排名
       $data["team_total"] = $user->team->getTotalTeam();
