@@ -1603,8 +1603,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         total += buff;
                     } ) ;
 
-                    console.log( total );
-                    if( total >= globalVideos.length / 5){
+                    if( total >= globalVideos.length / 10){
                         initComplete();
                         $.each( globalVideoInterval , function( i , intval ){
                             clearInterval( intval );
@@ -1622,7 +1621,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 $.each( globalVideos , function( i , buff){
                     total += buff;
                 } ) ;
-                if( total >= globalVideos.length / 5){
+                if( total >= globalVideos.length / 10){
                     initComplete();
                     $.each( globalVideoInterval , function( i , intval ){
                         clearInterval( intval );
@@ -1978,7 +1977,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // 
                     $('.team_name').html( team.name );
-                    $('#team-score').html( 'P' + data.team_position + ' / ' + data.team_total );
+                    $('#team-score').html( 'P' + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -2040,7 +2039,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             num:        space,
                             unit:       unit,
                             space:      space + unit}));
-                        speeds.push( user.speed );
+                        speeds.push( user.score ? user.score.speed : 0 );
                     } );
                     // render inviting user
                     $.each( data.inviting || [] , function( i , user ){
@@ -2074,6 +2073,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 								opacity: 1
 							} , 500);
 					});
+                    console.log( speeds );
                     $.each( speeds , function( i , speed ){
                         rotateAnimate( $('.member_speed').eq(i) , speed , 1 , 45 );
                     } );
