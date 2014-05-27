@@ -121,7 +121,7 @@ You can also invite other pilots to join your crew and increase your chance  to 
 <br><br>
 <span class="step-con-tit">Impact:</span> it is the number of followers of your team.
 <br><br>
-<span class="step-con-tit">Quality:</span>  it is the quality score of your tweets. To increase it you will need to tweet contents from the <span style="color:#f00;">Fuel</span> gallery.
+<span class="step-con-tit">Quality:</span>  it is the quality score of your tweets. To increase it you will need to tweet contents from the <span class="color">Fuel</span> gallery.
 <br><br>
 <span class="step-con-tit">Assiduity:</span> if you stay enough time on the platform, you will be able to answer to some Q&A from Porsche. Each good answer will increase the Assiduity.
 <br><br>

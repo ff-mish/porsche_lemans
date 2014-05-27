@@ -967,8 +967,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>\
                 </div>',
             title: '',
-            width: 860,
-            height: 450,
+            width: 760,
+            height: 408,
             onShow: function(){
                 // LP.use('jscrollpane' , function(){
                 //     $('.popup_invite_friend_list').jScrollPane();    
@@ -1120,7 +1120,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_dialog popup_post">\
             <div class="popup_dialog_msg">\
-                <textarea style="overflow:auto;">' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
+                <textarea style="overflow:auto;">' + _e('') + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\

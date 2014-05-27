@@ -325,22 +325,21 @@ body{background:#000;height: 100%;width: 100%}
 .popup_email .con-step{position: absolute;left: 30px;}
 .popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
-.popup_invite {position: relative; background:#000;width:860px;height:450px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
+.popup_invite {position: relative; background:#000;border:4px solid #ff0000;width:720px;height:333px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;}
-.popup_invite .popup_invite_friend_list{height: 350px;overflow: auto;}
-.popup_invite .friend_item {float:left;width:214px;margin:25px 0;height: 73px;overflow: hidden; }
+.popup_invite .popup_invite_friend_list{height: 218px;overflow: auto;}
+.popup_invite .friend_item {float:left;width:239px;margin:11px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
-.popup_invite .friend_item .avatar img{width: 73px;height: 73px;}
-.popup_invite .friend_item .name {font-size:16px;margin:10px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
+.popup_invite .friend_item .avatar img{width:50px;height:50px;}
+.popup_invite .friend_item .name {font-size:16px;margin:3px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
 .popup_invite .friend_item .send {font-size:14px;color:#ff0000;cursor: pointer;}
 .popup_invite .friend_item .send:hover {opacity:0.7;}
-.popup_invite .friend_item .btns {margin:0 0 0 83px;}
+.popup_invite .friend_item .btns {margin:0 0 0 60px;}
 .popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}
 .popup_invite .popup_invite_btns {text-align: center;margin:50px 0 0;}
 .popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 11px 80px;color:#ff0000;font-size:25px; }
-.popup_invite .popup_invite_btns a.disabled{color: gray; border-color: gray;}
 .popup_invite .popup_invite_btns a:hover {opacity:0.7;}
 .popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
 
@@ -488,7 +487,33 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_add{right:0px;left:auto;}
     .stand_chart{width: 510px;background-size: cover}
 }
-@media screen and (max-width:1200px){
+@media screen and (max-width:1300px), screen and (max-height: 900px){
+    .nav{left:0px;top:150px;}
+    .navicon {margin-left:30px;}
+    .post_link span {left:84px;}
+    .stand{width: 1030px;left: 200px;margin-left:0;}
+    .member_item {width: 220px;height:65px;}
+    .member_item img {width:65px;}
+    .member_name{width: 150px;padding-top:23px;}
+    .member_speed{margin-left:30px;margin-top:-7px;}
+    .memeber_space {font-size:45px;}
+    .member_add {width:220px;height:65px;line-height:65px;}
+    .stand_useritem {margin-bottom: 25px;}
+    .stand {top:50px;}
+    .stand_tweetitem{padding:0 20px;}
+    .stand_add{right:20px;top:60px;left:auto;}
+    .stand_del {left:170px!important;top:60px!important;}
+    .stand_chart{width: 510px;height:510px;background-size: cover}
+    .stand_chart_score {font-size:32px;left:195px;}
+    .team_name,.stand_tit {font-size:32px;}
+    .stand_tit {width:465px;height:60px;}
+    .stand_achivments {padding:20px 0 0;font-size:28px;}
+    .stand_tweet {padding-top:64px;}
+    .stand_tweet h2 {font-size:28px;}
+    .stand_posts {width:650px!important;margin-left:70px!important;}
+    .stand_achivmentsbox {width:281px!important;margin-right:45px!important;}
+}
+@media screen and (max-width:1200px), screen and (max-height: 850px){
     .nav{left:0px;top:150px;}
     .navicon {margin-left:30px;}
     .post_link span {left:84px;}
@@ -514,7 +539,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:218px!important;margin-right:45px!important;}
 }
-@media screen and (max-width:1000px){
+@media screen and (max-width:1000px), screen and (max-height: 700px){
     .nav{left:0px;top:100px;}
     .navicon {margin-left:30px;}
     .post_link span {left:84px;}
@@ -539,6 +564,37 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_tweet h2 {font-size:24px;}
     .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:218px!important;margin-right:45px!important;}
+}
+
+
+@media screen and (max-width:3000px){
+    .conut_down{width: 1443px;height: 189px;margin:0 auto;padding-left:20px;text-align: center;}
+    .conut_downitem{font-size: 130px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .conut_downinfo{font-size: 130px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+}
+
+@media screen and (max-width:1500px){
+    .conut_down{width: 1244px;height: 189px;margin:0 auto;padding-left:20px;text-align: center;}
+    .conut_downitem{font-size: 110px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .conut_downinfo{font-size: 110px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+}
+
+@media screen and (max-width:1400px){
+    .conut_down{width: 1158px;height: 189px;margin:0 auto;padding-left:20px;text-align: center;}
+    .conut_downitem{font-size: 100px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .conut_downinfo{font-size: 100px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+}
+
+@media screen and (max-width:1300px){
+    .conut_down{width: 1060px;height: 189px;margin:0 auto;padding-left:20px;text-align: center;}
+    .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+}
+
+@media screen and (max-width:1200px){
+    .conut_down{width: 900px;height: 168px;margin:0 auto;padding-left:20px;text-align: center;}
+    .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
 }
 
 /* fix twitter  */
