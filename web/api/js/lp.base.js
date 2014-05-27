@@ -3,7 +3,10 @@
  */
 LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     'use strict'
-    
+
+    if( $.browser.msie && $.browser.version <= 8 ){
+        $(document.body).addClass('ie8');
+    }
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
     function retweetMonitoring() {
@@ -89,7 +92,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             // Creates canvas 320 × 200 at 10, 50
             var width = $dom.width();
             var height = $dom.height();
-            var r = 35 , stockWidth = 10 , stockColor = "#ff0707";
+            var r = 35 , stockWidth = 10 , stockColor = COLOR;
 
             var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
@@ -108,7 +111,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             //         .attr("stroke-width" , stockWidth);
             var text = paper.text( width / 2 , height / 2 , "0 T/H" )
                 .attr({fill: "#fff",'font-size':'13px'});
-
 
 
             var now ;
@@ -175,6 +177,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 'fill': COLOR,
                 'stroke-width': 0
             });
+
 
             var rotateBlack = paper.rect(0 , 0 , width / 2 , width).attr({
                 'fill': '#000',
@@ -694,6 +697,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     // })();
 
 
+    var globalVideos = [];
+    var globalVideoInterval = [];
+
     var renderVideo  = (function(){
         var tpl = '<video id="#[id]" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"\
                 preload="auto"\
@@ -705,7 +711,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var vid = 0;
         return function( $wrap , videoFile , poster , cfg , cb ){
             var id = 'my_video_' + ( vid++ );
-
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
             var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
@@ -718,6 +723,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var v = this;
                     if( resize ){
                         $(window).resize(function(){
+                            if( v.isRemoved  ) return;
                             var w = $wrap.width();
                             var h = $wrap.height();
                             var vh = 0 ;
@@ -736,9 +742,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 "margin-left": ( w - vw ) / 2
                             });
                         }).trigger('resize');
+
+                        if( $.browser.msie && $.browser.version <= 8 ){
+                            setTimeout(function(){
+                                $(window).trigger('resize');
+                            } , 100);
+                        }
                     }
                     cb && cb.call( this );
                 } );
+                var index = globalVideos.length;
+                globalVideos[index] = 0;
+                globalVideoInterval[index] = setInterval( function(){
+                    globalVideos[index] = myVideo.bufferedPercent();
+                } , 100 );
+
+
+                myVideo.muted( true );
+                $wrap.data('video' , myVideo);
             });
         }
     })();
@@ -793,8 +814,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             for( var i = originArr.length - 1 ; i >= 0 ; i -- ){
                 var $col = $cols.eq( $cols.length - ( originArr.length - i ) );
                 var ch = (originArr[ i ] == 0 ? - ( ~~$col.data('max') + 1 ) : - originArr[ i ]) * height;
-                $col.css( "margin-top" , ch )
-                    .data('num' , originArr[ i ]);
+                $col.children().first().css( "margin-top" , ch )
+                    .parent().data('num' , originArr[ i ]);
             }
         }
         var reduce = function ( $dom ){
@@ -813,16 +834,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 !!(function( i ){
                     var ch = - nextArr[ i ] * height;
                     var $col = $cols.eq( $cols.length - ( nextArr.length - i ) );
+                    
                     if ( $col.data( 'num' ) != nextArr[ i ] ){
-
                         // change to it's last num
-                        $col.css('margin-top' , ch - height ).animate({
+                        $col.children().first().css('margin-top' , ch - height ).animate({
                                 "margin-top" : ch
                             } , 500 , '' , function(){
                                 if( ch == 0 ){
-                                    $(this).css('margin-top' , - (~~$(this).data('max') + 1) * height);
+                                    $(this).css('margin-top' , - (~~$(this).parent().data('max') + 1) * height);
                                 }
-                                $(this).data('num' , nextArr[ i ]);
+                                $(this).parent().data('num' , nextArr[ i ]);
                                 $dom.data('num' , next);
                             });
                     }
@@ -844,8 +865,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // start animate
                 setInterval(function(){
+                    if( window.aaa )return;
                     reduce( $doms.last() );
                 } , 1000);
+            },
+
+            initCountDown: function(){
+                 api.get('/api/web/time' , function( e ){
+                    var times = e.data.time_start.split(/[- :]/);
+                    var start = new Date(times[0] , times[1] - 1 , times[2], times[3], times[4], times[5]);
+                    times = e.data.time_now.split(/[- :]/);
+                    var now = new Date(times[0] , times[1] - 1 , times[2], times[3], times[4], times[5]);
+
+                    var dura = ~~( ( start - now ) / 1000 );
+                    var d = ~~( dura/86400 );
+                    var h = ~~( ( dura - d * 86400 ) / 3600 );
+                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                    var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
             }
         }
     })();
@@ -862,7 +901,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "/images/bg7.jpg" ,  {muted:1} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "" ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -937,7 +976,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             },
             onload: function() {
                 var panel = this;
-                var uTpl = '<div class="friend_item">\
+                var uTpl = '<div class="friend_item" data-uuid="#[uuid]">\
                         <div class="avatar"><img src="#[avatar]"></div>\
                         <div class="name">@#[name]</div>\
                         <div class="btns">\
@@ -958,14 +997,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                         var $list = panel.$panel.find('.popup_invite_friend_list ');
                         $.each( e.data , function( i , user ){
-                            $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name} ))
-                                .css({marginTop:-30 , opacity: 0})
+                            $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
+                                .css({top:-30 , opacity: 0 , 'position': 'relative'})
                                 .appendTo( $list )
                                 .delay( 100 * i )
                                 .animate({
-                                    marginTop: 0,
+                                    top: 0,
                                     opacity: 1
-                                } , 100);
+                                } , 100 , '' , function(){
+                                });
                         } );
 
                         setTimeout( function(){isLoading = false;} , 120 * e.data.length );
@@ -1027,14 +1067,35 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         panel.$panel.find('.loading').show();
                         // get user list
                         var users = [];
+                        var us = [];
                         $('.popup_invite_friend_list .selected:visible').each(function(){
                             users.push( '@' + $(this).data('name') );
+                            var $p = $(this).closest('.friend_item');
+                            us.push( {
+                                'avatar' : $p.find('.avatar img').attr('src'),
+                                'name' : $p.find('.name').html().replace('@' , ''),
+                                'uuid' : $p.data('uuid')
+                            } );
                         });
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
+                            $.each( us , function( i , u ){
+                                // add user to panel
+                                $(LP.format('<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
+                                    <div class="member_item ">\
+                                        <img src="#[avatar]" />\
+                                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=#[uuid]" data-a="cancel-invit">' + _e('Cancel Invit') + '</span></p>\
+                                    </div></div>' , u ))
+                                    .insertBefore( $('.teambuild_member .member_add').eq(0) )
+                                    .next()
+                                    .remove();
+                            } );
+                            
+
                             panel.close();
                         } , null ,  function(){
                             $btn.removeClass('disabled');
                             panel.$panel.find('.loading').hide();
+
                         } );
                     });
             },
@@ -1059,7 +1120,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_dialog popup_post">\
             <div class="popup_dialog_msg">\
-                <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
+                <textarea style="overflow:auto;">' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
@@ -1269,7 +1330,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         api.get('/api/media/list' , { page:page } , function( e ){
             $('.fuel .loading').hide();
-            // DEBUG.. render fuel item
+            //  render fuel item
             $.each( e.data || [] , function( i , data ){
               if (data["type"] == "video") {
                 data["video"] = 1;
@@ -1317,9 +1378,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $(this).parent().animate({
-            top: $(window).height(),
-            opacity: 0.5
+            top: $(window).height()
         } , 400 , '' , function(){
+           var video = $(this).find('.video-js')
+                .parent()
+                .data('video');
+            video.dispose();
+            video.isRemoved = true;
+
            $(this).remove();
         } )
     });
@@ -1398,7 +1464,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     // TODO ...
     LP.action('cancel-invit' , function( data ){
-
+        var $dom = $(this).closest('.teambuild_member ');
+        api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
+            $dom.children().fadeOut( function(){
+                $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
+            } );
+        });
     });
 
 
@@ -1471,7 +1542,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         },
         onComplete : function(){
-            initComplete();
+
+            // load all the video
+            var timer = setInterval(function(){
+                if( globalVideos.length == 0 ) return ;
+                var total = 0;
+                $.each( globalVideos , function( i , buff){
+                    total += buff;
+                } ) ;
+                if( total >= globalVideos.length ){
+                    setTimeout( initComplete , 1000 );
+                    $.each( globalVideoInterval , function( i , intval ){
+                        clearInterval( intval );
+                    } );
+                    clearInterval( timer );
+                }
+            } , 100);
         }
     });
 
@@ -1628,9 +1714,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
-        if( !LP.parseUrl().params.debug ){
-            bigVideoInit();
-        }
+        // if( $(document.body).data('page') )
+        bigVideoInit();
 
 
         var needTriggerTutr = false;
@@ -1638,29 +1723,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 var ratio = 516 / 893;
-                if( !LP.parseUrl().params.debug ){
-                    // show the big video
-                    renderVideo( $('#home_video') , "/videos/small" , "/images/bg7.jpg" ,  {ratio: ratio} , function(){
-                        $('#' + this.Q).css('z-index' , -1);
-                    } );
-                }
+                // show the big video
+                renderVideo( $('#home_video') , "/videos/small" , "" ,  {ratio: ratio} , function(){
+                    $('#' + this.Q).css('z-index' , 0);
+                } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
                     api.post( "/api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
-                   
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
 
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+                countDownMgr.initCountDown();
+                // api.get('/api/web/time' , function( e ){
+                //     var start = new Date(e.data.time_start );
+                //     var now = new Date(e.data.time_now );
+                    
+                //     var dura = ~~( ( start - now ) / 1000 );
+                //     var d = ~~( dura/86400 );
+                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
+                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                //     var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                // });
 
                 break;
             case "teambuild":
@@ -1693,18 +1778,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
 
             case "countdown":
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
+                // api.get('/api/web/time' , function( e ){
+                //     var start = new Date(e.data.time_start );
+                //     var now = new Date(e.data.time_now );
                    
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
 
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+                //     var dura = ~~( ( start - now ) / 1000 );
+                //     var d = ~~( dura/86400 );
+                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
+                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                //     var s = dura - d * 86400 - h * 3600 - m * 60;
+
+                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                // });
+                countDownMgr.initCountDown();
                 break;
 
             case "fuel":
@@ -1775,18 +1862,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     $(this).addClass('focus');
                 });
 
-                api.get('/api/web/time' , function( e ){
-                    var start = new Date(e.data.time_start );
-                    var now = new Date(e.data.time_now );
-                   
-                    var dura = ~~( ( start - now ) / 1000 );
-                    var d = ~~( dura/86400 );
-                    var h = ~~( ( dura - d * 86400 ) / 3600 );
-                    var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                    var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                    countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
+               countDownMgr.initCountDown();
 
 
                 api.get('/api/user' , function( e ){
@@ -1894,7 +1970,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         html.push( LP.format( utpl_inviting ,{
                             avatar:     user.avatar,
                             name:       user.screen_name,
-                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-a="cancel-invit">' + _e('Cancel Invit') + '</span>' : ''
+                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=' + user.uuid + '" data-a="cancel-invit">' + _e('Cancel Invit') + '</span>' : ''
                         } ) );
                     } );
 
@@ -1929,7 +2005,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     for( var i = 0 ; i < data.team_star ; i++ ){
                         ahtml.push('<p></p>');
                     }
+
                     $('.stand_achivmentsbox').html( ahtml.join("") );
+                    $('.stand_achivments').fadeIn();
                     //data.last_post || 
                     var posts =  data.last_post || [];
                     // render post
@@ -1941,6 +2019,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var postWidth = 345;
                     $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
                         .data('index' , 0 );
+                    $('.stand_tweet').fadeIn();
                     
                     // redner next page
                     $('.stand_add').click(function(){
@@ -1976,18 +2055,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     });
 
                     // hover to show the leave team
-                    $('.member_item').hover(function(){
+                    $('.teambuild_members').delegate( '.member_item' , 'mouseenter' , function(){
                         if(!$(this).find('.member-leave,.cancel-invit').length) return;
-                        $(this).find('.member-leave,.cancel-invit').fadeIn()
+                        $(this).find('.member-leave,.cancel-invit').stop( true , true ).fadeIn()
                             .end()
                             .find('.member_name_span')
                             .hide();
-                    } , function(){
+                    })
+                    .delegate('.member_item' , 'mouseleave' , function(){
                         $(this).find('.member-leave,.cancel-invit').hide()
                             .end()
                             .find('.member_name_span')
+                            .stop( true , true )
                             .fadeIn();
-                    });
+                    })
 
                     // render stand_chart
                     var score = team.score || {};

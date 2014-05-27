@@ -62,7 +62,7 @@
             }
             for ( ; i < len ; i++ ) {
                 for( var k in arguments[ i ] ){
-                    if( arguments[ i ] && ( arguments[ i ].jQuery || arguments[ i ] instanceof HTMLElement ) ){
+                    if( arguments[ i ] && ( arguments[ i ].jQuery || arguments[ i ].tagName) ){
                         o[ k ] = arguments[ i ][ k ];
                     } else if( LP.isObject( arguments[ i ][ k ] ) )
                         o[ k ] = LP.mix( {} , arguments[ i ][ k ] );

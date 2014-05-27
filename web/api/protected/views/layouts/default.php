@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <title>PORSCHE</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
@@ -125,5 +126,18 @@
         document.execCommand("BackgroundImageCache", false, true);
     </script>
     <![endif]-->
+
+    <!--[if lt IE 9]>
+    <style type="text/css">
+    	body .teambuild_member{position:relative;}
+    	body .member_add{
+    	background: none;
+    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    /* For IE 8*/
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+z-index:1; 
+behavior: url(/css/iecss3.htc); }
+    </style>
+	<![endif]-->
 </body>
 </html>

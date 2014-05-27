@@ -25,7 +25,7 @@
 			<div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
 		</div>
         <div id="home_video">
-            <a href="#" data-a="skip-intro" style="float: right;margin: 20px;font-size: 24px;text-decoration: underline;">Skip intro</a>
+            <a href="#" data-a="skip-intro" style="position:relative;z-index:1; float: right;margin: 20px;font-size: 24px;text-decoration: underline;">Skip intro</a>
         </div>
 		<div id="winners-prizes">
 			<div class="popup_close"></div>
