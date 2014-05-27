@@ -819,7 +819,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         }
         var reduce = function ( $dom ){
-            var height = $dom.data( 'height');
+            var height = $dom.height();
             var num = $dom.data('num');
             var next = num - 1 < 0 ? $dom.data('max') : num - 1;
             var nextArr = (next + "").split("");
@@ -858,6 +858,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         return {
             init: function( $doms , maxs , origins ){
+
+                $(window).resize(function(){
+                    $doms.each( function( i ){
+                        initCol( $(this) , maxs[i] , $(this).data('num') );
+                    } );
+                });
+
                 //$doms = $doms.eq(0);
                 $doms.each( function( i ){
                     initCol( $(this) , maxs[i] , origins[i] );
@@ -865,7 +872,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // start animate
                 setInterval(function(){
-                    if( window.aaa )return;
                     reduce( $doms.last() );
                 } , 1000);
             },
@@ -1497,6 +1503,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 	var isComplete = false;
 	var initComplete = function(){
 		if(isComplete) return;
+        isComplete = true;
 		$('.loading-wrap').fadeOut();
 
 		/* for animation */
@@ -1556,12 +1563,25 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $('.loading-percentage').html(per+'%');
             $('.loading-bar').css({'width':per+'%'});
             if(per == 100) {
-                initComplete();
-                isComplete = true;
+                var timer = setInterval(function(){
+                    if( globalVideos.length == 0 ) return ;
+                    var total = 0;
+                    $.each( globalVideos , function( i , buff){
+                        total += buff;
+                    } ) ;
+
+                    console.log( total );
+                    if( total >= globalVideos.length - 0.1 ){
+                        initComplete();
+                        $.each( globalVideoInterval , function( i , intval ){
+                            clearInterval( intval );
+                        } );
+                        clearInterval( timer );
+                    }
+                } , 100);
             }
         },
         onComplete : function(){
-
             // load all the video
             var timer = setInterval(function(){
                 if( globalVideos.length == 0 ) return ;
@@ -1569,8 +1589,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 $.each( globalVideos , function( i , buff){
                     total += buff;
                 } ) ;
-                if( total >= globalVideos.length ){
-                    setTimeout( initComplete , 1000 );
+                if( total >= globalVideos.length - 0.1 ){
+                    initComplete();
                     $.each( globalVideoInterval , function( i , intval ){
                         clearInterval( intval );
                     } );
