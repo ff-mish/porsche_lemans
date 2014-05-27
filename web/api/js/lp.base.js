@@ -1024,7 +1024,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
                         >= $('.teambuild_member .member_add').length ){
-                        panel.$panel.find('.popup_error').html(_e(' you can\'t invite too many people '));
+                        panel.$panel.find('.popup_error').html(_e(' You can\'t invite too many people '));
                         setTimeout(function(){panel.$panel.find('.popup_error').html('')} , 5000);
                         return false;
                     }

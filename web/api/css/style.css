@@ -70,7 +70,7 @@ body{background:#000;height: 100%;width: 100%}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
 .navicon {color:#ff0707;border:2px solid #ff0707;background:url('../images/icon_plus.png') no-repeat center;height:45px;width:45px; margin: 0 0 50px;display: block;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
 .navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);}
-.nav p{padding-left:55px;height: 35px;}
+.nav p{padding-left:55px;height: 35px;color:#777;}
 .nav p a{color:#717171}
 .nav p a:hover {color:#fff;}
 .nav .on{background:url('../images/navicon2.png') no-repeat 0 -107px ;}
@@ -98,7 +98,7 @@ body{background:#000;height: 100%;width: 100%}
 .calltotxt{line-height: 60px;text-align: center;}
 .callto_close{background: url('../images/callto_close.png') no-repeat;width: 20px;height: 20px;position: absolute;right: 10px;top: 8px;}
 
-.skipintro{position: fixed;font-size:18px;text-decoration: underline;right: 25px;top: 120px;z-index:10;}
+.skipintro{position: fixed;font-size:14px;text-decoration: underline;right: 36px;top: 104px;z-index:10;}
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
 .home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}
@@ -325,21 +325,21 @@ body{background:#000;height: 100%;width: 100%}
 .popup_email .con-step{position: absolute;left: 30px;}
 .popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
-.popup_invite {position: relative; background:#000;border:4px solid #ff0000;width:720px;height:333px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
-.popup_invite .popup_close {top:15px;right:15px;}
-.popup_invite .popup_invite_friend_list{height: 218px;overflow: auto;}
+.popup_invite {position: relative; background:#000;background:rgba(0,0,0,0.7);border:1px solid #ff0000;width:720px;height:390px;margin-top:60px;padding:37px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
+.popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
+.popup_invite .popup_invite_friend_list{height: 283px;overflow: auto;}
 .popup_invite .friend_item {float:left;width:239px;margin:11px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .avatar img{width:50px;height:50px;}
-.popup_invite .friend_item .name {font-size:16px;margin:3px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
-.popup_invite .friend_item .send {font-size:14px;color:#ff0000;cursor: pointer;}
+.popup_invite .friend_item .name {font-size:14px;margin:3px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
+.popup_invite .friend_item .send {font-size:13px;color:#ff0000;cursor: pointer;}
 .popup_invite .friend_item .send:hover {opacity:0.7;}
 .popup_invite .friend_item .btns {margin:0 0 0 60px;}
 .popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}
 .popup_invite .popup_invite_btns {text-align: center;margin:50px 0 0;}
-.popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 11px 80px;color:#ff0000;font-size:25px; }
+.popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 7px 40px;color:#ff0000;font-size:23px; }
 .popup_invite .popup_invite_btns a:hover {opacity:0.7;}
 .popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
 
@@ -388,7 +388,7 @@ body{background:#000;height: 100%;width: 100%}
 
 
 .team_name { border-radius: 4px;padding:0 5px; background: none;color: #fff;border: none;outline: none;font-size:38px;text-transform: uppercase;}
-.team_name_tip {line-height: 2em;display: none; position: absolute;color:#fff;left: 6px;top:40px;font-size: 11px;}
+.team_name_tip {line-height: 2em;display: none; position: absolute;color:#fff;left: 6px;top:35px;font-size: 11px;}
 
 .team_name.focus{background: red;}
 .twitter .team_name.focus{background: blue;}
@@ -417,6 +417,7 @@ body{background:#000;height: 100%;width: 100%}
     .conut_tips{font-size: 28px;color:#fff;}
     .conut_down{width: 580px;height: 110px}
     .conut_downinfo{font-size: 50px;margin-right:20px;}
+    .conut_downinfo:last-child {margin-right:0!important;}
     .conut_downitem{font-size: 50px}
     .count .home_share{margin-top: 290px}
     .count .home_winners{margin-top:490px;}
@@ -491,7 +492,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .nav{left:0px;top:150px;}
     .navicon {margin-left:30px;}
     .post_link span {left:84px;}
-    .stand{width: 1030px;left: 200px;margin-left:0;}
+    .stand{width: 1030px;left: 220px;margin-left:0;}
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
@@ -507,17 +508,17 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_chart_score {font-size:32px;left:195px;}
     .team_name,.stand_tit {font-size:32px;}
     .stand_tit {width:465px;height:60px;}
-    .stand_achivments {padding:20px 0 0;font-size:28px;}
+    .stand_achivments {padding:20px 0 20px 0;font-size:28px;}
     .stand_tweet {padding-top:64px;}
     .stand_tweet h2 {font-size:28px;}
     .stand_posts {width:650px!important;margin-left:70px!important;}
     .stand_achivmentsbox {width:281px!important;margin-right:45px!important;}
 }
-@media screen and (max-width:1200px), screen and (max-height: 850px){
+@media screen and (max-width:1200px), screen and (max-height: 800px){
     .nav{left:0px;top:150px;}
     .navicon {margin-left:30px;}
     .post_link span {left:84px;}
-    .stand{width: 930px;left: 158px;margin-left:0;}
+    .stand{width: 980px;left: 220px;margin-left:0;}
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
@@ -530,10 +531,10 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_add{right:20px;top:0;left:auto;}
     .stand_del {left:170px!important;top:0px!important;}
     .stand_chart{width: 410px;height:410px;background-size: cover}
-    .stand_chart_score {left:97px;font-size:28px;left:110px;}
+    .stand_chart_score {left:97px;font-size:28px;left:155px;}
     .team_name,.stand_tit {font-size:28px;}
     .stand_tit {width:465px;height:60px;}
-    .stand_achivments {padding:0;font-size:24px;}
+    .stand_achivments {padding:15px 0;font-size:24px;}
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
     .stand_posts {width:458px!important;margin-left:0!important;}
