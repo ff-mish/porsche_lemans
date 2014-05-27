@@ -470,7 +470,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     case 2:
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
-                        renderTure( off.top , off.left - 20 , 566 , 440 );
+                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() , $('.stand_tit').height() + $('.teambuild_members').height() );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
                             .css({left: off.left + 560 , top: off.top })
@@ -503,10 +503,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() + 20 , 170 );
+                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() , $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: 387 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
                         break;
                     case 5:
@@ -965,11 +965,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             content: '<div class="popup_invite">\
                     <div class="popup_close"></div>\
                     <div class="popup_invite_friend_list"></div>\
+                    <div class="loading-wrap"><div class="loading"></div></div>\
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns" style="position:relative;">\
                         <p class="popup_error">&nbsp;</p>\
-                        <a href="javascript:void(0);" class="disabled">' + _e('Ok') + '</a> \
-                        <p class="loading" style="position:absolute;width: 70px;height70px;display: none;left: 50%;top: 25px;margin-left: 100px;"></p>\
+                        <a href="javascript:void(0);" class="disabled">' + _e('Ok') + '</a>\
                     </div>\
                 </div>',
             title: '',
@@ -995,26 +995,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 var loadFriends = function( page ){
                     isLoading = true;
-                    panel.$panel.find('.loading').show();
+                    panel.$panel.find('.loading-wrap').show();
                     // load user list from sina weibo or twitter
                     api.get("/api/user/friends" , next_cursor == -1 ? '' : { next_cursor: next_cursor } , function( e ){
                         next_cursor = e.ext.next_cursor;
-                        panel.$panel.find('.loading').hide();
+                        panel.$panel.find('.loading-wrap').hide();
 
                         var $list = panel.$panel.find('.popup_invite_friend_list ');
                         $.each( e.data , function( i , user ){
-                            $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
-                                .css({top:-30 , opacity: 0 , 'position': 'relative'})
-                                .appendTo( $list )
-                                .delay( 100 * i )
-                                .animate({
-                                    top: 0,
-                                    opacity: 1
-                                } , 100 , '' , function(){
-                                });
+                            var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
+                                .css({top:-30 , opacity: 0 , 'position': 'relative'});
+                            setTimeout(function(){
+                               $friend.appendTo( $list )
+                                    .animate({
+                                        top: 0,
+                                        opacity: 1
+                                    } , 100);
+                           } , i * 100 );
                         } );
 
-                        setTimeout( function(){isLoading = false;} , 120 * e.data.length );
+                        setTimeout( function(){isLoading = false;} , 100 * e.data.length );
                     } , null, function(){
                         
                     });
@@ -1070,7 +1070,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         if( $(this).hasClass('disabled') ) return false;
                         var $btn = $(this).addClass('disabled');
 
-                        panel.$panel.find('.loading').show();
+                        panel.$panel.find('.loading-wrap').show();
                         // get user list
                         var users = [];
                         var us = [];
@@ -1493,6 +1493,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
             $dom.children().fadeOut( function(){
                 $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
+                    .removeClass('stand_inviting');
             } );
         });
     });
