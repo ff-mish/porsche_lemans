@@ -98,7 +98,8 @@ body{background:#000;height: 100%;width: 100%}
 .calltotxt{line-height: 60px;text-align: center;}
 .callto_close{background: url('../images/callto_close.png') no-repeat;width: 20px;height: 20px;position: absolute;right: 10px;top: 8px;}
 
-.skipintro{position: fixed;font-size:14px;text-decoration: underline;right: 36px;top: 104px;z-index:10;}
+.skipintro{position: fixed;font-size:14px;right: 36px;top: 104px;z-index:10;}
+.skipintro a{text-decoration: underline;}
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
 .home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}

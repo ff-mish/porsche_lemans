@@ -532,6 +532,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 var $input = this.$panel.find('input').focus(function(){
                                     $tip.html('');
                                 });
+
+                                // init place holder
+                                var $input = panel.$panel.find('input');
+                                if( $input.get(0).placeholder === undefined ){
+                                    $input.val( $input.attr('placeholder') )
+                                        .focus(function(){
+                                            if( this.value == $input.attr('placeholder') ){
+                                                this.value = '';
+                                            }
+                                        })
+                                        .blur(function(){
+                                            if( !this.value ){
+                                                this.value = $input.attr('placeholder');
+                                            }
+                                        });
+                                }
+                                // init tutor place holder
+
                                 var $tip = this.$panel.find('.error-tip');
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
 
@@ -859,7 +877,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         return {
             init: function( $doms , maxs , origins ){
 
-                $(window).resize(function(){
+                $(window).unbind('resize.countdown').bind('resize.countdown' , function(){
                     $doms.each( function( i ){
                         initCol( $(this) , maxs[i] , $(this).data('num') );
                     } );
@@ -891,6 +909,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
                 });
+
+                setTimeout(function(){
+                    countDownMgr.initCountDown();
+                } , 30 * 1000);
             }
         }
     })();
@@ -1369,27 +1391,32 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('legal-mentions' , function( data ){
         // fix scroll
-        $('#legal-notice').fadeIn( function(){
-            // if( !this.getAttribute('init') ){
-            //     this.setAttribute('init' , 1);
-            //     LP.use('jscrollpane' , function(){
-            //         $('.legal-con').jScrollPane();    
-            //     });
-            // }
-        } );
+        // $('#legal-notice').fadeIn( function(){
+        //     // if( !this.getAttribute('init') ){
+        //     //     this.setAttribute('init' , 1);
+        //     //     LP.use('jscrollpane' , function(){
+        //     //         $('.legal-con').jScrollPane();    
+        //     //     });
+        //     // }
+        // } );
 		renderVideo( $('<div></div>').css({
-			"position": "fixed",
+			"position": "absolute",
 			"z-index": "-1",
 			"top": "0",
 			"left": "0",
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#legal-notice').css('background' , 'none') ) , "/videos/index" , "" ,  {muted:1} );
+		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "" ,  {muted:1} , function(){
+            setTimeout(function(){
+                $('#legal-notice').fadeIn();
+                $(window).trigger('resize');
+            } , 200);
+        });
     });
 
 	LP.action('winners-prizes' , function( data ){
-		$('#winners-prizes').fadeIn();
+		
 		renderVideo( $('<div></div>').css({
 			"position": "fixed",
 			"z-index": "-1",
@@ -1398,13 +1425,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} );
+		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} , function(){
+            setTimeout(function(){
+                $('#winners-prizes').fadeIn();
+                $(window).trigger('resize');
+            } , 200);
+        } );
 	});
 
     LP.action('skip-intro' , function(data){
-        $(this).parent().animate({
-            top: $(window).height()
-        } , 400 , '' , function(){
+        $('#home_video').fadeOut(function(){
            var video = $(this).find('.video-js')
                 .parent()
                 .data('video');
@@ -1412,7 +1442,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             video.isRemoved = true;
 
            $(this).remove();
-        } )
+        } );
     });
 
     LP.action('leaveteam' , function( e ){
@@ -1862,8 +1892,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var dataCon = $("#data-stand");
                 var isInvited = !!parseInt(dataCon.attr("data-is_invited"));
                 if ( isInvited ) {
-                  LP.triggerAction('invite_box', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id")});
+                   LP.triggerAction('invite_box', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id")});
                 }
+
+
 
                 // init hover event
                 $('.stand_chart_speed,.stand_chart_quality,.stand_chart_assiduite,.stand_chart_impact')

@@ -469,7 +469,7 @@ define(function( require , exports , model ){
                 if (o.onBeforeClose && o.onBeforeClose.call(t) === false)
                     return;
                 t.isVisible = false;
-                t.$panel.fadeOut(function(){
+                t.$panel.fadeOut( 1000 , function(){
                     if (o.destroy) {
                         t.$panel.remove();
                     }
@@ -511,11 +511,10 @@ define(function( require , exports , model ){
                 }*/
                 // LEGACY ----------
                 // fade out
-                t.$panel.find('.popup_dialog')
+                t.$panel.find('.lpn_panel')
                     .animate({
-                        marginTop: '50%',
-                        opacity: 0.4
-                    } , 500 , 'easeOutQuart' , function(){
+                        marginTop: '50%'
+                    } , 1000 , 'easeOutQuart' , function(){
                         o.onClose && o.onClose.call(t, status);
                     });
                 

@@ -119,13 +119,13 @@ outline: none !important;
 #legal-notice .popup_close {right:20px;top:20px;}
 .legal-con{ padding: 20px 0px; position: absolute;width: 100%; top: 140px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;}
 .legal-con .intro {font-size:18px;}
-.legal-left{float: left; width: 40%;margin-right: 6%;margin-left: 7%;}
-.legal-right{float: left; width: 40%;}
+.legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
+.legal-right{float: left; width: 35%;}
 
-#winners-prizes {position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; }
+#winners-prizes {text-align: center; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; }
 #winners-prizes h2{text-align: center;font-size: 40px;padding: 80px 30px;color:#fff;}
 #winners-prizes .popup_close {right:20px;top:20px;}
-.winners-icon {background: url(../images/winner_prizes.png) no-repeat;width:455px;height:433px;margin:0 auto;}
+.winners-icon {width: 50%;max-width: 455px;}
 .winners-prizes-con { margin:30px auto 0 auto;font-size:22px;width: 90%;max-width:1100px;text-align:center;line-height: 150%;color:#fff;}
 
 
@@ -158,7 +158,10 @@ outline: none !important;
 .popup_invite .popup_error{height: 35px;line-height: 35px;color: red;font-size: 16px;}
 
 
-.footer-icon{position: absolute;height: 23px;width: 20px; left: -4px; top:0;}
+.footer-icon{position: absolute;height: 23px;width: 20px; left: 2px; top:0;display: none;}
+.footer_link{background: none;}
+body[data-page="stand"] .footer_link{background: url('../images/footer_link.png') no-repeat;}
+
 
 .tutr-step{display: none;position: relative;z-index: 5;}
 .tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.6;position: absolute;filter: alpha(opacity=60);}
