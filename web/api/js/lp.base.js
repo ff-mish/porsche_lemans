@@ -994,10 +994,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
 
                 var loadFriends = function( page ){
+                    if( next_cursor == -1 ) return;
                     isLoading = true;
                     panel.$panel.find('.loading-wrap').show();
                     // load user list from sina weibo or twitter
-                    api.get("/api/user/friends" , next_cursor == -1 ? '' : { next_cursor: next_cursor } , function( e ){
+                    api.get("/api/user/friends" , next_cursor == -2 ? '' : { next_cursor: next_cursor } , function( e ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
@@ -1024,7 +1025,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 var hasMore = true;
                 var isLoading = false;
-                var next_cursor = -1;
+                var next_cursor = -2;
                 loadFriends( );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
