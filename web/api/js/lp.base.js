@@ -1604,7 +1604,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     } ) ;
 
                     console.log( total );
-                    if( total >= globalVideos.length - 0.1 ){
+                    if( total >= globalVideos.length / 5){
                         initComplete();
                         $.each( globalVideoInterval , function( i , intval ){
                             clearInterval( intval );
@@ -1622,7 +1622,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 $.each( globalVideos , function( i , buff){
                     total += buff;
                 } ) ;
-                if( total >= globalVideos.length - 0.1 ){
+                if( total >= globalVideos.length / 5){
                     initComplete();
                     $.each( globalVideoInterval , function( i , intval ){
                         clearInterval( intval );
