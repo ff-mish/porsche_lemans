@@ -36,9 +36,8 @@
         <div class="stand_tit">
           <span style="float:right" id="team-score"></span>
           <span class="team_name" contenteditable="true"></span>
-          <div class="stand_chart_tip" style="width: auto;left: 36px;">
+          <div class="team_name_tip">
 			 Edit team name
-			 <span>◆</span>
 		  </div>
           
         </div>
@@ -46,13 +45,13 @@
         <div class="teambuild_members cs-clear">
 			</div>
 			<!--  -->
-			<div class="stand_achivments cs-clear">
+			<div class="stand_achivments cs-clear" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1400" data-time="500" data-easing="easeOutQuart">
 				<h2 class="fl">Achievements</h2>
 				<div class="stand_achivmentsbox">
 				</div>
 			</div>
 			<!--  -->
-			<div class="stand_tweet">
+			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
 				<a class="stand_del disabled"><img src="/images/stand_del.png"></a>
 				<a class="stand_add"><img src="/images/stand_add.png"></a>
 				<h2 class="fl">Lastest Posts</h2>
