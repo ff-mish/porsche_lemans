@@ -292,7 +292,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                     paper.path( ypath.join("") ).attr(pathAttr).attr({'stroke-width': 1});;
 
-                    paper.text( ystart[0] , ystart[1] - 20 , _e('Speed t/h') )
+                    paper.text( ystart[0] , ystart[1] - 20 , _e('Speed') )
                         .attr( textAttr );
                     paper.text( yend[0] , yend[1] + 20  , _e('Assiduite') )
                         .attr( textAttr );
@@ -874,9 +874,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         }
 
+        var interval = null;
         return {
             init: function( $doms , maxs , origins ){
-
+                clearInterval( interval );
                 $(window).unbind('resize.countdown').bind('resize.countdown' , function(){
                     $doms.each( function( i ){
                         initCol( $(this) , maxs[i] , $(this).data('num') );
@@ -889,7 +890,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 } );
 
                 // start animate
-                setInterval(function(){
+                interval = setInterval(function(){
                     reduce( $doms.last() );
                 } , 1000);
             },

@@ -11,12 +11,12 @@
           <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span><?=Yii::t('lemans','Make a tweet')?></span></div>
           <p class="disabled"><?=Yii::t('lemans','The Race')?></p>
           <p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
-          <p class="on"><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
+          <p class="on"><?=Yii::t('lemans','My Stand')?></p>
 		  <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
           <p> &nbsp; </p>
           <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
       </div>
-      <div class="stand_bg" style="padding-top:280px;">
+      <div class="conut_down_wrap">
       	<div class="conut_down cs-clear" data-fadein>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">h</span>
