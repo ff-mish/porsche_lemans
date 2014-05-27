@@ -1480,7 +1480,8 @@ class SaeTClientV2
 		$params['count'] = $count;
 		$params['uid'] = $uid;
 
-		return $this->oauth->get( 'friendships/friends', $params );
+		$results = $this->oauth->get( 'friendships/friends', $params );
+    return $results;
 	}
 	
 	

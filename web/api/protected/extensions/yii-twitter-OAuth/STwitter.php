@@ -355,7 +355,6 @@ class STwitter extends CApplicationComponent {
     $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
     
     $twitter = $this->_getTwitter();
-    
     $code = $twitter->request("GET", $twitter->url("1.1/friends/list"), array("user_id" => $uid, "cursor" => $next_cursor));
     
     if ($code == 200) {
