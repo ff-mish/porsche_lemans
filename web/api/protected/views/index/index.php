@@ -7,7 +7,7 @@
 <div class="page pagebg2">
   <div class="home_txt"></div>
   <div class="home_share">
-    <div class="home_winners">Winners prizes</div>
+    <div class="home_winners" data-a="winners-prizes">Winners prizes</div>
 
     <a href="<?php echo UserAR::weibo_login_url() ?>" class="home_weibo"></a>
     <a href="<?php echo UserAR::twitter_login_url()  ?>" class="home_twitter"></a>

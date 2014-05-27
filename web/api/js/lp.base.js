@@ -470,10 +470,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     case 2:
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() , $('.stand_tit').height() + $('.teambuild_members').height() );
+                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , $('.stand_tit').height() + $('.teambuild_members').height() );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css({left: off.left + 560 , top: off.top })
+                            .css({left: off.left + $('.stand_tit').width() + 60 , top: off.top })
                             .fadeIn();
                         break;
                     case 3:
@@ -513,6 +513,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         if( isNoAchivmentsbox ){
                             $('.stand_achivments .stand_achivmentsbox').html('');
                         }
+                        $('.tutr-step-tip4').fadeOut();
                         LP.panel({
                             title: '',
                             content: '<div class="popup_box popup_dialog popup_email" >\
