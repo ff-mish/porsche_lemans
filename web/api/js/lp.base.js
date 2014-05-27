@@ -2153,7 +2153,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var score = team.score || {};
                     $('.stand_chart_score').html( (score.average || 0) + 'km/h' );
                     coordinate.init( $('.stand_chart') , function(){
-                        coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduite || 0 );
+                        coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduity || 0 );
                     } );
                         
                 });
