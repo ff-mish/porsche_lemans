@@ -892,7 +892,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     var bigVideoInit = function(){
         var ratio = 516 / 893;
-
+		var videoname = $('body').data('page');
         renderVideo( $('<div></div>').css({
             "position": "fixed",
             "z-index": "-1",
@@ -901,7 +901,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/small" , "" ,  {muted:1} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "" ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -967,8 +967,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>\
                 </div>',
             title: '',
-            width: 860,
-            height: 450,
+            width: 760,
+            height: 408,
             onShow: function(){
                 // LP.use('jscrollpane' , function(){
                 //     $('.popup_invite_friend_list').jScrollPane();    
@@ -1024,7 +1024,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
                         >= $('.teambuild_member .member_add').length ){
-                        panel.$panel.find('.popup_error').html(_e(' you can\'t invite too many people '));
+                        panel.$panel.find('.popup_error').html(_e(' You can\'t invite too many people '));
                         setTimeout(function(){panel.$panel.find('.popup_error').html('')} , 5000);
                         return false;
                     }
@@ -1120,7 +1120,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_dialog popup_post">\
             <div class="popup_dialog_msg">\
-                <textarea style="overflow:auto;">' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
+                <textarea style="overflow:auto;">' + _e('') + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
@@ -1370,10 +1370,28 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             //     });
             // }
         } );
+		renderVideo( $('<div></div>').css({
+			"position": "fixed",
+			"z-index": "-1",
+			"top": "0",
+			"left": "0",
+			"height": "100%",
+			"width": "100%",
+			"overflow": "hidden"
+		}).addClass('videobg').appendTo( $('#legal-notice').css('background' , 'none') ) , "/videos/index" , "" ,  {muted:1} );
     });
 
 	LP.action('winners-prizes' , function( data ){
 		$('#winners-prizes').fadeIn();
+		renderVideo( $('<div></div>').css({
+			"position": "fixed",
+			"z-index": "-1",
+			"top": "0",
+			"left": "0",
+			"height": "100%",
+			"width": "100%",
+			"overflow": "hidden"
+		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} );
 	});
 
     LP.action('skip-intro' , function(data){
@@ -1415,6 +1433,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         api.get("/api/user/leaveteam", function ( e ) {
                            //TODO:: 动画效果
                            panel.close("fast");
+							window.location.reload();
                         });
                     });
             }
@@ -1609,12 +1628,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // init #legal-notice
         $('#legal-notice .popup_close').click(function(){
-            $('#legal-notice').fadeOut();
+            $('#legal-notice').fadeOut(function(){
+				$('#legal-notice .videobg').remove();
+			});
         })
 
 		// init #legal-notice
 		$('#winners-prizes .popup_close').click(function(){
-			$('#winners-prizes').fadeOut();
+			$('#winners-prizes').fadeOut(function(){
+				$('#winners-prizes .videobg').remove();
+			});
 		});
 
 
@@ -2016,13 +2039,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
                     } );
 
-                    var postWidth = 345;
+                    var postWidth = $('.stand_posts').width() / 2 + 21;
                     $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
                         .data('index' , 0 );
                     $('.stand_tweet').fadeIn();
                     
                     // redner next page
                     $('.stand_add').click(function(){
+						console.log(postWidth);
                         if($(this).hasClass('disabled') ) return;
                         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
                         >= $('.stand_posts_inner').width()) return;
