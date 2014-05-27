@@ -35,7 +35,7 @@
         
         <div class="stand_tit">
           <span style="float:right" id="team-score"></span>
-          <span class="team_name" spellcheck="false" contenteditable="true"></span>
+          <span class="team_name" style="-webkit-user-select: initial;" spellcheck="false" contenteditable="true"></span>
           <div class="stand_chart_tip" style="width: auto;left: 36px;">
 			 Edit team name
 			 <span>◆</span>
