@@ -28,8 +28,7 @@
 			<div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
 		</div>
         <div id="home_video">
-            <span class="skipintro"><a href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a> 
-               &nbsp;&nbsp;&nbsp; <span style="font-size: 12px;"><?=Yii::t('lemans','Mission 2014. Our Return.')?></span></span>
+            <a class="skipintro" href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a>
         </div>
 		<div id="winners-prizes">
 			<div class="popup_close"></div>

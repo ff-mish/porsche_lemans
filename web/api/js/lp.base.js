@@ -294,7 +294,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     paper.text( ystart[0] , ystart[1] - 20 , _e('Speed') )
                         .attr( textAttr );
-                    paper.text( yend[0] , yend[1] + 20  , _e('Assiduite') )
+                    paper.text( yend[0] , yend[1] + 20  , _e('Assiduity') )
                         .attr( textAttr );
 
 
@@ -2151,7 +2151,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // render stand_chart
                     var score = team.score || {};
-                    $('.stand_chart_score').html( (score.average || 0) + 'Km/h' );
+                    $('.stand_chart_score').html( (score.average || 0) + 'km/h' );
                     coordinate.init( $('.stand_chart') , function(){
                         coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduite || 0 );
                     } );
