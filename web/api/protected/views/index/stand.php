@@ -132,7 +132,7 @@ The 4 factors together allow to obtain an average speed per hour. The highest it
 		<div class="tutr-step-tip4">
 			<p class="step-num">4/5</p>
 			<div class="step-con">
-				Achievements will be unlocked each time you will answer right to 3 Porsche challenges. Lastests posts will allow you to have a quick look at your tean tweets. Your training is now almost completed.
+				Achievements will be unlocked each time you will answer right to 3 Porsche challenges. Lastests posts will allow you to have a quick look at your team tweets. Your training is now almost completed.
 			</div>
 			<a href="#" class="step-btn" data-step="5">Next</a>
 		</div>
