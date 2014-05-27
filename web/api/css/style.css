@@ -81,10 +81,10 @@ body{background:#000;height: 100%;width: 100%}
 /* Loading Used
 ================================================================================================= */
 .loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;}
-.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-100px;}
+.loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-20px;}
 .loading-loader {width:100%;position: absolute;top:50%;left:0;}
-.loading-bar {width:0;background:#000;height:1px;}
-.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:20px;left:50%;width:80px;text-align:center;margin-left:-40px;}
+.loading-bar {width:0;background:#000;height:1px;margin-top:80px;}
+.loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:100px;left:50%;width:80px;text-align:center;margin-left:-40px;}
 
 
 /*FOOTER*/
@@ -345,13 +345,17 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_assiduite{position: absolute;z-index: 1;width: 100px;height: 50px;left: 50%;bottom: 30px;margin-left: -50px;}
 .stand_chart_impact{position: absolute;top: 50%;z-index: 1;width: 100px;height: 50px;left: -15px;margin-top: -25px;}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
-.stand_chart_tip{line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
+.stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
 .stand_chart_tip span{position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
+<<<<<<< HEAD
+.stand_tit span.save_btn {display:inline-block;background: url('../images/ok_bg.png') no-repeat;font-size:10px;display:block;width:44px;height:44px;line-height:44px;text-align:center;color:#f00000;}
+=======
 .ie8 .stand_chart_speed,
 .ie8 .stand_chart_quality,
 .ie8 .stand_chart_assiduite,
 .ie8 .stand_chart_impact,
 .ie8 .stand_chart_score{background: url(about:blank);}
+>>>>>>> FETCH_HEAD
 
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;}
@@ -442,6 +446,8 @@ body{background:#000;height: 100%;width: 100%}
 
 
 .team_name { border-radius: 4px;padding:0 5px; background: none;color: #fff;border: none;outline: none;font-size:38px;text-transform: uppercase;}
+.team_name_tip {line-height: 2em;display: none; position: absolute;color:#fff;left: 6px;top:40px;font-size: 11px;}
+
 .team_name.focus{background: red;}
 .twitter .team_name.focus{background: blue;}
 
@@ -482,7 +488,7 @@ body{background:#000;height: 100%;width: 100%}
     .stand_chart{top: 550px;left: 0}
     .stand_tit2{top:500px;}
     .stand_achivments{position: absolute;top:1100px;}
-    .stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px}
+    .stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px;}
     .stand_tweet h2{width: 500px;line-height: 40px;height: 60px}
     .stand_tweetitem{padding: 0 40px 0 0 }
     .stand_add{top:1400px;}
