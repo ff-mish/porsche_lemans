@@ -98,8 +98,7 @@ body{background:#000;height: 100%;width: 100%}
 .calltotxt{line-height: 60px;text-align: center;}
 .callto_close{background: url('../images/callto_close.png') no-repeat;width: 20px;height: 20px;position: absolute;right: 10px;top: 8px;}
 
-.skipintro{position: fixed;font-size:14px;right: 36px;top: 104px;z-index:10;}
-.skipintro a{text-decoration: underline;}
+.skipintro{position: fixed;font-size:14px;right: 36px;top: 104px;z-index:10;text-decoration: underline;}
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
 .home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}
@@ -594,7 +593,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1300px){
-    .conut_down{width: 1060px;height: 189px;padding-left:20px;text-align: center;margin-top: -95px;}
+    .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -95px;}
     .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
 }
