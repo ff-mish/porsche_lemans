@@ -8,7 +8,9 @@
     <title><?php echo Yii::t("lemans", "PORSCHE")?></title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
-    
+	<!--[if lt IE 9]>
+	<link href="/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
     <?php if (UserAR::crtuser() && UserAR::crtuser()->from == UserAR::FROM_TWITTER): ?>
     <link href="/css/twitter.css" rel="stylesheet" type="text/css" />
     <?php endif;?>
@@ -34,6 +36,7 @@
             <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
             <div class="btn" id="share"><?php echo Yii::t("lemans", "Share")?>
               <div class="share-btns">
+                <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-sina"></a>
                 <a href="#" class="i-fb"></a>
                 <a href="#" class="i-tw"></a>
                 <a href="#" class="i-g"></a>
@@ -130,13 +133,13 @@
     <!--[if lt IE 9]>
     <style type="text/css">
     	body .teambuild_member{position:relative;}
-    	body .member_add{
-    	background: none;
-    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    	/*body .member_add{*/
+    	/*background: none;*/
+    	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
     /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-z-index:1; 
-behavior: url(/css/iecss3.htc); }
+    /*-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
+/*z-index:1; */
+/*behavior: url(/css/iecss3.htc); }*/
     </style>
 	<![endif]-->
 </body>

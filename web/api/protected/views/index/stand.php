@@ -7,15 +7,24 @@
     </div>
     <div class="page pagebg1">
       <!-- nav -->
-      <div class="nav">
-          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span><?=Yii::t('lemans','Make a tweet')?></span></div>
-          <p class="disabled"><?=Yii::t('lemans','The Race')?></p>
-          <p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
-          <p class="on"><?=Yii::t('lemans','My Stand')?></p>
-		  <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
-          <p> &nbsp; </p>
-          <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
-      </div>
+<!--      <div class="nav">-->
+<!--          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span>--><?//=Yii::t('lemans','Make a tweet')?><!--</span></div>-->
+<!--          <p class="on">--><?//=Yii::t('lemans','Stand')?><!--</p>-->
+<!--          <p class="disabled">--><?//=Yii::t('lemans','Race')?><!--</p>-->
+<!--		  <p class="disabled">--><?//=Yii::t('lemans','Fuel')?><!--</p>-->
+<!--          <p class="disabled">--><?//=Yii::t('lemans','Monitoring')?><!--</p>-->
+<!--          <p> &nbsp; </p>-->
+<!--          <p><a data-a="logout" href="/api/user/logout">--><?//=Yii::t('lemans','Log out')?><!--</a></p>-->
+<!--      </div>-->
+		<div class="nav">
+		    <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span><?=Yii::t('lemans','Make a tweet')?></span></div>
+			<p class="on"><?=Yii::t('lemans','My Stand')?></p>
+		    <p class="disabled"><?=Yii::t('lemans','The Race')?></p>
+		    <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
+		    <p> &nbsp; </p>
+		    <p><a data-a="logout" style="text-decoration:underline;" href="/api/user/logout">Log out</a></p>
+		</div>
       <div class="conut_down_wrap">
       	<div class="conut_down cs-clear" data-fadein>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
@@ -35,6 +44,9 @@
         
         <div class="stand_tit">
           <span style="float:right" id="team-score"></span>
+          <div class="team_name_error_tip" >
+			 Team name is limited within 10 characters
+		  </div>
           <span class="team_name" style="-webkit-user-select: initial;" spellcheck="false" contenteditable="true"></span>
           <div class="team_name_tip">
 			 <?php echo Yii::t("lemans", "Edit team name")?>
@@ -103,17 +115,13 @@
 		</div>
 		<div class="tutr-step-tip2">
 			<p class="step-num">2/5</p>
-			<div class="step-con">
-				<?php echo Yii::t("lemans", "tutorial_step_2")?>
-			</div>
+			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_2")?>
+		</div>
 			<a href="#" class="step-btn" data-step="3"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip3">
 			<p class="step-num">3/5</p>
-			<div class="step-con">
-				<?php echo Yii::t("lemans", "tutorial_step_3")?>
-				
-			</div>
+			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_3")?>			</div>
 			<a href="#" class="step-btn" data-step="4"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip4">

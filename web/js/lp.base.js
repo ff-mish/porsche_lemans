@@ -886,7 +886,7 @@ LP.use(['jquery', 'api', 'easing'] , function( $ , api ){
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">Cancel</a>\
                 <a href="javascript:void(0);" class="p-confirm">Confirm</a>\
-            </div',
+            </div>',
             title: "",
             width: 784,
             height: 352,

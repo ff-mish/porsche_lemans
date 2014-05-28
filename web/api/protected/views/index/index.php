@@ -15,7 +15,7 @@
       <div class="home_share">
         <!--   -->
       <a href="<?php echo UserAR::weibo_login_url() ?>" class="home_weibo"></a>
-      <a href="<?php //echo UserAR::twitter_login_url()  ?>" class="home_twitter"></a>
+      <a href="<?php echo UserAR::twitter_login_url()  ?>" class="home_twitter"></a>
       </div>
       <div class="btn home_winners" data-a="winners-prizes"><?php echo Yii::t('lemans','Winners’ Prizes')?></div>
     </div>
@@ -24,7 +24,7 @@
         </div>
     <div id="winners-prizes">
       <div class="popup_close"></div>
-      <h2><?php echo Yii::t('lemans','Winners’ Prizes')?></h2>
+      <h2>Winners’ Prizes</h2>
             <img class="winners-icon" src="/images/winner_prizes.png">
       <div class="winners-prizes-con clearfix">
         <?php echo Yii::t("lemans", "race_description")?>

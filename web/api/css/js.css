@@ -122,11 +122,8 @@ outline: none !important;
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
 
-#winners-prizes {text-align: center;overflow: auto; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; }
-#winners-prizes h2{text-align: center;
-font-size: 36px;
-padding: 40px 30px;
-color: #fff;}
+#winners-prizes {overflow: auto; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
+#winners-prizes h2{text-align: center;font-size: 36px;padding: 40px 30px;color: #fff;}
 #winners-prizes .popup_close {right:20px;top:20px;}
 .winners-icon {width: 50%;max-width: 355px;}
 .winners-prizes-con { margin:30px auto 0 auto;font-size:18px;width: 90%;max-width:1100px;text-align:center;line-height: 150%;color:#fff;}
@@ -136,11 +133,13 @@ color: #fff;}
 .share-btns{position:absolute; display:none;left: 100%; top: 0px; overflow: hidden;margin-top: -4px;width: 0;height: 33px;}
 .ie8 .share-btns{background:url(about:blank);}
 .share-btns a{display: inline-block; width: 33px;height: 33px;background: url(../images/share.png) no-repeat;margin: 0 5px;}
+.share-btns a.i-sina{background-position: -226px -44px;}
 .share-btns a.i-fb{background-position: 0 -44px;}
 .share-btns a.i-tw{background-position: -45px -44px;}
 .share-btns a.i-g{background-position: -90px -44px;}
 .share-btns a.i-in{background-position: -135px -44px;}
 .share-btns a.i-p{background-position: -180px -44px;}
+.share-btns a.i-sina:hover{background-position: -226px -1px;}
 .share-btns a.i-fb:hover{background-position: 0 -1px;}
 .share-btns a.i-tw:hover{background-position: -45px -1px;}
 .share-btns a.i-g:hover{background-position: -90px -1px;}
@@ -154,8 +153,10 @@ color: #fff;}
 .stand_posts{width: 600px;height: 58px;margin-left:118px;float: left;overflow: hidden;}
 .stand_achivmentsbox{width: 260px;padding:0;margin-right:85px;}
 
-.popup_close {cursor: pointer;width:50px;height:50px;background:url('../images/callto_close.png') no-repeat center;color:#fff;line-height:50px;border:2px solid #fff;position:absolute;right:0px;top:0px;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
+.popup_close {cursor: pointer;width:34px;height:34px;background:url('../images/callto_close.png') no-repeat center;color:#fff;line-height:50px;border:2px solid #fff;position:absolute;right:0px;top:0px;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
+.ie8 .popup_close{background: url(../images/panel_close.png) no-repeat 0 0 ;border:none;}
 .popup_close:hover {background:url('../images/callto_close_2.png') no-repeat center;transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg); border:2px solid #ff0000;}
+.ie8 .popup_close:hover{background: url(../images/panel_close.png) no-repeat 0 -34px ;border: none;}
 
 .popup_invite .popup_invite_btns{margin-top: 0;}
 .popup_invite .popup_error{height: 35px;line-height: 35px;color: red;font-size: 16px;}
