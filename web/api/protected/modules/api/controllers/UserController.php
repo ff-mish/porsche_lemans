@@ -186,7 +186,7 @@ class UserController extends Controller{
     if ($user->from == UserAR::FROM_WEIBO) {
       $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
       // 默认返回50个
-      $friends = $weibo_api->friends_by_id($user->uuid, $next_cursor);
+      $friends = $weibo_api->followers_by_id($user->uuid, $next_cursor);
       
       if (!isset($friends["users"])) {
         return  $this->responseError("error", ErrorAr::ERROR_UNKNOWN);
