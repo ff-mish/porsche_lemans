@@ -6,6 +6,13 @@
  * Time: 上午3:22
  */
 return array (
+    "Speed" => "速度",
+    "Quality" => "内容",
+    "Impact" => "影响力",
+    "Cancel" => "取消",
+    "Repost" => "转发",
+    "Cancel Invitation" => "取消邀请",
+    "Assiduity" => "成就值",
     "LOAD MORE" => "加载更多",
     "This display the number of tweets per hour" => "一小时平均微博数",
     "Tweet content from Fuel section to increase your quality" => "能量提高数",
