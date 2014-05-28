@@ -1025,7 +1025,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
-                        var $list = panel.$panel.find('.popup_invite_friend_list ');
+                        var $list = panel.$panel.find('.popup_invite_friend_list');
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1929,11 +1929,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 });
 
                 // init team name
+                var lastTname = null;
                 $('.team_name').blur(function(){
                     $(this).removeClass('focus');
-                    api.post("/api/user/updateteam" , {name: $(this).text()} );
+                    var txt = $(this).text();
+                    if( lastTname === txt ) return;
+                    // match
+                    var tmp = txt.replace( /^[\x7f-\xff]+$/g , '  ' );
+                    if( tmp.length > 10 ){
+                        $('.team_name_error_tip').fadeIn();
+                        return false;
+                    }
+                    $('.team_name_error_tip').fadeOut();
+                    lastTname = txt;
+                    api.post("/api/user/updateteam" , {name: txt} );
                 }).keydown(function( ev ){ 
+                    console.log( ev );
+                    if( ev.shiftKey && ( ev.which == 57
+                        || ev.which == 48 || ev.which == 49 || ev.which == 50 )
+                        ) return false;
                     switch( ev.which ){
+                        case 221:
+                        case 219:
+                            return false;
                         case 13:
                             $(this).trigger('blur');
                             return false;
@@ -2006,8 +2024,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         </div></div>';
                     var html = [];
                     var speeds = [];
-                    var spaces = [1000000 , 1000 , 100];
-                    var spacesUnit = ['M' , 'K' , 'H'];
+                    var spaces = [1000000 , 1000 , 100 , 1];
+                    var spacesUnit = ['M' , 'K' , 'H' , ''];
 
                     var duration = 600;
                     var now = (+new Date()) + 1000;
@@ -2017,7 +2035,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         if( per > 1 ){
                             per = 1;
                         }
-                        $dom.html( parseFloat((num * per).toFixed(1)) + unit );
+                        if(( num + '' ).indexOf('.') < 0 )
+                            var fixNum = 0;
+                        else 
+                            var fixNum = 1;
+                        $dom.html( parseFloat((num * per).toFixed(fixNum)) + unit );
                         if( per < 1 ){
                             setTimeout( function(){
                                 animateTo( $dom , num , unit );
@@ -2029,14 +2051,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     $.each( team.users || [] , function( i , user ){
                         var space = '';
                         var unit = '';
-                        $.each( spaces , function( k , sp ){
-                            space = Math.round((user.friends / sp)*10) / 10;
-                            if( space >= 1 ){
+
+                        if( user.friends > 100 ){
+                            $.each( spaces , function( k , sp ){
+                                space =  Math.round((user.friends / sp)*10) / 10;
+                                if( space >= 1 ){
+                                    unit = spacesUnit[k];
+                                    return false;
+                                }
                                 unit = spacesUnit[k];
-                                return false;
-                            }
-                            unit = spacesUnit[k];
-                        } );
+                            } );
+                        } else {
+                            space = user.friends;
+                        }
 
                         html.push( LP.format( user.uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
                             avatar:     user.avatar,

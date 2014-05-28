@@ -44,6 +44,9 @@
         
         <div class="stand_tit">
           <span style="float:right" id="team-score"></span>
+          <div class="team_name_error_tip" >
+			 Team name is limited within 10 characters
+		  </div>
           <span class="team_name" style="-webkit-user-select: initial;" spellcheck="false" contenteditable="true"></span>
           <div class="team_name_tip">
 			 Edit team name

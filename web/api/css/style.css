@@ -190,8 +190,9 @@ body{background:#000;height: 100%;width: 100%}
 
 
 /* stand */
-.stand{width:1206px;left:250px;top: 100px;position: absolute;}
-.stand_tit{width: 530px;height: 90px;font-size: 38px;line-height: 40px;}
+.stand{width:1206px;left:250px;top: 100px;position: absolute;z-index: 4;}
+.stand_tit{width: 530px;height: 90px;font-size: 38px;line-height: 40px;position: relative;}
+.team_name_error_tip{position: absolute;color: red;font-size: 12px;top: -26px;left: 5px;display: none;}
 .stand_tit p{float: left}
 .stand_useritem{margin-bottom:35px;}
 .stand_inviting{opacity: 0.5;filter: alpha(opacity=50);}
