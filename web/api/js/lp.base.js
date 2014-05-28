@@ -1110,13 +1110,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
-                                $(LP.format('<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
-                                    <div class="member_item ">\
+                                $(LP.format('<div class="member_item ">\
                                         <img src="#[avatar]" />\
                                         <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=#[uuid]" data-a="cancel-invit">' + _e('Cancel Invit') + '</span></p>\
-                                    </div></div>' , u ))
+                                    </div>' , u ))
                                     .insertBefore( $('.teambuild_member .member_add').eq(0) )
-                                    .next()
+                                    .parent()
+                                    .addClass('stand_inviting')
+                                    .find('.member_add')
                                     .remove();
                             } );
                             
@@ -1930,21 +1931,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 // init team name
                 var lastTname = null;
+                var hideTimer = null;
                 $('.team_name').blur(function(){
                     $(this).removeClass('focus');
                     var txt = $(this).text();
                     if( lastTname === txt ) return;
                     // match
-                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-                    if( tmp.length > 12 ){
-                        $('.team_name_error_tip').fadeIn();
-                        return false;
-                    }
-                    $('.team_name_error_tip').fadeOut();
+                    
                     lastTname = txt;
                     api.post("/api/user/updateteam" , {name: txt} );
                 }).keydown(function( ev ){ 
-                    console.log( ev );
                     if( ev.shiftKey && ( ev.which == 57
                         || ev.which == 48 || ev.which == 49 || ev.which == 50 )
                         ) return false;
@@ -1957,7 +1953,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             return false;
                             break;
                     }
-                 })
+                    var txt = $(this).text();
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length >= 12 && ev.which != 8 ){
+                        $('.team_name_error_tip').fadeIn();
+                        clearTimeout( hideTimer );
+                        hideTimer = setTimeout(function(){
+                            $('.team_name_error_tip').fadeOut();
+                        } , 3000);
+                        return false;
+                    }
+                    $('.team_name_error_tip').fadeOut();
+                })
                 .focus(function(){
                     $(this).addClass('focus');
                 });
