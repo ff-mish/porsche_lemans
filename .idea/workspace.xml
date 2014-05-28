@@ -2,22 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/api/css/ie8.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/images/share.png" afterPath="$PROJECT_DIR$/web/api/images/share.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" afterPath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/index.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/js/lp.base.js" afterPath="$PROJECT_DIR$/web/js/lp.base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401247606388" ignored="false" />
     <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401258495160" ignored="false" />
     <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401264186743" ignored="false" />
-    <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401259457917" ignored="false" />
+    <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401279321883" ignored="false" />
     <file path="/jquery.queryloader22.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1400993218095" ignored="false" />
     <file path="$PROJECT_DIR$/../../../XAMPP/xamppfiles/htdocs/avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401077947462" ignored="false" />
     <file path="/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401273332209" ignored="false" />
@@ -83,7 +77,7 @@
     <file path="$PROJECT_DIR$/../avene_sun/game.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401159310428" ignored="false" />
     <file path="/game.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401159310428" ignored="false" />
     <file path="/countdown.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401172487210" ignored="false" />
-    <file path="/default.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401260584175" ignored="false" />
+    <file path="/default.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401279689413" ignored="false" />
     <file path="/guide.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401262630610" ignored="false" />
     <file path="/ie8.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401264375780" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/tips/xml/config.xml" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401272425910" ignored="false" />
@@ -171,7 +165,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="328" column="170" selection-start="20034" selection-end="20034" vertical-scroll-proportion="-8.192307">
+            <state line="323" column="38" selection-start="19583" selection-end="19583" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -189,7 +183,7 @@
       <file leaf-file-name="js.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="43" selection-start="2914" selection-end="2914" vertical-scroll-proportion="0.0">
+            <state line="141" column="20" selection-start="3766" selection-end="3766" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -208,23 +202,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stand.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="16" selection-start="4124" selection-end="4124" vertical-scroll-proportion="0.15494393">
+            <state line="114" column="24" selection-start="4402" selection-end="4402" vertical-scroll-proportion="-9.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="default.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="27" selection-start="981" selection-end="981" vertical-scroll-proportion="-12.892858">
+            <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.4454638">
               <folding>
-                <marker date="1401260584000" expanded="true" signature="16523:16636" placeholder="..." />
-                <marker date="1401260584000" expanded="true" signature="16704:17111" placeholder="..." />
-                <marker date="1401260584000" expanded="true" signature="16733:16753" placeholder="{...}" />
+                <marker date="1401279690000" expanded="true" signature="16929:17042" placeholder="..." />
+                <marker date="1401279690000" expanded="true" signature="17110:17517" placeholder="..." />
+                <marker date="1401279690000" expanded="true" signature="17139:17159" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -254,11 +248,11 @@
         <option value="$PROJECT_DIR$/web/js/lp.base.js" />
         <option value="$PROJECT_DIR$/web/api/js/lp.base.js" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
-        <option value="$PROJECT_DIR$/web/api/css/js.css" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
+        <option value="$PROJECT_DIR$/web/api/css/js.css" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
       </list>
     </option>
   </component>
@@ -507,6 +501,23 @@
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="" />
@@ -679,28 +690,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="43" selection-start="2914" selection-end="2914" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/ie.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="20" selection-start="503" selection-end="503" vertical-scroll-proportion="0.2824579">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="27" selection-start="981" selection-end="981" vertical-scroll-proportion="-12.892858">
-          <folding>
-            <marker date="1401260584000" expanded="true" signature="16523:16636" placeholder="..." />
-            <marker date="1401260584000" expanded="true" signature="16704:17111" placeholder="..." />
-            <marker date="1401260584000" expanded="true" signature="16733:16753" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -725,13 +718,6 @@
     <entry file="file://$PROJECT_DIR$/web/api/css/ie8.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="24" selection-start="1055" selection-end="1055" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="328" column="170" selection-start="20034" selection-end="20034" vertical-scroll-proportion="-8.192307">
           <folding />
         </state>
       </provider>
@@ -788,8 +774,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="16" selection-start="4124" selection-end="4124" vertical-scroll-proportion="0.15494393">
+        <state line="114" column="24" selection-start="4402" selection-end="4402" vertical-scroll-proportion="-9.5">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="323" column="38" selection-start="19583" selection-end="19583" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="20" selection-start="3766" selection-end="3766" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.4454638">
+          <folding>
+            <marker date="1401279690000" expanded="true" signature="16929:17042" placeholder="..." />
+            <marker date="1401279690000" expanded="true" signature="17110:17517" placeholder="..." />
+            <marker date="1401279690000" expanded="true" signature="17139:17159" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
