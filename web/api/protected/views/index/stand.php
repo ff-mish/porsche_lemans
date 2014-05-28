@@ -23,7 +23,7 @@
 		    <p class="disabled">Fuel</p>
 			<p class="disabled">Monitoring</p>
 		    <p> &nbsp; </p>
-		    <p><a data-a="logout" href="/api/user/logout">Log out</a></p>
+		    <p><a data-a="logout" style="text-decoration:underline;" href="/api/user/logout">Log out</a></p>
 		</div>
       <div class="conut_down_wrap">
       	<div class="conut_down cs-clear" data-fadein>
