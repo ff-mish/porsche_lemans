@@ -19,12 +19,12 @@
       </div>
       <div class="btn home_winners" data-a="winners-prizes"><?php echo Yii::t('lemans','Winners’ Prizes')?></div>
     </div>
-        <div id="home_video">
-            <a class="skipintro" href="#" data-a="skip-intro"><?php echo Yii::t('lemans','Skip intro')?></a>
-        </div>
+      <div id="home_video">
+          <a class="skipintro" href="#" data-a="skip-intro"><?php echo Yii::t('lemans','Skip intro')?></a>
+      </div>
     <div id="winners-prizes">
       <div class="popup_close"></div>
-      <h2>Winners’ Prizes</h2>
+      <h2><?php echo Yii::t("lemans", "Winners’ Prizes")?></h2>
             <img class="winners-icon" src="/images/winner_prizes.png">
       <div class="winners-prizes-con clearfix">
         <?php echo Yii::t("lemans", "race_description")?>

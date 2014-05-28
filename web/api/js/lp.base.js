@@ -1646,6 +1646,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $(this).delay( i * 300 ).fadeIn( 800 );
         } );
 
+        // lang swither
+        $("a").click(function () {
+            var self = $(this);
+            if (self.attr("data-lang")) {
+                LP.setCookie("lang", self.attr("data-lang"), 3600 * 24, "/");
+                window.location.reload();
+            }
+        });
+
         // login
         $('.login_tips').live('click',function(){
             $(this).hide()
