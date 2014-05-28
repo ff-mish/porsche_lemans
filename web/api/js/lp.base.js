@@ -1935,8 +1935,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var txt = $(this).text();
                     if( lastTname === txt ) return;
                     // match
-                    var tmp = txt.replace( /^[\x7f-\xff]+$/g , '  ' );
-                    if( tmp.length > 10 ){
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length > 12 ){
                         $('.team_name_error_tip').fadeIn();
                         return false;
                     }
