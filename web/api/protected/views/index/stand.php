@@ -7,15 +7,24 @@
     </div>
     <div class="page pagebg1">
       <!-- nav -->
-      <div class="nav">
-          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span><?=Yii::t('lemans','Make a tweet')?></span></div>
-          <p class="disabled"><?=Yii::t('lemans','The Race')?></p>
-          <p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
-          <p class="on"><?=Yii::t('lemans','My Stand')?></p>
-		  <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
-          <p> &nbsp; </p>
-          <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
-      </div>
+<!--      <div class="nav">-->
+<!--          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span>--><?//=Yii::t('lemans','Make a tweet')?><!--</span></div>-->
+<!--          <p class="on">--><?//=Yii::t('lemans','Stand')?><!--</p>-->
+<!--          <p class="disabled">--><?//=Yii::t('lemans','Race')?><!--</p>-->
+<!--		  <p class="disabled">--><?//=Yii::t('lemans','Fuel')?><!--</p>-->
+<!--          <p class="disabled">--><?//=Yii::t('lemans','Monitoring')?><!--</p>-->
+<!--          <p> &nbsp; </p>-->
+<!--          <p><a data-a="logout" href="/api/user/logout">--><?//=Yii::t('lemans','Log out')?><!--</a></p>-->
+<!--      </div>-->
+		<div class="nav">
+		    <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span>Make a tweet</span></div>
+			<p class="on">Stand</p>
+		    <p class="disabled">Race</p>
+		    <p class="disabled">Fuel</p>
+			<p class="disabled">Monitoring</p>
+		    <p> &nbsp; </p>
+		    <p><a data-a="logout" href="/api/user/logout">Log out</a></p>
+		</div>
       <div class="conut_down_wrap">
       	<div class="conut_down cs-clear" data-fadein>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
@@ -106,9 +115,9 @@
 		<div class="tutr-step-tip2">
 			<p class="step-num">2/5</p>
 			<div class="step-con">
-This part is an overview of your team: name, tweets per hour and number of followers.
-<br><br>
-You can also invite other pilots to join your crew and increase your chance  to win the race.
+				This part is an overview of your team: name, tweets per hour and number of followers.
+				<br><br>
+				You can also invite other pilots to join your crew and increase your chance  to win the race.
 			</div>
 			<a href="#" class="step-btn" data-step="3">Next</a>
 		</div>
@@ -116,16 +125,16 @@ You can also invite other pilots to join your crew and increase your chance  to 
 			<p class="step-num">3/5</p>
 			<div class="step-con">
 				The Porsche graph is the most important part of the stand. It allows you to see which stats to improve to go faster in the race. There are 4 different parameters.
-<br><br>
-<span class="step-con-tit">Speed:</span> it is the number of tweets of your team per hour.  
-<br><br>
-<span class="step-con-tit">Impact:</span> it is the number of followers of your team.
-<br><br>
-<span class="step-con-tit">Quality:</span>  it is the quality score of your tweets. To increase it you will need to tweet contents from the <span class="color">Fuel</span> gallery.
-<br><br>
-<span class="step-con-tit">Assiduity:</span> if you stay enough time on the platform, you will be able to answer to some Q&A from Porsche. Each good answer will increase the Assiduity.
-<br><br>
-The 4 factors together allow to obtain an average speed per hour. The highest it is, the more chance you will have to win.
+				<br><br>
+				<span class="step-con-tit">Speed:</span> it is the number of tweets of your team per hour.
+				<br><br>
+				<span class="step-con-tit">Impact:</span> it is the number of followers of your team.
+				<br><br>
+				<span class="step-con-tit">Quality:</span>  it is the quality score of your tweets. To increase it you will need to tweet contents from the <span class="color">Fuel</span> gallery.
+				<br><br>
+				<span class="step-con-tit">Assiduity:</span> if you stay enough time on the platform, you will be able to answer to some Q&A from Porsche. Each good answer will increase the Assiduity.
+				<br><br>
+				The 4 factors together allow to obtain an average speed per hour. The highest it is, the more chance you will have to win.
 			</div>
 			<a href="#" class="step-btn" data-step="4">Next</a>
 		</div>

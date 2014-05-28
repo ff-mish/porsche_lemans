@@ -1409,11 +1409,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"width": "100%",
 			"overflow": "hidden"
 		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "" ,  {muted:1} , function(){
-            setTimeout(function(){
-                $('#legal-notice').fadeIn();
-                $(window).trigger('resize');
-            } , 200);
+
         });
+		setTimeout(function(){
+			$('#legal-notice').fadeIn();
+			$(window).trigger('resize');
+		} , 200);
     });
 
 	LP.action('winners-prizes' , function( data ){
@@ -1427,11 +1428,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"width": "100%",
 			"overflow": "hidden"
 		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} , function(){
-            setTimeout(function(){
-                $('#winners-prizes').fadeIn();
-                $(window).trigger('resize');
-            } , 200);
+
         } );
+		setTimeout(function(){
+			$('#winners-prizes').fadeIn();
+			$(window).trigger('resize');
+		} , 200);
 	});
 
     LP.action('skip-intro' , function(data){

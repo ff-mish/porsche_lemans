@@ -122,11 +122,8 @@ outline: none !important;
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
 
-#winners-prizes {text-align: center;overflow: auto; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; }
-#winners-prizes h2{text-align: center;
-font-size: 36px;
-padding: 40px 30px;
-color: #fff;}
+#winners-prizes {overflow: auto; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
+#winners-prizes h2{text-align: center;font-size: 36px;padding: 40px 30px;color: #fff;}
 #winners-prizes .popup_close {right:20px;top:20px;}
 .winners-icon {width: 50%;max-width: 355px;}
 .winners-prizes-con { margin:30px auto 0 auto;font-size:18px;width: 90%;max-width:1100px;text-align:center;line-height: 150%;color:#fff;}

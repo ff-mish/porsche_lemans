@@ -25,7 +25,7 @@
     <div id="winners-prizes">
       <div class="popup_close"></div>
       <h2>Winners’ Prizes</h2>
-            <img class="winners-icon" src="/images/winner_prizes.png">
+      <img class="winners-icon" src="/images/winner_prizes.png" />
       <div class="winners-prizes-con clearfix">
         At the end of the 24h social race, the first team will win a very exclusive global trip to attend every motorsports events in the world, from the classic 24h of Daytona, the famous 12h of Sebring or the next edition of Le Mans, all with VIP access.
       </div>

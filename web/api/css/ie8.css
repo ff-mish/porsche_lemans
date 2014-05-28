@@ -1,0 +1,26 @@
+.nav{left:0px;top:150px;}
+.navicon {margin-left:30px;}
+.post_link span {left:84px;}
+.stand{width: 1030px;left: 220px;margin-left:0;}
+.member_item {width: 220px;height:65px;}
+.member_item img {width:65px;}
+.member_name{width: 150px;padding-top:23px;}
+.member_speed{margin-left:30px;margin-top:-7px;}
+.memeber_space {font-size:45px;}
+.member_add {width:220px;height:65px;line-height:65px;}
+.stand_useritem {margin-bottom: 25px;}
+.stand {top:50px;}
+.stand_tweetitem{padding:0 20px;}
+.stand_add{right:20px;top:60px;left:auto;}
+.stand_del {left:170px!important;top:60px!important;}
+.stand_chart{width: 510px;height:510px;background-size: cover}
+.stand_chart_score {font-size:32px;left:195px;}
+.team_name,.stand_tit {font-size:32px;}
+.stand_tit {width:465px;height:60px;}
+.stand_achivments {padding:20px 0 20px 0;font-size:28px;}
+.stand_tweet {padding-top:64px;}
+.stand_tweet h2 {font-size:28px;}
+.stand_posts {width:650px!important;margin-left:70px!important;}
+.stand_achivmentsbox {width:281px!important;margin-right:45px!important;}
+
+.winners-icon {width:315px;height:300px;}

@@ -8,7 +8,9 @@
     <title>PORSCHE</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
-    
+	<!--[if lt IE 9]>
+	<link href="/css/ie8.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
     <?php if (UserAR::crtuser() && UserAR::crtuser()->from == UserAR::FROM_TWITTER): ?>
     <link href="/css/twitter.css" rel="stylesheet" type="text/css" />
     <?php endif;?>
