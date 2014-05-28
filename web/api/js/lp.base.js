@@ -78,7 +78,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         onCancel: function () {
           
         },
-        width: $(window).width() * 0.6,
+        width: $(window).width() * 0.6
       });
     }
 
@@ -318,7 +318,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     drawCoordinate();
                     object.path.attr('path' , '');
                     runAnimate.call( '' , target[0],target[1],target[2],target[3] , true );
-                    console.log( );
                 });
                 drawCoordinate();
                 cb && cb();
@@ -772,9 +771,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 } );
                 var index = globalVideos.length;
                 globalVideos[index] = 0;
-                globalVideoInterval[index] = setInterval( function(){
-                    globalVideos[index] = myVideo.bufferedPercent();
-                } , 100 );
+//                globalVideoInterval[index] = setInterval( function(){
+//                    globalVideos[index] = myVideo.bufferedPercent();
+//                } , 100 );
 
 
                 myVideo.muted( true );
@@ -1597,39 +1596,42 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $('.loading-percentage').html(per+'%');
             $('.loading-bar').css({'width':per+'%'});
             if(per == 100) {
-                var timer = setInterval(function(){
-                    if( globalVideos.length == 0 ) return ;
-                    var total = 0;
-                    $.each( globalVideos , function( i , buff){
-                        total += buff;
-                    } ) ;
-
-                    if( total >= globalVideos.length / 10){
-                        initComplete();
-                        $.each( globalVideoInterval , function( i , intval ){
-                            clearInterval( intval );
-                        } );
-                        clearInterval( timer );
-                    }
-                } , 100);
+				initComplete();
+//                var timer = setInterval(function(){
+//                    if( globalVideos.length == 0 ) return ;
+//                    var total = 0;
+//                    $.each( globalVideos , function( i , buff){
+//                        total += buff;
+//                    } ) ;
+//
+//                    if( total >= globalVideos.length / 10){
+//                        initComplete();
+//                        $.each( globalVideoInterval , function( i , intval ){
+//                            clearInterval( intval );
+//                        } );
+//                        clearInterval( timer );
+//                    }
+//                } , 100);
             }
         },
         onComplete : function(){
+			initComplete();
+
             // load all the video
-            var timer = setInterval(function(){
-                if( globalVideos.length == 0 ) return ;
-                var total = 0;
-                $.each( globalVideos , function( i , buff){
-                    total += buff;
-                } ) ;
-                if( total >= globalVideos.length / 10){
-                    initComplete();
-                    $.each( globalVideoInterval , function( i , intval ){
-                        clearInterval( intval );
-                    } );
-                    clearInterval( timer );
-                }
-            } , 100);
+//            var timer = setInterval(function(){
+//                if( globalVideos.length == 0 ) return ;
+//                var total = 0;
+//                $.each( globalVideos , function( i , buff){
+//                    total += buff;
+//                } ) ;
+//                if( total >= globalVideos.length / 10){
+//                    initComplete();
+//                    $.each( globalVideoInterval , function( i , intval ){
+//                        clearInterval( intval );
+//                    } );
+//                    clearInterval( timer );
+//                }
+//            } , 100);
         }
     });
 
@@ -1717,7 +1719,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
             }
 
-            
+
             var minutes = 60 - now.getMinutes();
             var maxtimes = 3;
 
@@ -1776,7 +1778,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                             // init timer
                             questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
-                                // TODO.. 
+                                // TODO..
                                 api.post("/api/question/answer" , { answer: '' , qaid: data.qaid} , function(){
                                     t.close();
                                 });
@@ -1810,18 +1812,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 countDownMgr.initCountDown();
-                // api.get('/api/web/time' , function( e ){
-                //     var start = new Date(e.data.time_start );
-                //     var now = new Date(e.data.time_now );
+                api.get('/api/web/time' , function( e ){
+                     var start = new Date(e.data.time_start );
+                     var now = new Date(e.data.time_now );
                     
-                //     var dura = ~~( ( start - now ) / 1000 );
-                //     var d = ~~( dura/86400 );
-                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
-                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                //     var s = dura - d * 86400 - h * 3600 - m * 60;
+                     var dura = ~~( ( start - now ) / 1000 );
+                     var d = ~~( dura/86400 );
+                     var h = ~~( ( dura - d * 86400 ) / 3600 );
+                     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
+                     var s = dura - d * 86400 - h * 3600 - m * 60;
 
-                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                // });
+                     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
+                });
 
                 break;
             case "teambuild":
@@ -2074,7 +2076,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 								opacity: 1
 							} , 500);
 					});
-                    console.log( speeds );
                     $.each( speeds , function( i , speed ){
                         rotateAnimate( $('.member_speed').eq(i) , speed , 1 , 45 );
                     } );

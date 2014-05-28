@@ -130,13 +130,13 @@
     <!--[if lt IE 9]>
     <style type="text/css">
     	body .teambuild_member{position:relative;}
-    	body .member_add{
-    	background: none;
-    	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    	/*body .member_add{*/
+    	/*background: none;*/
+    	/*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
     /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-z-index:1; 
-behavior: url(/css/iecss3.htc); }
+    /*-ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
+/*z-index:1; */
+/*behavior: url(/css/iecss3.htc); }*/
     </style>
 	<![endif]-->
 </body>
