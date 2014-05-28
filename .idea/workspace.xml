@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/images/share.png" afterPath="$PROJECT_DIR$/web/api/images/share.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" afterPath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
     </list>
     <ignored path="porsche_lemans.iws" />
@@ -165,7 +163,7 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="323" column="38" selection-start="19583" selection-end="19583" vertical-scroll-proportion="0.0">
+            <state line="329" column="15" selection-start="20139" selection-end="20139" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -180,10 +178,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="js.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="js.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="20" selection-start="3766" selection-end="3766" vertical-scroll-proportion="0.0">
+            <state line="155" column="50" selection-start="4403" selection-end="4403" vertical-scroll-proportion="0.3310208">
               <folding />
             </state>
           </provider>
@@ -211,10 +209,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.4454638">
+            <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="-15.607142">
               <folding>
                 <marker date="1401279690000" expanded="true" signature="16929:17042" placeholder="..." />
                 <marker date="1401279690000" expanded="true" signature="17110:17517" placeholder="..." />
@@ -251,8 +249,8 @@
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
-        <option value="$PROJECT_DIR$/web/api/css/js.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
+        <option value="$PROJECT_DIR$/web/api/css/js.css" />
       </list>
     </option>
   </component>
@@ -779,28 +777,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="-15.607142">
+          <folding>
+            <marker date="1401279690000" expanded="true" signature="16929:17042" placeholder="..." />
+            <marker date="1401279690000" expanded="true" signature="17110:17517" placeholder="..." />
+            <marker date="1401279690000" expanded="true" signature="17139:17159" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="38" selection-start="19583" selection-end="19583" vertical-scroll-proportion="0.0">
+        <state line="329" column="15" selection-start="20139" selection-end="20139" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="20" selection-start="3766" selection-end="3766" vertical-scroll-proportion="0.0">
+        <state line="155" column="50" selection-start="4403" selection-end="4403" vertical-scroll-proportion="0.3310208">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="33" selection-start="1794" selection-end="1794" vertical-scroll-proportion="0.4454638">
-          <folding>
-            <marker date="1401279690000" expanded="true" signature="16929:17042" placeholder="..." />
-            <marker date="1401279690000" expanded="true" signature="17110:17517" placeholder="..." />
-            <marker date="1401279690000" expanded="true" signature="17139:17159" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
