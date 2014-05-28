@@ -7,8 +7,8 @@
  */
 return array (
     "LOAD MORE" => "加载更多",
-    "This display the number of tweets per hour." => "一小时平均微博数.",
-    "Tweet content from Fuel section to increase your quality." => "能量提高数",
+    "This display the number of tweets per hour" => "一小时平均微博数",
+    "Tweet content from Fuel section to increase your quality" => "能量提高数",
     "Answer right to Porsche challenges to improve your assiduity" => "回答问题准确率",
     "This represents the number of your followers" => "粉丝数",
     "#24SocialRace" => "#勒芒社交耐力赛#",

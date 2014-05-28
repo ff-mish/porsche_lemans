@@ -1112,11 +1112,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
                                         <img src="#[avatar]" />\
-                                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=#[uuid]" data-a="cancel-invit">' + _e('Cancel Invit') + '</span></p>\
+                                        <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=#[uuid]" data-a="cancel-invit">' + _e('Cancel Invitation') + '</span></p>\
                                     </div>' , u ))
                                     .insertBefore( $('.teambuild_member .member_add').eq(0) )
                                     .parent()
                                     .addClass('stand_inviting')
+                                    .css('opacity' , 0.5)
                                     .find('.member_add')
                                     .remove();
                             } );
@@ -2086,7 +2087,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         html.push( LP.format( utpl_inviting ,{
                             avatar:     user.avatar,
                             name:       user.screen_name,
-                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=' + user.uuid + '" data-a="cancel-invit">' + _e('Cancel Invit') + '</span>' : ''
+                            opt:    user.invitor == crtuser["uid"] ? '<span class="cancel-invit" style="display:none;cursor:pointer;" data-d="uuid=' + user.uuid + '" data-a="cancel-invit">' + _e('Cancel Invitation') + '</span>' : ''
                         } ) );
                     } );
 
