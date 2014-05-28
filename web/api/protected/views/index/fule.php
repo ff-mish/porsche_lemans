@@ -2,7 +2,7 @@
 	<div class="page pagebg1">
 		<!--  -->
 		<div class="header">
-			<div class="logo">PORSCHE</div>
+			<div class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></div>
 			<div class="hd_info"></div>
 		</div>
 		<!--  -->
@@ -14,6 +14,8 @@
 				<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 				<p><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
 				<p class="on"><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
+		          <p> &nbsp; </p>
+		          <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
 			</div>
 			<!-- fuel -->
 			<div class="fuel">
@@ -22,7 +24,7 @@
 				<div class="loading"></div>
 				<!-- fuellist -->
 				<div class="fuelmore">
-					<a href="#" data-a="fuel-load">LOAD MORE</a>
+					<a href="#" data-a="fuel-load"><?php echo Yii::t("lemans", "LOAD MORE")?></a>
 				</div>
 			</div>
 			<!-- fuel end -->

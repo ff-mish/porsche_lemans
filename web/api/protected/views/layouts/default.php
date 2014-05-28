@@ -5,7 +5,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <title>PORSCHE</title>
+    <title><?php echo Yii::t("lemans", "PORSCHE")?></title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
     
@@ -31,8 +31,8 @@
 	<div class="footer">
         <div class="footer_link cs-clear">
             <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
-            <p class="btn legal" data-a="legal-mentions">Legal Mentions</p>
-            <div class="btn" id="share">Share
+            <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+            <div class="btn" id="share"><?php echo Yii::t("lemans", "Share")?>
               <div class="share-btns">
                 <a href="#" class="i-fb"></a>
                 <a href="#" class="i-tw"></a>
@@ -55,7 +55,7 @@
 
     <div id="legal-notice">
       <div class="popup_close"></div>
-      <h2>Legal Notice</h2>
+      <h2><?php echo Yii::t("lemans", "Legal Notice")?></h2>
       <div class="legal-con clearfix">
         <div class="legal-left">
 	        <div class="intro">

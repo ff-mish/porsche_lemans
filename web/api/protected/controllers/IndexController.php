@@ -1,6 +1,6 @@
 <?php
 
-class IndexController extends CController {
+class IndexController extends Controller {
   
   public $page_name;
   public $classname;

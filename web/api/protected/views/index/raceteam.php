@@ -1,7 +1,7 @@
 	<!--  -->
 	<div class="page pagebg5">
 		<!-- logo -->
-		<div class="logo">PORSCHE</div>
+		<div class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></div>
 		<!-- nav -->
 		<div class="nav">
         <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
