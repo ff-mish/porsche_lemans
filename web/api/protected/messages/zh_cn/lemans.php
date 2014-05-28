@@ -43,6 +43,6 @@ return array (
 The 4 factors together allow to obtain an average speed per hour. The highest it is, the more chance you will have to win.',
     "tutorial_step_1" => "欢迎来到赛况页. From here you will be able to follow all the statistics you need in real time to win this race.<br><br>But first you need to choose a name for your team.",
     "tutorial_step_2" => "这里是组的概览部分: name, tweets per hour and number of followers.<br><br>You can also invite other pilots to join your crew and increase your chance  to win the race.",
-    "Join the race and create your team now" => "发帖越好，速度越快！",
+    "Join the race and create your team now" => "立刻参加比赛，打造你的团队！",
     "race_description" => "At the end of the 24h social race, the first team will win a very exclusive global trip to attend every motorsports events in the world, from the classic 24h of Daytona, the famous 12h of Sebring or the next edition of Le Mans, all with VIP access.",
 );
