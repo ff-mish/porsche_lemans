@@ -322,16 +322,17 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dun{position: absolute;left: 40px;top: 40px;height: 48px;width: 36px;line-height: 48px;text-align: center;color: #ff0000; background: url(../images/dun.png) no-repeat; font-size: 14px;}
 .popup_dun span{position: absolute;left: 150%;}
 
-.popup_email{border: none !important;overflow: hidden;text-align: center;}
-.popup_email h4{font-size: 35px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
-.popup_email input{width: 600px;background: none;color:white;}
+.popup_email{border: none !important;overflow: hidden;text-align: center; text-align: center;}
+.popup_email h4{font-size: 30px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
+.popup_email input{width: 600px;background: #000;color:white;}
+.ie8 .popup_email input{height: auto; display: block;margin: 0 auto; padding: 50px 0;}
 .popup_email .con-step{position: absolute;left: 30px;}
 .popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
-.popup_invite {position: relative; background:#000;background:rgba(0,0,0,0.7);border:1px solid #ff0000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
+.popup_invite {position: relative; background:#000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
 .popup_invite .popup_invite_friend_list{height: 283px;overflow: auto;}
-.popup_invite .friend_item {float:left;width:239px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
+.popup_invite .friend_item {float:left;width:230px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}

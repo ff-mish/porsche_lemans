@@ -460,10 +460,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        renderTure( off.top - 10 , off.left - 20 , 380 , 60 );
+                        var w = $('.team_name').width();
+                        renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + 380 , top: off.top - 10 })
+                            .css({left: off.left + w + 50 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
@@ -535,7 +536,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                                 // init place holder
                                 var $input = panel.$panel.find('input');
-                                if( $input.get(0).placeholder === undefined ){
+                                if( $('<input/>').get(0).placeholder === undefined ){
                                     $input.val( $input.attr('placeholder') )
                                         .focus(function(){
                                             if( this.value == $input.attr('placeholder') ){
@@ -546,7 +547,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                             if( !this.value ){
                                                 this.value = $input.attr('placeholder');
                                             }
-                                        });
+                                        })
+                                        .trigger('blur');
                                 }
                                 // init tutor place holder
 
@@ -554,6 +556,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
 
                                     var email = $input.val();
+                                    if( email == $input.attr('placeholder') ){
+                                        email = '';
+                                    }
                                     if( email &&
                                         (!email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
                                         !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
@@ -886,7 +891,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 //$doms = $doms.eq(0);
                 $doms.each( function( i ){
-                    console.log( origins[i] );
                     initCol( $(this) , maxs[i] , origins[i] );
                 } );
 
@@ -1016,7 +1020,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>';
 
 
-
                 var loadFriends = function( page ){
                     if( next_cursor == -1 ) return;
                     isLoading = true;
@@ -1026,7 +1029,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
-                        var $list = panel.$panel.find('.popup_invite_friend_list');
+                        var $list = panel.$panel.find('.popup_invite_friend_list .jspPane');
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1044,13 +1047,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         
                     });
                 }
+
+                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.popup_invite_friend_list').jScrollPane({autoReinitialise:true}).bind(
+                        'jsp-scroll-y',
+                        function(event, scrollPositionY, isAtTop, isAtBottom){
+                            if( !hasMore || isLoading ) return;
+                            if( isAtBottom ){
+                                loadFriends( next_cursor );
+                            }
+                            // if(isAtBottom) {
+                            //     var commentParam = $('.comment-wrap').data('param');
+                            //     getCommentList(node.nid,commentParam.page + 1);
+                            // }
+                        }
+                    );
+                    loadFriends( );
+                });
                 
                 
 
                 var hasMore = true;
                 var isLoading = false;
                 var next_cursor = -2;
-                loadFriends( );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
@@ -1075,14 +1094,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .addClass('disabled');
                     }
                 })
-                .bind('scroll' , function(){
-                    if( !hasMore || isLoading ) return;
+                // .bind('scroll' , function(){
+                //     if( !hasMore || isLoading ) return;
 
-                    var scrollTop = $(this).scrollTop();
-                    var height = $(this).height();
-                    if( this.scrollHeight - scrollTop - height < 100 )
-                        loadFriends( next_cursor );
-                });
+                //     var scrollTop = $(this).scrollTop();
+                //     var height = $(this).height();
+                //     if( this.scrollHeight - scrollTop - height < 100 )
+                //         loadFriends( next_cursor );
+                // });
 
                 panel.$panel.find('.popup_close')
                     .click( function(){
@@ -2126,7 +2145,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     
                     // redner next page
                     $('.stand_add').click(function(){
-						console.log(postWidth);
                         if($(this).hasClass('disabled') ) return;
                         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
                         >= $('.stand_posts_inner').width()) return;

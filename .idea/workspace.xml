@@ -2,18 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/images/share.png" afterPath="$PROJECT_DIR$/web/api/images/share.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" afterPath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" afterPath="$PROJECT_DIR$/web/api/js/lang/en_us.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/en_us.php" afterPath="$PROJECT_DIR$/web/api/script/en_us.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" afterPath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" afterPath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/zh_cn.php" afterPath="$PROJECT_DIR$/web/api/script/zh_cn.php" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401346806357" ignored="false" />
+    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401352614649" ignored="false" />
     <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401258495160" ignored="false" />
     <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401338672335" ignored="false" />
     <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401346552338" ignored="false" />
@@ -121,73 +128,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zh_cn.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="zh_cn.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="16" selection-start="112" selection-end="112" vertical-scroll-proportion="-4.071429">
+            <state line="11" column="23" selection-start="307" selection-end="307" vertical-scroll-proportion="0.19351852">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lp.base.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1491" column="22" selection-start="62150" selection-end="62150" vertical-scroll-proportion="0.38634238">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="en_us.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="21" selection-start="102" selection-end="102" vertical-scroll-proportion="-3.392857">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="-4.071429">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="32.464287">
-              <folding>
-                <element signature="n#style#0;n#a#0;n#p#5;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#1;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#1;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="24.428572">
-              <folding>
-                <marker date="1401346204000" expanded="true" signature="18265:18378" placeholder="..." />
-                <marker date="1401346204000" expanded="true" signature="18446:18853" placeholder="..." />
-                <marker date="1401346204000" expanded="true" signature="18475:18495" placeholder="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fule.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="30" selection-start="763" selection-end="763" vertical-scroll-proportion="-13.571428">
+            <state line="32" column="34" selection-start="1514" selection-end="1514" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -202,10 +155,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+      <file leaf-file-name="fule.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="34" selection-start="1514" selection-end="1514" vertical-scroll-proportion="0.0">
+            <state line="20" column="30" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="en_us.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="5" column="18" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lp.base.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1491" column="22" selection-start="62435" selection-end="62435" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -241,8 +239,8 @@
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
         <option value="$PROJECT_DIR$/web/api/css/js.css" />
-        <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
         <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
+        <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
       </list>
     </option>
   </component>
@@ -278,9 +276,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="All" />
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -503,6 +498,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope">
+        <subPane subId="All" />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -550,7 +548,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24986331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2195572" sideWeight="0.9991197" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22186346" sideWeight="0.9991197" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -680,19 +678,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="30" selection-start="763" selection-end="763" vertical-scroll-proportion="-13.571428">
+        <state line="20" column="30" selection-start="763" selection-end="763" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="24.428572">
-          <folding>
-            <marker date="1401346204000" expanded="true" signature="18265:18378" placeholder="..." />
-            <marker date="1401346204000" expanded="true" signature="18446:18853" placeholder="..." />
-            <marker date="1401346204000" expanded="true" signature="18475:18495" placeholder="{...}" />
-          </folding>
+        <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -705,40 +699,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="21" selection-start="102" selection-end="102" vertical-scroll-proportion="-3.392857">
+        <state line="5" column="18" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="32.464287">
-          <folding>
-            <element signature="n#style#0;n#a#0;n#p#5;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#1;n#div#2;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="-4.071429">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="16" selection-start="112" selection-end="112" vertical-scroll-proportion="-4.071429">
+        <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1491" column="22" selection-start="62150" selection-end="62150" vertical-scroll-proportion="0.38634238">
+        <state line="1491" column="22" selection-start="62435" selection-end="62435" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="307" selection-end="307" vertical-scroll-proportion="0.19351852">
           <folding />
         </state>
       </provider>
