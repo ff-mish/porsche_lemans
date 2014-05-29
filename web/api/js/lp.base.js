@@ -460,10 +460,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        renderTure( off.top - 10 , off.left - 20 , 380 , 60 );
+                        var w = $('.team_name').width();
+                        renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + 380 , top: off.top - 10 })
+                            .css({left: off.left + w + 50 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
@@ -535,7 +536,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                                 // init place holder
                                 var $input = panel.$panel.find('input');
-                                if( $input.get(0).placeholder === undefined ){
+                                if( $('<input/>').get(0).placeholder === undefined ){
                                     $input.val( $input.attr('placeholder') )
                                         .focus(function(){
                                             if( this.value == $input.attr('placeholder') ){
@@ -546,7 +547,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                             if( !this.value ){
                                                 this.value = $input.attr('placeholder');
                                             }
-                                        });
+                                        })
+                                        .trigger('blur');
                                 }
                                 // init tutor place holder
 
