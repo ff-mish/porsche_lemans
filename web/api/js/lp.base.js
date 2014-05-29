@@ -777,6 +777,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             } , 100);
                         }
                     }
+                    var player = this;
+                    // player.on('loadeddata' , function(){
+                    //     player.play();
+                    // });
+                    // console.log( this.buffered().end() );
+                    if( this.ia == 'Html5' ){
+                        var timer = setInterval( function(){
+                            
+                            if( player.bufferedPercent() > 0.9 ){
+                                player.play();
+                                clearInterval( timer );
+                            }
+                        } , 1000 / 10 );
+                    } else {
+                        this.play();
+                    }
                     cb && cb.call( this );
                 } );
                 // var index = globalVideos.length;
@@ -784,12 +800,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 //                globalVideoInterval[index] = setInterval( function(){
 //                    globalVideos[index] = myVideo.bufferedPercent();
 //                } , 100 );
-                var timer = setInterval( function(){
-                    if( myVideo.bufferedPercent() > 0.9 ){
-                        myVideo.play();
-                        clearInterval( timer );
-                    }
-                } , 1000 / 60 );
+
+//console.log( myVideo.bufferedPercent() );
+                // var timer = setInterval( function(){
+
+                //     console.log( myVideo.bufferedPercent() );
+                //     return;
+                //     if( myVideo.bufferedPercent() > 0.9 ){
+                //         myVideo.play();
+                //         clearInterval( timer );
+                //     }
+                // } , 1000 / 1 );
                 
                 //myVideo.muted( true );
                 $wrap.data('video' , myVideo);
