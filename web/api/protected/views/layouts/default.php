@@ -127,6 +127,7 @@
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>
 <script type="text/javascript" src="/js/lp.core.js"></script>
+<script type="text/javascript" src="/js/lang/<?php echo Yii::app()->language;?>.js"></script>
 <script type="text/javascript" src="/js/lp.base.js"></script>
 <!--  -->
     <!--IE6透明判断-->

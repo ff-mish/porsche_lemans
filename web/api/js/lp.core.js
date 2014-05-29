@@ -11,7 +11,7 @@
     var __Cache = {};
 
     // for language
-    host._e = function( k ){ return k;}
+    host._e = function( k ){ if( window.langs ) return langs[k] || k; else return k ;}
 
     // use third part js and css loader
     var _loader = window.seajs || {};
