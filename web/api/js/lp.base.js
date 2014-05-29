@@ -940,7 +940,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "" ,  {muted:1} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -1431,7 +1431,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "" ,  {muted:1} , function(){
+		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "/videos/index.jpg" ,  {muted:1} , function(){
 
         });
 		setTimeout(function(){
@@ -1450,7 +1450,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} , function(){
+		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "/videos/winner.jpg" ,  {muted:1} , function(){
 
         } );
 		setTimeout(function(){
@@ -1834,7 +1834,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "" ,  {ratio: 516 / 893} , function(){
+                renderVideo( $('#home_video') , "/videos/small" , "/videos/small.jpg" ,  {ratio: 516 / 893} , function(){
                     $('#' + this.Q).css('z-index' , 0);
                 } );
                 // get parameter d
