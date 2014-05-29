@@ -76,7 +76,7 @@
     left       : 0;
     background : rgba(0,0,0,0.4);
     filter     : progid:DXImageTransform.Microsoft.gradient(startColorstr=#22000000,endColorstr=#22000000);
-
+    background: url(about:blank) \9;
     _position : absolute;
     _top  : expression( ( ignoreMe  = document.documentElement.scrollTop  ) + 'px' );
     _left : expression( ( ignoreMe2 = document.documentElement.scrollLeft ) + 'px' );

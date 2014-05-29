@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <title><?php echo Yii::t("lemans", "PORSCHE")?></title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
@@ -25,7 +26,7 @@
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
 </head>
-<body class="lang-<?php echo Yii::app()->language == "en_us" ? "en": "cn" ?> bg1 <?php echo $this->classname ?> <?php if (UserAR::crtuser()){echo UserAR::crtuser()->from;} ?>" data-page="<?php echo $this->page_name?>">
+<body data-lang="<?php echo Yii::app()->language;?>" class="lang-<?php echo Yii::app()->language == "en_us" ? "en": "cn" ?> bg1 <?php echo $this->classname ?> <?php if (UserAR::crtuser()){echo UserAR::crtuser()->from;} ?>" data-page="<?php echo $this->page_name?>">
 	<!--  -->
 	<?php echo $content?>
 	<!--  -->
@@ -35,23 +36,23 @@
             <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
             <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
             <div class="btn <?php echo Yii::app()->language;?>" id="share"><?php echo Yii::t("lemans", "Share")?>
-            	<?php if (Yii::app()->language == "zh_cn"): ?>
-              <div class="share-btns">
-                <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-sina"></a>
-                
-                
-                <a href="#" class="i-g"></a>
-                <a href="#" class="i-in"></a>
-                <a href="#" class="i-p"></a>
-              </div>
-          <?php else:?>
-              <div class="share-btns">
-                <a href="#" class="i-fb"></a>
-                <a href="#" class="i-tw"></a>
-                <a href="#" class="i-g"></a>
-                <a href="#" class="i-in"></a>
-              </div>
-          <?php endif;?>
+	            <?php if (Yii::app()->language == "zh_cn"): ?>
+		            <div class="share-btns">
+			            <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82&url=http://24socialrace.porsche.com" class="i-sina"></a>
+			            <a target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-qz"></a>
+			            <a target="_blank" href="http://v.t.qq.com/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-qq"></a>
+			            <a target="_blank" href="http://www.douban.com/recommend/?url=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-db"></a>
+			            <a target="_blank" href="http://share.renren.com/share/buttonshare.do?link=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-rr"></a>
+		            </div>
+	            <?php else:?>
+		            <div class="share-btns">
+			            <a target="_blank" href="https://www.facebook.com/share.php?u=http://24socialrace.porsche.com&t=24&pic=" class="i-fb"></a>
+			            <a target="_blank" href="https://twitter.com/intent/tweet?text=http://24socialrace.porsche.com&pic=" class="i-tw"></a>
+			            <a target="_blank" href="https://plus.google.com/share?url=http://24socialrace.porsche.com&t=24" class="i-g"></a>
+			            <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=http://24socialrace.porsche.com&title=24&ro=false&summary=&source=" class="i-in"></a>
+			            <a target="_blank" href="http://pinterest.com/pin/create/button/?url=http://24socialrace.porsche.com" class="i-p"></a>
+		            </div>
+	            <?php endif;?>
             </div>
         </div>
         <div class="footer_language"><a data-lang="en_us" href="#">En</a> | <a data-lang="zh_cn" href="#">中文</a></div>
@@ -128,6 +129,7 @@
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>
 <script type="text/javascript" src="/js/lp.core.js"></script>
+<script type="text/javascript" src="/js/lang/<?php echo Yii::app()->language;?>.js"></script>
 <script type="text/javascript" src="/js/lp.base.js"></script>
 <!--  -->
     <!--IE6透明判断-->

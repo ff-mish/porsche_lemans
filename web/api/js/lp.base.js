@@ -7,6 +7,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
+
+    var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
     function retweetMonitoring() {
@@ -109,7 +111,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             // var blackPath = paper.path( "" )
             //         .attr("stroke", "#000")
             //         .attr("stroke-width" , stockWidth);
-            var text = paper.text( width / 2 , height / 2 , "0 T/H" )
+
+            var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
                 .attr({fill: "#fff",'font-size':'13px'});
 
 
@@ -140,7 +143,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/H' );
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -460,10 +463,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        renderTure( off.top - 10 , off.left - 20 , 380 , 60 );
+                        var w = Math.max( $('.team_name').width() , 200 );
+                        renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + 380 , top: off.top - 10 })
+                            .css({left: off.left + w + 50 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
@@ -496,9 +500,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             coordinate.run( 0,0,0,0 );
                         }
                         // add demo 
-                        isNoAchivmentsbox = !$('.stand_achivments .stand_achivmentsbox').children().length;
+                        isNoAchivmentsbox = !$('.stand_achivments .stand_achivmentsbox .full-star').length;
                         if( isNoAchivmentsbox ){
-                            $('.stand_achivments .stand_achivmentsbox').html('<p></p><p></p><p></p>');
+                            $('.stand_achivments .stand_achivmentsbox p').slice(0,2).addClass('full-star').each(function( i ){
+                                $(this).html( i + 1 );
+                            });
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
@@ -510,7 +516,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         break;
                     case 5:
                         if( isNoAchivmentsbox ){
-                            $('.stand_achivments .stand_achivmentsbox').html('');
+                            $('.stand_achivments .stand_achivmentsbox .full-star').removeClass('full-star').html('');
                         }
                         $('.tutr-step-tip4').fadeOut();
                         LP.panel({
@@ -535,7 +541,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                                 // init place holder
                                 var $input = panel.$panel.find('input');
-                                if( $input.get(0).placeholder === undefined ){
+                                if( $('<input/>').get(0).placeholder === undefined ){
                                     $input.val( $input.attr('placeholder') )
                                         .focus(function(){
                                             if( this.value == $input.attr('placeholder') ){
@@ -546,7 +552,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                             if( !this.value ){
                                                 this.value = $input.attr('placeholder');
                                             }
-                                        });
+                                        })
+                                        .trigger('blur');
                                 }
                                 // init tutor place holder
 
@@ -554,6 +561,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
 
                                     var email = $input.val();
+                                    if( email == $input.attr('placeholder') ){
+                                        email = '';
+                                    }
                                     if( email &&
                                         (!email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
                                         !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
@@ -731,7 +741,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             var id = 'my_video_' + ( vid++ );
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
-            var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
+            var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false}};
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
             LP.use('video-js' , function(){
                 videojs.options.flash.swf = "/js/video-js/video-js.swf";
@@ -769,14 +779,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                     cb && cb.call( this );
                 } );
-                var index = globalVideos.length;
-                globalVideos[index] = 0;
+                // var index = globalVideos.length;
+                // globalVideos[index] = 0;
 //                globalVideoInterval[index] = setInterval( function(){
 //                    globalVideos[index] = myVideo.bufferedPercent();
 //                } , 100 );
-
-
-                myVideo.muted( true );
+                var timer = setInterval( function(){
+                    if( myVideo.bufferedPercent() > 0.9 ){
+                        myVideo.play();
+                        clearInterval( timer );
+                    }
+                } , 1000 / 60 );
+                
+                //myVideo.muted( true );
                 $wrap.data('video' , myVideo);
             });
         }
@@ -786,12 +801,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var countDownMgr = (function(  ){
         var colClass = "countdown-col";
         var groupClass = "countdown-group";
+        var itemHeight = 0;
         // 8
         // 9
         // 0
         var initCol = function ( $dom , max , origin ){
             var htmls = [];
-            var height = $dom.height();
+            var height = itemHeight = $dom.height();
 
             //save data to dom
             $dom.data( 'max' , max )
@@ -837,7 +853,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         }
         var reduce = function ( $dom ){
-            var height = $dom.height();
+            var height = itemHeight;
             var num = $dom.data('num');
             var next = num - 1 < 0 ? $dom.data('max') : num - 1;
             var nextArr = (next + "").split("");
@@ -919,7 +935,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     })();
 
 
-    var bigVideoInit = function(){
+    var bigVideoInit = function(){ 
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
         renderVideo( $('<div></div>').css({
@@ -930,7 +946,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             "height": "100%",
             "width": "100%",
             "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "" ,  {muted:1} );
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -998,11 +1014,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             title: '',
             width: 760,
             height: 408,
-            onShow: function(){
-                // LP.use('jscrollpane' , function(){
-                //     $('.popup_invite_friend_list').jScrollPane();    
-                // });
-            },
             onload: function() {
                 var panel = this;
                 var uTpl = '<div class="friend_item" data-uuid="#[uuid]">\
@@ -1015,7 +1026,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>';
 
 
-
                 var loadFriends = function( page ){
                     if( next_cursor == -1 ) return;
                     isLoading = true;
@@ -1025,7 +1035,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
-                        var $list = panel.$panel.find('.popup_invite_friend_list');
+                        var $list = panel.$panel.find('.popup_invite_friend_list .jspPane');
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1043,13 +1053,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         
                     });
                 }
+
+                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.popup_invite_friend_list').jScrollPane({autoReinitialise:true}).bind(
+                        'jsp-scroll-y',
+                        function(event, scrollPositionY, isAtTop, isAtBottom){
+                            if( !hasMore || isLoading ) return;
+                            if( isAtBottom ){
+                                loadFriends( next_cursor );
+                            }
+                            // if(isAtBottom) {
+                            //     var commentParam = $('.comment-wrap').data('param');
+                            //     getCommentList(node.nid,commentParam.page + 1);
+                            // }
+                        }
+                    );
+                    loadFriends( );
+                });
                 
                 
 
                 var hasMore = true;
                 var isLoading = false;
                 var next_cursor = -2;
-                loadFriends( );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
@@ -1074,14 +1100,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .addClass('disabled');
                     }
                 })
-                .bind('scroll' , function(){
-                    if( !hasMore || isLoading ) return;
+                // .bind('scroll' , function(){
+                //     if( !hasMore || isLoading ) return;
 
-                    var scrollTop = $(this).scrollTop();
-                    var height = $(this).height();
-                    if( this.scrollHeight - scrollTop - height < 100 )
-                        loadFriends( next_cursor );
-                });
+                //     var scrollTop = $(this).scrollTop();
+                //     var height = $(this).height();
+                //     if( this.scrollHeight - scrollTop - height < 100 )
+                //         loadFriends( next_cursor );
+                // });
 
                 panel.$panel.find('.popup_close')
                     .click( function(){
@@ -1117,7 +1143,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                     .insertBefore( $('.teambuild_member .member_add').eq(0) )
                                     .parent()
                                     .addClass('stand_inviting')
-                                    .css('opacity' , 0.5)
                                     .find('.member_add')
                                     .remove();
                             } );
@@ -1148,11 +1173,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
 
 
-    LP.action("post_weibo" , function(){
+    LP.action("post_weibo" , function( data ){
+        var $btn = $(this).attr('disabled' , 'disabled');
         LP.panel({
-            content: '<div class="popup_dialog popup_post">\
-            <div class="popup_dialog_msg">\
-                <textarea style="overflow:auto;">' + _e('') + '</textarea>\
+            content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
@@ -1163,9 +1189,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 <span>' + _e('Success!') + '</span>\
             </div>',
             title: "",
-            width: 784,
-            height: 352,
+            width: 604,
+            height: 252,
             onShow: function(){
+                $btn.removeAttr('disabled');
                 var panel = this;
                 this.$panel.find('.p-cancel')
                     .click(function(){
@@ -1410,7 +1437,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "" ,  {muted:1} , function(){
+		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "/videos/index.jpg" ,  {muted:1} , function(){
 
         });
 		setTimeout(function(){
@@ -1429,7 +1456,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			"height": "100%",
 			"width": "100%",
 			"overflow": "hidden"
-		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "" ,  {muted:1} , function(){
+		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "/videos/winner.jpg" ,  {muted:1} , function(){
 
         } );
 		setTimeout(function(){
@@ -1440,13 +1467,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $('#home_video').fadeOut(function(){
-           var video = $(this).find('.video-js')
-                .parent()
-                .data('video');
-            video.dispose();
-            video.isRemoved = true;
+           // var video = $(this).find('.video-js')
+           //      .parent()
+           //      .data('video');
+           //  video.dispose();
+           //  video.isRemoved = true;
 
-           $(this).remove();
+           //$(this).remove();
         } );
     });
 
@@ -1485,7 +1512,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action("invite_box", function(params) {
       LP.panel({
         type: "panel",
-        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">Do you want to join '+params["team_name"]+' ?</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
         "title": "",
         mask: true,
         destroy: true,
@@ -1529,7 +1556,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
             $dom.children().fadeOut( function(){
                 $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
-                    .removeClass('stand_inviting');
+                    .removeClass('stand_inviting')
+                    .css('opacity' , 1);
             } );
         });
     });
@@ -1541,7 +1569,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 	var initComplete = function(){
 		if(isComplete) return;
         isComplete = true;
-		$('.loading-wrap').fadeOut();
+		$('.loading-wrap').fadeOut(function(){
+            $(this).remove();
+        });
 
 		/* for animation */
 		var isUglyIe = $.browser.msie && $.browser.version <= 8;
@@ -1678,13 +1708,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // init share btn
         $('#share').hover(function(){
-            $('.share-btns').stop( true , true ).fadeIn().dequeue().animate({
-                width: 240
-            } , 300 );
+            $('.share-btns').stop( true , true ).fadeIn();
         } , function(){
-            $('.share-btns').stop(true , true).delay(200).fadeOut().dequeue().animate({
-                width: 0
-            } , 500 );
+            $('.share-btns').stop(true , true).delay(200).fadeOut();
         });
 
 		// init post twitter button
@@ -1813,9 +1839,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         // init first page template
         switch( $(document.body).data('page') ){
             case "index":
-                var ratio = 516 / 893;
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "" ,  {ratio: ratio} , function(){
+                renderVideo( $('#home_video') , "/videos/small" , "/videos/small.jpg" ,  {ratio: 516 / 893} , function(){
                     $('#' + this.Q).css('z-index' , 0);
                 } );
                 // get parameter d
@@ -1825,19 +1850,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 countDownMgr.initCountDown();
-                api.get('/api/web/time' , function( e ){
-                     var start = new Date(e.data.time_start );
-                     var now = new Date(e.data.time_now );
-                    
-                     var dura = ~~( ( start - now ) / 1000 );
-                     var d = ~~( dura/86400 );
-                     var h = ~~( ( dura - d * 86400 ) / 3600 );
-                     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                     var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
-
                 break;
             case "teambuild":
                 api.get("/api/user" , function( e ){
@@ -1869,19 +1881,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
 
             case "countdown":
-                // api.get('/api/web/time' , function( e ){
-                //     var start = new Date(e.data.time_start );
-                //     var now = new Date(e.data.time_now );
-                   
-
-                //     var dura = ~~( ( start - now ) / 1000 );
-                //     var d = ~~( dura/86400 );
-                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
-                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                //     var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                // });
                 countDownMgr.initCountDown();
                 break;
 
@@ -1948,6 +1947,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     if( lastTname === txt ) return;
                     // match
                     
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length > 12 ){
+                        $('.team_name_error_tip').fadeIn();
+                        clearTimeout( hideTimer );
+                        hideTimer = setTimeout(function(){
+                            $('.team_name_error_tip').fadeOut();
+                        } , 3000);
+                        $(this).focus();
+                        return false;
+                    }
                     lastTname = txt;
                     api.post("/api/user/updateteam" , {name: txt} );
                 }).keydown(function( ev ){ 
@@ -2017,7 +2026,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // 
                     $('.team_name').html( team.name );
-                    $('#team-score').html( 'P' + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
+                    $('#team-score').html( _e('P') + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -2026,14 +2035,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
                     var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
                             <p class="member_name">@#[name]<br/></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
                     var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
@@ -2107,7 +2116,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )
-                        .find('.memeber_space')
+                        .find('.memeber_space span')
                         .each( function(){
                             var $this = $(this);
                             setTimeout(function(){
@@ -2128,8 +2137,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // render achive
                     var ahtml = [];
-                    for( var i = 0 ; i < data.team_star ; i++ ){
-                        ahtml.push('<p></p>');
+
+                    for( var i = 0 ; i < 5 ; i++ ){
+                        if( i < data.team_star ){
+                            ahtml.push('<p class="full-star">' + ( i + 1 ) + '</p>');
+                        } else {
+                            ahtml.push('<p></p>');
+                        }
                     }
 
                     $('.stand_achivmentsbox').html( ahtml.join("") );
@@ -2149,7 +2163,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     
                     // redner next page
                     $('.stand_add').click(function(){
-						console.log(postWidth);
                         if($(this).hasClass('disabled') ) return;
                         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
                         >= $('.stand_posts_inner').width()) return;
@@ -2196,10 +2209,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .stop( true , true )
                             .fadeIn();
                     })
+                    .delegate('.stand_inviting .member_item' , 'mouseenter' , function(){
+                        $(this).animate({opacity: 1});
+                    })
+                    .delegate('.stand_inviting .member_item' , 'mouseleave' , function(){
+                        $(this).animate({opacity: 0.5});
+                    });
 
                     // render stand_chart
                     var score = team.score || {};
-                    $('.stand_chart_score').html( (score.average || 0) + 'km/h' );
+                    $('.stand_chart_score').html( (score.average || 0) + ' km/h' );
                     coordinate.init( $('.stand_chart') , function(){
                         coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduity || 0 );
                     } );

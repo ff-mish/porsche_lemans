@@ -65,12 +65,13 @@ body{background:#000;height: 100%;width: 100%}
 .header{background: #fff;height: 80px;position: fixed;left:0;right: 0;top:0;z-index: 1000}
 .logo{background: url('../images/logo2.png') no-repeat;width: 95px;height: 55px;top: 14px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 258px;height: 22px;position: absolute;right: 34px;top: 30px}
+.lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 184px;height: 20px;}
 .nav{font-size: 15px;position: fixed;top: 180px;left:66px;z-index:3;}
 .post_link {position: relative;width:190px;}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
 .navicon {color:#ff0707;border:2px solid #ff0707;background:url('../images/icon_plus.png') no-repeat center;height:45px;width:45px; margin: 0 0 50px;display: block;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
 .ie8 .navicon{background: url(../images/post_wb.png); width: 50px; height: 50px;border:none; }
-.navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);}
+.navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);opacity: 1;}
 .nav p{padding-left:55px;height: 35px;color:#777;}
 .nav p a{color:#717171}
 .nav p a:hover {color:#fff;}
@@ -102,8 +103,9 @@ body{background:#000;height: 100%;width: 100%}
 .skipintro{position: fixed;font-size:14px;right: 36px;top: 104px;z-index:10;text-decoration: underline;}
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
-.home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}
-.home_share a{width:193px;height: 48px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+.home_share{position: absolute;left:50%;top:50%;margin:100px 0 0 -166px}
+.home_share a{width:159px;height: 38px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+.lang-cn .home_share a {background-image: url('../images/home_share2_cn.png');}
 .home_share .home_twitter{background-position: top right}
 .home_winners{color:#fff;font-size: 22px;text-align: center;text-decoration: underline;position: absolute;top: 50%;width: 200px;left:50%;margin: 175px 0 0 -100px}
 
@@ -170,9 +172,9 @@ body{background:#000;height: 100%;width: 100%}
 .teambuild_member{}
 .member_item{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left;
     border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-    /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+     For IE 8
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
 }
 
 .ie8 .member_item{background:url(about:blank);}
@@ -180,12 +182,13 @@ body{background:#000;height: 100%;width: 100%}
 .member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:26px 0 0;}
 .member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 .memeber_space{float:left;font-size: 62px;font-weight: bold;color:#f00;line-height: 75px;text-align: center;width: 220px}
-.member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-    /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+.member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px; 
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+     For IE 8
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
 }
 .ie8 .member_add{background:url(about:blank);}
+.member_add:hover{opacity: 1;}
 .member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
 
 
@@ -195,11 +198,12 @@ body{background:#000;height: 100%;width: 100%}
 .team_name_error_tip{position: absolute;color: red;font-size: 12px;top: -28px;left: 5px;display: none;}
 .stand_tit p{float: left}
 .stand_useritem{margin-bottom:35px;}
-.stand_inviting{opacity: 0.5;filter: alpha(opacity=50);}
+.stand_inviting .member_item{opacity: 0.5;filter: alpha(opacity=50);}
 .stand_useritem .member_item{margin: 0}
 .stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0;display: none;}
 .stand_achivmentsbox{float: left;padding:0 0 0 50px;}
-.stand_achivmentsbox p{width: 46px;height: 55px;background:url('../images/stand.png') no-repeat -291px -507px; float: left;}
+.stand_achivmentsbox p{width: 38px;height: 45px;background:url('../images/star.png') no-repeat; float: left;text-align: center;line-height: 40px;font-size: 16px;}
+.stand_achivmentsbox p.full-star{background: url(../images/full-star.png) no-repeat;}
 .stand_tweet{color:#fefefe;padding: 40px 0 50px;position: relative; display: none;}
 .stand_tweet h2{font-size: 28px;padding:20px 0 0 0;width: 240px}
 .stand_tweetitem{font-size: 14px;float: left;width: 220px;padding:0 70px;}
@@ -292,9 +296,16 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_impact{position: absolute;top: 50%;z-index: 1;width: 100px;height: 50px;left: -15px;margin-top: -25px;}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
 .stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
-.stand_chart_tip span{position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
+
+/*.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}*/
+.stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
+
+.stand_tit .stand_chart_tip{padding: 4px 10px;bottom: -11px;z-index: 12; width: auto;}
+.stand_tit .stand_chart_tip span{bottom: 17px;}
 
 .stand_tit span.save_btn {display:inline-block;background: url('../images/ok_bg.png') no-repeat;font-size:10px;display:block;width:44px;height:44px;line-height:44px;text-align:center;color:#f00000;}
+
+.teambuild_members{margin-top: 10px;}
 
 .ie8 .stand_chart_speed,
 .ie8 .stand_chart_quality,
@@ -309,8 +320,8 @@ body{background:#000;height: 100%;width: 100%}
 .popup_box {}
 .popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_msg {font-size:30px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
-.popup_dialog_btns {text-align: center;margin:40px 0 40px 0;}
-.popup_dialog_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:38px;line-height:38px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_btns {text-align: center;margin:30px 0 ;}
+.popup_dialog_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
 .popup_dialog_btns .loading {background: url(../images/loading.gif) no-repeat;width:37px;height:37px;display: block;position: absolute;right:5px;bottom:5px;display: none;}
 .popup_dialog_status {color:#ff0000;text-align:center;font-size:20px;margin:40px 0 40px 0;display:none;}
@@ -322,16 +333,17 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dun{position: absolute;left: 40px;top: 40px;height: 48px;width: 36px;line-height: 48px;text-align: center;color: #ff0000; background: url(../images/dun.png) no-repeat; font-size: 14px;}
 .popup_dun span{position: absolute;left: 150%;}
 
-.popup_email{border: none !important;overflow: hidden;text-align: center;}
-.popup_email h4{font-size: 35px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
-.popup_email input{width: 600px;background: none;color:white;}
+.popup_email{border: none !important;overflow: hidden;text-align: center; text-align: center;}
+.popup_email h4{font-size: 30px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
+.popup_email input{width: 600px;background: #000;color:white;}
+.ie8 .popup_email input{height: auto; display: block;margin: 0 auto; padding: 50px 0;}
 .popup_email .con-step{position: absolute;left: 30px;}
 .popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
-.popup_invite {position: relative; background:#000;background:rgba(0,0,0,0.7);border:1px solid #ff0000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
+.popup_invite {position: relative; background:#000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
 .popup_invite .popup_invite_friend_list{height: 283px;overflow: auto;}
-.popup_invite .friend_item {float:left;width:239px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
+.popup_invite .friend_item {float:left;width:230px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
@@ -347,7 +359,8 @@ body{background:#000;height: 100%;width: 100%}
 .popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
 .popup_invite .loading-wrap{position:absolute;width:100%;height:100%;display: block;background:#000;background: rgba(0,0,0,.6);}
 
-.popup_post textarea {resize:none;width:100%;height:100%;background:none;border:none;color:#fff;}
+.popup_post textarea {resize:none;width:100%;height:100%; background:none;border:none;color:#fff; font-size: 14px;}
+.ie8 .popup_post textarea {background:url(about:blank)\9;}
 .popup_post_with_photo textarea {width:470px;}
 .popup_post .popup_dialog_msg {display: block;text-align:left;font-size:20px;padding:10px 20px;}
 .popup_post .popup_post_photo {float:left;margin:0 20px 0 0;width: 180px;height: 180px;}
@@ -542,7 +555,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
     .stand_posts {width:458px!important;margin-left:0!important;}
-    .stand_achivmentsbox {width:218px!important;margin-right:45px!important;}
+    .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 }
 @media screen and (max-width:1000px), screen and (max-height: 700px){
     .nav{left:0px;top:100px;}
@@ -568,7 +581,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
     .stand_posts {width:458px!important;margin-left:0!important;}
-    .stand_achivmentsbox {width:218px!important;margin-right:45px!important;}
+    .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 }
 
 

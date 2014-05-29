@@ -5,7 +5,7 @@ define(function( require , exports , model ){
 
     var isIE6 = $.browser.msie && $.browser.version < 7;
     var P = {
-        zIndex      : 30
+        zIndex      : 10000
         , panels    : {}
         , showCount : 0
         , maskCount : 0
@@ -198,7 +198,29 @@ define(function( require , exports , model ){
 
         // =========== Creating
         // 创建Element
-        t.$panel = $('<div><span class="lpn_ghost"></span></div>').data('id', t.id);
+        t.$panel = $('<div><span class="lpn_ghost"></span></div>').data('id', t.id)
+            .click(function( ev ){
+                if( this == ev.target ){
+                    t.close();
+                }
+            });
+
+        $(window).bind('keydown' , function( ev ){
+            switch( ev.which ){
+                case 27:
+                    t.close();
+                    break;
+            }
+        });
+
+        $(document).bind('keypress' , function( ev ){
+            switch( ev.which ){
+                case 27:
+                    t.close();
+                    break;
+            }
+        })
+
         t.setMask( o.mask );
 
         // 创建Wrapper
@@ -418,11 +440,11 @@ define(function( require , exports , model ){
             }
 
             // t.focus();
-            t.$panel.hide()
-                .fadeIn(400);
+            // t.$panel
+            //     .show();
 
             // insert code 
-            t.$panel.find('.popup_dialog')
+            t.$panel.find('.lpn_panel')
                 .css({
                     'margin-top': '-100%',
                     'opacity' : 0
@@ -469,11 +491,21 @@ define(function( require , exports , model ){
                 if (o.onBeforeClose && o.onBeforeClose.call(t) === false)
                     return;
                 t.isVisible = false;
-                t.$panel.fadeOut( 1000 , function(){
-                    if (o.destroy) {
-                        t.$panel.remove();
-                    }
-                });
+
+                if( $.browser.msie && $.browser.version < 9 ) {
+                    setTimeout(function(){
+                        if (o.destroy) {
+                            t.$panel.remove();
+                        }
+                    } , 1000);
+                    
+                } else {
+                    t.$panel.fadeOut( 1000 , function(){
+                        if (o.destroy) {
+                            t.$panel.remove();
+                        }
+                    });
+                }
 
                 // Show the last panel's background
                 var $panels = $('.lpn_mask');
