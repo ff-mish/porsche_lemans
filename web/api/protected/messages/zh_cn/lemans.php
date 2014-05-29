@@ -18,6 +18,7 @@ return array (
     "Tweet content from Fuel section to increase your quality" => "能量提高数",
     "Answer right to Porsche challenges to improve your assiduity" => "回答问题准确率",
     "This represents the number of your followers" => "粉丝数",
+    "Team name is limited within 12 characters" => "团队名称限制在6个中文字以内",
     "#24SocialRace" => "#勒芒社交耐力赛#",
     "The Race" => "准备室",
     "Monitoring" => "赛场",

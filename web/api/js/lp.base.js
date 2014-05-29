@@ -886,7 +886,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 //$doms = $doms.eq(0);
                 $doms.each( function( i ){
-                    console.log( origins[i] );
                     initCol( $(this) , maxs[i] , origins[i] );
                 } );
 
@@ -2126,7 +2125,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     
                     // redner next page
                     $('.stand_add').click(function(){
-						console.log(postWidth);
                         if($(this).hasClass('disabled') ) return;
                         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
                         >= $('.stand_posts_inner').width()) return;
