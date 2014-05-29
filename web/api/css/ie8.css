@@ -11,14 +11,14 @@
 .stand_useritem {margin-bottom: 25px;}
 .stand {top:50px;}
 .stand_tweetitem{padding:0 20px;}
-.stand_add{right:20px;top:60px;left:auto;}
-.stand_del {left:170px!important;top:60px!important;}
-.stand_chart{width: 510px;height:510px;background-size: cover}
+.stand_add{right:20px;top:30px;left:auto;}
+.stand_del {left:170px!important;top:30px!important;}
+.stand_chart{width: 480px;height:480px;background-size: cover}
 .stand_chart_score {font-size:32px;left:195px;}
 .team_name,.stand_tit {font-size:32px;}
 .stand_tit {width:465px;height:60px;}
-.stand_achivments {padding:20px 0 20px 0;font-size:28px;}
-.stand_tweet {padding-top:64px;}
+.stand_achivments {padding:10px 0 0px 0;font-size:28px;}
+.stand_tweet {padding-top:34px;}
 .stand_tweet h2 {font-size:28px;}
 .stand_posts {width:650px!important;margin-left:70px!important;}
 .stand_achivmentsbox {width:281px!important;margin-right:45px!important;}

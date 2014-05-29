@@ -65,6 +65,7 @@ body{background:#000;height: 100%;width: 100%}
 .header{background: #fff;height: 80px;position: fixed;left:0;right: 0;top:0;z-index: 1000}
 .logo{background: url('../images/logo2.png') no-repeat;width: 95px;height: 55px;top: 14px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 258px;height: 22px;position: absolute;right: 34px;top: 30px}
+.lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 184px;height: 20px;}
 .nav{font-size: 15px;position: fixed;top: 180px;left:66px;z-index:3;}
 .post_link {position: relative;width:190px;}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
@@ -102,8 +103,9 @@ body{background:#000;height: 100%;width: 100%}
 .skipintro{position: fixed;font-size:14px;right: 36px;top: 104px;z-index:10;text-decoration: underline;}
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
-.home_share{position: absolute;left:50%;top:50%;margin: 100px 0 0 -200px}
-.home_share a{width:193px;height: 48px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+.home_share{position: absolute;left:50%;top:50%;margin:100px 0 0 -166px}
+.home_share a{width:159px;height: 38px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
+.lang-cn .home_share a {background-image: url('../images/home_share2_cn.png');}
 .home_share .home_twitter{background-position: top right}
 .home_winners{color:#fff;font-size: 22px;text-align: center;text-decoration: underline;position: absolute;top: 50%;width: 200px;left:50%;margin: 175px 0 0 -100px}
 
