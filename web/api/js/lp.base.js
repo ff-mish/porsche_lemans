@@ -1503,7 +1503,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action("invite_box", function(params) {
       LP.panel({
         type: "panel",
-        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">Do you want to join '+params["team_name"]+' ?</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
         "title": "",
         mask: true,
         destroy: true,

@@ -21,4 +21,5 @@
   'Leave Team' => '',
   'T/H' => '',
   'P' => '',
+  'Do you want to join' => '',
 );
