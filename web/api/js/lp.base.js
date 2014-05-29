@@ -1166,6 +1166,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
 
     LP.action("post_weibo" , function( data ){
+        var $btn = $(this).attr('disabled' , 'disabled');
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:100px;width: auto;">\
@@ -1183,6 +1184,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             width: 604,
             height: 252,
             onShow: function(){
+                $btn.removeAttr('disabled');
                 var panel = this;
                 this.$panel.find('.p-cancel')
                     .click(function(){
