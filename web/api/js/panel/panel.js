@@ -205,7 +205,7 @@ define(function( require , exports , model ){
                 }
             });
 
-        $(document).bind('keypress.close-panel-' + t.id , function( ev ){
+        $(document).bind('keydown keypress.close-panel-' + t.id , function( ev ){
             switch( ev.which ){
                 case 27:
                     t.close();
