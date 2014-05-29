@@ -10,7 +10,7 @@
   'Enter your email address' => '',
   'Finish tutorial' => '',
   'Success!' => '',
-  'wrong email' => '',
+  'wrong email' => 'Please enter validate email',
   'Ok' => '',
   'Send Invitation' => '',
   ' You can\\\'t invite too many people ' => '',

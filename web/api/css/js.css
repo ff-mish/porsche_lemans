@@ -134,12 +134,20 @@ outline: none !important;
 .ie8 .share-btns{background:url(about:blank);}
 .share-btns a{display: inline-block; width: 33px;height: 33px;background: url(../images/share.png) no-repeat;margin: 0 5px;}
 .share-btns a.i-sina{background-position: -226px -44px;}
+.share-btns a.i-qz{background-position: -271px -44px;}
+.share-btns a.i-qq{background-position: -316px -44px;}
+.share-btns a.i-db{background-position: -361px -44px;}
+.share-btns a.i-rr{background-position: -406px -44px;}
 .share-btns a.i-fb{background-position: 0 -44px;}
 .share-btns a.i-tw{background-position: -45px -44px;}
 .share-btns a.i-g{background-position: -90px -44px;}
 .share-btns a.i-in{background-position: -135px -44px;}
 .share-btns a.i-p{background-position: -180px -44px;}
 .share-btns a.i-sina:hover{background-position: -226px -1px;}
+.share-btns a.i-qz:hover{background-position: -271px -1px;}
+.share-btns a.i-qq:hover{background-position: -316px -1px;}
+.share-btns a.i-db:hover{background-position: -361px -1px;}
+.share-btns a.i-rr:hover{background-position: -406px -1px;}
 .share-btns a.i-fb:hover{background-position: 0 -1px;}
 .share-btns a.i-tw:hover{background-position: -45px -1px;}
 .share-btns a.i-g:hover{background-position: -90px -1px;}
@@ -173,17 +181,17 @@ body[data-page="stand"] .footer-icon{display: block;}
 .tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.6;position: absolute;filter: alpha(opacity=60);}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step .step-con .color {color:#ff0000;}
-.tutr-step-tip1{display: none;position: absolute;top: 180px;background: black;left: 765px;width: 263px;padding: 30px;height: 252px;border-radius: 5px;font-size: 16px;line-height: 1.4em;}
+.tutr-step-tip1{display: none;position: absolute;top: 180px;background: black;left: 765px;width: 263px;padding: 30px;height: 252px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}
 .tutr-step-tip1 .step-btn{position: absolute;bottom: 30px;right: 40px;}
 
-.tutr-step-tip2{display: none;position: absolute;top: 183px;background: black;left: 765px;width: 276px;padding: 40px;height: 274px;border-radius: 5px;font-size: 17px;line-height: 1.4em;}
+.tutr-step-tip2{display: none;position: absolute;top: 183px;background: black;left: 765px;width: 276px;padding: 40px;height: 274px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}
 .tutr-step-tip2 .step-btn{position: absolute;bottom: 30px;right: 40px;}
 
-.tutr-step-tip3{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 17px;line-height: 1.4em;}
+.tutr-step-tip3{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}
 .tutr-step-tip3 .step-btn{position: absolute;bottom: 20px;right: 40px;}
 .tutr-step-tip3 .step-con-tit{text-decoration: underline;}
 
-.tutr-step-tip4{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 17px;line-height: 1.4em;}
+.tutr-step-tip4{display: none;position: absolute;top: 320px;background: black;left: 0;width: 460px;padding: 40px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}
 .tutr-step-tip4 .step-btn{position: absolute;bottom: 20px;right: 40px;}
 
 .conut_tit span{font-size: 90px;}
