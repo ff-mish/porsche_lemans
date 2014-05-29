@@ -86,10 +86,9 @@ class Controller extends CController {
     //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
     $cookies = Yii::app()->request->cookies;
     $lang = $cookies["lang"];
-    if (!$lang) {
-      $lang = "en_us";
+    if ($lang) {
+      Yii::app()->language = (string)$lang;
     }
-    Yii::app()->language = (string)$lang;
 
     
     Yii::app()->attachEventHandler("onError", array($this, "actionError"));

@@ -34,8 +34,8 @@
         <div class="footer_link cs-clear">
             <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
             <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
-            <div class="btn" id="share"><?php echo Yii::t("lemans", "Share")?>
-            	<?php if (Yii::app()->language == "en_us"): ?>
+            <div class="btn <?php echo Yii::app()->language;?>" id="share"><?php echo Yii::t("lemans", "Share")?>
+            	<?php if (Yii::app()->language == "zh_cn"): ?>
               <div class="share-btns">
                 <a target="_blank" href="https://www.facebook.com/share.php?u=&t=&pic=" class="i-fb"></a>
                 <a target="_blank" href="https://twitter.com/intent/tweet?text=&pic=" class="i-tw"></a>
