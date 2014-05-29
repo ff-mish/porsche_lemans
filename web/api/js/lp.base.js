@@ -741,7 +741,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             var id = 'my_video_' + ( vid++ );
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
-            var defaultConfig = { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false}};
+            var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false}};
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
             LP.use('video-js' , function(){
                 videojs.options.flash.swf = "/js/video-js/video-js.swf";
@@ -784,7 +784,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 //                globalVideoInterval[index] = setInterval( function(){
 //                    globalVideos[index] = myVideo.bufferedPercent();
 //                } , 100 );
-
+                var timer = setInterval( function(){
+                    if( myVideo.bufferedPercent() > 0.9 ){
+                        myVideo.play();
+                        clearInterval( timer );
+                    }
+                } , 1000 / 60 );
+                
                 //myVideo.muted( true );
                 $wrap.data('video' , myVideo);
             });
