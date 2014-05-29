@@ -1015,7 +1015,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>';
 
 
-
                 var loadFriends = function( page ){
                     if( next_cursor == -1 ) return;
                     isLoading = true;
@@ -1025,7 +1024,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
-                        var $list = panel.$panel.find('.popup_invite_friend_list');
+                        var $list = panel.$panel.find('.popup_invite_friend_list .jspPane');
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1043,13 +1042,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         
                     });
                 }
+
+                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.popup_invite_friend_list').jScrollPane({autoReinitialise:true}).bind(
+                        'jsp-scroll-y',
+                        function(event, scrollPositionY, isAtTop, isAtBottom){
+                            if( !hasMore || isLoading ) return;
+                            if( isAtBottom ){
+                                loadFriends( next_cursor );
+                            }
+                            // if(isAtBottom) {
+                            //     var commentParam = $('.comment-wrap').data('param');
+                            //     getCommentList(node.nid,commentParam.page + 1);
+                            // }
+                        }
+                    );
+                    loadFriends( );
+                });
                 
                 
 
                 var hasMore = true;
                 var isLoading = false;
                 var next_cursor = -2;
-                loadFriends( );
 
                 panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
@@ -1074,14 +1089,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .addClass('disabled');
                     }
                 })
-                .bind('scroll' , function(){
-                    if( !hasMore || isLoading ) return;
+                // .bind('scroll' , function(){
+                //     if( !hasMore || isLoading ) return;
 
-                    var scrollTop = $(this).scrollTop();
-                    var height = $(this).height();
-                    if( this.scrollHeight - scrollTop - height < 100 )
-                        loadFriends( next_cursor );
-                });
+                //     var scrollTop = $(this).scrollTop();
+                //     var height = $(this).height();
+                //     if( this.scrollHeight - scrollTop - height < 100 )
+                //         loadFriends( next_cursor );
+                // });
 
                 panel.$panel.find('.popup_close')
                     .click( function(){

@@ -214,11 +214,10 @@ body[data-page="stand"] .footer-icon{display: block;}
 .jspVerticalBar
 {
   position: absolute;
-  top: 0;
+  top: 10px;
   right: 0;
-  width: 16px;
+  width: 11px;
   height: 100%;
-  background: red;
 }
 
 .jspHorizontalBar
@@ -228,7 +227,6 @@ body[data-page="stand"] .footer-icon{display: block;}
   left: 0;
   width: 100%;
   height: 16px;
-  background: red;
 }
 
 .jspCap
@@ -243,13 +241,13 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 .jspTrack
 {
-  background: #dde;
   position: relative;
 }
 
 .jspDrag
 {
-  background: #bbd;
+  background: #606060;
+  width: 11px;
   position: relative;
   top: 0;
   left: 0;
