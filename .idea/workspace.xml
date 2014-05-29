@@ -2,25 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" afterPath="$PROJECT_DIR$/web/api/js/lang/en_us.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/images/share.png" afterPath="$PROJECT_DIR$/web/api/images/share.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/en_us.php" afterPath="$PROJECT_DIR$/web/api/script/en_us.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" afterPath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" afterPath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/zh_cn.php" afterPath="$PROJECT_DIR$/web/api/script/zh_cn.php" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401352614649" ignored="false" />
+    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368723714" ignored="false" />
     <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401258495160" ignored="false" />
     <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401338672335" ignored="false" />
     <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401346552338" ignored="false" />
@@ -41,7 +38,7 @@
     <file path="$PROJECT_DIR$/../avene_selfie/m/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401006972989" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_selfie/js/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401006972989" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_selfie/protected/views/index/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401094875743" ignored="false" />
-    <file path="/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401272687696" ignored="false" />
+    <file path="/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368359039" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/css/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401165247392" ignored="false" />
     <file path="/*.regexp" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178440182" ignored="false" />
@@ -64,16 +61,16 @@
     <file path="$PROJECT_DIR$/../ave_1000/ques_4.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/ques_3.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
     <file path="/stand.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401329008936" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401349408356" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368445072" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401350324409" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/js/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401266454219" ignored="false" />
-    <file path="/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401266443688" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/plan.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401334751085" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/cleansing.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401275321027" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/star.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401275334415" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/tips/protected/views/index/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401330972328" ignored="false" />
+    <file path="/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368099949" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/plan.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368454870" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/cleansing.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368450139" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/star.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368458048" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/tips/protected/views/index/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368414266" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/tips/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401331417460" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/tips/js/flash.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401330758329" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/tips/js/flash.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401369021809" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/css/pc.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401158250314" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401157916713" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/js/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401105252319" ignored="false" />
@@ -83,7 +80,7 @@
     <file path="/tpl.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401109467449" ignored="false" />
     <file path="$PROJECT_DIR$/../bank_wall/css/layout.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401109645219" ignored="false" />
     <file path="/layout.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401109601265" ignored="false" />
-    <file path="$PROJECT_DIR$/../avene_mls/tips/js/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401274771452" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/tips/js/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401369080445" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/tips/view.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401332816441" ignored="false" />
     <file path="/care.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401151301742" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_sun/game.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401159310428" ignored="false" />
@@ -100,6 +97,8 @@
     <file path="$PROJECT_DIR$/../lily_official/html/css/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401350114250" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/js/common/loading.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401350101936" ignored="false" />
     <file path="/loading.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401339374099" ignored="false" />
+    <file path="$PROJECT_DIR$/../avene_mls/tips/js/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368294347" ignored="false" />
+    <file path="$PROJECT_DIR$/../ave_1000/js/index/index.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401368781158" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,25 +121,22 @@
       <file leaf-file-name="js.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="189" column="42" selection-start="6785" selection-end="6785" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="150" column="54" selection-start="4267" selection-end="4267" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1401370349000" expanded="true" signature="3997:4031" placeholder="{...}" />
+                <marker date="1401370349000" expanded="true" signature="4057:4091" placeholder="{...}" />
+                <marker date="1401370349000" expanded="true" signature="4117:4151" placeholder="{...}" />
+                <marker date="1401370349000" expanded="true" signature="4177:4211" placeholder="{...}" />
+                <marker date="1401370349000" expanded="true" signature="4237:4271" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zh_cn.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="zh_cn.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="23" selection-start="307" selection-end="307" vertical-scroll-proportion="0.19351852">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="34" selection-start="1514" selection-end="1514" vertical-scroll-proportion="0.0">
+            <state line="22" column="12" selection-start="790" selection-end="790" vertical-scroll-proportion="-14.928572">
               <folding />
             </state>
           </provider>
@@ -155,6 +151,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="18" selection-start="975" selection-end="975" vertical-scroll-proportion="-4.75">
+              <folding>
+                <marker date="1401370349000" expanded="true" signature="19827:19940" placeholder="..." />
+                <marker date="1401370349000" expanded="true" signature="20008:20415" placeholder="..." />
+                <marker date="1401370349000" expanded="true" signature="20037:20057" placeholder="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="fule.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -164,28 +173,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+            <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="-0.6785714">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="lemans.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
+            <state line="19" column="69" selection-start="631" selection-end="631" vertical-scroll-proportion="0.2492971">
               <folding />
             </state>
           </provider>
@@ -203,7 +203,16 @@
       <file leaf-file-name="lp.base.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1491" column="22" selection-start="62435" selection-end="62435" vertical-scroll-proportion="0.0">
+            <state line="1497" column="13" selection-start="62687" selection-end="62687" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="19" selection-start="1549" selection-end="1549" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -235,12 +244,12 @@
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
-        <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
-        <option value="$PROJECT_DIR$/web/api/css/js.css" />
         <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
         <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
+        <option value="$PROJECT_DIR$/web/api/css/js.css" />
+        <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
       </list>
     </option>
   </component>
@@ -548,7 +557,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24986331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22186346" sideWeight="0.9991197" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22416975" sideWeight="0.9991197" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -631,11 +640,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/lp.base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1101" column="17" selection-start="44589" selection-end="44589" vertical-scroll-proportion="0.19328585">
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
+        <state line="1101" column="17" selection-start="44589" selection-end="44589" vertical-scroll-proportion="0.19328585" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/main.css">
@@ -650,21 +655,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="12" selection-start="951" selection-end="951" vertical-scroll-proportion="-12.214286">
-          <folding />
-        </state>
+        <state line="18" column="12" selection-start="951" selection-end="951" vertical-scroll-proportion="-12.214286" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="116" selection-start="279" selection-end="279" vertical-scroll-proportion="-3.392857">
-          <folding />
-        </state>
+        <state line="5" column="116" selection-start="279" selection-end="279" vertical-scroll-proportion="-3.392857" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="34" selection-start="1514" selection-end="1514" vertical-scroll-proportion="0.0">
+        <state line="33" column="19" selection-start="1549" selection-end="1549" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -683,20 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="86" selection-start="1297" selection-end="1297" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="42" selection-start="6785" selection-end="6785" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="18" selection-start="95" selection-end="95" vertical-scroll-proportion="0.0">
@@ -704,30 +691,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1497" column="13" selection-start="62687" selection-end="62687" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="150" column="54" selection-start="4267" selection-end="4267" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1401370349000" expanded="true" signature="3997:4031" placeholder="{...}" />
+            <marker date="1401370349000" expanded="true" signature="4057:4091" placeholder="{...}" />
+            <marker date="1401370349000" expanded="true" signature="4117:4151" placeholder="{...}" />
+            <marker date="1401370349000" expanded="true" signature="4177:4211" placeholder="{...}" />
+            <marker date="1401370349000" expanded="true" signature="4237:4271" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="0.0">
+        <state line="12" column="45" selection-start="626" selection-end="626" vertical-scroll-proportion="-0.6785714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="18" selection-start="975" selection-end="975" vertical-scroll-proportion="-4.75">
+          <folding>
+            <marker date="1401370349000" expanded="true" signature="19827:19940" placeholder="..." />
+            <marker date="1401370349000" expanded="true" signature="20008:20415" placeholder="..." />
+            <marker date="1401370349000" expanded="true" signature="20037:20057" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="12" selection-start="790" selection-end="790" vertical-scroll-proportion="-14.928572">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="21" selection-start="190" selection-end="190" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1491" column="22" selection-start="62435" selection-end="62435" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="23" selection-start="307" selection-end="307" vertical-scroll-proportion="0.19351852">
+        <state line="19" column="69" selection-start="631" selection-end="631" vertical-scroll-proportion="0.2492971">
           <folding />
         </state>
       </provider>
