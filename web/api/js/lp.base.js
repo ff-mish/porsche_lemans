@@ -7,6 +7,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
+
+    var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
     function retweetMonitoring() {
@@ -109,7 +111,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             // var blackPath = paper.path( "" )
             //         .attr("stroke", "#000")
             //         .attr("stroke-width" , stockWidth);
-            var text = paper.text( width / 2 , height / 2 , "0 T/H" )
+
+            var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
                 .attr({fill: "#fff",'font-size':'13px'});
 
 
@@ -140,7 +143,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' T/H' );
+                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -2008,7 +2011,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // 
                     $('.team_name').html( team.name );
-                    $('#team-score').html( 'P' + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
+                    $('#team-score').html( _e('P') + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -2189,7 +2192,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // render stand_chart
                     var score = team.score || {};
-                    $('.stand_chart_score').html( (score.average || 0) + 'km/h' );
+                    $('.stand_chart_score').html( (score.average || 0) + ' km/h' );
                     coordinate.init( $('.stand_chart') , function(){
                         coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduity || 0 );
                     } );

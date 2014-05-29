@@ -19,4 +19,6 @@
   'They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is' => '',
   'do you want to leave the team?' => '',
   'Leave Team' => '',
+  'T/H' => '',
+  'P' => '',
 );
