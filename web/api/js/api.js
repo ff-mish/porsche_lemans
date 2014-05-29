@@ -131,6 +131,7 @@ define(function( require , exports , model ){
     }
 
     $(document).ajaxError(function(evt, xhr, ajaxOptions, thrownError) {
+        return;
         try{
             if ( xhr.status == 200 || thrownError.match(/^Invalid JSON/)) {
                 LP.alert( _e(' (*´Д｀*) 系统出错了。请反馈给我们。'), 3000 );

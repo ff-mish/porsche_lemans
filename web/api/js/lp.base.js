@@ -769,14 +769,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     }
                     cb && cb.call( this );
                 } );
-                var index = globalVideos.length;
-                globalVideos[index] = 0;
+                // var index = globalVideos.length;
+                // globalVideos[index] = 0;
 //                globalVideoInterval[index] = setInterval( function(){
 //                    globalVideos[index] = myVideo.bufferedPercent();
 //                } , 100 );
 
-
-                myVideo.muted( true );
+                //myVideo.muted( true );
                 $wrap.data('video' , myVideo);
             });
         }
@@ -786,12 +785,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var countDownMgr = (function(  ){
         var colClass = "countdown-col";
         var groupClass = "countdown-group";
+        var itemHeight = 0;
         // 8
         // 9
         // 0
         var initCol = function ( $dom , max , origin ){
             var htmls = [];
-            var height = $dom.height();
+            var height = itemHeight = $dom.height();
 
             //save data to dom
             $dom.data( 'max' , max )
@@ -837,7 +837,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
         }
         var reduce = function ( $dom ){
-            var height = $dom.height();
+            var height = itemHeight;
             var num = $dom.data('num');
             var next = num - 1 < 0 ? $dom.data('max') : num - 1;
             var nextArr = (next + "").split("");
@@ -886,6 +886,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 //$doms = $doms.eq(0);
                 $doms.each( function( i ){
+                    console.log( origins[i] );
                     initCol( $(this) , maxs[i] , origins[i] );
                 } );
 
@@ -919,7 +920,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     })();
 
 
-    var bigVideoInit = function(){
+    var bigVideoInit = function(){ 
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
         renderVideo( $('<div></div>').css({
@@ -1440,13 +1441,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $('#home_video').fadeOut(function(){
-           var video = $(this).find('.video-js')
-                .parent()
-                .data('video');
-            video.dispose();
-            video.isRemoved = true;
+           // var video = $(this).find('.video-js')
+           //      .parent()
+           //      .data('video');
+           //  video.dispose();
+           //  video.isRemoved = true;
 
-           $(this).remove();
+           //$(this).remove();
         } );
     });
 
@@ -1529,7 +1530,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
             $dom.children().fadeOut( function(){
                 $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
-                    .removeClass('stand_inviting');
+                    .removeClass('stand_inviting')
+                    .css('opacity' , 1);
             } );
         });
     });
@@ -1541,7 +1543,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 	var initComplete = function(){
 		if(isComplete) return;
         isComplete = true;
-		$('.loading-wrap').fadeOut();
+		$('.loading-wrap').fadeOut(function(){
+            $(this).remove();
+        });
 
 		/* for animation */
 		var isUglyIe = $.browser.msie && $.browser.version <= 8;
@@ -1813,9 +1817,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         // init first page template
         switch( $(document.body).data('page') ){
             case "index":
-                var ratio = 516 / 893;
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "" ,  {ratio: ratio} , function(){
+                renderVideo( $('#home_video') , "/videos/small" , "" ,  {ratio: 516 / 893} , function(){
                     $('#' + this.Q).css('z-index' , 0);
                 } );
                 // get parameter d
@@ -1825,19 +1828,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 countDownMgr.initCountDown();
-                api.get('/api/web/time' , function( e ){
-                     var start = new Date(e.data.time_start );
-                     var now = new Date(e.data.time_now );
-                    
-                     var dura = ~~( ( start - now ) / 1000 );
-                     var d = ~~( dura/86400 );
-                     var h = ~~( ( dura - d * 86400 ) / 3600 );
-                     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                     var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                });
-
                 break;
             case "teambuild":
                 api.get("/api/user" , function( e ){
@@ -1869,19 +1859,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
 
             case "countdown":
-                // api.get('/api/web/time' , function( e ){
-                //     var start = new Date(e.data.time_start );
-                //     var now = new Date(e.data.time_now );
-                   
-
-                //     var dura = ~~( ( start - now ) / 1000 );
-                //     var d = ~~( dura/86400 );
-                //     var h = ~~( ( dura - d * 86400 ) / 3600 );
-                //     var m = ~~( ( dura - d * 86400 - h * 3600 ) / 60 );
-                //     var s = dura - d * 86400 - h * 3600 - m * 60;
-
-                //     countDownMgr.init( $(".conut_downitem" ) , [ 99 , 23 , 59 , 59 ] , [ d , h , m , s ] );
-                // });
                 countDownMgr.initCountDown();
                 break;
 
