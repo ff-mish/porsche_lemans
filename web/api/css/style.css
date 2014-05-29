@@ -195,7 +195,7 @@ body{background:#000;height: 100%;width: 100%}
 .team_name_error_tip{position: absolute;color: red;font-size: 12px;top: -28px;left: 5px;display: none;}
 .stand_tit p{float: left}
 .stand_useritem{margin-bottom:35px;}
-.stand_inviting{opacity: 0.5;filter: alpha(opacity=50);}
+.stand_inviting .member_item{opacity: 0.5;filter: alpha(opacity=50);}
 .stand_useritem .member_item{margin: 0}
 .stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0;display: none;}
 .stand_achivmentsbox{float: left;padding:0 0 0 50px;}
@@ -296,9 +296,13 @@ body{background:#000;height: 100%;width: 100%}
 .lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}
 .stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
 
-.stand_tit .stand_chart_tip{padding: 4px 20px;}
+.stand_tit .stand_chart_tip{padding: 4px 10px;bottom: -11px;z-index: 12; width: auto;}
+.stand_tit .stand_chart_tip span{bottom: 17px;}
 
 .stand_tit span.save_btn {display:inline-block;background: url('../images/ok_bg.png') no-repeat;font-size:10px;display:block;width:44px;height:44px;line-height:44px;text-align:center;color:#f00000;}
+
+.teambuild_members{margin-top: 10px;}
+.stand_inviting .member_item:hover{opacity: 1;}
 
 .ie8 .stand_chart_speed,
 .ie8 .stand_chart_quality,

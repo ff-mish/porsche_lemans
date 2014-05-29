@@ -1135,7 +1135,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                     .insertBefore( $('.teambuild_member .member_add').eq(0) )
                                     .parent()
                                     .addClass('stand_inviting')
-                                    .css('opacity' , 0.5)
                                     .find('.member_add')
                                     .remove();
                             } );
@@ -1945,6 +1944,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         hideTimer = setTimeout(function(){
                             $('.team_name_error_tip').fadeOut();
                         } , 3000);
+                        $(this).focus();
                         return false;
                     }
                     lastTname = txt;
