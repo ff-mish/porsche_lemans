@@ -22,4 +22,5 @@
   'T/H' => '',
   'P' => '',
   'Do you want to join' => '',
+  'fans_unit' => ' ',
 );

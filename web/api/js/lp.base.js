@@ -1166,11 +1166,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
 
 
-    LP.action("post_weibo" , function(){
+    LP.action("post_weibo" , function( data ){
         LP.panel({
-            content: '<div class="popup_dialog popup_post">\
-            <div class="popup_dialog_msg">\
-                <textarea style="overflow:auto;">' + _e('') + '</textarea>\
+            content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:100px;width: auto;">\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
@@ -1181,8 +1181,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 <span>' + _e('Success!') + '</span>\
             </div>',
             title: "",
-            width: 784,
-            height: 352,
+            width: 604,
+            height: 252,
             onShow: function(){
                 var panel = this;
                 this.$panel.find('.p-cancel')
@@ -1699,13 +1699,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // init share btn
         $('#share').hover(function(){
-            $('.share-btns').stop( true , true ).fadeIn().dequeue().animate({
-                width: 240
-            } , 300 );
+            $('.share-btns').stop( true , true ).fadeIn();
         } , function(){
-            $('.share-btns').stop(true , true).delay(200).fadeOut().dequeue().animate({
-                width: 0
-            } , 500 );
+            $('.share-btns').stop(true , true).delay(200).fadeOut();
         });
 
 		// init post twitter button
@@ -2020,14 +2016,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
                     var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
                             <p class="member_name">@#[name]<br/></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space" data-num="#[num]" data-unit="#[unit]">0</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
                     var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
@@ -2101,7 +2097,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )
-                        .find('.memeber_space')
+                        .find('.memeber_space span')
                         .each( function(){
                             var $this = $(this);
                             setTimeout(function(){

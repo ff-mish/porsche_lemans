@@ -5,7 +5,7 @@ define(function( require , exports , model ){
 
     var isIE6 = $.browser.msie && $.browser.version < 7;
     var P = {
-        zIndex      : 30
+        zIndex      : 10000
         , panels    : {}
         , showCount : 0
         , maskCount : 0
@@ -198,7 +198,21 @@ define(function( require , exports , model ){
 
         // =========== Creating
         // 创建Element
-        t.$panel = $('<div><span class="lpn_ghost"></span></div>').data('id', t.id);
+        t.$panel = $('<div><span class="lpn_ghost"></span></div>').data('id', t.id)
+            .click(function( ev ){
+                if( this == ev.target ){
+                    t.close();
+                }
+            });
+
+        $(document).bind('keypress.close-panel-' + t.id , function( ev ){
+            switch( ev.which ){
+                case 27:
+                    t.close();
+                    break;
+            }
+        });
+
         t.setMask( o.mask );
 
         // 创建Wrapper

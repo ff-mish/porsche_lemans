@@ -24,4 +24,5 @@
   微博/小时',
   'P' => '排名: ',
   'Do you want to join #[team] ?' => '你想要加入#[team]团队吗？',
+  'fans_unit' => '粉丝',
 );

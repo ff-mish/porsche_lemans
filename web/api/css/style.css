@@ -70,7 +70,7 @@ body{background:#000;height: 100%;width: 100%}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
 .navicon {color:#ff0707;border:2px solid #ff0707;background:url('../images/icon_plus.png') no-repeat center;height:45px;width:45px; margin: 0 0 50px;display: block;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
 .ie8 .navicon{background: url(../images/post_wb.png); width: 50px; height: 50px;border:none; }
-.navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);}
+.navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);opacity: 1;}
 .nav p{padding-left:55px;height: 35px;color:#777;}
 .nav p a{color:#717171}
 .nav p a:hover {color:#fff;}
