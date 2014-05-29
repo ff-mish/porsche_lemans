@@ -463,7 +463,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        var w = $('.team_name').width();
+                        var w = Math.max( $('.team_name').width() , 200 );
                         renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
