@@ -3,7 +3,7 @@
         <!--  -->
         <div class="header">
             <div class="logo"><?php echo Yii::t("lemans", "PORSCHE");?></div>
-            <div class="hd_info"></div>
+	        <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
         </div>
 
     <div class="count">
