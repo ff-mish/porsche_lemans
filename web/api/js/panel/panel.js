@@ -491,11 +491,21 @@ define(function( require , exports , model ){
                 if (o.onBeforeClose && o.onBeforeClose.call(t) === false)
                     return;
                 t.isVisible = false;
-                t.$panel.fadeOut( 1000 , function(){
-                    if (o.destroy) {
-                        t.$panel.remove();
-                    }
-                });
+
+                if( $.browser.msie && $.browser.version < 9 ) {
+                    setTimeout(function(){
+                        if (o.destroy) {
+                            t.$panel.remove();
+                        }
+                    } , 1000);
+                    
+                } else {
+                    t.$panel.fadeOut( 1000 , function(){
+                        if (o.destroy) {
+                            t.$panel.remove();
+                        }
+                    });
+                }
 
                 // Show the last panel's background
                 var $panels = $('.lpn_mask');

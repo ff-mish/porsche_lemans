@@ -500,9 +500,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             coordinate.run( 0,0,0,0 );
                         }
                         // add demo 
-                        isNoAchivmentsbox = !$('.stand_achivments .stand_achivmentsbox').children().length;
+                        isNoAchivmentsbox = !$('.stand_achivments .stand_achivmentsbox .full-star').length;
                         if( isNoAchivmentsbox ){
-                            $('.stand_achivments .stand_achivmentsbox').html('<p></p><p></p><p></p>');
+                            $('.stand_achivments .stand_achivmentsbox p').slice(0,2).addClass('full-star').each(function( i ){
+                                $(this).html( i + 1 );
+                            });
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
@@ -514,7 +516,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         break;
                     case 5:
                         if( isNoAchivmentsbox ){
-                            $('.stand_achivments .stand_achivmentsbox').html('');
+                            $('.stand_achivments .stand_achivmentsbox .full-star').removeClass('full-star').html('');
                         }
                         $('.tutr-step-tip4').fadeOut();
                         LP.panel({
@@ -1169,7 +1171,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var $btn = $(this).attr('disabled' , 'disabled');
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
-            <div class="popup_dialog_msg" style="height:100px;width: auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
                 <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
             </div>\
             <div class="popup_dialog_btns">\
@@ -2129,8 +2131,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                     // render achive
                     var ahtml = [];
-                    for( var i = 0 ; i < data.team_star ; i++ ){
-                        ahtml.push('<p></p>');
+
+                    for( var i = 0 ; i < 5 ; i++ ){
+                        if( i < data.team_star ){
+                            ahtml.push('<p class="full-star">' + ( i + 1 ) + '</p>');
+                        } else {
+                            ahtml.push('<p></p>');
+                        }
                     }
 
                     $('.stand_achivmentsbox').html( ahtml.join("") );

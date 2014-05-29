@@ -163,7 +163,7 @@ outline: none !important;
 .popup_fuel{width: auto;}
 .popup_fuel_video .video-js{margin-bottom: 30px;}
 .stand_posts{width: 600px;height: 58px;margin-left:118px;float: left;overflow: hidden;}
-.stand_achivmentsbox{width: 260px;padding:0;margin-right:85px;}
+.stand_achivmentsbox{width: 260px;padding:0;margin-right:85px;padding-top: 10px;padding-left: 10px;}
 
 .popup_close {cursor: pointer;width:34px;height:34px;background:url('../images/callto_close.png') no-repeat center;color:#fff;line-height:50px;border:2px solid #fff;position:absolute;right:0px;top:0px;border-radius: 80px;-webkit-border-radius: 80px;-moz-border-radius: 80px;-o-border-radius: 80px;-ms-border-radius: 80px;}
 .ie8 .popup_close{background: url(../images/panel_close.png) no-repeat 0 0 ;border:none;}
