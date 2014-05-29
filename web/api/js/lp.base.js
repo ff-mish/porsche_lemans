@@ -1003,11 +1003,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             title: '',
             width: 760,
             height: 408,
-            onShow: function(){
-                // LP.use('jscrollpane' , function(){
-                //     $('.popup_invite_friend_list').jScrollPane();    
-                // });
-            },
             onload: function() {
                 var panel = this;
                 var uTpl = '<div class="friend_item" data-uuid="#[uuid]">\

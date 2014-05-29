@@ -418,11 +418,11 @@ define(function( require , exports , model ){
             }
 
             // t.focus();
-            t.$panel.hide()
-                .fadeIn(400);
+            // t.$panel
+            //     .show();
 
             // insert code 
-            t.$panel.find('.popup_dialog')
+            t.$panel.find('.lpn_panel')
                 .css({
                     'margin-top': '-100%',
                     'opacity' : 0
