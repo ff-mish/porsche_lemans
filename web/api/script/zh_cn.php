@@ -14,7 +14,7 @@
   'wrong email' => '请输入有效的邮箱地址',
   'Ok' => '确定',
   'Send Invitation' => '发送邀请',
-  'You can\\\'t invite too many people ' => '超出了限定邀请人数',
+  'You can\\\'t invite too many people ' => '你邀请的朋友已超过了人数上限',
   'Confirm' => '确定',
   'They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is' => '',
   'do you want to leave the team?' => '确定要离开团队？',

@@ -2194,6 +2194,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             .stop( true , true )
                             .fadeIn();
                     })
+                    .delegate('.stand_inviting .member_item' , 'mouseenter' , function(){
+                        $(this).animate({opacity: 1});
+                    })
+                    .delegate('.stand_inviting .member_item' , 'mouseleave' , function(){
+                        $(this).animate({opacity: 0.5});
+                    });
 
                     // render stand_chart
                     var score = team.score || {};

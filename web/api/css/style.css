@@ -180,12 +180,13 @@ body{background:#000;height: 100%;width: 100%}
 .member_name{float: right;width: 180px;text-align: center;font-size: 14px;color:#f00;padding:26px 0 0;}
 .member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 .memeber_space{float:left;font-size: 62px;font-weight: bold;color:#f00;line-height: 75px;text-align: center;width: 220px}
-.member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;
+.member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px; 
     /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
      For IE 8
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
 }
 .ie8 .member_add{background:url(about:blank);}
+.member_add:hover{opacity: 1;}
 .member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
 
 
@@ -293,7 +294,7 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
 .stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: -60px;font-size: 11px;}
 
-.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}
+/*.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}*/
 .stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
 
 .stand_tit .stand_chart_tip{padding: 4px 10px;bottom: -11px;z-index: 12; width: auto;}
@@ -302,7 +303,6 @@ body{background:#000;height: 100%;width: 100%}
 .stand_tit span.save_btn {display:inline-block;background: url('../images/ok_bg.png') no-repeat;font-size:10px;display:block;width:44px;height:44px;line-height:44px;text-align:center;color:#f00000;}
 
 .teambuild_members{margin-top: 10px;}
-.stand_inviting .member_item:hover{opacity: 1;}
 
 .ie8 .stand_chart_speed,
 .ie8 .stand_chart_quality,
