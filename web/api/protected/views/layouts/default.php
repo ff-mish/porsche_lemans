@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <title><?php echo Yii::t("lemans", "PORSCHE")?></title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
