@@ -170,9 +170,9 @@ body{background:#000;height: 100%;width: 100%}
 .teambuild_member{}
 .member_item{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;margin:0 0 36px 60px;float: left;
     border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-    /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+     For IE 8
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
 }
 
 .ie8 .member_item{background:url(about:blank);}
@@ -181,9 +181,9 @@ body{background:#000;height: 100%;width: 100%}
 .member_speed{width: 85px;height: 85px; float: left;margin-left:60px;display:inline;}
 .memeber_space{float:left;font-size: 62px;font-weight: bold;color:#f00;line-height: 75px;text-align: center;width: 220px}
 .member_add{background:rgba(0,0,0,0.4);border:#f00 solid 4px;width: 270px;height: 74px;padding:5px;font-size: 30px;text-align: center;color:#f00;line-height: 72px;display: block;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
-    /* For IE 8*/
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);
+     For IE 8
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000, endColorstr=#66000000);*/
 }
 .ie8 .member_add{background:url(about:blank);}
 .member_ok{width: 270px;height: 60px;padding:0 5px;margin:70px 0 36px 60px;font-size: 26px;text-align: center;color:#f00;line-height: 60px;display: block;background: #fff;font-weight: bold;}
