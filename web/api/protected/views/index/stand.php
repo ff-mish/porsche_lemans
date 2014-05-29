@@ -48,8 +48,9 @@
 			 <?=Yii::t('lemans','Team name is limited within 12 characters')?>
 		  </div>
           <span class="team_name" style="-webkit-user-select: initial;" spellcheck="false" contenteditable="true"></span>
-          <div class="team_name_tip">
+          <div class="stand_chart_tip">
 			 <?php echo Yii::t("lemans", "Edit team name")?>
+			 <span>◆</span>
 		  </div>
         </div>
           <!--  -->

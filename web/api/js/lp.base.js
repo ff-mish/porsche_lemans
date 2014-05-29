@@ -1938,6 +1938,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     if( lastTname === txt ) return;
                     // match
                     
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length > 12 ){
+                        $('.team_name_error_tip').fadeIn();
+                        clearTimeout( hideTimer );
+                        hideTimer = setTimeout(function(){
+                            $('.team_name_error_tip').fadeOut();
+                        } , 3000);
+                        return false;
+                    }
                     lastTname = txt;
                     api.post("/api/user/updateteam" , {name: txt} );
                 }).keydown(function( ev ){ 
