@@ -323,7 +323,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dun span{position: absolute;left: 150%;}
 
 .popup_email{border: none !important;overflow: hidden;text-align: center; text-align: center;}
-.popup_email h4{font-size: 35px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
+.popup_email h4{font-size: 30px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
 .popup_email input{width: 600px;background: #000;color:white;}
 .ie8 .popup_email input{height: auto; display: block;margin: 0 auto; padding: 50px 0;}
 .popup_email .con-step{position: absolute;left: 30px;}

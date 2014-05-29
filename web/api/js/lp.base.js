@@ -556,6 +556,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
 
                                     var email = $input.val();
+                                    if( email == $input.attr('placeholder') ){
+                                        email = '';
+                                    }
                                     if( email &&
                                         (!email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
                                         !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
