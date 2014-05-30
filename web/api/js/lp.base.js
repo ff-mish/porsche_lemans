@@ -1736,9 +1736,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
 		// init post twitter button
 		$('.post_link').hover(function(){
-			$(this).find('span').fadeIn();
+			$(this).find('.post_tips').fadeIn();
 		}, function(){
-			$(this).find('span').fadeOut();
+			$(this).find('.post_tips').fadeOut();
 		});
 
         // init #legal-notice
@@ -1755,6 +1755,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			});
 		});
 
+		$(window).resize(function(){
+			if( $.browser.msie && $.browser.version <= 8 ){
+				var width = ($(window).width() - 1340) / 2;
+				var height = ($(window).height() - 457 - 60)/2;
+				if(width < 30) {
+					width = 30;
+				}
+				if(height < 0) {
+					height = 0;
+				}
+				$('.stand').css({top:height, left: width-30+250});
+				$('.nav').css({top:height+54, left: width});
+			}
+		});
 
         // fix Q & A
         !!(function(){
