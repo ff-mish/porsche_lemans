@@ -158,7 +158,7 @@ outline: none !important;
 .share-btns a.i-p:hover{background-position: -141px -1px;}
 
 
-#home_video{top:80px;}
+#home_video{top:60px;}
 
 .popup_fuel{width: auto;}
 .popup_fuel_video .video-js{margin-bottom: 30px;}
@@ -182,7 +182,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 
 .tutr-step{display: none;position: relative;z-index: 5;}
-.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.6;position: absolute;filter: alpha(opacity=60);}
+.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.4;position: absolute;filter: alpha(opacity=40);}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step .step-con .color {color:#ff0000;}
 .tutr-step-tip1{display: none;position: absolute;top: 180px;background: black;left: 765px;width: 263px;padding: 30px;height: 252px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}

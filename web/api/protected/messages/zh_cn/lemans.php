@@ -28,7 +28,7 @@ return array (
     "Log out" => "登出",
     "Edit team name" => "修改队伍名字",
     "Achievements" => "比赛成就",
-    "Lastest Posts" => "最新微博",
+    "Latest Posts" => "最新微博",
     "Winners’ Prizes" => "活动奖品",
     "Skip intro" => "跳过简介",
     "Legal Mentions" => "法律公告",
