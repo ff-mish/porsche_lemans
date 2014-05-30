@@ -63,5 +63,14 @@ class WebController extends Controller {
     
     $this->responseJSON(array("time_now" => $time, "time_start" => $startTime), "success");
   }
+
+  public function actionTranslation() {
+    $source = Yii::app()->getComponent("messages");
+    $language = Yii::app()->getLanguage();
+    $language_file_path = $source->getMessageFile("lemans", $language);
+
+    print $language_file_path;
+    die();
+  }
 }
 

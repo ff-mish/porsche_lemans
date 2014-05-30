@@ -365,4 +365,41 @@ class STwitter extends CApplicationComponent {
     }
   }
 
+  public function user_followers($uid, $next_cursor = -1) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+    $code = $twitter->request("GET", $twitter->url("1.1/followers/list"), array("user_id" => $uid, "cursor" => $next_cursor));
+    
+    if ($code == 200) {
+      return json_decode($twitter->response["response"], TRUE);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
+
+  /**
+   * 搜索用户
+   */
+  public function search_user($q, $count = 10, $page = 1) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+
+    $code = $twitter->request("get", $twitter->url("1.1/users/search"), array("q" => $q, "count" => $count, "page" => $page));
+    if ($code == 200) {
+      return json_decode($twitter->response["response"], TRUE);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
+
 }

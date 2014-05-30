@@ -3009,7 +3009,7 @@ class SaeTClientV2
 	 * @param int $range 联想范围，0：只联想关注人、1：只联想关注人的备注、2：全部，默认为2。选填
 	 * @return array
 	 */
-	function search_at_users( $q, $count = 10, $type=0, $range = 2)
+	function search_at_users( $q, $count = 10, $type=1, $range = 2)
 	{
 		$params = array();
 		$params['q'] = $q;
