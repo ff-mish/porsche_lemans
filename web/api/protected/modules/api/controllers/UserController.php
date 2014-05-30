@@ -215,7 +215,7 @@ class UserController extends Controller{
       }
       
       try {
-        $friends = Yii::app()->twitter->user_friends($user->uuid, $next_cursor);
+        $friends = Yii::app()->twitter->user_followers($user->uuid, $next_cursor);
       }
       catch (Exception $e) {
         $friends = FALSE;
@@ -427,5 +427,70 @@ class UserController extends Controller{
     InviteLogAR::cancelInvite($uid, $tid, $uuid);
     
     return $this->responseJSON(array(), "success");
+  }
+
+  // 搜索好友接口
+  public function actionSearchfriends() {
+    $user = UserAR::crtuser(TRUE);
+
+    if (!$user) {
+      return $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
+    }
+
+    $request = Yii::app()->getRequest();
+    $q = $request->getParam("q");
+    if ($user->from == UserAR::FROM_TWITTER) {
+      if (!$q) {
+        return $this->responseJSON(array(), "success");
+      }
+
+      $ret = array();
+      $searched_users = Yii::app()->twitter->search_user($q);
+      foreach ($searched_users as $friend) {
+        $data = array(
+            "uuid" => $friend['id_str'],
+            "screen_name" => $friend['screen_name'],
+            "avatar_large" => $friend['profile_image_url']
+        );
+        $ret[] = $data;
+      }
+    }
+    else {
+      $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+      $searched_users = $weibo_api->search_at_users($q);
+      $weibo_uids = array();
+      foreach ($searched_users as $searched_user) {
+        $weibo_uids[] = $searched_user["uid"];
+      }
+
+      $weibo_users = array();
+      foreach ($weibo_uids as $weibo_uid) {
+        $weibo_users[] = $weibo_api->show_user_by_id($weibo_uid);
+      }
+
+      $ret = array();
+      foreach ($weibo_users as $friend) {
+        $data = array(
+            "uuid" => $friend['idstr'],
+            "screen_name" => $friend['screen_name'],
+            "avatar_large" => $friend['avatar_large']
+        );
+        $ret[] = $data;
+      }
+      //TODO:: 高级接口有了后 直接可以用了
+      //$searched_users = $weibo_api->users_show_batch_by_id($weibo_uids);
+    }
+
+    // 去掉已经邀请过的好友
+    if ($user->team) {
+      $invited_uuids = InviteLogAR::userInvited($user->team->tid);
+      foreach ($ret as $key => $sns_user) {
+        if (in_array($sns_user["uuid"], $invited_uuids)) {
+          unset($ret[$key]);
+        }
+      } 
+    }
+
+    $this->responseJSON($ret, "success");
   }
 }
