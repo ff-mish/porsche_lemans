@@ -1488,13 +1488,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $('#home_video').fadeOut(function(){
-           // var video = $(this).find('.video-js')
-           //      .parent()
-           //      .data('video');
-           //  video.dispose();
-           //  video.isRemoved = true;
+            var video = $(this).find('.video-js')
+                .parent()
+                .data('video');
+            video.dispose();
+            video.isRemoved = true;
 
-           //$(this).remove();
+            $(this).remove();
         } );
     });
 
