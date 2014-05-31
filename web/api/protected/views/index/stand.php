@@ -45,6 +45,8 @@
              data-is_invited="<?php echo $is_invited ? 1: 0?>"
              data-team_id="<?php echo $team_id?>"
              data-team_name="<?php echo $team_name?>"
+             data-now_team_name="<?php echo $now_team_name?>"
+             data-now_team_id="<?php echo $now_team_id?>"
              >
         </div>
         

@@ -216,18 +216,16 @@ class UserAR extends CActiveRecord {
     // 如果用户已经登录授权过了， 但是又没有建造一个team
       $userteamAr = new UserTeamAR();
       $team = $userteamAr->loadUserTeam($user);
+      // 这里判断 用户授权了系统 但没有建立组 也没有邀请信息 ，所以就自动建组. 
       if (!$team && !Yii::app()->session["invited_data"]) {
         // TODO:: 我们让他去team build 页面
         // 测试代码， 我们要删除掉
         TeamAR::newteam("new team");
       }
-      else {
-        //
-      }
     }
+    
     // 用户是自动被加入到系统的， 这次还是属于第一次授权
     elseif ($user && $user->status == self::STATUS_AUTO_JOIN) {
-      // TODO:: 是否需要前端继续授权给用户建立组和邀请用户?
       Yii::app()->session["user"] = $user;
     }
     else if (!$user) {

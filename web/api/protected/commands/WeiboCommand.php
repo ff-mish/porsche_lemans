@@ -36,7 +36,7 @@ class WeiboCommand extends CConsoleCommand {
       $weibo_uid = $weibo_user["idstr"];
       $weibo_name = $weibo_user["screen_name"];
       $location = $weibo_user["location"];
-      $friends = $weibo_user["friends_count"];
+      $friends = $weibo_user["followers_count"];
       $from = UserAR::FROM_WEIBO;
       $profile_msg = $weibo_user["description"];
       $avatar = $weibo_user["profile_image_url"];
@@ -65,7 +65,18 @@ class WeiboCommand extends CConsoleCommand {
         
         print "time: ". date("Y-m-d H:m:s"). ": user [ ". $weibo_name. " ] being to insert system.\r\n";
       }
-      // 第二，保存用户发的微博
+      
+      // 第二, 查找用户的组 然后有可能自动建组
+      if ($userAr) {
+        $userTeamAr  = new UserTeamAR();
+        $userTeam = $userTeamAr->loadUserTeam($userAr);
+        // 用户如果没有组，则我们自动建组
+        if (!$userTeam) {
+          TeamAR::newteam(Yii::t("lemans", "New Team"), $userAr);
+        }
+      }
+      
+      // 第三，保存用户发的微博
       if ($userAr) {
         $uuid = $status["idstr"];
         $content = $status["text"];

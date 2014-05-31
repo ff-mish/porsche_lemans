@@ -17,7 +17,6 @@ class IndexController extends Controller {
     if ($now >= $start_data) {
       $this->is_start = TRUE;
     }
-    
   }
   
   public function beforeAction($action) {
@@ -98,9 +97,11 @@ class IndexController extends Controller {
       $params["team_name"] = "";
       $params["team_owner_uid"] = "";
     }
+    
     $this->page_name = $params["page_name"];
     $this->classname = "pagebg8";
     
+    // 邀请逻辑
     $invited_data = Yii::app()->session["invited_data"];
     $code = $invited_data["code"];
     if ($invited_data && $user && !$user->team && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
@@ -123,6 +124,16 @@ class IndexController extends Controller {
       $params["team_id"] = "";
     }
     
+    // 用户如果是自动加入了小组, 但是又是属于邀请类型用户
+    // 这时需要询问用户是否加入当前小组？
+    if ($user->status = UserAR::STATUS_AUTO_JOIN) {
+      //1. 把用户现在的组拿出来
+      $team_now = $user->team;
+      if ($team_now) {
+        $params["now_team_name"] = $team_now->name;
+        $params["now_team_id"] = $team_now->tid;
+      }
+    }
     
     $this->render("stand", $params);
   }

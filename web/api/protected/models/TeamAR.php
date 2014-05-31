@@ -102,8 +102,11 @@ class TeamAR extends CActiveRecord {
    * @param type $name
    * @return boolean|\TeamAR
    */
-  public static function newteam($name) {
-    $user_ar = UserAR::crtuser();
+  public static function newteam($name, $user_ar = NULL) {
+    if (!$user_ar) {
+      $user_ar = UserAR::crtuser();
+    }
+    
     if (!$user_ar) {
       return FALSE;
     }
