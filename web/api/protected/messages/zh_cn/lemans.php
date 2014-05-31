@@ -15,7 +15,7 @@ return array (
     "Assiduity" => "成就值",
     "LOAD MORE" => "加载更多",
     "This display the number of tweets per hour" => "这是每小时发送的微博总数",
-    "Tweet content from Fuel section to increase your quality" => "发送内容的得分。你可以通过发送来自燃料站的主题来提高得分。",
+    "Tweet content from Fuel section to increase your quality" => "发送内容的得分。你可以通过发送来自燃料站的主题来提高得分",
     "Answer right to Porsche challenges to improve your assiduity" => "正确回答保时捷的问题，将会增加你的成就值",
     "This represents the number of your followers" => "这里是你团队粉丝数的总和",
     "Team name is limited within 12 characters" => "团队名称限制在6个中文字以内",

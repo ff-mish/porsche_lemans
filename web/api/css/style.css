@@ -66,7 +66,7 @@ body{background:#000;height: 100%;width: 100%}
 .logo{background: url('../images/logo2.png') no-repeat;width: 77px;height: 45px;top: 7px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 211px;height: 18px;position: absolute;right: 34px;top: 22px}
 .lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 147px;height: 16px;}
-.nav{font-size: 14px;position: fixed;top: 180px;left:66px;z-index:3;}
+.nav{font-size: 14px;position: fixed;top: 180px;left:66px;z-index:5;}
 .post_link {position: relative;width:190px;}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
 .post_tips {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom:1px;padding: 10px;left:59px;font-size: 11px;}
@@ -88,7 +88,7 @@ body{background:#000;height: 100%;width: 100%}
 ================================================================================================= */
 .loading-wrap {position: fixed;width:100%;height:100%;background:#fff;z-index:99999;top:0;left:0;}
 .loading-wrap .logo {position: absolute;top:50%;left:50%;margin-left:-47px;margin-top:-20px;display:none;}
-.loading-loader {width:100%;height:150px;position: absolute;top:50%;left:0;background: url('../images/loading.gif') no-repeat center 0px;}
+.loading-loader {width:100%;height:150px;position: absolute;top:50%;left:0;background: url('../images/loading_b.gif') no-repeat center 0px;}
 .loading-bar {width:0;background:#000;height:1px;margin-top:80px;display: none;}
 .loading-percentage {color:#333;font-size:10px;position: absolute;top:50%;margin-top:50px;left:50%;width:50px;text-align:center;margin-left:-25px;}
 
@@ -215,7 +215,7 @@ body{background:#000;height: 100%;width: 100%}
 .stand_add{width: 60px;height: 60px;position: absolute;top:43px;left: 1032px;background:url('../images/stand_add.png') no-repeat;cursor: pointer;}
 
 .stand_posts_p1 {margin-top:10px;}
-.stand_posts_p1 .stand_posts_item {float: left;width:330px;margin-top:10px;text-align: center;}
+.stand_posts_p1 .stand_posts_item {float: left;width:320px;margin-top:10px;text-align: center;}
 .stand_posts_p1 .stand_add {float: left;}
 
 /* tweet */
@@ -246,6 +246,8 @@ body{background:#000;height: 100%;width: 100%}
 .conut_tips{font-size: 28px;color:#fff;text-align: center;margin-top:186px;}
 .count .home_share{margin-top: 143px;}
 .count .home_winners{margin-top: 210px;}
+.stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
+.stand_count_down .conut_downinfo {opacity: 0.1;filter:alpha(opacity=10);}
 
 .loading{background: url(../images/loading.gif) no-repeat center center;min-height: 70px;min-width: 70px;height: 70px;}
 
@@ -301,7 +303,7 @@ body{background:#000;height: 100%;width: 100%}
 .stand_chart_assiduite{position: absolute;z-index: 1;width: 100px;height: 50px;left: 50%;bottom: 30px;margin-left: -50px;}
 .stand_chart_impact{position: absolute;top: 50%;z-index: 1;width: 100px;height: 50px;left: -15px;margin-top: -25px;}
 .stand_chart_score{position: absolute;left: 200px;font-size:38px;top:12px;}
-.stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: 0;font-size: 11px;}
+.stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#aaa;border-radius: 4px;bottom: 100%;width: 185px;padding: 10px;left: 0;font-size: 11px;}
 
 /*.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}*/
 .stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
@@ -327,7 +329,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_msg {font-size:30px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns {text-align: center;margin:30px 0 ;}
-.popup_dialog_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_btns a {display: inline-block;margin:0 5px;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
 .popup_dialog_btns .loading {background: url(../images/loading.gif) no-repeat;width:37px;height:37px;display: block;position: absolute;right:5px;bottom:5px;display: none;}
 .popup_dialog_status {color:#ff0000;text-align:center;font-size:20px;margin:40px 0 40px 0;display:none;}
@@ -515,7 +517,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
-    .member_speed{margin-left:40px;margin-top:-7px;}
+    .member_speed{margin-left:40px;margin-top:-1px;}
     .memeber_space {font-size:45px;}
     .member_add {width:220px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
@@ -541,7 +543,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
-    .member_speed{margin-left:40px;margin-top:-7px;}
+    .member_speed{margin-left:40px;margin-top:-1px;}
     .memeber_space {font-size:45px;}
     .member_add {width:220px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
@@ -566,7 +568,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item {width: 180px;height:57px;}
     .member_item img {width:57px;}
     .member_name{width: 110px;padding-top:20px;}
-    .member_speed{margin-left:20px;margin-top:-7px;}
+    .member_speed{margin-left:20px;margin-top:-1px;}
     .memeber_space {font-size:45px;}
     .member_add {width:180px;height:57px;line-height:57px;}
     .stand_useritem {margin-bottom: 17px;}
@@ -588,17 +590,36 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 /*stand*/
 .stand{top: 50px;padding: ;}
-.stand_chart{width: 510px;height: 510px;}
+.stand_chart{width: 600px;height: 600px;}
 .stand_tit{width: 57%;}
 .member_speed,.memeber_space{margin-left: 80px;}
 .stand_chart_score{ width: 250px; left: 50%;margin-left: -125px;}
 .stand_chart_tip{left: 50%;margin-left: -100px;}
+
+.stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
 .stand_achivments h2, .stand_tweet h2{width: 300px;}
 .stand_add_p1{margin-left: 50px;}
+@media screen and (max-width:2400px){
+    .stand{width: 1950px;left: 250px; margin-left:0;}
+    .stand_chart{width: 550px;height: 550px;}
+}
+@media screen and (max-width:2200px){
+    .stand{width: 1750px;left: 250px; margin-left:0;}
+    .stand_chart{width: 530px;height: 530px;}
+}
+@media screen and (max-width:2000px){
+    .stand{width: 1550px;left: 250px; margin-left:0;}
+    .stand_chart{width: 510px;height: 510px;}
+}
+@media screen and (max-width:1800px){
+    .stand{width: 1350px;left: 250px; margin-left:0;}
+    .stand_chart{width: 490px;height: 490px;}
+}
 @media screen and (max-width:1600px){
     .stand{width: 1150px;left: 250px; margin-left:0;}
     .member_item ,.member_add{width: 250px}
     .member_name{width: 160px;}
+    .stand_chart{width: 470px;height: 470px;}
     .member_speed,.memeber_space{margin-left: 50px;}
 }
 @media screen and (max-width:1400px){
@@ -616,13 +637,13 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_chart{width: 370px;height: 370px;}
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
 
-    .nav{left:0px;top:150px;}
+    .nav{left:0px;}
     .navicon {margin-left:30px;}
     .post_tips {left:90px;}
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
-    .member_speed{margin-left:40px;margin-top:-7px;}
+    .member_speed{margin-left:40px;margin-top:-1px;}
     .memeber_space {font-size:45px;}
     .member_add {width:220px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
@@ -647,12 +668,12 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
     .stand_posts_p1 .stand_posts_item{width: 230px;}
 
-    .nav{left:0px;top:150px;}
+    .nav{left:0px;}
     .navicon {margin-left:30px;}
     .member_item {width: 200px;height:65px;}
     .member_item img {width:65px;}
     .member_name{width: 130px;padding-top:23px;}
-    .member_speed{margin-left:20px;margin-top:-7px;}
+    .member_speed{margin-left:20px;margin-top:-1px;}
     .memeber_space {font-size:40px;margin-left: 0;}
     .member_add {width:200px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
@@ -694,6 +715,45 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_tweet h2 {font-size:24px;}
     .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
+}
+
+@media screen and (max-height:2000px){
+    .stand{top: 240px;}
+    .nav{top: 270px;}
+}
+@media screen and (max-height:1800px){
+    .stand{top: 210px;}
+    .nav{top: 240px;}
+}
+@media screen and (max-height:1600px){
+    .stand{top: 180px;}
+    .nav{top: 230px;}
+}
+@media screen and (max-height:1400px){
+    .stand{top: 150px;}
+    .nav{top: 200px;}
+}
+@media screen and (max-height:1200px){
+    .stand{top: 120px;}
+    .nav{top: 170px;}
+}
+@media screen and (max-height:1100px){
+    .stand{top: 100px;}
+    .nav{top: 150px;}
+}
+
+@media screen and (max-height:1000px){
+    .stand{top: 80px;}
+    .nav{top: 130px;}
+}
+@media screen and (max-height:800px){
+    .nav{top: 100px;}
+    .stand{top: 50px;}
+}
+@media screen and (max-height:700px){
+    .navicon{margin-bottom: 30px;}
+    .stand{top: 30px;}
+    .nav{top: 80px;}
 }
 
 

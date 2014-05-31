@@ -68,9 +68,8 @@
 
     <div id="legal-notice">
       <div class="popup_close"></div>
-      <h2><?php echo Yii::t("lemans", "Legal Notice")?></h2>
       <div class="legal-con clearfix">
-        <div class="legal-left">
+            <h2><?php echo Yii::t("lemans", "Legal Notice")?></h2>
 	        <div class="intro">
 		        WEBSITE TERMS AND CONDITIONS OF USE
 				<br/><br/>
@@ -102,8 +101,7 @@
 			<br/><br/>
 			Governing Law<br/>
 			This website is governed by and subject to the laws of the State of Georgia and, where applicable, U.S. federal law.
-        </div>
-        <div class="legal-right">
+            <br/><br/>
 	        Restricted Use and Copyrights<br/>
 			All photographs, audio and video clips, picture images, graphics, links, website architecture, format, layout and data structures, and all other items contained on the website are copyrighted unless otherwise noted and may not be used in any manner, except as provided in these Terms or in the website text, without Porsche's prior written permission. Images of people or places and Porsche products, are either property of, or used with permission by, Porsche. Any unauthorized use of these materials may violate copyright, trademark and privacy laws, and other applicable statutes. You may browse this website and download or print a copy of material displayed on the website for your personal use only and not for redistribution, unless consented to in writing by Porsche. This limited consent shall automatically terminate upon your breach of any of these website Terms.
 			<br/><br/>
@@ -123,7 +121,6 @@
 			<br/><br/>
 			Governing Law<br/>
 			This website is governed by and subject to the laws of the State of Georgia and, where applicable, U.S. federal law.
-        </div>
       </div>
     </div>
 <!--  -->
