@@ -36,7 +36,7 @@
 			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">h</span>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">min</span>
-			<div class="conut_downitem">00</div><span class="conut_downinfo">sec</span>
+			<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;">sec</span>
 		</div>
       </div>
       <!-- stand -->

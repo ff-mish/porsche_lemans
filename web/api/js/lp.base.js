@@ -750,7 +750,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var myVideo = videojs( id , cfg , function(){
                     var v = this;
                     if( resize ){
-                        $(window).resize(function(){
+                        $(window).bind( 'resize.video-' + id , function(){
                             if( v.isRemoved  ) return;
                             var w = $wrap.width();
                             var h = $wrap.height();
@@ -782,17 +782,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     //     player.play();
                     // });
                     // console.log( this.buffered().end() );
-                    if( this.ia == 'Html5' ){
-                        var timer = setInterval( function(){
-                            
-                            if( player.bufferedPercent() > 0.9 ){
-                                player.play();
-                                clearInterval( timer );
-                            }
-                        } , 1000 / 10 );
-                    } else {
-                        this.play();
-                    }
+                    setTimeout( function(){
+                        player.play();
+                    } , 6000 );
+                    // this.dine = function(){
+                    //     clearInterval( timer );
+                    // }
+                    // if( this.ia == 'Html5' ){
+                    //     var timer = setInterval( function(){
+                    //         if( player.bufferedPercent() > 0.9 ){
+                    //             player.play();
+                    //             clearInterval( timer );
+                    //         }
+                    //     } , 1000 / 10 );
+                    // } else {
+                    //     this.play();
+                    // }
                     cb && cb.call( this );
                 } );
                 // var index = globalVideos.length;
@@ -1488,13 +1493,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('skip-intro' , function(data){
         $('#home_video').fadeOut(function(){
-           // var video = $(this).find('.video-js')
-           //      .parent()
-           //      .data('video');
-           //  video.dispose();
-           //  video.isRemoved = true;
+            var video = $(this).find('.video-js')
+                .parent()
+                .data('video');
 
-           //$(this).remove();
+            video.isRemoved = true;
+            video.dispose();
+            
+            $(this).find( '.video-js' )
+                .parent().removeData( 'video' );
+            $(window).unbind( 'resize.video-' + video.Q );
+            $(this).remove();
         } );
     });
 
@@ -1875,8 +1884,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/small" , "/videos/small.jpg" ,  {ratio: 516 / 893} , function(){
+                renderVideo( $('#home_video') , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
                     $('#' + this.Q).css('z-index' , 0);
+                    this.on('ended' , function(){
+                        LP.triggerAction('skip-intro');
+                    });
                 } );
                 // get parameter d
                 var urlObj = LP.parseUrl();
