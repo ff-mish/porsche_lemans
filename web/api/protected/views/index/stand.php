@@ -31,7 +31,7 @@
 		    <p> &nbsp; </p>
 		    <p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 		</div>
-      <div class="conut_down_wrap">
+      <div class="conut_down_wrap stand_count_down">
       	<div class="conut_down cs-clear" data-fadein>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
 			<div class="conut_downitem">00</div><span class="conut_downinfo">h</span>
@@ -81,7 +81,7 @@
 				<div class="stand_posts_p1">
 					<div class="stand_posts_item">-</div>
 					<div class="stand_posts_item">-</div>
-					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>
+<!--					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>-->
 				</div>
 			</div>
 			<!--  -->

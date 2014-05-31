@@ -23,12 +23,15 @@
           <a class="skipintro" href="#" data-a="skip-intro"><?php echo Yii::t('lemans','Skip intro')?></a>
       </div>
     <div id="winners-prizes">
-      <div class="popup_close"></div>
-      <h2><?php echo Yii::t("lemans", "Winners’ Prizes")?></h2>
+        <div class="popup_close"></div>
+        <div class="winners-prizes-wrap">
+            <h2><?php echo Yii::t("lemans", "Winners’ Prizes")?></h2>
             <img class="winners-icon" src="/images/winner_prizes.png">
-      <div class="winners-prizes-con clearfix">
-        <?php echo Yii::t("lemans", "race_description")?>
+            <div class="winners-prizes-con clearfix">
+                <?php echo Yii::t("lemans", "race_description")?>
+            </div>
         </div>
+
     </div>
 
   </div>
