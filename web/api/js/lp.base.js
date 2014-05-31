@@ -1804,6 +1804,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			});
 		});
 
+        // tracking events
+        $('.skipintro').click(function(){
+            ga('send', 'event', 'Intro', 'SkipIntro', lang);
+        });
+
+        $('.footer-icon').click(function(){
+            ga('send', 'event', 'Intro', 'Howto', lang);
+        });
+
+        $('.share-btns a').click(function(){
+            ga('send', 'event', 'Intro', 'Share', lang);
+        });
+
+        $('.footer .legal').click(function(){
+            ga('send', 'event', 'Intro', 'Legal', lang);
+        });
+
+
 		$(window).resize(function(){
 			if( $.browser.msie && $.browser.version <= 8 ){
 				var width = ($(window).width() - 1340) / 2;

@@ -362,7 +362,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_invite .friend_item .btns {margin:0 0 0 60px;}
 .popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}
 .popup_invite .popup_invite_btns {text-align: center;margin:50px 0 0;}
-.popup_invite .popup_invite_btns a {display:inline-block; zoom:1; border: 3px solid red;text-decoration: none;border-radius: 4px;padding: 7px 40px;color:#ff0000;font-size:23px; }
+.popup_invite .popup_invite_btns a {display: inline-block;margin:0 5px;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_invite .popup_invite_btns a:hover {opacity:0.7;}
 .popup_invite .loading{position: absolute;z-index: 1;height: 100%;width: 100%;}
 .popup_invite .loading-wrap{position:absolute;width:100%;height:100%;display: block;background:#000;background: rgba(0,0,0,.6);}
@@ -593,7 +593,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 .stand_chart{width: 600px;height: 600px;}
 .stand_tit{width: 57%;}
 .member_speed,.memeber_space{margin-left: 80px;}
-.stand_chart_score{ width: 250px; left: 50%;margin-left: -125px;}
+.stand_chart_score{ width: 250px; left: 50%;margin-left: -85px;}
 .stand_chart_tip{left: 50%;margin-left: -100px;}
 
 .stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
@@ -707,7 +707,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_add{right:20px;top:0;left:auto;}
     .stand_del {left:170px!important;top:0px!important;}
     .stand_chart{width: 310px;height:310px;background-size: cover}
-    .stand_chart_score {left:97px;font-size:28px;left:110px;}
+    .stand_chart_score {font-size:28px;left:190px;}
     .team_name,.stand_tit {font-size:28px;}
     .stand_tit {width:465px;height:60px;}
     .stand_achivments {padding:0;font-size:24px;}
@@ -754,6 +754,11 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .navicon{margin-bottom: 30px;}
     .stand{top: 30px;}
     .nav{top: 80px;}
+}
+@media screen and (max-height:600px){
+    .winners-prizes-wrap {height:450px!important;margin-top:-228px!important;}
+    .winners-icon {width:34%!important;}
+    .winners-prizes-con {font-size:16px!important;margin-top:10px!important;}
 }
 
 

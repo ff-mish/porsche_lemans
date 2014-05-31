@@ -122,9 +122,10 @@ outline: none !important;
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
 
-#winners-prizes {overflow: auto; position: fixed;display:none;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
+#winners-prizes {position: fixed;display:none;z-index:100;top:60px;bottom:0;width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
 #winners-prizes h2{text-align: center;font-size: 36px;padding: 40px 30px;color: #fff;}
-#winners-prizes .popup_close {right:20px;top:20px;}
+#winners-prizes .popup_close {right:20px;top:20px;z-index:10;}
+.winners-prizes-wrap {position: fixed;margin-top:-250px;top:50%;height:515px;width: 100%;}
 .winners-icon {width: 50%;max-width: 355px;}
 .winners-prizes-con { margin:30px auto 0 auto;font-size:18px;width: 90%;max-width:1100px;text-align:center;line-height: 150%;color:#fff;}
 
@@ -182,7 +183,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 
 .tutr-step{display: none;position: relative;z-index: 5;}
-.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.8;position: absolute;filter: alpha(opacity=80);}
+.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.3;position: absolute;filter: alpha(opacity=30);}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step .step-con .color {color:#ff0000;}
 .step-btn {background: #ff0000;border-radius: 5px;display:block;padding:3px 15px;}
