@@ -63,11 +63,18 @@ class UserTeamAR extends CActiveRecord {
    * @return TeamAR
    */
   public function loadUserTeam($user) {
-    $cond = array(
-        "condition" => $this->getTableAlias().".uid=:uid",
-        "params" => array(":uid" => $user->uid),
-    );
-    $row = $this->with("user", "team")->find($cond);
+    // $cond = array(
+    //     "condition" => $this->getTableAlias().".uid=:uid",
+    //     "params" => array(":uid" => $user->uid),
+    // );
+    $query = new CDbCriteria();
+    $teamAr = new TeamAR();
+    $query->addCondition($this->getTableAlias().".uid=:uid")
+      ->addCondition("team.status=:status");
+    $query->params[":uid"] = $user->uid;
+    $query->params[":status"] = TeamAR::STATUS_ONLINE;
+    $row = $this->with("user", "team")->find($query);
+
     if ($row) {
       $team = $row->team;
     }

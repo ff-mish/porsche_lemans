@@ -1539,6 +1539,46 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         });
     });
     
+    LP.action("invite_box_with_auto_join", function (params) {
+      LP.panel({
+        type: "panel",
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('You already have team #[now_team_name], Are you want to join team #[team] ? If that, the record in the your team will be destoried.' ,{team: params["team_name"], now_team_name: params["now_team_name"]}) + '</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a></div></div>',
+        "title": "",
+        mask: true,
+        destroy: true,
+        submitButton: false,
+        cancelButton: false,
+        closeAble: false,
+        onShow: function () {
+          var panel = this;
+          this.$panel.find(".cancel").click(function () {
+            api.post("/api/user/jointeam", {"owner": 0}, function(e) {
+              if (e["status"] == 0) {
+                panel.close();
+                window.location.reload();
+              }
+            });
+            panel.close();
+          });
+          this.$panel.find(".confirm").click(function () {
+            api.post("/api/user/jointeam", {"team_id": params["team_id"]}, function(e) {
+              if (e["status"] == 0) {
+                panel.close();
+                window.location.reload();
+              }
+            });
+          });
+        },
+        onSubmit: function () {
+          
+        },
+        onCancel: function () {
+
+        },
+        width: $(window).width() * 0.6,
+      });
+    });
+    
     LP.action("invite_box", function(params) {
       LP.panel({
         type: "panel",
@@ -1953,8 +1993,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 // show invited panel
                 var dataCon = $("#data-stand");
                 var isInvited = !!parseInt(dataCon.attr("data-is_invited"));
+                var now_team_name = dataCon.attr("data-now_team_name");
                 if ( isInvited ) {
-                   LP.triggerAction('invite_box', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id")});
+                    if (now_team_name.trim() == "") {
+                        LP.triggerAction('invite_box', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id")});
+                    }
+                    else {
+                        LP.triggerAction('invite_box_with_auto_join', {"team_name": dataCon.attr("data-team_name"), "team_id": dataCon.attr("data-team_id"), "now_team_name": now_team_name});
+                    }
                 }
 
 

@@ -104,7 +104,7 @@ class IndexController extends Controller {
     // 邀请逻辑
     $invited_data = Yii::app()->session["invited_data"];
     $code = $invited_data["code"];
-    if ($invited_data && $user && !$user->team && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
+    if ($invited_data && $user && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
       $params["is_invited"] = TRUE;
       // 在这里还要获取一下用户的被邀请的team的名字
       $tid = $invited_data["tid"];
@@ -126,12 +126,15 @@ class IndexController extends Controller {
     
     // 用户如果是自动加入了小组, 但是又是属于邀请类型用户
     // 这时需要询问用户是否加入当前小组？
-    if ($user->status = UserAR::STATUS_AUTO_JOIN) {
+    $params["now_team_name"] = "";
+    $params["now_team_id"] = "";
+    if ($user->status == UserAR::STATUS_AUTO_JOIN && $invited_data && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
       //1. 把用户现在的组拿出来
       $team_now = $user->team;
       if ($team_now) {
         $params["now_team_name"] = $team_now->name;
         $params["now_team_id"] = $team_now->tid;
+        $params["is_invited"] = TRUE;
       }
     }
     

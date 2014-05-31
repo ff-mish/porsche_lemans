@@ -67,7 +67,6 @@ class UserController extends Controller{
   
   /**
    * 用户加入一个Team
-   * 注意参数不是一个 team id 而是队长的uid 后台可以根据队长uid 来获取Team id
    */
   public function actionJoinTeam() {
     $request = Yii::app()->getRequest();
@@ -100,8 +99,22 @@ class UserController extends Controller{
     if ($team_owner_uid > 0) {
       $user_ar = UserAR::crtuser();
       if ($user_ar) {
+        // 在这里需要做一个逻辑处理
+        // 就是当用户是自动登录并且建立小组的， 我们需要删除之前的小组，
+        // 然后才执行加入小组的工作
+        if ($user_ar->status == UserAR::STATUS_AUTO_JOIN) {
+          $userTeamAr = new UserTeamAR();
+          $before_team = $userTeamAr->loadUserTeam($user_ar);
+          if ($before_team) {
+            // 在这里离开小组
+            $user_ar->leaveTeam();
+          }
+        }
+
+        // 然后再执行其他的流程
         $user_ar->user_join_team($team_owner_uid);
         $user_ar->allowed_invite = 1;
+        $user_ar->status = UserAR::STATUS_ENABLED;
         $user_ar->save();
         // 保存用户接受请求的日志
         $code = $invited_data["code"];
@@ -121,6 +134,10 @@ class UserController extends Controller{
       else {
         if ($inviter) {
           $user_ar->allowed_invite = 0;
+          // 在这里还需要判断用户是不是自动注册并且建立小组的
+          if ($user_ar->status === UserAR::STATUS_AUTO_JOIN) {
+            $user_ar->status = UserAR::STATUS_ENABLED;
+          }
           $user_ar->save();
           
           $code = $invited_data["code"];
