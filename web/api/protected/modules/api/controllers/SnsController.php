@@ -48,6 +48,8 @@ class SnsController extends Controller
       $user_ar = new UserAR();
       $user_ar->login();
       
+      die();
+      
       // 在这里 如果是系统级别的用户需要额外保存Token
       $weibo_uid = Yii::app()->params["weibo_uid"];
       if ($token["uid"] == $weibo_uid) {

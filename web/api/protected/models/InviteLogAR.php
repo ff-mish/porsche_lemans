@@ -193,5 +193,28 @@ class InviteLogAR extends CActiveRecord {
     
     return self::model()->deleteAll($query);
   }
+  
+  /**
+   * 判断邀请是不是存在, 有时候用户取消邀请
+   * @param type $id_str
+   * @param type $code
+   */
+  public static function inviteIsExist($idstr, $code) {
+      $query = new CDbCriteria();
+      $query->addCondition("invited_idstr=:invited_idstr")
+              ->addCondition("invite_code=:code");
+      $query->params = array(
+          ":invited_idstr" => $idstr,
+          ":code" => $code,
+      );
+      $row = self::model()->find($query);
+      
+      if ($row) {
+        return TRUE;
+      }
+      else {
+        return FALSE;
+      }
+  }
 }
 

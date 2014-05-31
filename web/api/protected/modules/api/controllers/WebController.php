@@ -36,6 +36,8 @@ class WebController extends Controller {
     if ($d) {
       $userAr = new UserAR();
       $data = $userAr->decryptionInvitedData($d);
+      // 还需要判断邀请数据是否有效
+      
       Yii::app()->session["invited_data"] = $data;
     }
     

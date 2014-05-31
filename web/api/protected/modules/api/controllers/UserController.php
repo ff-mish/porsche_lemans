@@ -256,12 +256,11 @@ class UserController extends Controller{
           $next_next_cursor = -1;
         }
       }
-
     }
     
     // 去掉已经邀请过的好友
     if ($user->team) {
-      $invited_uuids = InviteLogAR::userInvited($user->team->tid);
+      $invited_uuids = InviteLogAR::userInvited($user->team->tid, TRUE);
       foreach ($ret as $key => $sns_user) {
         if (in_array($sns_user["uuid"], $invited_uuids)) {
           unset($ret[$key]);

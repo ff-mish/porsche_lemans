@@ -96,6 +96,22 @@ class UserTeamAR extends CActiveRecord {
         $team->offlineIt();
       }
     }
+    
+    // 退出小组后 要把用户对应的邀请数据删掉
+    $leaveTeamUser = UserAR::model()->findByPk($this->uid);
+    $tid = $this->tid;
+    // 只删除接受过邀请的状态的邀请数据
+    $status = InviteLogAR::STATUS_ALLOW_INVITE;
+    $query = new CDbCriteria();
+    $query->addCondition("invited_idstr=:invited_idstr")
+            ->addCondition("tid=:tid")
+            ->addCondition("status=:status");
+    $query->params[":tid"] = $tid;
+    $query->params[":invited_idstr"] = $leaveTeamUser->uuid;
+    $query->params[":status"] = $status;
+    
+    InviteLogAR::model()->deleteAll($query);
+    
     return parent::beforeDelete();
   }
 

@@ -208,7 +208,6 @@ class UserAR extends CActiveRecord {
     }
     
     // 把用户从数据库加载进来
-    
     $user = $this->load_user_by_uuid($uuid);
     // 用户已经注册到了我们系统了
     if ($user && $user->status == self::STATUS_ENABLED) {
@@ -218,9 +217,28 @@ class UserAR extends CActiveRecord {
       $userteamAr = new UserTeamAR();
       $team = $userteamAr->loadUserTeam($user);
       // 这里判断 用户授权了系统 但没有建立组 也没有邀请信息 ，所以就自动建组. 
-      if (!$team && !Yii::app()->session["invited_data"]) {
-        // TODO:: 我们让他去team build 页面
-        TeamAR::newteam("new team");
+      
+      // 用户没有组
+      if (!$team) {
+        // 如果没有组也没有邀请信息，则自动建立组
+        if (!Yii::app()->session["invited_data"]) {
+          TeamAR::newteam("new team");
+        }
+        else {
+          $invited_data = Yii::app()->session["invited_data"];
+          $code = $invited_data["code"];
+        // 如果没有组但有邀请信息不过邀请被取消掉了 则自动建立组
+          if (!InviteLogAR::inviteIsExist($uuid, $code)) {
+            TeamAR::newteam("new team");
+          }
+          // 如果没有组但有邀请信息 但是邀请被使用过了 （这个情况会出现在用户退出小组 但是又点击了之前的邀请链接之后的进行系统登录）
+          elseif (InviteLogAR::userWasAllowedInvite($uuid, $code)) {
+            TeamAR::newteam("new team");
+          }
+          else {
+            //
+          }
+        }
       }
     }
     
@@ -240,12 +258,20 @@ class UserAR extends CActiveRecord {
       // Step1, 用户如果第一次授权系统，我们要保存用户
       $new_userar = new UserAR();
       $invited_data = Yii::app()->session["invited_data"];
+      $code = $invited_data["code"];
       if ($invited_data) {
         $inviter = $invited_data["uid"];
       }
       else {
         $inviter = 0;
       }
+      
+      // 虽然邀请数据有 但是邀请已经被取消
+      // 我们还是认为这个人不是邀请过来的
+      if (!InviteLogAR::inviteIsExist($uuid, $code)) {
+        $inviter = 0;
+      }
+      
       $attributes = array(
           "name" => $screen_name,
           "from" => $from,

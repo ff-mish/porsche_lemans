@@ -104,7 +104,12 @@ class IndexController extends Controller {
     // 邀请逻辑
     $invited_data = Yii::app()->session["invited_data"];
     $code = $invited_data["code"];
-    if ($invited_data && $user && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
+    // 执行邀请弹窗满足下面条件：
+    // 1. 邀请信息存在
+    // 2. 邀请没有被接受过(可用状态)
+    // 3. 邀请数据有效
+    // 4. 用户没有Team  (用户在接受邀请之前已经有了 Team 则不跳出弹窗)
+    if ($invited_data && $user && !$user->team && !InviteLogAR::userWasAllowedInvite($user->uuid, $code) && InviteLogAR::inviteIsExist($user->uuid, $code)) {
       $params["is_invited"] = TRUE;
       // 在这里还要获取一下用户的被邀请的team的名字
       $tid = $invited_data["tid"];
@@ -128,7 +133,7 @@ class IndexController extends Controller {
     // 这时需要询问用户是否加入当前小组？
     $params["now_team_name"] = "";
     $params["now_team_id"] = "";
-    if ($user->status == UserAR::STATUS_AUTO_JOIN && $invited_data && !InviteLogAR::userWasAllowedInvite($user->uuid, $code)) {
+    if ($user->status == UserAR::STATUS_AUTO_JOIN && $invited_data && !InviteLogAR::userWasAllowedInvite($user->uuid, $code) && InviteLogAR::inviteIsExist($user->uuid, $code)) {
       //1. 把用户现在的组拿出来
       $team_now = $user->team;
       if ($team_now) {
