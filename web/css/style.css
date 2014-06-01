@@ -352,7 +352,7 @@ body{background:#000;height: 100%;width: 100%}
 
 .popup_invite {position: relative; background:#000;width:860px;height:450px;padding:60px 10px 15px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {}
-.popup_invite .popup_invite_friend_list{height: 350px;overflow: auto;}
+.popup_invite .popup_invite_friend_list{height: 300px;overflow: auto;}
 .popup_invite .friend_item {float:left;width:214px;margin:25px 0;height: 73px;}
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .avatar img{width: 73px;height: 73px;}

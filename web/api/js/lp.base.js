@@ -167,6 +167,27 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         });
     }
 
+    var initPlaceHoler = function( $input ){
+        if( $('<input/>').get(0).placeholder === undefined ){
+            $input.val( $input.attr('placeholder') )
+                .focus(function(){
+                    if( this.value == $input.attr('placeholder') ){
+                        this.value = '';
+                    }
+                })
+                .blur(function(){
+                    if( !this.value ){
+                        this.value = $input.attr('placeholder');
+                    }
+                })
+                .trigger('blur');
+        }
+    }
+    var getPlaceHolderValue = function( $input ){
+        return $input.val() == $input.attr('placeholder') ? "" : $input.val();
+    }
+
+
     var questionTimerInitTimer = null;
     var questionTimerInit = function( $dom  , duration , cb ){
         var width = $dom.width();
@@ -541,29 +562,30 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                                 // init place holder
                                 var $input = panel.$panel.find('input');
-                                if( $('<input/>').get(0).placeholder === undefined ){
-                                    $input.val( $input.attr('placeholder') )
-                                        .focus(function(){
-                                            if( this.value == $input.attr('placeholder') ){
-                                                this.value = '';
-                                            }
-                                        })
-                                        .blur(function(){
-                                            if( !this.value ){
-                                                this.value = $input.attr('placeholder');
-                                            }
-                                        })
-                                        .trigger('blur');
-                                }
+                                initPlaceHoler( $input );
+                                // if( $('<input/>').get(0).placeholder === undefined ){
+                                //     $input.val( $input.attr('placeholder') )
+                                //         .focus(function(){
+                                //             if( this.value == $input.attr('placeholder') ){
+                                //                 this.value = '';
+                                //             }
+                                //         })
+                                //         .blur(function(){
+                                //             if( !this.value ){
+                                //                 this.value = $input.attr('placeholder');
+                                //             }
+                                //         })
+                                //         .trigger('blur');
+                                // }
                                 // init tutor place holder
 
                                 var $tip = this.$panel.find('.error-tip');
                                 panel.$panel.find('.popup_dialog_btns a').click(function(){
 
-                                    var email = $input.val();
-                                    if( email == $input.attr('placeholder') ){
-                                        email = '';
-                                    }
+                                    var email = getPlaceHolderValue( $input );
+                                    // if( email == $input.attr('placeholder') ){
+                                    //     email = '';
+                                    // }
                                     if( email &&
                                         (!email.match(/^[a-zA-Z_0-9].*[a-zA-Z]$/) ||
                                         !email.match(/[a-zA-Z_0-9]@[a-zA-Z_0-9]/) ||
@@ -1029,7 +1051,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_invite">\
                     <div class="popup_close"></div>\
+                    <div class="popup_invite_search"><a class="close-search" href="javascript:;">×</a><input type="text" placeholder="'+ _e('Search') + '"/> <a href="javascript:void(0);" class="search-btn">'+ _e('Search') + '</a></div>\
                     <div class="popup_invite_friend_list"></div>\
+                    <div class="popup_search_friend_list"></div>\
                     <div class="loading-wrap"><div class="loading"></div></div>\
                     <div class="cs-clear"></div>\
                     <div class="popup_invite_btns" style="position:relative;">\
@@ -1080,8 +1104,56 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     });
                 }
 
-                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.popup_invite_friend_list').jScrollPane({autoReinitialise:true}).bind(
+                //  ssearch component
+                var $search = panel.$panel.find('.popup_invite_search input')
+                    .keyup(function( ev ){
+                        if( ev.which == 13 ){
+                            panel.$panel.find(".search-btn").trigger('click');
+                        }
+                    });
+                initPlaceHoler( $search );
+                var floading = false;
+                panel.$panel.find(".search-btn").click(function(){
+                    if( floading ) return false;
+                    var val =  getPlaceHolderValue( $search );
+                    if( !val ){
+                        $search.focus();
+                        return false;
+                    }
+                    floading = true;
+                    panel.$panel.find('.loading-wrap').show();
+                    api.get('/api/user/searchfriends' , {q: val} , function( e ){
+                        panel.$panel.find('.loading-wrap').fadeOut();
+
+                        panel.$panel.find('.popup_invite_friend_list').hide();
+                        panel.$panel.find('.popup_search_friend_list').show();
+                        var $list = panel.$panel.find('.popup_search_friend_list .jspPane').html('');
+                        $.each( e.data , function( i , user ){
+                            var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
+                                .css({top:-30 , opacity: 0 , 'position': 'relative'});
+                            setTimeout(function(){
+                               $friend.appendTo( $list )
+                                    .animate({
+                                        top: 0,
+                                        opacity: 1
+                                    } , 100);
+                           } , i * 100 );
+                        } );
+
+                        setTimeout( function(){floading = false;} , 100 * e.data.length );
+                    });
+                });
+
+                panel.$panel.find(".close-search").click(function(){
+                    $search.val('');
+                    panel.$panel.find('.popup_invite_friend_list').show();
+                    panel.$panel.find('.popup_search_friend_list').hide().find('.jspPane').html("");
+                });
+
+
+
+                LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.popup_invite_friend_list,.popup_search_friend_list').jScrollPane({autoReinitialise:true}).bind(
                         'jsp-scroll-y',
                         function(event, scrollPositionY, isAtTop, isAtBottom){
                             if( !hasMore || isLoading ) return;
@@ -1103,29 +1175,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 var isLoading = false;
                 var next_cursor = -2;
 
-                panel.$panel.find('.popup_invite_friend_list').delegate(".send" , 'click' , function(){
-                    if( $(this).closest('.popup_invite_friend_list').find(".selected:visible").length
+                panel.$panel.find('.popup_invite').delegate(".send" , 'click' , function(){
+                    if( $(this).closest('.popup_invite').find(".selected.show").length
                         >= $('.teambuild_member .member_add').length ){
                         panel.$panel.find('.popup_error').html(_e(' You can\'t invite too many people '));
                         setTimeout(function(){panel.$panel.find('.popup_error').html('')} , 5000);
                         return false;
                     }
                     panel.$panel.find('.popup_error').html('');
-                    $(this).hide().prev().show();
+                    $(this).hide().prev().show().addClass('show');
 
                     // btn status
                     panel.$panel.find('.popup_invite_btns a')
                         .removeClass('disabled');
                 })
                 .delegate(".selected" , "click" , function(){
-                    $(this).hide().next().show();
+                    $(this).hide().removeClass('show').next().show();
                     panel.$panel.find('.popup_error').html('');
-                    if( !panel.$panel.find('.popup_invite_friend_list .selected:visible').length ){
+                    if( !panel.$panel.find('.popup_invite .selected.show').length ){
                         // btn status
                         panel.$panel.find('.popup_invite_btns a')
                             .addClass('disabled');
                     }
-                })
+                });
                 // .bind('scroll' , function(){
                 //     if( !hasMore || isLoading ) return;
 
@@ -1150,7 +1222,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         // get user list
                         var users = [];
                         var us = [];
-                        $('.popup_invite_friend_list .selected:visible').each(function(){
+                        $('.popup_invite .selected.show').each(function(){
                             users.push( '@' + $(this).data('name') );
                             var $p = $(this).closest('.friend_item');
                             us.push( {
@@ -1159,6 +1231,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 'uuid' : $p.data('uuid')
                             } );
                         });
+
+                        if( !users.length ) return false;
                         api.post( '/api/user/invite' , {msg: users.join("")} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
@@ -1224,12 +1298,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     .click(function(){
                         panel.close();
                     });
+
+                var $textarea = panel.$panel.find('textarea');
                 this.$panel.find('.p-confirm')
                     .click(function(){
 						if($(this).hasClass('disable')) {
 							return;
 						}
-                        var msg = panel.$panel.find('textarea').val();
+                        var msg = $textarea.val();
 						$(this).addClass('disable');
 						$(this).next().fadeIn();
                         api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
@@ -1242,7 +1318,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 								}, 500);
 							});
                         } );
-                    });
+                    }) ;
+
+                // auto count words
+                LP.use('textareaUtil' , function( utl ){
+                    utl.countWords( $textarea[0] , null , 140 , function( e, n ){
+                        console.log( e , n );
+                    } )
+                });
             }
             // ,
             // onSubmit: function(){

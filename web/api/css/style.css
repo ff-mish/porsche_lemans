@@ -350,9 +350,16 @@ body{background:#000;height: 100%;width: 100%}
 
 .popup_invite {position: relative; background:#000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
-.popup_invite .popup_invite_friend_list{height: 283px;overflow: auto;}
+.popup_invite .popup_invite_friend_list,.popup_invite .popup_search_friend_list{height: 213px;overflow: auto;}
+.popup_invite .popup_search_friend_list{display: none;}
+.popup_invite .popup_invite_search{height: 70px; position: relative;}
+.popup_invite .popup_invite_search input{width: 550px;background: none;border: 1px solid red;padding: 10px;color: white;position: relative;}
+.popup_invite .popup_invite_search .search-btn{display: inline-block;margin: 0 5px;background: #ff0000;color: #fff;font-size: 14px;width: 100px;height: 31px;line-height: 31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_invite .popup_invite_search .close-search{position: absolute;left: 540px;top: 5px;color: red;font-size: 42px;z-index: 1;}
+
 .popup_invite .friend_item {float:left;width:230px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
+
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .avatar img{width:50px;height:50px;}
