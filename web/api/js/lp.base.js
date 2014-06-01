@@ -1048,6 +1048,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     })
 
     LP.action("member_invent" , function(){
+        var $_btn = $(this).attr('disabled' , 'disabled');
         LP.panel({
             content: '<div class="popup_invite">\
                     <div class="popup_close"></div>\
@@ -1065,6 +1066,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             width: 760,
             height: 408,
             onload: function() {
+                $_btn.removeAttr( 'disabled' );
+
                 var panel = this;
                 var uTpl = '<div class="friend_item" data-uuid="#[uuid]">\
                         <div class="avatar"><img src="#[avatar]"></div>\
@@ -1319,13 +1322,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 							});
                         } );
                     }) ;
-
-                // auto count words
-                LP.use('textareaUtil' , function( utl ){
-                    utl.countWords( $textarea[0] , null , 140 , function( e, n ){
-                        console.log( e , n );
-                    } )
-                });
             }
             // ,
             // onSubmit: function(){
