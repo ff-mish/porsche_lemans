@@ -29,6 +29,10 @@
 		    <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
 			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
 		    <p> &nbsp; </p>
+            <div class="mobile_nav">
+                <p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+                <p class="language"><a data-lang="en_us" href="#">En</a> | <a data-lang="zh_cn" href="#">中文</a></p>
+            </div>
 		    <p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 		    <div class="mobile_menu" data-a="show-menu">
 		    	<p></p>
@@ -123,6 +127,7 @@
 	</div>
 
 	<div class="tutr-step">
+        <div class="tutr-step-skip"><?php echo Yii::t("lemans", "Skip Tutorial")?></div>
 		<div class="tutr-step-top"></div>
 		<div class="tutr-step-bottom"></div>
 		<div class="tutr-step-left"></div>

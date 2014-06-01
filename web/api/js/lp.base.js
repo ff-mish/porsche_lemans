@@ -454,6 +454,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 return false;
             });
 
+        $('.tutr-step-skip').click(function(){
+            $('.tutr-step').fadeOut();
+        });
+
+        $('body').keyup(function(e){
+            if(e.keyCode == 27 && $('.tutr-step').hasClass('read_tutr')) {
+                $('.tutr-step').fadeOut();
+            }
+        });
+
         var renderTure = function( top , left , width , height , isAni ){
             var $step = $('.tutr-step').fadeIn();
             
@@ -2300,6 +2310,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             LP.triggerAction( 'start-tutr' );
                             LP.removeCookie('_t_');
                         } , 3000 );
+                    }
+
+                    if(!needTriggerTutr) {
+                        $('.tutr-step').addClass('read_tutr');
                     }
 
                     

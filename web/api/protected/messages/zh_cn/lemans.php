@@ -37,6 +37,7 @@ return array (
     "PORSCHE" => "保时捷",
     "Leave Team" => "离开队伍",
     "Next" => "下一个",
+    "Skip Tutorial" => "跳过教程",
     "tutorial_step_4" => "每答对三道 Porsche 挑战赛问题，就能解锁一项比赛成就。在“最新微博”中快速浏览你团队的内容。你即将完成全部教程。",
     "tutorial_step_3" => '这张 Porsche 图表是赢得比赛的关键。通过它，你可以知道在哪些地方需要改进来提高速度。它由四个要素构成。
 	<br><br>

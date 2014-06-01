@@ -739,7 +739,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1500px){
-    .conut_down{width: 1244px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
+    .conut_down{width: 1244px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 110px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 110px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 80px;}
@@ -747,7 +747,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1400px){
-    .conut_down{width: 1158px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
+    .conut_down{width: 1158px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 100px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 100px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 70px; }
@@ -755,7 +755,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1300px){
-    .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
+    .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 65px;}
@@ -763,7 +763,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1200px){
-    .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -108px;}
+    .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -122px;}
     .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 52px; }
@@ -791,7 +791,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
   font-size: 0.8em;
 }
 
-
+.mobile_nav {display:none;}
 @media screen and (max-width:640px){
     /*nav*/
 
@@ -808,9 +808,11 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
     .footer_share{position: absolute;right: 0}
     /*conutdown*/
-    .count{width: 580px;}
-    .conut_tips{font-size: 28px;color:#fff;}
-    .conut_down{width: 580px;height: 110px;margin-top: -70px;}
+    .count{width: 580px;left:30px;margin:0;top:30px;}
+    .conut_tips{font-size: 28px;color:#fff;margin-top:150px;}
+    .conut_down{width: 580px;height: 110px;margin-top: -203px;}
+    .stand_tweet .conut_downinfo {margin-right:15px;}
+    .stand_tweet .conut_downitem, .stand_tweet .conut_downinfo {font-size:32px;}
     .conut_downinfo{font-size: 50px;margin-right:20px;}
     .conut_downinfo:last-child {margin-right:0!important;}
     .conut_downitem{font-size: 50px}
@@ -843,20 +845,43 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
     body[data-page="stand"] .footer_link{padding-left: 25px;}
 
+    .popup_close {width:50px!important;height:50px!important;}
 
     .popup_invite{width: 560px;}
+    .popup_invite .popup_close {right:0px;top:0px;}
     .popup_invite .popup_invite_search input{width: 400px;}
     .popup_invite .popup_invite_search .close-search{left: 390px;}
 
     .nav{background: black;top: 60px;margin-top: 0;bottom: 0;padding-top: 60px; }
-    .nav p{height: 50px;}
+    .nav p{height: 61px;font-size:24px;padding-left:45px;}
+    .mobile_nav {display: block;}
+    .mobile_nav p {display: block;font-size:17px;}
 
-    .mobile_menu{display: block; position: absolute;left: 100%;top: 0;background: black;height: 25px;width: 15px;padding: 20px 25px 20px;}
-    .mobile_menu p{height: 1px;background: white;width: 15px;padding: 0;margin: 5px auto;}
+    .navicon {width:70px;height:70px;border-width: 2px;}
+    .mobile_menu{display: block; position: absolute;left: 100%;top: 0;background: black;height: 25px;width: 15px;padding: 38px 37px 38px 37px;}
+    .mobile_menu p{height: 2px;background: white;width: 18px;padding: 0;margin: 5px auto;}
 
     .lang-cn .home_share a {background-image: url('../images/home_share2m_cn.png');}
 
+    .footer_link .legal {display:none;}
+    .footer_link #share {position:fixed;right:20px;font-size:20px;}
+    .footer_language {display:none;}
+    .share-btns {left:auto!important;right:0px!important;}
 
+    .alert-message {font-size:20px;}
+    .alert-message .msg-sug {font-size:16px;}
+    .popup_post textarea {font-size:20px;}
+    .popup_dialog_btns a {font-size:20px;width:150px;height:40px;line-height:40px!important;}
 
+    .popup_invite .popup_error {font-size:18px;}
+    .popup_invite .popup_invite_search input {font-size:20px;}
+    .popup_invite .popup_invite_search .search-btn {font-size:20px;height:37px;line-height:37px;}
+    .popup_invite .popup_invite_btns a {font-size:20px;width:150px;height:40px;line-height:40px!important;}
+    .popup_invite .friend_item {width:267px;height:89px;}
+    .popup_invite .friend_item .name {width:260px;font-size:18px;margin:11px 0;}
+    .popup_invite .friend_item .avatar img {width:80px;height:80px;}
+    .popup_invite .friend_item .send {font-size:18px;}
+
+    .winners-prizes-con {font-size:22px!important;}
 }
 
