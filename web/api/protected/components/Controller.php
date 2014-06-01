@@ -83,11 +83,21 @@ class Controller extends CController {
 
   public function init() {
     parent::init();
+
     //只取前4位，这样只判断最优先的语言。如果取前5位，可能出现en,zh的情况，影响判断。
     $cookies = Yii::app()->request->cookies;
     $lang = $cookies["lang"];
     if ($lang) {
       Yii::app()->language = (string)$lang;
+    }
+    else {
+      $ip = Yii::app()->request->userHostAddress;
+      $content = file_get_contents("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=".$ip);
+      $ip_info = json_decode($content, TRUE);
+      if (isset($ip_info["country"]) && $ip_info["country"] == "中国") {
+        setcookie("lang", "zh_cn", time() + 3600 * 24, "/");
+        Yii::app()->language = "zh_cn";
+      }
     }
 
     

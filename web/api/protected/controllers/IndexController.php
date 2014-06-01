@@ -17,6 +17,8 @@ class IndexController extends Controller {
     if ($now >= $start_data) {
       $this->is_start = TRUE;
     }
+    
+
   }
   
   public function beforeAction($action) {

@@ -454,7 +454,7 @@ class UserController extends Controller{
     }
 
     $request = Yii::app()->getRequest();
-    $q = $request->getParam("q");
+    $q = $request->getParam("q", "");
     if ($user->from == UserAR::FROM_TWITTER) {
       if (!$q) {
         return $this->responseJSON(array(), "success");
