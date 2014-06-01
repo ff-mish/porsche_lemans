@@ -19,10 +19,10 @@
   'They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is' => '',
   'do you want to leave the team?' => '确定要离开团队？',
   'Leave Team' => '离开队伍',
-  ' You can\\\'t invite too many people ' => '',
   'T/H' => '
   微博/小时',
   'P' => '排名: ',
   'Do you want to join #[team] ?' => '你想要加入#[team]团队吗？',
   'fans_unit' => '粉丝',
+  'Search' => '搜索',
 );

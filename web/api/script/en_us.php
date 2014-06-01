@@ -23,4 +23,6 @@
   'P' => '',
   'Do you want to join' => '',
   'fans_unit' => ' ',
+  'Search' => '',
+  'You can\\\'t invite too many people ' => '',
 );

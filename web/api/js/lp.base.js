@@ -999,15 +999,51 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var bigVideoInit = function(){ 
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
-        renderVideo( $('<div></div>').css({
-            "position": "fixed",
-            "z-index": "-1",
-            "top": "0",
-            "left": "0",
-            "height": "100%",
-            "width": "100%",
-            "overflow": "hidden"
-        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
+        if( !isMobile ){
+            renderVideo( $('<div></div>').css({
+                "position": "fixed",
+                "z-index": "-1",
+                "top": "0",
+                "left": "0",
+                "height": "100%",
+                "width": "100%",
+                "overflow": "hidden"
+            }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
+        } else {
+            var $bg = $('<div><img /></div>').css({
+                "position": "fixed",
+                "z-index": "-1",
+                "top": "0",
+                "left": "0",
+                "height": "100%",
+                "width": "100%",
+                "overflow": "hidden"
+            }).appendTo( $('.page') );
+            $bg.find('img')
+                .load(function(){
+                    var $img = $(this);
+                    var w = $img.width();
+                    var h = $img.height();
+                    $(window).resize(function(){
+                        var ww = $bg.width();
+                        var hh = $bg.height();
+                        var tarw = w ,  tarh = h;
+                        if( ww / hh > w / h ){
+                            tarw = ww;
+                            tarh = h / w * ww;
+                        } else {
+                            tarh = hh;
+                            tarw = w / h * hh;
+                        }
+
+                        $img.css({
+                            'margin-top' : (hh - tarh) / 2,
+                            'margin-left' : (ww - tarw) / 2});
+                    }).trigger('resize');
+                })
+                .attr('src' , "/videos/"+videoname + '.jpg' );
+            
+        }
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -1200,7 +1236,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find('.popup_invite').delegate(".send" , 'click' , function(){
                     if( $(this).closest('.popup_invite').find(".selected.show").length
                         >= $('.teambuild_member .member_add').length ){
-                        panel.$panel.find('.popup_error').html(_e(' You can\'t invite too many people '));
+                        panel.$panel.find('.popup_error').html(_e('You can\'t invite too many people '));
                         setTimeout(function(){panel.$panel.find('.popup_error').html('')} , 5000);
                         return false;
                     }
@@ -1632,6 +1668,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $(this).remove();
         } );
     });
+
 
     LP.action('mobile_home_v' , function(){
         renderVideo( $('#home_video').show() , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
@@ -2069,7 +2106,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
-        // if( $(document.body).data('page') )
         bigVideoInit();
 
 
@@ -2146,6 +2182,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
                 
               case "stand":
+                if( isMobile ){
+                    if( parseInt($('.nav').css('left')) == 0 ){
+                        setTimeout(function(){
+                            LP.triggerAction('show-menu');
+                        } , 3000);
+                    }
+                }
+
                 // show invited panel
                 var dataCon = $("#data-stand");
                 var isInvited = !!parseInt(dataCon.attr("data-is_invited"));
