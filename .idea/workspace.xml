@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" afterPath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
     </list>
@@ -16,7 +13,7 @@
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401617614152" ignored="false" />
     <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401619066629" ignored="false" />
-    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401629107653" ignored="false" />
+    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401629885187" ignored="false" />
     <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401619042009" ignored="false" />
     <file path="/jquery.queryloader22.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1400993218095" ignored="false" />
     <file path="$PROJECT_DIR$/../../../XAMPP/xamppfiles/htdocs/avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401077947462" ignored="false" />
@@ -57,7 +54,7 @@
     <file path="$PROJECT_DIR$/../ave_1000/ques_2.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/ques_4.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/ques_3.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178471316" ignored="false" />
-    <file path="/stand.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401624928719" ignored="false" />
+    <file path="/stand.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401630245806" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401426201383" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401437721331" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/js/main.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401266454219" ignored="false" />
@@ -82,7 +79,7 @@
     <file path="/care.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401151301742" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_sun/game.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401159310428" ignored="false" />
     <file path="/game.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401159310428" ignored="false" />
-    <file path="/countdown.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401534620042" ignored="false" />
+    <file path="/countdown.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401630019565" ignored="false" />
     <file path="/default.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401346200893" ignored="false" />
     <file path="/guide.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401262630610" ignored="false" />
     <file path="/ie8.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401438723264" ignored="false" />
@@ -135,10 +132,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="style.css" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="814" column="76" selection-start="43760" selection-end="43760" vertical-scroll-proportion="0.5186846">
+            <state line="812" column="59" selection-start="43666" selection-end="43666" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -196,10 +193,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="stand.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="34" selection-start="1503" selection-end="1513" vertical-scroll-proportion="-13.428572">
+            <state line="27" column="68" selection-start="1335" selection-end="1335" vertical-scroll-proportion="-1.053398">
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -210,10 +207,28 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="18" selection-start="735" selection-end="735" vertical-scroll-proportion="-4.071429">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="countdown.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="39" selection-start="1746" selection-end="1746" vertical-scroll-proportion="-11.857142">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="67" column="118" selection-start="5662" selection-end="5772" vertical-scroll-proportion="-16.392857">
+            <state line="128" column="41" selection-start="18657" selection-end="18657" vertical-scroll-proportion="-4.607143">
               <folding>
                 <marker date="1401617553000" expanded="true" signature="20383:20496" placeholder="..." />
                 <marker date="1401617553000" expanded="true" signature="20564:20971" placeholder="..." />
@@ -274,7 +289,6 @@
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/protected/config/main.php" />
         <option value="$PROJECT_DIR$/web/api/css/twitter.css" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
         <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
         <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
@@ -282,6 +296,7 @@
         <option value="$PROJECT_DIR$/web/api/css/js.css" />
         <option value="$PROJECT_DIR$/web/api/js/lp.base.js" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
       </list>
@@ -842,20 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="43" selection-start="1790" selection-end="1790" vertical-scroll-proportion="0.49609983">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="18" selection-start="735" selection-end="735" vertical-scroll-proportion="0.1700468">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="3" selection-start="86" selection-end="86" vertical-scroll-proportion="-0.6785714">
@@ -874,29 +875,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="28" selection-start="1224" selection-end="1224" vertical-scroll-proportion="-10.321428">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="118" selection-start="5662" selection-end="5772" vertical-scroll-proportion="-16.392857">
-          <folding>
-            <marker date="1401617553000" expanded="true" signature="20383:20496" placeholder="..." />
-            <marker date="1401617553000" expanded="true" signature="20564:20971" placeholder="..." />
-            <marker date="1401617553000" expanded="true" signature="20593:20613" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="34" selection-start="1503" selection-end="1513" vertical-scroll-proportion="-13.428572">
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#3;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -950,10 +928,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="18" selection-start="735" selection-end="735" vertical-scroll-proportion="-4.071429">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="39" selection-start="1746" selection-end="1746" vertical-scroll-proportion="-11.857142">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="41" selection-start="18657" selection-end="18657" vertical-scroll-proportion="-4.607143">
+          <folding>
+            <marker date="1401617553000" expanded="true" signature="20383:20496" placeholder="..." />
+            <marker date="1401617553000" expanded="true" signature="20564:20971" placeholder="..." />
+            <marker date="1401617553000" expanded="true" signature="20593:20613" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="814" column="76" selection-start="43760" selection-end="43760" vertical-scroll-proportion="0.5186846">
+        <state line="812" column="59" selection-start="43666" selection-end="43666" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="68" selection-start="1335" selection-end="1335" vertical-scroll-proportion="-1.053398">
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#3;n#div#0;n#div#0;n#div#4;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

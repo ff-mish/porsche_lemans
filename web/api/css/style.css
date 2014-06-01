@@ -794,12 +794,12 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 .mobile_nav {display:none;}
 @media screen and (max-width:640px){
     /*nav*/
-
+    .loading-percentage {font-size:14px;}
     #home_video{display: none;}
     /*home*/
     .home_txt{width: 525px;background: url('../images/home_txt2m.png');height: 300px;margin-left:-262px;}
     .home_share{width: 289px;margin: 300px 0 0 -144px;}
-    .home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 3px}
+    .home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 6px}
     .home_share .home_twitter{background-position: bottom left}
     .home_winners{margin-top:490px;padding:0 0 80px;}
     .home_v{width: 289px;height: 144px;background: url('../images/home_v.jpg') no-repeat;position: absolute;left:50%;top:50%;margin: 125px 0 0 -144px;display: block;}
@@ -810,7 +810,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     /*conutdown*/
     .count{width: 580px;left:30px;margin:0;top:30px;}
     .conut_tips{font-size: 28px;color:#fff;margin-top:150px;}
-    .conut_down{width: 580px;height: 110px;margin-top: -203px;}
+    .conut_down{width: 580px;height: 110px;margin-top: -205px;}
     .stand_tweet .conut_downinfo {margin-right:15px;}
     .stand_tweet .conut_downitem, .stand_tweet .conut_downinfo {font-size:32px;}
     .conut_downinfo{font-size: 50px;margin-right:20px;}

@@ -34,7 +34,7 @@
                 <p class="language"><a data-lang="en_us" href="#">En</a> | <a data-lang="zh_cn" href="#">中文</a></p>
             </div>
 		    <p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
-		    <div class="mobile_menu" data-a="show-menu">
+		    <div class="mobile_menu btn" data-a="show-menu">
 		    	<p></p>
 		    	<p></p>
 		    	<p></p>
