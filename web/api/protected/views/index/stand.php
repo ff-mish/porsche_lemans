@@ -30,6 +30,11 @@
 			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
 		    <p> &nbsp; </p>
 		    <p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+		    <div class="mobile_menu" data-a="show-menu">
+		    	<p></p>
+		    	<p></p>
+		    	<p></p>
+		    </div>
 		</div>
       <div class="conut_down_wrap stand_count_down">
       	<div class="conut_down cs-clear" data-fadein>

@@ -7,6 +7,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
+    var isMobileBrowser = function(){
+        var sUserAgent = navigator.userAgent.toLowerCase();  
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";  
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";  
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";  
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";  
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";  
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";  
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";  
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";  
+        return  bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM;
+    }
+    var isMobile = $(window).width() <= 640 || isMobileBrowser();
 
     var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
@@ -1063,7 +1076,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>\
                 </div>',
             title: '',
-            width: 760,
+            width: isMobile ? 600 : 760,
             height: 408,
             onload: function() {
                 $_btn.removeAttr( 'disabled' );
@@ -1110,6 +1123,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 //  ssearch component
                 var $search = panel.$panel.find('.popup_invite_search input')
                     .keyup(function( ev ){
+                        if( this.value ){
+                            panel.$panel.find('.close-search').fadeIn();
+                        } else {
+                            panel.$panel.find('.close-search').fadeOut();
+                        }
                         if( ev.which == 13 ){
                             panel.$panel.find(".search-btn").trigger('click');
                         }
@@ -1150,7 +1168,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find(".close-search").click(function(){
                     $search.val('');
                     panel.$panel.find('.popup_invite_friend_list').show();
-                    panel.$panel.find('.popup_search_friend_list').hide().find('.jspPane').html("");
+                    panel.$panel.find('.popup_search_friend_list').hide().find('.jspPane');
+                    $(this).fadeOut();
                 });
 
 
@@ -1273,6 +1292,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 // });
             }
         });
+    });
+
+
+    LP.action('show-menu' , function(){
+        var left = parseInt( $('.nav').css('left') );
+        $('.nav').animate({
+            left: left >= 0 ? -190 : 0
+        } , 400);
     });
 
 
@@ -1584,6 +1611,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $(window).unbind( 'resize.video-' + video.Q );
             $(this).remove();
         } );
+    });
+
+    LP.action('mobile_home_v' , function(){
+        renderVideo( $('#home_video').show() , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
+            $('#' + this.Q).css('z-index' , 0);
+            this.on('ended' , function(){
+                LP.triggerAction('skip-intro');
+            });
+        } );
+        $(window).trigger('resize');
     });
 
     LP.action('leaveteam' , function( e ){
@@ -2021,12 +2058,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         switch( $(document.body).data('page') ){
             case "index":
                 // show the big video
-                renderVideo( $('#home_video') , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
-                    $('#' + this.Q).css('z-index' , 0);
-                    this.on('ended' , function(){
-                        LP.triggerAction('skip-intro');
-                    });
-                } );
+                if( !isMobile ){
+                    renderVideo( $('#home_video') , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
+                        $('#' + this.Q).css('z-index' , 0);
+                        this.on('ended' , function(){
+                            LP.triggerAction('skip-intro');
+                        });
+                    } );
+                }
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){

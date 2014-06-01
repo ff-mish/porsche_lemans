@@ -19,7 +19,7 @@
 			
 			<!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
 			<div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div>
-			<div class="home_v"></div>
+			<div class="home_v" data-a="mobile_home_v"></div>
 			<div class="home_share">
 				<!--   -->
       <a href="<?php echo UserAR::weibo_login_url() ?>" class="home_weibo"></a>
