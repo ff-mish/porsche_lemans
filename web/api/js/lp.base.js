@@ -1309,9 +1309,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                   var length = self.val().length;
                   panel.$panel.find(".msg-sug .s1").html(length);
                   if (length >= max_length) {
-                    panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
-                    event.preventDefault();
-                    return false;
+                    var keycode = event.which;
+                    if (keycode != 8) {
+                      panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                      event.preventDefault();
+                      return false;
+                    }
+                  }
+                  else {
+                    panel.$panel.find(".alert-message .msg").html("");
                   }
                 });
                 this.$panel.find('.p-confirm')
