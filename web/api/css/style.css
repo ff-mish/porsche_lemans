@@ -239,7 +239,8 @@ body{background:#000;height: 100%;width: 100%}
 .conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
 .conut_tit p{font-size: 72px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
-.conut_down_wrap{position: absolute;top: 0; left: 0; height: 100%; width: 100%;}
+.conut_down_wrap{position: absolute;top: 0; left: 0; height: 100%; width: 600px;}
+
 .conut_down{width: 900px;height: 168px;margin:0 auto;padding-left:20px;text-align: center; position: relative; top: 50%; margin-top: -109px;}
 .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
 .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -248,7 +249,8 @@ body{background:#000;height: 100%;width: 100%}
 .count .home_winners{margin-top: 210px;}
 .stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
 .stand_count_down .conut_downinfo {opacity: 0.1;filter:alpha(opacity=10);}
-
+.stand_count_down{margin-top: 30px;}
+.stand_count_down .conut_down{padding-left: 0;}
 .loading{background: url(../images/loading.gif) no-repeat center center;min-height: 70px;min-width: 70px;height: 70px;}
 
 /*.post-weibo-panel {
@@ -555,12 +557,13 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 .stand{top: 50px;padding: ;}
 .stand_chart{width: 600px;height: 600px;}
 .stand_tit{width: 57%;}
-.member_speed,.memeber_space{margin-left: 80px;font-size: 40px;}
-.memeber_space span{margin-left: -10px;}
+.member_speed,.memeber_space{margin-left: 80px;font-size: 38px;}
 .stand_chart_tip{left: 50%;margin-left: -100px;}
 
 .stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
+.stand_tweet{overflow: hidden;}
 .stand_achivments h2, .stand_tweet h2{width: 300px;}
+.stand_count_down{margin-left: 300px;}
 .stand_add_p1{margin-left: 50px;}
 @media screen and (max-width:2400px){
     .stand{width: 1950px;left: 250px; margin-left:0;}
@@ -583,14 +586,15 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item ,.member_add{width: 250px}
     .member_name{width: 160px;}
     .stand_chart{width: 470px;height: 470px;}
-    .member_speed,.memeber_space{margin-left: 50px;font-size: 40px;}
+    .member_speed,.memeber_space{margin-left: 50px;}
 }
 @media screen and (max-width:1400px){
     .stand{width: 1060px;left: 240px; margin-left:0;}
     .member_item ,.member_add {width: 200px}
     .member_name{width: 110px;}
     .stand_achivments h2, .stand_tweet h2{width: 250px;}
-    .member_speed,.memeber_space{margin-left: 40px;font-size: 40px;}
+    .stand_count_down{margin-left: 250px;}
+    .member_speed,.memeber_space{margin-left: 40px;}
     .stand_chart{width: 450px;height: 450px;}
 }
 @media screen and (max-width:1300px){
@@ -599,6 +603,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_speed,.memeber_space{margin-left: 20px;}
     .stand_chart{width: 370px;height: 370px;}
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
+    .stand_count_down{margin-left: 230px;}
 
     .nav{left:0px;}
     .navicon {margin-left:30px;}
@@ -607,7 +612,6 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item img {width:65px;}
     .member_name{width: 150px;padding-top:23px;}
     .member_speed{margin-left:40px;margin-top:-1px;}
-    .memeber_space {font-size:40px;}
     .member_add {width:220px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
     .stand {top:50px;}
@@ -629,6 +633,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_speed,.memeber_space{margin-left: 10px;}
     .stand_chart{width: 330px;height: 330px;}
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
+    .stand_count_down{margin-left: 230px;}
     .stand_posts_p1 .stand_posts_item{width: 230px;}
 
     .nav{left:0px;}
@@ -637,7 +642,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item img {width:65px;}
     .member_name{width: 130px;padding-top:23px;}
     .member_speed{margin-left:20px;margin-top:-1px;}
-    .memeber_space {font-size:40px;margin-left: 0;}
+    .memeber_space {margin-left: 0;}
     .member_add {width:200px;height:65px;line-height:65px;}
     .stand_useritem {margin-bottom: 25px;}
     .stand {top:50px;}
@@ -655,6 +660,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 @media screen and (max-width: 1000px){
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
+    .stand_count_down{margin-left: 230px;}
 
     .navicon {margin-left:30px;}
     .stand{width: 800px;left: 140px;margin-left:0;}
@@ -662,7 +668,6 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_item img {width:57px;}
     .member_name{width: 110px;padding-top:20px;}
     .member_speed{margin-left:20px;margin-top:-7px;}
-    .memeber_space {font-size:40px;}
     .member_add {width:180px;height:57px;line-height:57px;}
     .stand_useritem {margin-bottom: 17px;}
     .stand {top:27px;}
@@ -729,31 +734,44 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .conut_down{width: 1443px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 130px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 130px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 100px;}
+    .stand_tweet .conut_downinfo {margin-right: 55px;}
 }
 
 @media screen and (max-width:1500px){
     .conut_down{width: 1244px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 110px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 110px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 80px;}
+    .stand_tweet .conut_downinfo {margin-right: 40px;}
 }
 
 @media screen and (max-width:1400px){
     .conut_down{width: 1158px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 100px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 100px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 70px; }
+    .stand_tweet .conut_downinfo {margin-right: 35px;}
 }
 
 @media screen and (max-width:1300px){
     .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 65px;}
+    .stand_tweet .conut_downinfo {margin-right: 35px;}
 }
 
 @media screen and (max-width:1200px){
     .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -108px;}
     .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 52px; }
+    .stand_tweet .conut_downinfo {margin-right: 35px;}
 }
+
+.stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 52px; }
+.stand_tweet .conut_downinfo {margin-right: 35px;}
 
 .alert-message  {
   text-align: center;
@@ -810,6 +828,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_achivments{position: absolute;top:1100px;}
     .stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px;width: 100%;}
     .stand_achivments h2, .stand_tweet h2{width: 200px;}
+    .stand_count_down{margin-left: 200px;}
     .stand_tweet h2{width: 200px;line-height: 40px;height: 60px}
     .stand_tweetitem{padding: 0 40px 0 0 }
     .stand_add{top:1400px;}

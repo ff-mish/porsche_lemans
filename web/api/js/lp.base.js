@@ -1630,6 +1630,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         });
 		setTimeout(function(){
 			$('#legal-notice').fadeIn();
+
+            // set js scroll bar
+            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
+            });
 			$(window).trigger('resize');
 		} , 200);
     });
@@ -2291,8 +2296,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     // auto render tuto
                     needTriggerTutr = LP.getCookie('_t_') || !crtuser.read_tutorial;
                     if( needTriggerTutr && !isInvited ){
-                        LP.triggerAction( 'start-tutr' );
-                        LP.removeCookie('_t_');
+                        setTimeout(function(){
+                            LP.triggerAction( 'start-tutr' );
+                            LP.removeCookie('_t_');
+                        } , 3000 );
                     }
 
                     
