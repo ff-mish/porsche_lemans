@@ -1305,11 +1305,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action("post_weibo" , function( data ){
         var $btn = $(this).attr('disabled' , 'disabled');
+        var max_length = 112;
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
                 <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
-            </div>\
+            </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">\
                 <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
                 <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>\
@@ -1330,12 +1331,31 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     });
 
                 var $textarea = panel.$panel.find('textarea');
+                $textarea.bind("keydown", function (event) {
+                  var self = $(this);
+                  var length = self.val().length;
+                  panel.$panel.find(".msg-sug .s1").html(length);
+                  if (length >= max_length) {
+                    var keycode = event.which;
+                    if (keycode != 8) {
+                      panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                      event.preventDefault();
+                      return false;
+                    }
+                  }
+                  else {
+                    panel.$panel.find(".alert-message .msg").html("");
+                  }
+                });
                 this.$panel.find('.p-confirm')
                     .click(function(){
 						if($(this).hasClass('disable')) {
 							return;
 						}
                         var msg = $textarea.val();
+                        if (msg.length > max_length) {
+                          return false;
+                        }
 						$(this).addClass('disable');
 						$(this).next().fadeIn();
                         api.post( '/api/twitte/post' , {msg: msg, "from": "web"} , function(){
