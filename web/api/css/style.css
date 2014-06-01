@@ -799,6 +799,23 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
 }
 
+.alert-message  {
+  text-align: center;
+  font-size: 1.2em;
+  color: #ff0000;
+  margin-top: 0.2em;
+}
+
+.alert-message .msg {
+  display: inline;
+}
+
+.alert-message .msg-sug {
+  text-align: right;
+  display: inline;
+  float: right;
+  font-size: 0.8em;
+}
 
 
 
