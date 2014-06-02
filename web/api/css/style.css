@@ -255,9 +255,9 @@ body[data-page="stand"] .footer-icon{display: block;}
 .count .home_winners{margin-top: 210px;}
 .stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
 .stand_count_down .conut_downinfo {opacity: 0.1;filter:alpha(opacity=10);}
-.stand_count_down{margin-top: 30px;}
+.stand_tweet .stand_count_down{margin-top: 30px;}
 .stand_count_down .conut_down{padding-left: 0;}
-.conut_down_wrap.stand_count_down{left: 0;}
+.stand_tweet .stand_count_down{left: 0;}
 .loading{background: url(../images/loading.gif) no-repeat center center;min-height: 70px;min-width: 70px;height: 70px;}
 
 /*.post-weibo-panel {
@@ -445,10 +445,10 @@ body[data-page="stand"] .footer-icon{display: block;}
 #share .popup_close{display: none;}
 /*winners*/
 .winners{text-align: center;position: relative;}
-	.winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
-	.winners_pho{background: url('../images/winners_pho.png') no-repeat;width: 350px;height: 410px;margin: 0 auto}
-	.winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;padding:0 0 80px;}
-	.winners_close{background: url('../images/winners_close.png') no-repeat;width: 50px;height: 50px;position: absolute;right: 70px;top: 60px;cursor: pointer;}
+    .winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
+    .winners_pho{background: url('../images/winners_pho.png') no-repeat;width: 350px;height: 410px;margin: 0 auto}
+    .winners_txt{font-size: 24px;line-height: 30px;margin: 0 270px;padding:0 0 80px;}
+    .winners_close{background: url('../images/winners_close.png') no-repeat;width: 50px;height: 50px;position: absolute;right: 70px;top: 60px;cursor: pointer;}
 
 
 /* animation */
@@ -591,7 +591,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_chart{width: 490px;height: 490px;}
 }
 @media screen and (max-width:1600px){
-    .stand_tweet .conut_down_wrap {margin-left:-337px;margin-top:35px;}
+    /*.stand_tweet .conut_down_wrap {margin-left:-337px;margin-top:35px;}*/
     .stand{width: 1150px;left: 250px; margin-left:0;}
     .member_item ,.member_add{width: 250px}
     .member_name{width: 160px;}
@@ -643,7 +643,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .member_speed,.memeber_space{margin-left: 10px;}
     .stand_chart{width: 330px;height: 330px;}
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
-    .stand_count_down{margin-left: 230px;}
+    .stand_tweet .stand_count_down{margin-left: 230px;}
     .stand_posts_p1 .stand_posts_item{width: 230px;}
 
     .nav{left:0px;}
@@ -670,7 +670,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 @media screen and (max-width: 1000px){
     .stand_achivments h2, .stand_tweet h2{width: 230px;}
-    .stand_count_down{margin-left: 230px;}
+    .stand_tweet .stand_count_down{margin-left: 230px;}
 
     .navicon {margin-left:30px;}
     .stand{width: 800px;left: 140px;margin-left:0;}
@@ -742,7 +742,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 @media screen and (max-width:3000px){
     .conut_down_wrap{margin-left: -720px ;}
-    .stand_tweet .conut_down_wrap {margin-left:-569px;margin-top:35px;}
+    .stand_tweet .conut_down_wrap {margin-left:310px;margin-top:35px;}
     .conut_down{width: 1443px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 130px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .lang-cn .conut_downitem {font-size:126px;}
@@ -752,17 +752,17 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 }
 
 @media screen and (max-width:1800px){
-    .stand_tweet .conut_down_wrap {margin-left:-369px;margin-top:35px;}
+    .stand_tweet .conut_down_wrap {margin-left:310px;}
 }
 
 @media screen and (max-width:1600px){
-    .stand_tweet .conut_down_wrap {margin-left:-269px;margin-top:35px;}
+    .stand_tweet .conut_down_wrap {margin-left:310px;}
 }
 
 @media screen and (max-width:1500px){
     .conut_down_wrap{margin-left: -620px ;}
     .conut_down_wrap {margin-left:-622px;}
-    .stand_tweet .conut_down_wrap {margin-left:-271px;margin-top:50px;}
+    .stand_tweet .conut_down_wrap {margin-left: 310px;}
     .conut_down{width: 1244px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 110px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 110px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -773,7 +773,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 @media screen and (max-width:1400px){
     .conut_down_wrap {margin-left:-579px;}
-    .stand_tweet .conut_down_wrap {margin-left:-275px;margin-top:51px;}
+    .stand_tweet .conut_down_wrap {margin-left:260px;}
     .conut_down{width: 1158px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 100px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 100px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -784,7 +784,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 @media screen and (max-width:1300px){
     .conut_down_wrap {margin-left:-540px;}
-    .stand_tweet .conut_down_wrap {margin-left:-256px;margin-top:61px;}
+    .stand_tweet .stand_count_down {margin-left: 240px;}
     .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -796,7 +796,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 @media screen and (max-width:1200px){
     .conut_down_wrap {margin-left:-450px;}
-    .stand_tweet .conut_down_wrap {margin-left:-165px;margin-top:28px;}
+    .stand_tweet .conut_down_wrap {margin-left: 240px;}
     .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -122px;}
     .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -807,15 +807,15 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 
 @media screen and (max-width:1100px){
-    .stand_tweet .conut_down_wrap {margin-left:-187px;margin-top:28px;}
+    /*.stand_tweet .conut_down_wrap {margin-left:-187px;margin-top:28px;}*/
 }
 
 @media screen and (max-width: 1500px) and (max-height: 800px){
-    .stand_tweet .conut_down_wrap {margin-top:29px;}
+    /*.stand_tweet .conut_down_wrap {margin-top:29px;}*/
 }
 
 @media screen and (max-width: 1400px) and (max-height: 800px){
-    .stand_tweet .conut_down_wrap {margin-top:31px;}
+    /*.stand_tweet .conut_down_wrap {margin-top:31px;}*/
 }
 
 .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 48px; }
@@ -880,7 +880,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_achivments{position: absolute;top:1100px;}
     .stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px;width: 100%;}
     .stand_achivments h2, .stand_tweet h2{width: 200px;}
-    .stand_count_down{margin-left: 200px;}
+    .stand_tweet  .stand_count_down{margin-left: 200px;}
     .stand_tweet h2{width: 200px;line-height: 40px;height: 60px}
     .stand_tweetitem{padding: 0 40px 0 0 }
     .stand_add{top:1400px;}

@@ -24,7 +24,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
-	if(isMobileBrowser) {
+	if(isMobile) {
 		LP.use(['hammer'] , function(){
 			$('body').hammer()
 				.on("release dragleft dragright swipeleft swiperight", '.page', function(ev) {
@@ -148,7 +148,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             //         .attr("stroke-width" , stockWidth);
 
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                .attr({fill: "#fff",'font-size':'13px'});
+                .attr({fill: "#fff",'font-size': lang == 'zh_cn' ? '12px' : '13px'});
 
 
             var now ;
@@ -2059,36 +2059,38 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
 
         // swip to load menu
-        LP.use('hammer' , function(){
-            var $nav = $('.nav');
-            $('.mobile_menu').hammer()
-                .on("release dragleft dragright swipeleft swiperight", function(ev) {
-                    switch(ev.type) {
-                        case 'swipeleft':
-                            break;
-                        case 'dragleft':
-                            $nav.stop( true , true )
-                                .animate({left: -190} , 300);
-                            $('body').bind('touchmove', function(e){e.preventDefault()});
-                            break;
-                        case 'swiperight':
-                            break;
-                        case 'dragright':
-                            $nav.stop( true , true )
-                                .animate({left: 0} , 300);
-                            $('body').bind('touchmove', function(e){e.preventDefault()});
-                            break;
-                        case 'release':
-                            $('body').unbind('touchmove');
-                            break;
-                    }
-                });
-        });
+        if(isMobile) {
+            LP.use('hammer' , function(){
+                var $nav = $('.nav');
+                $('.mobile_menu').hammer()
+                    .on("release dragleft dragright swipeleft swiperight", function(ev) {
+                        switch(ev.type) {
+                            case 'swipeleft':
+                                break;
+                            case 'dragleft':
+                                $nav.stop( true , true )
+                                    .animate({left: -190} , 300);
+                                $('body').bind('touchmove', function(e){e.preventDefault()});
+                                break;
+                            case 'swiperight':
+                                break;
+                            case 'dragright':
+                                $nav.stop( true , true )
+                                    .animate({left: 0} , 300);
+                                $('body').bind('touchmove', function(e){e.preventDefault()});
+                                break;
+                            case 'release':
+                                $('body').unbind('touchmove');
+                                break;
+                        }
+                    });
+            });
+        }
 
 
         // tracking events
 		var ga_device = 'PC';
-		if(isMobileBrowser) {
+		if(isMobile) {
 			ga_device = 'M';
 		}
         $('.skipintro').click(function(){
@@ -2417,9 +2419,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             return false;
                             break;
                     }
+
                     var txt = $(this).text();
                     var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-                    if( tmp.length >= 12 && ev.which != 8 ){
+                    if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
                         $('.team_name_error_tip').fadeIn();
                         clearTimeout( hideTimer );
                         hideTimer = setTimeout(function(){
