@@ -511,16 +511,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css({left: off.left + w + 50 , top: off.top - 10 })
+                            .css( isMobile ? {left: off.left , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 50 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , $('.stand_tit').height() + $('.teambuild_members').height() );
+                        var h = $('.stand_tit').height() + $('.teambuild_members').height();
+                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css({left: off.left + $('.stand_tit').width() + 60 , top: off.top })
+                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top })
                             .fadeIn();
                         break;
                     case 3:
@@ -529,7 +530,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         renderTure( off.top , off.left - 20 , $('.stand_chart').width() + 20 , $('.stand_chart').height() );
                         $('.tutr-step').find('.tutr-step-tip3')
                             .delay( 700 )
-                            .css({left: off.left  - 600 , top: off.top })
+                            .css(isMobile ? {left: off.left , top: off.top + $('.stand_chart').height() + 10 } :  {left: off.left  - 600 , top: off.top })
                             .fadeIn();
 
                         // if there is no data , render the demo data;
@@ -783,6 +784,36 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             </video>';
         var vid = 0;
         return function( $wrap , videoFile , poster , cfg , cb ){
+
+            if( isMobile ){
+                var $img = $('<img/>')
+                    .appendTo( $wrap )
+                    .load(function(){
+                        var $img = $(this);
+                        var w = $img.width();
+                        var h = $img.height();
+                        $(window).resize(function(){
+                            var ww = $wrap.width();
+                            var hh = $wrap.height();
+                            var tarw = w ,  tarh = h;
+                            if( ww / hh > w / h ){
+                                tarw = ww;
+                                tarh = h / w * ww;
+                            } else {
+                                tarh = hh;
+                                tarw = w / h * hh;
+                            }
+
+                            $img.css({
+                                'margin-top' : (hh - tarh) / 2,
+                                'margin-left' : (ww - tarw) / 2});
+                        }).trigger('resize');
+                    })
+                    .attr('src' , poster );
+                return;
+            }
+
+
             var id = 'my_video_' + ( vid++ );
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
@@ -1009,51 +1040,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var bigVideoInit = function(){ 
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
-        if( !isMobile ){
-            renderVideo( $('<div></div>').css({
-                "position": "fixed",
-                "z-index": "-1",
-                "top": "0",
-                "left": "0",
-                "height": "100%",
-                "width": "100%",
-                "overflow": "hidden"
-            }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
-        } else {
-            var $bg = $('<div><img /></div>').css({
-                "position": "fixed",
-                "z-index": "-1",
-                "top": "0",
-                "left": "0",
-                "height": "100%",
-                "width": "100%",
-                "overflow": "hidden"
-            }).appendTo( $('.page') );
-            $bg.find('img')
-                .load(function(){
-                    var $img = $(this);
-                    var w = $img.width();
-                    var h = $img.height();
-                    $(window).resize(function(){
-                        var ww = $bg.width();
-                        var hh = $bg.height();
-                        var tarw = w ,  tarh = h;
-                        if( ww / hh > w / h ){
-                            tarw = ww;
-                            tarh = h / w * ww;
-                        } else {
-                            tarh = hh;
-                            tarw = w / h * hh;
-                        }
 
-                        $img.css({
-                            'margin-top' : (hh - tarh) / 2,
-                            'margin-left' : (ww - tarw) / 2});
-                    }).trigger('resize');
-                })
-                .attr('src' , "/videos/"+videoname + '.jpg' );
-            
-        }
+        renderVideo( $('<div></div>').css({
+            "position": "fixed",
+            "z-index": "-1",
+            "top": "0",
+            "left": "0",
+            "height": "100%",
+            "width": "100%",
+            "overflow": "hidden"
+        }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1} );
         // // init video
         // var ratio = 516 / 893;
         // LP.use('video-js' , function(){
@@ -1147,7 +1143,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         next_cursor = e.ext.next_cursor;
                         panel.$panel.find('.loading-wrap').hide();
 
-                        var $list = panel.$panel.find('.popup_invite_friend_list .jspPane');
+                        if( isMobile ){
+                            var $list = panel.$panel.find('.popup_invite_friend_list');
+                        } else {
+                            var $list = panel.$panel.find('.popup_invite_friend_list .jspPane');
+                        }
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1194,7 +1194,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                         panel.$panel.find('.popup_invite_friend_list').hide();
                         panel.$panel.find('.popup_search_friend_list').show();
-                        var $list = panel.$panel.find('.popup_search_friend_list .jspPane').html('');
+                        if( isMobile ){
+                            var $list = panel.$panel.find('.popup_search_friend_list');
+                        } else {
+                            var $list = panel.$panel.find('.popup_search_friend_list .jspPane').html('');
+                        }
                         $.each( e.data , function( i , user ){
                             var $friend = $(LP.format( uTpl , {avatar: user.avatar_large , name: user.screen_name , uuid:user.uuid} ))
                                 .css({top:-30 , opacity: 0 , 'position': 'relative'});
@@ -1214,28 +1218,40 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 panel.$panel.find(".close-search").click(function(){
                     $search.val('');
                     panel.$panel.find('.popup_invite_friend_list').show();
-                    panel.$panel.find('.popup_search_friend_list').hide().find('.jspPane');
+                    panel.$panel.find('.popup_search_friend_list').hide();
                     $(this).fadeOut();
                 });
 
 
-
-                LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.popup_invite_friend_list,.popup_search_friend_list').jScrollPane({autoReinitialise:true}).bind(
-                        'jsp-scroll-y',
-                        function(event, scrollPositionY, isAtTop, isAtBottom){
-                            if( !hasMore || isLoading ) return;
-                            if( isAtBottom ){
-                                loadFriends( next_cursor );
+                if( !isMobile ){
+                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                        $('.popup_invite_friend_list,.popup_search_friend_list').jScrollPane({autoReinitialise:true}).bind(
+                            'jsp-scroll-y',
+                            function(event, scrollPositionY, isAtTop, isAtBottom){
+                                if( !hasMore || isLoading ) return;
+                                if( isAtBottom ){
+                                    loadFriends( next_cursor );
+                                }
+                                // if(isAtBottom) {
+                                //     var commentParam = $('.comment-wrap').data('param');
+                                //     getCommentList(node.nid,commentParam.page + 1);
+                                // }
                             }
-                            // if(isAtBottom) {
-                            //     var commentParam = $('.comment-wrap').data('param');
-                            //     getCommentList(node.nid,commentParam.page + 1);
-                            // }
-                        }
-                    );
+                        );
+                        loadFriends( );
+                    });
+                } else {
                     loadFriends( );
-                });
+                    // bind scroll event to load friend
+                    $('.popup_invite_friend_list').scroll(function(){
+                        if( !hasMore || isLoading ) return;
+
+                        var scrollTop = $(this).scrollTop();
+                        var height = $(this).height();
+                        if( this.scrollHeight - scrollTop - height < 100 )
+                            loadFriends( next_cursor );
+                    });
+                }
                 
                 
 
@@ -1627,6 +1643,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         //     //     });
         //     // }
         // } );
+
 		renderVideo( $('<div></div>').css({
 			"position": "absolute",
 			"z-index": "-1",
@@ -1641,10 +1658,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 		setTimeout(function(){
 			$('#legal-notice').fadeIn();
 
-            // set js scroll bar
-            LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
-            });
+            if( !isMobile ){
+                // set js scroll bar
+                LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
+                });
+            }
 			$(window).trigger('resize');
 		} , 200);
     });
@@ -1808,7 +1827,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
     
     
-    // TODO ...
     LP.action('cancel-invit' , function( data ){
         var $dom = $(this).closest('.teambuild_member ');
         api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
@@ -1818,6 +1836,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     .css('opacity' , 1);
             } );
         });
+    });
+
+
+    LP.action('close-share' , function(){
+        $('#share .share-btns').fadeOut();
     });
 
 
@@ -1991,6 +2014,35 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 				$('#winners-prizes .videobg').remove();
 			});
 		});
+
+
+        // swip to load menu
+        LP.use('hammer' , function(){
+            var $nav = $('.nav');
+            $('.mobile_menu').hammer()
+                .on("release dragleft dragright swipeleft swiperight", function(ev) {
+                    switch(ev.type) {
+                        case 'swipeleft':
+                            break;
+                        case 'dragleft':
+                            $nav.stop( true , true )
+                                .animate({left: -190} , 300);
+                            $('body').bind('touchmove', function(e){e.preventDefault()});
+                            break;
+                        case 'swiperight':
+                            break;
+                        case 'dragright':
+                            $nav.stop( true , true )
+                                .animate({left: 0} , 300);
+                            $('body').bind('touchmove', function(e){e.preventDefault()});
+                            break;
+                        case 'release':
+                            $('body').unbind('touchmove');
+                            break;
+                    }
+                });
+        });
+
 
         // tracking events
         $('.skipintro').click(function(){
@@ -2198,11 +2250,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 
               case "stand":
                 if( isMobile ){
-                    if( parseInt($('.nav').css('left')) == 0 ){
-                        setTimeout(function(){
+                    setTimeout(function(){
+                        if( parseInt($('.nav').css('left')) == 0 ){
                             LP.triggerAction('show-menu');
-                        } , 3000);
-                    }
+                        }
+                    } , 3000);
                 }
 
                 // show invited panel

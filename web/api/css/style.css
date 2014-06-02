@@ -239,7 +239,7 @@ body{background:#000;height: 100%;width: 100%}
 .conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
 .conut_tit p{font-size: 72px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
-.conut_down_wrap{position: absolute;top: 0; left: 0; height: 100%; width: 600px;}
+.conut_down_wrap{position: absolute;top: 0; left: 0; height: 100%; }
 
 .conut_down{width: 900px;height: 168px;margin:0 auto;padding-left:20px;text-align: center; position: relative; top: 50%; margin-top: -109px;}
 .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
@@ -434,6 +434,7 @@ body{background:#000;height: 100%;width: 100%}
 .home_v{display: none}
 
 
+#share .popup_close{display: none;}
 /*winners*/
 .winners{text-align: center;position: relative;}
 	.winners_tit{font-size: 38px;line-height: 40px;padding:80px 0 40px;}
@@ -810,7 +811,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     /*conutdown*/
     .count{width: 580px;left:30px;margin:0;top:30px;}
     .conut_tips{font-size: 28px;color:#fff;margin-top:150px;}
-    .conut_down{width: 580px;height: 110px;margin-top: -205px;}
+    .conut_down{width: 580px;height: 110px;}
     .stand_tweet .conut_downinfo {margin-right:15px;}
     .stand_tweet .conut_downitem, .stand_tweet .conut_downinfo {font-size:32px;}
     .conut_downinfo{font-size: 50px;margin-right:20px;}
@@ -820,7 +821,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .count .home_winners{margin-top:490px;}
 
     /*stand*/
-    .stand{width: 590px;position: absolute;top: 100px;left: 30px;}
+    .stand{width: 590px;position: absolute;top: 130px;left: 30px;}
     .member_item {width: 250px}
     .member_add {width: 250px}
     .member_name{width: 180px}
@@ -882,6 +883,41 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .popup_invite .friend_item .avatar img {width:80px;height:80px;}
     .popup_invite .friend_item .send {font-size:18px;}
 
+    .popup_invite{height: auto;}
+    .popup_invite .friend_item .btns{padding-left: 30px;}
+    .popup_invite .popup_invite_friend_list, .popup_invite .popup_search_friend_list{height: 320px;}
+
+    .popup_dialog{width: 550px;}
+    .popup_email input{width: 82%;}
+
     .winners-prizes-con {font-size:22px!important;}
+
+
+    /* tutor */
+    .tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4{width: auto !important;right: 20px !important; height: auto !important;}
+
+    body .share-btns{position: fixed;top: 65px;height: 100%;background: rgba(0,0,0 ,.7);padding: 200px 85px;width: auto;}
+    body .share-btns a {width: 150px;height: 150px;background: url(../images/share_m_cn_hover.png) no-repeat;margin: 20px 40px;}
+    .btn:hover{opacity: 1;}
+
+    .en_us .share-btns a{background: url(../images/share_m_en_hover.png) no-repeat;}
+
+    .zh_cn .share-btns a.i-sina,.zh_cn .share-btns a.i-sina:hover{background-position: 0 0;}
+    .zh_cn .share-btns a.i-qz,.zh_cn .share-btns a.i-qz:hover{background-position: -212px 0;}
+    .zh_cn .share-btns a.i-qq,.zh_cn .share-btns a.i-qq:hover{background-position: 0px -190px;}
+    .zh_cn .share-btns a.i-db,.zh_cn .share-btns a.i-db:hover{background-position: -212px -190px;}
+    .zh_cn .share-btns a.i-rr,.zh_cn .share-btns a.i-rr:hover{background-position: 0 -376px;}
+
+    .en_us .share-btns a.i-fb,.en_us .share-btns a.i-fb:hover{background-position: 0 0;}
+    .en_us .share-btns a.i-tw,.en_us .share-btns a.i-tw:hover{background-position: -212px 0;}
+    .en_us .share-btns a.i-g,.en_us .share-btns a.i-g:hover{background-position: 0px -190px;}
+    .en_us .share-btns a.i-in,.en_us .share-btns a.i-in:hover{background-position: -212px -190px;}
+    .en_us .share-btns a.i-p,.en_us .share-btns a.i-p:hover{background-position: 0 -376px;}
+
+
+    #share .popup_close{display: block; position: absolute; top: 20px ; right: 20px;}
+    body #share{padding: 10px; margin-top: -10px;}
+    body .footer-icon{width: 50px;height: 50px;}
+    .mobile_nav a,.nav p a.logout{padding: 20px; margin-left: -20px; margin-top: -20px; padding-right: 0;}
 }
 

@@ -61,6 +61,10 @@ seajs.config({
       src: "../video-js/video.js"
       , deps: ['../video-js/video-js.css']
     }
+    ,hammer: {
+      src: "../plugin/jquery.hammer.js"
+      ,deps: ['jquery']
+    }
 	  ,queryloader:{
 		  src: "../plugin/jquery.queryloader22.js"
 		  ,deps: ['jquery']
