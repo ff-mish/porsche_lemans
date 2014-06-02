@@ -783,9 +783,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                  <source src="#[videoFile].ogv" type="video/ogg" />\
             </video>';
         var vid = 0;
-        return function( $wrap , videoFile , poster , cfg , cb ){
+        return function( $wrap , videoFile , poster , cfg , cb , focus ){
 
-            if( isMobile ){
+            if( isMobile && !focus ){
                 var $img = $('<img/>')
                     .appendTo( $wrap )
                     .load(function(){
@@ -1704,15 +1704,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
 
 
-    LP.action('mobile_home_v' , function(){
-        renderVideo( $('#home_video').show() , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
-            $('#' + this.Q).css('z-index' , 0);
-            this.on('ended' , function(){
-                LP.triggerAction('skip-intro');
-            });
-        } );
-        $(window).trigger('resize');
-    });
+    // LP.action('mobile_home_v' , function(){
+    //     // renderVideo( $('#home_video').show() , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
+    //     //     $('#' + this.Q).css('z-index' , 0);
+    //     //     this.on('ended' , function(){
+    //     //         LP.triggerAction('skip-intro');
+    //     //     });
+    //     // } );
+    //     videojs( id 
+    // });
 
     LP.action('leaveteam' , function( e ){
         var self = $(this);
@@ -2173,6 +2173,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
         })();
 
+
+        // render mobile video
+        if( isMobile ){
+            renderVideo( $("#mobile_home_v") , '/videos/intro' , '/images/home_v.jpg' , {} , function(){
+
+            } , true );
+        }
+
         bigVideoInit();
 
 
@@ -2498,7 +2506,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 							} , 500);
 					});
                     $.each( speeds , function( i , speed ){
-                        rotateAnimate( $('.member_speed').eq(i) , speed , 1 , 45 );
+                        rotateAnimate( $('.member_speed').eq(i) , speed || 0.7 , 1 , 45 );
                     } );
 
                     // render achive
