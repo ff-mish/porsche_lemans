@@ -119,7 +119,7 @@ outline: none !important;
 #legal-notice .popup_close {right:20px;top:20px;z-index:10;}
 #legal-notice .jspDrag{background: white;}
 #legal-notice .jspVerticalBar{top: 160px;bottom: 0;height: auto;}
-.legal-con{ padding: 20px 5%; position: absolute;width: 90%; top: 0px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;}
+.legal-con{ padding: 20px 5%; position: absolute;width: 90%; top: 0px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;-webkit-overflow-scrolling: touch;}
 .legal-con .intro {font-size:15px;}
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
@@ -176,11 +176,6 @@ outline: none !important;
 .popup_invite .popup_invite_btns{margin-top: 0;}
 .popup_invite .popup_error{height: 35px;line-height: 35px;color: red;font-size: 16px;}
 
-
-.footer-icon{position: absolute;height: 23px;width: 20px; left: 2px; top:0;display: none;}
-.footer_link{background: none;}
-body[data-page="stand"] .footer_link{background: url('../images/footer_link.png') no-repeat;}
-body[data-page="stand"] .footer-icon{display: block;}
 
 
 

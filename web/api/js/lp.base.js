@@ -24,6 +24,28 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
+	if(isMobileBrowser) {
+		LP.use(['hammer'] , function(){
+			$('body').hammer()
+				.on("release dragleft dragright swipeleft swiperight", '.page', function(ev) {
+					switch(ev.type) {
+						case 'swipeleft':
+						case 'dragleft':
+							LP.triggerAction('show-menu');
+							break;
+						case 'swiperight':
+						case 'dragright':
+							LP.triggerAction('show-menu');
+							break;
+						case 'release':
+							break;
+						default:;
+					}
+				}
+			);
+		});
+	}
+
     function retweetMonitoring() {
       var self = $(this);
       var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
@@ -1360,7 +1382,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action('show-menu' , function(){
         var left = parseInt( $('.nav').css('left') );
         $('.nav').animate({
-            left: left >= 0 ? -190 : 0
+            left: left >= 0 ? -250 : 0
         } , 400);
     });
 
@@ -1368,15 +1390,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action("post_weibo" , function( data ){
         var $btn = $(this).attr('disabled' , 'disabled');
         var max_length = 112;
+		var html_buttons = '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>';
+		if(lang == 'zh_cn') {
+			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
+		}
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
                 <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
-            <div class="popup_dialog_btns">\
-                <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>\
-                <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>\
-                <span class="loading"></span>\
+            <div class="popup_dialog_btns">' + html_buttons +
+                '<span class="loading"></span>\
             </div>\
             <div class="popup_dialog_status">\
                 <span>' + _e('Success!') + '</span>\
@@ -1561,15 +1585,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
 
     LP.action('repost' , function( data ){
+		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
+		if(lang == 'zh_cn') {
+			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+		}
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
                         <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
                     </div>\
-                    <div class="popup_dialog_btns">\
-                        <a href="javascript:void(0);">' + _e('Cancel') + '</a>\
-                        <a href="javascript:void(0);">' + _e('Confirm') + '</a>\
-                    </div>\
+                    <div class="popup_dialog_btns">'+html_buttons+'</div>\
                 </div>';
 
         LP.panel({
@@ -1577,13 +1602,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             title: "",
             onload: function(){
                 var panel = this;
-                panel.$panel.find('.popup_dialog_btns a')
-                    .eq(0)
+                panel.$panel.find('.popup_dialog_btns .p-cancel')
                     .click(function(){
                         panel.close();
                     })
                     .end()
-                    .eq(1)
+                    .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
                         api.post( '/api/media/share' , {share_text: msg , media_id: data.mid} , function(){
@@ -1717,25 +1741,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('leaveteam' , function( e ){
         var self = $(this);
+		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
+		console.log(lang);
+		if(lang == 'zh_cn') {
+			html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+		}
         var tpl = '<div class="popup_box popup_dialog">\
                 <div class="popup_dialog_msg">#[content]</div>\
-                <div class="popup_dialog_btns">\
-                    <a href="javascript:void(0);">' + _e('Cancel') + '</a>\
-                    <a href="javascript:void(0);">' + _e('Confirm') + '</a>\
-                </div>\
+                <div class="popup_dialog_btns">'+html_buttons+'</div>\
             </div>';
         LP.panel({
             title: '',
             content: LP.format( tpl , {content: _e('do you want to leave the team?')} ),
             onShow: function(){
                 var panel = this;
-                this.$panel.find('.popup_dialog_btns a')
-                    .eq(0)
+                this.$panel.find('.popup_dialog_btns .p-cancel')
                     .click(function(){
                         panel.close();
                     })
                     .end()
-                    .eq(1)
+                    .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
                         api.get("/api/user/leaveteam", function ( e ) {
                            //TODO:: 动画效果
@@ -1748,9 +1773,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
     
     LP.action("invite_box_with_auto_join", function (params) {
+	  var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
+	  if(lang == 'zh_cn') {
+		  var html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+	  }
       LP.panel({
         type: "panel",
-        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('You already have team #[now_team_name], Are you want to join team #[team] ? If that, the record in the your team will be destoried.' ,{team: params["team_name"], now_team_name: params["now_team_name"]}) + '</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a></div></div>',
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('You already have team #[now_team_name], Are you want to join team #[team] ? If that, the record in the your team will be destoried.' ,{team: params["team_name"], now_team_name: params["now_team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
         "title": "",
         mask: true,
         destroy: true,
@@ -1788,9 +1817,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
     
     LP.action("invite_box", function(params) {
+      var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
+	  if(lang == 'zh_cn') {
+		  html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+	  }
       LP.panel({
         type: "panel",
-        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns"><a href="javascript:void(0);" class="cancel">Cancel</a><a href="javascript:void(0);" class="confirm">Confirm</a></div></div>',
+        "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
         "title": "",
         mask: true,
         destroy: true,

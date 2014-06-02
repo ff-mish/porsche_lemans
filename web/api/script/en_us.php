@@ -7,7 +7,7 @@
   'Speed' => '',
   'Assiduity' => '',
   'Receive a reminder for the d-day' => '',
-  'Enter your email address' => 'Receive a reminder for the d-day. Enter your email address',
+  'Enter your email address' => 'Enter your email address',
   'Finish tutorial' => '',
   'Success!' => '',
   'wrong email' => 'Please enter validate email',
