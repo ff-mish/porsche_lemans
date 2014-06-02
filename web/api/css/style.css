@@ -239,8 +239,8 @@ body{background:#000;height: 100%;width: 100%}
 .conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
 .conut_tit p{font-size: 72px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
-.conut_down_wrap{position: absolute;top: 0; left: 0; height: 100%; left: 50%;margin-left: -460px;}
 
+.conut_down_wrap{position: absolute;top: 0; left: 50%; height: 100%;margin-left:-732px;}
 .conut_down{width: 900px;height: 168px;margin:0 auto;padding-left:20px;text-align: center; position: relative; top: 50%; margin-top: -109px;}
 .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
 .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
@@ -334,6 +334,7 @@ body{background:#000;height: 100%;width: 100%}
 .popup_dialog_btns {text-align: center;margin:30px 0 ;}
 .popup_dialog_btns a {display: inline-block;margin:0 5px;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
+.popup_email .popup_dialog_btns a {width:150px;}
 .popup_dialog_btns .loading {background: url(../images/loading.gif) no-repeat;width:37px;height:37px;display: block;position: absolute;right:5px;bottom:5px;display: none;}
 .popup_dialog_status {color:#ff0000;text-align:center;font-size:20px;margin:40px 0 40px 0;display:none;}
 .popup_dialog_options {text-align:center;margin:20px 0 40px 0;}
@@ -584,6 +585,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_chart{width: 490px;height: 490px;}
 }
 @media screen and (max-width:1600px){
+    .stand_tweet .conut_down_wrap {margin-left:-337px;margin-top:35px;}
     .stand{width: 1150px;left: 250px; margin-left:0;}
     .member_item ,.member_add{width: 250px}
     .member_name{width: 160px;}
@@ -734,47 +736,72 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 
 @media screen and (max-width:3000px){
     .conut_down_wrap{margin-left: -720px ;}
+    .stand_tweet .conut_down_wrap {margin-left:-569px;margin-top:35px;}
     .conut_down{width: 1443px;height: 189px;padding-left:20px;text-align: center;margin-top: -138px;}
     .conut_downitem{font-size: 130px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
+    .lang-cn .conut_downitem {font-size:126px;}
     .conut_downinfo{font-size: 130px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 100px;}
     .stand_tweet .conut_downinfo {margin-right: 55px;}
 }
 
+@media screen and (max-width:1800px){
+    .stand_tweet .conut_down_wrap {margin-left:-369px;margin-top:35px;}
+}
+
+@media screen and (max-width:1600px){
+    .stand_tweet .conut_down_wrap {margin-left:-269px;margin-top:35px;}
+}
+
 @media screen and (max-width:1500px){
     .conut_down_wrap{margin-left: -620px ;}
+    .conut_down_wrap {margin-left:-622px;}
+    .stand_tweet .conut_down_wrap {margin-left:-271px;margin-top:50px;}
     .conut_down{width: 1244px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 110px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 110px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .lang-cn .conut_downitem {font-size:106px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 80px;}
     .stand_tweet .conut_downinfo {margin-right: 40px;}
 }
 
 @media screen and (max-width:1400px){
-    .conut_down_wrap{margin-left: -579px ;}
+    .conut_down_wrap {margin-left:-579px;}
+    .stand_tweet .conut_down_wrap {margin-left:-275px;margin-top:51px;}
     .conut_down{width: 1158px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 100px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 100px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .lang-cn .conut_downitem {font-size:99px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 70px; }
     .stand_tweet .conut_downinfo {margin-right: 35px;}
 }
 
 @media screen and (max-width:1300px){
-    .conut_down_wrap{margin-left: -540px ;}
+    .conut_down_wrap {margin-left:-540px;}
+    .stand_tweet .conut_down_wrap {margin-left:-256px;margin-top:61px;}
     .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -154px;}
     .conut_downitem{font-size: 90px;float:left;height: 130px;margin-top: 45px;line-height: 130px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 90px;float:left;margin-top: 66px;line-height: 92px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .lang-cn .conut_downitem {font-size:90px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 65px;}
     .stand_tweet .conut_downinfo {margin-right: 35px;}
 }
 
+
 @media screen and (max-width:1200px){
-    .conut_down_wrap{margin-left: -450px ;}
+    .conut_down_wrap {margin-left:-450px;}
+    .stand_tweet .conut_down_wrap {margin-left:-165px;margin-top:28px;}
     .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -122px;}
     .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
     .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
+    .lang-cn .conut_downitem {font-size:72px;}
     .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 52px; }
     .stand_tweet .conut_downinfo {margin-right: 35px;}
+}
+
+
+@media screen and (max-width:1100px){
+    .stand_tweet .conut_down_wrap {margin-left:-187px;margin-top:28px;}
 }
 
 .stand_tweet .conut_downitem ,.stand_tweet .conut_downinfo{font-size: 52px; }

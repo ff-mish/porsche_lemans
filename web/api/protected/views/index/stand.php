@@ -24,8 +24,8 @@
 				    <span>◆</span>
 			    </div>
 		    </div>
-			<p class="on"><?=Yii::t('lemans','My Stand')?></p>
-		    <p class="disabled"><?=Yii::t('lemans','The Race')?></p>
+			<p class="on"><?=Yii::t('lemans','Stand')?></p>
+		    <p class="disabled"><?=Yii::t('lemans','Race')?></p>
 		    <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
 			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
 		    <p> &nbsp; </p>
@@ -76,10 +76,10 @@
 				<h2 class="fl"><?php echo Yii::t("lemans", "Race Starts In")?></h2>
 				<div class="conut_down_wrap stand_count_down">
 			      	<div class="conut_down cs-clear" data-fadein>
-						<div class="conut_downitem">00</div><span class="conut_downinfo">d</span>
-						<div class="conut_downitem">00</div><span class="conut_downinfo">h</span>
-						<div class="conut_downitem">00</div><span class="conut_downinfo">min</span>
-						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;">sec</span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "d")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "h")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "min")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;"><?php echo Yii::t("lemans", "sec")?></span>
 					</div>
 			      </div>
 				<!-- <div style="display:none;">
