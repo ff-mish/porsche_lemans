@@ -455,9 +455,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 return false;
             });
 
-        $('.tutr-step-skip').click(function(){
-            $('.tutr-step').fadeOut();
-        });
+
+        $(document.body).delegate('.read_tutr .tutr-step-skip,.read_tutr .tutr-step-top,.read_tutr .tutr-step-left,.read_tutr .tutr-step-right,.read_tutr .tutr-step-bottom',
+            'click' , function(){
+                $('.tutr-step').fadeOut();
+            })
+        // if( $('.read_tutr').length ){
+        //     $('.tutr-step-skip,.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom').click(function(){
+        //         $('.tutr-step').fadeOut();
+        //     });
+        // }
 
         $('body').keyup(function(e){
             if(e.keyCode == 27 && $('.tutr-step').hasClass('read_tutr')) {
