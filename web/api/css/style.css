@@ -855,6 +855,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .count{width: 580px;left:30px;margin:0;top:30px;}
     .conut_tips{font-size: 28px;color:#fff;margin-top:150px;}
     .conut_down{width: 580px;height: 110px;margin-left:166px;}
+    .stand_tweet .conut_down_wrap {margin-left:-287px;margin-top:-228px;}
     .stand_tweet .conut_downinfo {margin-right:15px;}
     .stand_tweet .conut_downitem, .stand_tweet .conut_downinfo {font-size:32px;}
     .conut_downinfo{font-size: 50px;margin-right:20px;}
