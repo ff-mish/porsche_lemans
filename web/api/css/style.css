@@ -457,6 +457,7 @@ a:hover {opacity:0.7;}
 a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease-out;-o-transition:  all 0.2s ease-out;-ms-transition:  all 0.2s ease-out;transition:  all 0.2s ease-out;}
 
 
+.ie8 .stand_tweet .conut_down_wrap {margin-left:310px;}
 
 @media screen and (max-width:1600px){
     .stand{width: 1200px;left: 250px;margin-left:0;}
