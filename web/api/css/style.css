@@ -327,7 +327,7 @@ body{background:#000;height: 100%;width: 100%}
 
 /* video */
 #home_video{position: fixed;top: 100px; left: 0; bottom:0; width: 100%;overflow: hidden;background: #fff;}
-
+#home_video .video-js{background: white;}
 .popup_box {}
 .popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_msg {font-size:30px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}

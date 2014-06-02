@@ -868,7 +868,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     // console.log( this.buffered().end() );
                     setTimeout( function(){
                         player.play();
-                    } , 6000 );
+                    } , 3000 );
                     // this.dine = function(){
                     //     clearInterval( timer );
                     // }
@@ -2227,7 +2227,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             case "index":
                 // show the big video
                 if( !isMobile ){
-                    renderVideo( $('#home_video') , "/videos/intro" , /*"/videos/small.png"*/ '' ,  {ratio: 516 / 893 , loop: false} , function(){
+                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 516 / 893 , loop: false} , function(){
                         $('#' + this.Q).css('z-index' , 0);
                         this.on('ended' , function(){
                             LP.triggerAction('skip-intro');
