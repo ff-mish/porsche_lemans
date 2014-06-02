@@ -7,7 +7,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
-    var isMobileBrowser = function(){
+    var isMobileBrowser = (function(){
         var sUserAgent = navigator.userAgent.toLowerCase();  
         var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";  
         var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";  
@@ -18,33 +18,41 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";  
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";  
         return  bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM;
+    })();
+    var isMobile = $(window).width() <= 640 || isMobileBrowser;
+    if( isMobile ){
+        $(window).load(function(){
+            setTimeout(window.scrollTo(0,0) , 0);
+        });
     }
-    var isMobile = $(window).width() <= 640 || isMobileBrowser();
 
     var lang = $(document.body).data('lang');
     var COLOR = window.from == 'weibo' || !window.from ? '#ff0000' : '#065be0';
 
-	if(isMobile) {
-		LP.use(['hammer'] , function(){
-			$('body').hammer()
-				.on("release dragleft dragright swipeleft swiperight", '.page', function(ev) {
-					switch(ev.type) {
-						case 'swipeleft':
-						case 'dragleft':
-							LP.triggerAction('show-menu');
-							break;
-						case 'swiperight':
-						case 'dragright':
-							LP.triggerAction('show-menu');
-							break;
-						case 'release':
-							break;
-						default:;
-					}
-				}
-			);
-		});
-	}
+	// if(isMobile) {
+	// 	LP.use(['hammer'] , function(){
+	// 		$('body').hammer()
+	// 			.on("release dragleft dragright swipeleft swiperight", '.page', function(ev) {
+	// 				switch(ev.type) {
+	// 					case 'swipeleft':
+	// 					case 'dragleft':
+	// 						$nav.stop( true , true )
+ //                                    .animate({left: -190} , 300);
+ //                                $('body').bind('touchmove', function(e){e.preventDefault()});
+	// 						break;
+	// 					case 'swiperight':
+	// 					case 'dragright':
+	// 						LP.triggerAction('show-menu');
+	// 						break;
+	// 					case 'release':
+	// 						break;
+	// 					default:;
+	// 				}
+
+	// 			}
+	// 		);
+	// 	});
+	// }
 
     function retweetMonitoring() {
       var self = $(this);
@@ -890,7 +898,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     // console.log( this.buffered().end() );
                     setTimeout( function(){
                         player.play();
-                    } , 3000 );
+                    } , 6000 );
                     // this.dine = function(){
                     //     clearInterval( timer );
                     // }
@@ -1387,8 +1395,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     });
 
 
-    LP.action('show-menu' , function(){
+    LP.action('show-menu' , function( data ){
         var left = parseInt( $('.nav').css('left') );
+        data = data || {};
+        if( data.d == 'left' && left != 0 ) return;
+        if( data.d == 'right' && left == 0 ) return;
         $('.nav').animate({
             left: left >= 0 ? -250 : 0
         } , 400);
@@ -1727,6 +1738,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 .data('video');
 
             video.isRemoved = true;
+            video.pause();
             video.dispose();
             
             $(this).find( '.video-js' )
@@ -2062,27 +2074,37 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         if(isMobile) {
             LP.use('hammer' , function(){
                 var $nav = $('.nav');
-                $('.mobile_menu').hammer()
+
+                $('body').hammer()
                     .on("release dragleft dragright swipeleft swiperight", function(ev) {
+                        if( $nav.data('disabled') ) return;
+                        $nav.data('disabled' , 'disabled');
                         switch(ev.type) {
                             case 'swipeleft':
                                 break;
                             case 'dragleft':
-                                $nav.stop( true , true )
-                                    .animate({left: -190} , 300);
-                                $('body').bind('touchmove', function(e){e.preventDefault()});
+                                LP.triggerAction('show-menu' , {d: 'left'});
+                                // $nav.stop( true , true )
+                                //     .animate({left: -250} , 300);
+                                //$('body').bind('touchmove', function(e){e.preventDefault()});
                                 break;
                             case 'swiperight':
                                 break;
                             case 'dragright':
-                                $nav.stop( true , true )
-                                    .animate({left: 0} , 300);
-                                $('body').bind('touchmove', function(e){e.preventDefault()});
+                                LP.triggerAction('show-menu' , {d: 'right'});
+                                //LP.triggerAction('show-menu');
+                                // $nav.stop( true , true )
+                                //     .animate({left: 0} , 300);
+                                //$('body').bind('touchmove', function(e){e.preventDefault()});
                                 break;
                             case 'release':
-                                $('body').unbind('touchmove');
+                                //$('body').unbind('touchmove');
                                 break;
                         }
+                        setTimeout(function(){
+                            $nav.removeData('disabled');
+                        } , 300);
+                        return false;
                     });
             });
         }
@@ -2248,9 +2270,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // render mobile video
         if( isMobile ){
-            renderVideo( $("#mobile_home_v") , '/videos/intro' , '/images/home_v.jpg' , {} , function(){
-
-            } , true );
+            $("#mobile_home_v").html('<video style="width: 100%;height: 100%;"\
+                preload="true" poster="/images/home_v.jpg" src="/videos/intro.mp4">\
+                 <source src="/videos/intro.mp4" type="video/mp4" />\
+            </video>').click(function(){
+                $(this).find('video').get(0).play();
+            });
+            // renderVideo($("#mobile_home_v") , "/videos/intro" , "/images/home_v.jpg" , {autoplay: false} , function(){
+            //     $("#mobile_home_v").css({'background' : 'red'});
+            // } , true);
         }
 
         bigVideoInit();
@@ -2504,8 +2532,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         </div></div>';
                     var html = [];
                     var speeds = [];
-                    var spaces = [1000000 , 1000 , 100 , 1];
-                    var spacesUnit = ['M' , 'K' , 'H' , ''];
+                    var spaces = [1000000 , 1000 , 1];
+                    var spacesUnit = ['M' , 'K' , ''];
 
                     var duration = 600;
                     var now = (+new Date()) + 1000;
@@ -2532,7 +2560,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         var space = '';
                         var unit = '';
 
-                        if( user.friends > 100 ){
+                        if( user.friends > 1000 ){
                             $.each( spaces , function( k , sp ){
                                 space =  Math.round((user.friends / sp)*10) / 10;
                                 if( space >= 1 ){
@@ -2771,6 +2799,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 break;
         }
     });
+
+
+    // setTimeout(function(){
+    //     alert($('.conut_down_wrap .conut_down').css('left'));
+    //     alert($('.conut_down_wrap  .conut_down').css('top' , 0));
+    // } , 2000);
 });
 
 

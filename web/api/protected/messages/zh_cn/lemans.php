@@ -41,7 +41,7 @@ return array (
     "Legal Notice" => "法律公告",
     "PORSCHE" => "保时捷",
     "Leave Team" => "离开队伍",
-    "Next" => "下一个",
+    "Next" => "下一步",
     "Skip Tutorial" => "跳过教程",
 	"Race Starts In" => "离开赛只有",
     "tutorial_step_4" => "每答对三道 Porsche 挑战赛问题，就能解锁一项比赛成就。在“最新微博”中快速浏览你团队的内容。你即将完成全部教程。",

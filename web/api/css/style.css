@@ -360,7 +360,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 .popup_invite {position: relative; background:#000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
-.popup_invite .popup_invite_friend_list,.popup_invite .popup_search_friend_list{height: 213px;overflow: auto;}
+.popup_invite .popup_invite_friend_list,.popup_invite .popup_search_friend_list{height: 213px;overflow: auto;-webkit-overflow-scrolling:touch;}
 .popup_invite .popup_search_friend_list{display: none;}
 .popup_invite .popup_invite_search{height: 70px; position: relative;}
 .popup_invite .popup_invite_search input{width: 550px;background: none;border: 1px solid red;padding: 10px;color: white;position: relative;}
@@ -457,7 +457,8 @@ a:hover {opacity:0.7;}
 a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease-out;-o-transition:  all 0.2s ease-out;-ms-transition:  all 0.2s ease-out;transition:  all 0.2s ease-out;}
 
 
-.ie8 .stand_tweet .conut_down_wrap {margin-left:310px;}
+.ie8 .stand_tweet .conut_down_wrap {margin-left:260px;}
+.ie8 .stand_achivments h2{width: 250px; font-size: 24px;}
 
 @media screen and (max-width:1600px){
     .stand{width: 1200px;left: 250px;margin-left:0;}
@@ -571,7 +572,6 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
 .stand_chart_tip{left: 50%;margin-left: -100px;}
 
 .stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
-.stand_tweet{overflow: hidden;}
 .stand_achivments h2, .stand_tweet h2{width: 300px;}
 .stand_count_down{margin-left: 300px;}
 .stand_add_p1{margin-left: 50px;}
@@ -856,7 +856,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 6px}
     .home_share .home_twitter{background-position: bottom left}
     .home_winners{margin-top:490px;padding:0 0 80px;}
-    .home_v{width: 289px;height: 144px;background: url('../images/home_v.jpg') no-repeat;position: absolute;left:50%;top:50%;margin: 125px 0 0 -144px;display: block;}
+    .home_v{width: 289px;height: 144px;position: absolute;left:50%;top:50%;margin: 125px 0 0 -144px;display: block;}
     /*ft*/
     .footer_link,body[data-page="stand"] .footer_link{background: url('../images/footer_linkm.png') no-repeat;height: 58px;right:25px;padding:0; width: 400px;}
     .footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
@@ -864,7 +864,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     /*conutdown*/
     .count{width: 580px;left:30px;margin:0;top:30px;}
     .conut_tips{font-size: 28px;color:#fff;margin-top:150px;}
-    .conut_down{width: 580px;height: 110px;margin-left:166px;}
+    .conut_down{height: 110px;margin-left:166px;top: 140px;left: 40px;width: 360px;}
     .stand_tweet .conut_down_wrap {margin-left:-287px;margin-top:-55px;}
     .stand_tweet .conut_downinfo {margin-right:15px;}
     .stand_tweet .conut_downitem, .stand_tweet .conut_downinfo {font-size:32px;}
@@ -886,7 +886,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .stand_achivments{position: absolute;top:1100px;}
     .stand_tweet{position: absolute;top: 1180px;padding-bottom: 200px;width: 100%;}
     .stand_achivments h2, .stand_tweet h2{width: 200px;}
-    .stand_tweet  .stand_count_down{margin-left: 200px;}
+    .stand_tweet  .stand_count_down{margin-left: 0px; width: 400px; }
     .stand_tweet h2{width: 200px;line-height: 40px;height: 60px}
     .stand_tweetitem{padding: 0 40px 0 0 }
     .stand_add{top:1400px;}
@@ -912,7 +912,7 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .nav p{height: 61px;font-size:29px;padding-left:45px;}
     .lang-cn .nav p{height: 61px;font-size:28px;padding-left:45px;}
     .mobile_nav {display: block;}
-    .mobile_nav p {display: block;font-size:24px;}
+    .mobile_nav p {display: block;font-size:22px;}
     .lang-cn .mobile_nav p {display: block;font-size:24px;}
 
     .navicon {width:70px;height:70px;border-width: 2px;}
@@ -937,9 +937,9 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     .popup_invite .popup_invite_search .search-btn {font-size:20px;height:37px;line-height:37px;}
     .popup_invite .popup_invite_btns a {font-size:20px;width:150px;height:40px;line-height:40px!important;}
     .popup_invite .friend_item {width:267px;height:89px;}
-    .popup_invite .friend_item .name {width:260px;font-size:18px;margin:11px 0;}
+    .popup_invite .friend_item .name {width: 260px;font-size: 20px;margin: 11px 0;line-height: 1em;}
     .popup_invite .friend_item .avatar img {width:80px;height:80px;}
-    .popup_invite .friend_item .send {font-size:18px;}
+    .popup_invite .friend_item .send {font-size:20px;}
 
     .popup_invite{height: auto;}
     .popup_invite .friend_item .btns{padding-left: 30px;}
@@ -978,5 +978,6 @@ a, .btn {-webkit-transition:   all 0.2s ease-out;-moz-transition:  all 0.2s ease
     body #share{padding: 10px; margin-top: 0px;}
     body .footer-icon{width: 50px;height: 50px;}
     .mobile_nav a,.nav p a.logout{padding: 20px; margin-left: -20px; margin-top: -20px; padding-right: 0;}
+
 }
 

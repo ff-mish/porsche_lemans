@@ -182,7 +182,7 @@ outline: none !important;
 .tutr-step{display: none;position: relative;z-index: 5;}
 .tutr-step-skip {display:none;position: fixed;right:10px;top:70px;color:#fff;text-decoration: underline;cursor:pointer;z-index:10;}
 .read_tutr .tutr-step-skip {display:block;}
-.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.3;position: absolute;filter: alpha(opacity=30);}
+.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.7;position: absolute;filter: alpha(opacity=70);}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step .step-con .color {color:#ff0000;}
 .step-btn {background: #ff0000;border-radius: 5px;display:block;padding:3px 15px;}
