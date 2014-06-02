@@ -25,4 +25,5 @@
   'fans_unit' => ' ',
   'Search' => '',
   'You can\\\'t invite too many people ' => '',
+  'Maximum number of characters attained' => '',
 );

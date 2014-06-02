@@ -1400,7 +1400,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                   if (length >= max_length) {
                     var keycode = event.which;
                     if (keycode != 8) {
-                      panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                      //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+					  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
                       event.preventDefault();
                       return false;
                     }
@@ -1782,7 +1783,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         onCancel: function () {
 
         },
-        width: $(window).width() * 0.6,
+        width: $(window).width() * 0.6
       });
     });
     
@@ -1822,7 +1823,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         onCancel: function () {
 
         },
-        width: $(window).width() * 0.6,
+        width: $(window).width() * 0.6
       });
     });
     
@@ -2045,21 +2046,49 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
 
         // tracking events
+		var ga_device = 'PC';
+		if(isMobileBrowser) {
+			ga_device = 'M';
+		}
         $('.skipintro').click(function(){
-            ga('send', 'event', 'Intro', 'SkipIntro', lang);
+            ga('send', 'event', ga_device + '-' + lang + '-HTMl-Intro', 'SkipIntro', lang);
         });
 
         $('.footer-icon').click(function(){
-            ga('send', 'event', 'Intro', 'Howto', lang);
+            ga('send', 'event', ga_device + '-' + lang + '-HTMl-Intro', 'Howto', lang);
         });
 
         $('.share-btns a').click(function(){
-            ga('send', 'event', 'Intro', 'Share', lang);
+            ga('send', 'event', ga_device + '-' + lang + '-HTMl-Intro', 'Share', lang);
         });
 
         $('.footer .legal').click(function(){
-            ga('send', 'event', 'Intro', 'Legal', lang);
+            ga('send', 'event', ga_device + '-' + lang + '-HTMl-Intro', 'Legal', lang);
         });
+
+		$('.home_weibo').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-CountDown', 'SinaLogin', lang);
+		});
+
+		$('.home_twitter').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-CountDown', 'TwitterLogin', lang);
+		});
+
+		$('.home_winners').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-CountDown', 'WinnerPrizes', lang);
+		});
+
+		$('.popup_invite_btns a').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-Stand', 'ChooseFriend-Submit', lang);
+		});
+
+		$('.navicon').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-User', 'Post', lang);
+		});
+
+		$('.logout').click(function(){
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-Nav', 'LogOut ', lang);
+		});
 
 
 		$(window).resize(function(){

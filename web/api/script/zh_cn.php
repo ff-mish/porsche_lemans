@@ -12,6 +12,7 @@
   'Assiduity' => '成就值',
   'Success!' => '成功!',
   'wrong email' => '请输入有效的邮箱地址',
+  'Maximum number of characters attained' => '超出最大字数限制',
   'Ok' => '确定',
   'Send Invitation' => '发送邀请',
   'You can\\\'t invite too many people ' => '你邀请的朋友已超过了人数上限',
