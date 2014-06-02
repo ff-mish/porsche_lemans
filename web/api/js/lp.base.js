@@ -121,7 +121,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     // widgets and common functions here
     // ======================================================================
-    var rotateAnimate = function( $dom , current , total ,  startAngle ){
+    var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
         current = current || 0;
         var percent = Math.min( current / total , 1 ) ;
         startAngle = startAngle / 180 * Math.PI || 0;
@@ -178,7 +178,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 }
 
                 // render numbers
-                text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
+                if( !noMoveNum )
+                    text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
 
                 if( p != 1 ){
                     setTimeout(ani , 60/1000);
@@ -297,7 +298,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
             var textAttr = {
                 'fill' : '#fff',
-                'font-size' : '14px',
+                'font-size' : isMobile ? '18px' : '14px',
                 'opacity' : 1
             }
 
@@ -2575,7 +2576,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 							} , 500);
 					});
                     $.each( speeds , function( i , speed ){
-                        rotateAnimate( $('.member_speed').eq(i) , speed || 0.7 , 1 , 45 );
+                        rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
                     } );
 
                     // render achive
