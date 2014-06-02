@@ -2346,8 +2346,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         $(this).focus();
                         return false;
                     }
-                    lastTname = txt;
-                    api.post("/api/user/updateteam" , {name: txt} );
+					if(txt.length != 0) {
+						lastTname = txt;
+						api.post("/api/user/updateteam" , {name: txt}, function(){
+							$('.team_name').data('team', txt);
+						});
+					}
+					else {
+						$('.team_name').text($('.team_name').data('team'));
+					}
                 }).keydown(function( ev ){ 
                     if( ev.shiftKey && ( ev.which == 57
                         || ev.which == 48 || ev.which == 49 || ev.which == 50 )
@@ -2420,7 +2427,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 //                    }]};
 
                     // 
-                    $('.team_name').html( team.name );
+                    $('.team_name').html( team.name).data('team', team.name);
                     $('#team-score').html( _e('P') + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
