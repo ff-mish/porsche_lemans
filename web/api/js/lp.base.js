@@ -276,7 +276,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             }
             var textAttr = {
                 'fill' : '#fff',
-                'font-size' : '14px',
+                'font-size' : isMobile ? '18px' : '14px',
                 'opacity' : 1
             }
 
