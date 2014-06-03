@@ -46,7 +46,7 @@
         <div class="footer_link cs-clear">
             <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
             <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
-            <div class="btn <?php echo Yii::app()->language;?>" id="share"><?php echo Yii::t("lemans", "Share")?>
+            <div class="btn <?php echo Yii::app()->language;?>" id="share"> <span class="label"> <?php echo Yii::t("lemans", "Share")?></span>
             	<div class="share-btns">
 	            <?php if (Yii::app()->language == "zh_cn"): ?>
 			            <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82&url=http://24socialrace.porsche.com" class="i-sina"></a>

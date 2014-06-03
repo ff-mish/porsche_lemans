@@ -831,8 +831,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         var w = $img.width();
                         var h = $img.height();
                         $(window).resize(function(){
-                            var ww = $wrap.width();
-                            var hh = $wrap.height();
+                            var ww = $wrap.width() + 10;
+                            var hh = $wrap.height() + 10;
                             var tarw = w ,  tarh = h;
                             if( ww / hh > w / h ){
                                 tarw = ww;
@@ -866,8 +866,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     if( resize ){
                         $(window).bind( 'resize.video-' + id , function(){
                             if( v.isRemoved  ) return;
-                            var w = $wrap.width();
-                            var h = $wrap.height();
+                            var w = $wrap.width() + 10;
+                            var h = $wrap.height() + 10;
                             var vh = 0 ;
                             var vw = 0 ;
                             if( h / w > ratio ){
@@ -2046,6 +2046,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             $('.share-btns').stop( true , true ).fadeIn();
         } , function(){
             $('.share-btns').stop(true , true).delay(200).fadeOut();
+        })
+        .find('.share-btns a').hover(function(){
+            $(this).stop( true , true ).animate({
+                opacity: 1
+            } , 300);
+        } , function(){
+            $(this).stop( true , true ).animate({
+                opacity: 0.7
+            } , 300);
         });
 
 		// init post twitter button
