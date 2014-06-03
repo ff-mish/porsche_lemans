@@ -114,11 +114,13 @@ outline: none !important;
 .stand_del.disabled{display: none;}
 .stand_add.disabled{display: none;}
 
-#legal-notice{position: fixed;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
+#legal-notice{position: fixed;z-index:100;top: 60px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 20px 30px 80px 30px;color:#fff;}
 #legal-notice .popup_close {right:20px;top:20px;z-index:10;}
-.legal-con{ padding: 20px 5%; position: absolute;width: 90%; top: 0px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;}
-.legal-con .intro {font-size:18px;}
+#legal-notice .jspDrag{background: white;}
+#legal-notice .jspVerticalBar{top: 160px;bottom: 0;height: auto;}
+.legal-con{ padding: 20px 5%; position: absolute;width: 90%; top: 0px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;-webkit-overflow-scrolling: touch;}
+.legal-con .intro {font-size:15px;}
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
 
@@ -175,15 +177,12 @@ outline: none !important;
 .popup_invite .popup_error{height: 35px;line-height: 35px;color: red;font-size: 16px;}
 
 
-.footer-icon{position: absolute;height: 23px;width: 20px; left: 2px; top:0;display: none;}
-.footer_link{background: none;}
-body[data-page="stand"] .footer_link{background: url('../images/footer_link.png') no-repeat;}
-body[data-page="stand"] .footer-icon{display: block;}
-
 
 
 .tutr-step{display: none;position: relative;z-index: 5;}
-.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.3;position: absolute;filter: alpha(opacity=30);}
+.tutr-step-skip {display:none;position: fixed;right:10px;top:70px;color:#fff;text-decoration: underline;cursor:pointer;z-index:10;}
+.read_tutr .tutr-step-skip {display:block;}
+.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.7;position: absolute;filter: alpha(opacity=70);}
 .tutr-step .step-con{margin: 25px 0;}
 .tutr-step .step-con .color {color:#ff0000;}
 .step-btn {background: #ff0000;border-radius: 5px;display:block;padding:3px 15px;}
