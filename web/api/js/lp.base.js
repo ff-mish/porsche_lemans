@@ -556,10 +556,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , h );
+                        renderTure( off.top , off.left - 20 , $('.teambuild_members').width() + 40 , h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top })
+                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.teambuild_members').width() + 60 , top: off.top })
                             .fadeIn();
                         break;
                     case 3:
@@ -591,7 +591,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_achivments').width() , $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
+                        renderTure( off.top , off.left - 20 , $('.stand_tweet').width() , $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
                             .css({left: off.left - 20 , top: off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
