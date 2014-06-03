@@ -137,7 +137,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             // Creates canvas 320 × 200 at 10, 50
             var width = $dom.width();
             var height = $dom.height();
-            var r = 35 , stockWidth = 10 , stockColor = COLOR;
+            var memberHeight = $('.member_item').outerHeight() - 8;
+            var r = memberHeight / 2 - 5 , stockWidth = 8 , stockColor = COLOR;
 
             var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
@@ -156,7 +157,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             //         .attr("stroke-width" , stockWidth);
 
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                .attr({fill: "#fff",'font-size': lang == 'zh_cn' ? '12px' : '13px'});
+                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '12px' : '13px'});
 
 
             var now ;
@@ -545,21 +546,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 switch( num ){
                     case 1:
                         var off = $('.stand_tit').offset();
-                        var w = Math.max( $('.team_name').width() , 200 );
-                        renderTure( off.top - 10 , off.left - 20 , w + 50 , 60 );
+                        var w = Math.max( $('.member_item').width() , 200 );
+                        renderTure( off.top - 10 , off.left - 20 , w + 40 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 50 , top: off.top - 10 })
+                            .css( isMobile ? {left: off.left , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 40 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( off.top , off.left - 20 , $('.teambuild_members').width() + 40 , h );
+                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.teambuild_members').width() + 60 , top: off.top })
+                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })
                             .fadeIn();
                         break;
                     case 3:
@@ -824,30 +825,32 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         return function( $wrap , videoFile , poster , cfg , cb , focus ){
 
             if( isMobile && !focus ){
-                var $img = $('<img/>')
-                    .appendTo( $wrap )
-                    .load(function(){
-                        var $img = $(this);
-                        var w = $img.width();
-                        var h = $img.height();
-                        $(window).resize(function(){
-                            var ww = $wrap.width() + 10;
-                            var hh = $wrap.height() + 10;
-                            var tarw = w ,  tarh = h;
-                            if( ww / hh > w / h ){
-                                tarw = ww;
-                                tarh = h / w * ww;
-                            } else {
-                                tarh = hh;
-                                tarw = w / h * hh;
-                            }
-
-                            $img.css({
-                                'margin-top' : (hh - tarh) / 2,
-                                'margin-left' : (ww - tarw) / 2});
-                        }).trigger('resize');
-                    })
-                    .attr('src' , poster );
+				$wrap.addClass('m-videobg');
+				$wrap.css({'background-image':'url('+poster+')'});
+//                var $img = $('<img/>')
+//                    .appendTo( $wrap )
+//                    .load(function(){
+//                        var $img = $(this);
+//                        var w = $img.width();
+//                        var h = $img.height();
+//                        $(window).resize(function(){
+//                            var ww = $wrap.width();
+//                            var hh = $wrap.height();
+//                            var tarw = w ,  tarh = h;
+//                            if( ww / hh > w / h ){
+//                                tarw = ww;
+//                                tarh = h / w * ww;
+//                            } else {
+//                                tarh = hh;
+//                                tarw = w / h * hh;
+//                            }
+//
+//                            $img.css({
+//                                'margin-top' : (hh - tarh) / 2,
+//                                'margin-left' : (ww - tarw) / 2});
+//                        }).trigger('resize');
+//                    })
+//                    .attr('src' , poster );
                 return;
             }
 
@@ -1400,6 +1403,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         data = data || {};
         if( data.d == 'left' && left != 0 ) return;
         if( data.d == 'right' && left == 0 ) return;
+
+        // push all content to right
+        $('.page').width( $('.page').width() );
+
+        $('.page').animate({
+            marginLeft: left >= 0 ? 0 : 250
+        } , 400);
+
         $('.nav').animate({
             left: left >= 0 ? -250 : 0
         } , 400);
@@ -1410,9 +1421,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var $btn = $(this).attr('disabled' , 'disabled');
         var max_length = 112;
 		var html_buttons = '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>';
-		if(lang == 'zh_cn') {
-			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
+//		}
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
@@ -1605,9 +1616,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('repost' , function( data ){
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
-		if(lang == 'zh_cn') {
-			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+//		}
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
@@ -1762,10 +1773,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action('leaveteam' , function( e ){
         var self = $(this);
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
-		console.log(lang);
-		if(lang == 'zh_cn') {
-			html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+//		}
         var tpl = '<div class="popup_box popup_dialog">\
                 <div class="popup_dialog_msg">#[content]</div>\
                 <div class="popup_dialog_btns">'+html_buttons+'</div>\
@@ -1794,9 +1804,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     LP.action("invite_box_with_auto_join", function (params) {
 	  var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
-	  if(lang == 'zh_cn') {
-		  var html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
-	  }
+//	  if(lang == 'zh_cn') {
+//		  var html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+//	  }
       LP.panel({
         type: "panel",
         "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('You already have team #[now_team_name], Are you want to join team #[team] ? If that, the record in the your team will be destoried.' ,{team: params["team_name"], now_team_name: params["now_team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
@@ -1838,9 +1848,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     LP.action("invite_box", function(params) {
       var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
-	  if(lang == 'zh_cn') {
-		  html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
-	  }
+//	  if(lang == 'zh_cn') {
+//		  html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+//	  }
       LP.panel({
         type: "panel",
         "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
@@ -2078,15 +2088,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			});
 		});
 
-
         // swip to load menu
         if(isMobile) {
+			window.scrollTo(0, 1);
             LP.use('hammer' , function(){
                 var $nav = $('.nav');
 
                 $('body').hammer()
                     .on("release dragleft dragright swipeleft swiperight", function(ev) {
-                        if( $nav.data('disabled') ) return;
+                        if( $nav.data('disabled') ) return false;
                         $nav.data('disabled' , 'disabled');
                         switch(ev.type) {
                             case 'swipeleft':
@@ -2100,6 +2110,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             case 'swiperight':
                                 break;
                             case 'dragright':
+								if(ev.gesture.center.pageX > 320) {
+                                    $nav.removeData('disabled');
+									return false;
+								}
                                 LP.triggerAction('show-menu' , {d: 'right'});
                                 //LP.triggerAction('show-menu');
                                 // $nav.stop( true , true )
@@ -2107,6 +2121,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 //$('body').bind('touchmove', function(e){e.preventDefault()});
                                 break;
                             case 'release':
+								// if($nav.is(':visible')) {
+								// 	LP.triggerAction('show-menu' , {d: 'left'});
+								// }
                                 //$('body').unbind('touchmove');
                                 break;
                         }
@@ -2285,9 +2302,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             </video>').click(function(){
                 $(this).find('video').get(0).play();
             });
-            // renderVideo($("#mobile_home_v") , "/videos/intro" , "/images/home_v.jpg" , {autoplay: false} , function(){
-            //     $("#mobile_home_v").css({'background' : 'red'});
-            // } , true);
+            // checkOrientation
+            var orientation = window.orientation;
+            if ( orientation != 0 && orientation !== undefined ) {
+                $('.turnphone').show();
+            } else {
+                $('.turnphone').hide();
+            }
+
+
+            // no Monitoring
+            $('.nav p').eq(3).hide();
         }
 
         bigVideoInit();
@@ -2297,6 +2322,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         // init first page template
         switch( $(document.body).data('page') ){
             case "index":
+                var moveTimer = 0;
+                var $intro = $('.skipintro');
+                $(document).mousemove(function(){
+                    $intro.fadeIn();
+                    clearTimeout(moveTimer);
+                    moveTimer = setTimeout(function(){
+                        $intro.fadeOut();
+                    } , 2000);
+                })
                 // show the big video
                 if( !isMobile ){
                     renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 516 / 893 , loop: false} , function(){
@@ -2401,6 +2435,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
                 $('.stand_tit .team_name').hover(function(){
                         $(this).next().fadeIn();
+                        $(this).trigger('keyup');
                     } , function(){
                         $(this).next().fadeOut();
                     });
@@ -2468,6 +2503,32 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         return false;
                     }
                     $('.team_name_error_tip').fadeOut();
+                })
+                .keyup(function(){
+                    var w = $(this).width() + 20;
+                    var cw = $('.stand_chart_tip').width();
+                    var tw = $('.member_item').width();
+
+                    console.log( w , cw  , tw );
+                    if( w + cw < tw ){
+                        $('.stand_chart_tip').css({
+                            left: w,
+                            top: 4,
+                            bottom: 'auto'
+                        }).find('span').css({
+                            left: 0,
+                            top: 4
+                        });
+                    } else {
+                        $('.stand_chart_tip').css({
+                            left: ( w - cw - 30 ) / 2,
+                            top: '',
+                            bottom: ''
+                        }).find('span').css({
+                            left: '',
+                            top: ''
+                        });
+                    }
                 })
                 .focus(function(){
                     $(this).addClass('focus');
@@ -2603,7 +2664,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     // render plus 
                     for (var i = (data.inviting || []).length + (team.users || []).length; i < 3; i++) {
                         html.push( '<div class="teambuild_member stand_useritem cs-clear">\
-                                <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
+                                <a href="javascript:;" data-a="member_invent" class="member_add cs-clear"><span>+</span></a>\
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )
@@ -2684,6 +2745,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             $('.stand_add').removeClass('disabled');
                         });
                     });
+
 
                     // hover to show the leave team
                     $('.teambuild_members').delegate( '.member_item' , 'mouseenter' , function(){

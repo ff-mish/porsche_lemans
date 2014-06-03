@@ -114,7 +114,7 @@ outline: none !important;
 .stand_del.disabled{display: none;}
 .stand_add.disabled{display: none;}
 
-#legal-notice{position: fixed;z-index:100;top: 60px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
+#legal-notice{position: fixed;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 20px 30px 80px 30px;color:#fff;}
 #legal-notice .popup_close {right:20px;top:20px;z-index:10;}
 #legal-notice .jspDrag{background: white;}
@@ -124,9 +124,9 @@ outline: none !important;
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
 
-#winners-prizes {position: fixed;display:none;z-index:100;top:60px;bottom:0;width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
+#winners-prizes {position: fixed;display:none;z-index:100;top:80px;bottom:0;width: 100%; background:url(../images/bg_winner_prizes.jpg) no-repeat center top fixed ; background-size:cover; text-align: center;}
 #winners-prizes h2{text-align: center;font-size: 36px;padding: 40px 30px;color: #fff;}
-#winners-prizes .popup_close {right:20px;top:20px;z-index:10;}
+#winners-prizes .popup_close {right:20px;top:20px;z-index:10; }
 .winners-prizes-wrap {position: fixed;margin-top:-250px;top:50%;height:515px;width: 100%;}
 .winners-icon {width: 50%;max-width: 355px;}
 .winners-prizes-con { margin:30px auto 0 auto;font-size:18px;width: 90%;max-width:1100px;text-align:center;line-height: 150%;color:#fff;}
@@ -136,6 +136,7 @@ outline: none !important;
 .share-btns{position:absolute; display:none;left: 100%; top: 0px; overflow: hidden;margin-top: -4px;width: 300px;height: 33px;}
 .ie8 .share-btns{background:url(about:blank);}
 .share-btns a{-webkit-transition: none;-moz-transition: none;-o-transition: none;-ms-transition: none;transition: none; display: inline-block; width: 26px;height: 26px;background: url(../images/share.png) no-repeat;margin: 0 5px;}
+.share-btns a:hover {opacity: 1;}
 .share-btns a.i-sina{background-position: -177px -29px;}
 .share-btns a.i-qz{background-position: -211px -29px;}
 .share-btns a.i-qq{background-position: -246px -29px;}
@@ -184,7 +185,7 @@ outline: none !important;
 .read_tutr .tutr-step-skip {display:block;}
 .tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom{background: black; opacity: 0.7;position: absolute;filter: alpha(opacity=70);}
 .tutr-step .step-con{margin: 25px 0;}
-.tutr-step .step-con .color {color:#ff0000;}
+.tutr-step .step-con .color {color:#777;}
 .step-btn {background: #ff0000;border-radius: 5px;display:block;padding:3px 15px;}
 .step-btn:hover {color:#fff;}
 .tutr-step-tip1{display: none;position: absolute;top: 180px;border:1px solid #222;background: black;left: 765px;width: 263px;padding: 30px;height: 252px;border-radius: 5px;font-size: 14px;line-height: 1.4em;}

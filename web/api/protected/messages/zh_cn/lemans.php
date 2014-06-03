@@ -25,11 +25,11 @@ return array (
     "Team name is limited within 12 characters" => "团队名称限制在6个中文字以内",
 	"Maximum number of characters attained" => "",
     "#24SocialRace" => "#勒芒社交耐力赛#",
-    "Race" => "准备室",
-    "Monitoring" => "赛场",
+    "Race" => "赛场",
+    "Monitoring" => "赛况",
     "Fuel" => "能量",
     "Make a tweet" => "发一个微博",
-    "Stand" => "赛况",
+    "Stand" => "准备室",
     "Log out" => "登出",
     "Edit team name" => "修改队伍名字",
     "Achievements" => "比赛成就",
@@ -39,12 +39,12 @@ return array (
     "Legal Mentions" => "法律公告",
     "Share" => "分享",
     "Legal Notice" => "法律公告",
-    "PORSCHE" => "保时捷",
+    "Porsche #24SocialRace" => "Porsche #勒芒社交耐力赛#",
     "Leave Team" => "离开队伍",
     "Next" => "下一步",
     "Skip Tutorial" => "跳过教程",
 	"Race Starts In" => "离开赛只有",
-    "tutorial_step_4" => "每答对三道 Porsche 挑战赛问题，就能解锁一项比赛成就。在“最新微博”中快速浏览你团队的内容。你即将完成全部教程。",
+    "tutorial_step_4" => "每答对三道 Porsche 挑战赛问题，就能解锁一项比赛成就。",//在“最新微博”中快速浏览你团队的内容。你即将完成全部教程。
     "tutorial_step_3" => '这张 Porsche 图表是赢得比赛的关键。通过它，你可以知道在哪些地方需要改进来提高速度。它由四个要素构成。
 	<br><br>
 	<span class="step-con-tit">速度:</span> 团队每小时发送的微博（推特）数。
