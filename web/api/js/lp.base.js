@@ -2683,6 +2683,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         });
                     });
 
+
                     // hover to show the leave team
                     $('.teambuild_members').delegate( '.member_item' , 'mouseenter' , function(){
                         if(!$(this).find('.member-leave,.cancel-invit').length) return;
