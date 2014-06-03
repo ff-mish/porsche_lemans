@@ -1,0 +1,47 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 2, 2014, 3:41:50 PM
+    Author     : Jackey <jziwenchen@gmail.com>
+*/
+
+.login-form-con {
+  margin-top: 20%;
+}
+
+.hideme{
+  display:none;
+}
+
+.showme {
+  display: block;
+}
+
+.form-row-con {
+position: fixed;
+top: 50%;
+margin-top: -190px;
+z-index: 2;
+background: #fff;
+}
+
+.form-box-bg  {
+  width: 100%;
+height: 100%;
+position: absolute;
+left: 0px;
+z-index: 1;
+background: #000;
+opacity: 0.3;
+}
+.form-row-con .close {
+  background: url(../misc/images/close.png) no-repeat;
+  background: url(../misc/images/close.png) no-repeat;
+  width: 32px;
+  height: 32px;
+  background-size: 100%;
+  z-index: 1000;
+}

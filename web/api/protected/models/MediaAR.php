@@ -61,7 +61,7 @@ class MediaAR extends CActiveRecord {
     return array(
         array("uri", "fileExit"),
         array("type, uri", "required"),
-        array("mid, cdate, udate, uid, media_link, teaser_image", "safe"),
+        array("mid, cdate, udate, uid, media_link, teaser_image, title, description", "safe"),
     );
   }
   
@@ -114,15 +114,22 @@ class MediaAR extends CActiveRecord {
   }
   
   /**
-   * 保存新的Media
+   * 保存新的 Media
    * @param type $uri
    * @param type $type
+   * @param type $media_url
+   * @param type $teaser_image
+   * @param type $title
+   * @param type $description
+   * @return type
    */
-  public function saveNew($uri, $type, $media_url, $teaser_image = "") {
+  public function saveNew($uri, $type, $media_url, $teaser_image = "", $title = "", $description="") {
     $this->uri = $uri;
     $this->type = $type;
     $this->media_link = $media_url;
     $this->teaser_image = $teaser_image;
+    $this->title = $title;
+    $this->description = $description;
     $ret = $this->save();
     $this->afterFind();
     return $ret;
