@@ -22,9 +22,9 @@
     };
     
     // 初始化 Datatable plugin
-    $scope.initDataTablePlugin = function () {
+    angular.element(document).ready(function () {
       angular.element("#qa-table").dataTable();
-    };
+    });
   }]);
 
   AdminApp.controller("EmailController", ["$scope", function ($scope) {

@@ -1,7 +1,7 @@
 
 <div class="qa-container" ng-controller="QAController">
-  <div class="form-box-bg hideme {{form_class}}" ng-click="closeQaFormPopup()"></div>
-  <table class="table table-hover table-bordered" id='qa-table' ng-init="initDataTablePlugin()">
+  <div class="form-box-bg hideme {{form_class}}" ng-click="closeQaFormPopup('')"></div>
+  <table class="table table-hover table-bordered" id='qa-table'>
     <thead>
       <th>选择</th>
       <th>序号</th>
