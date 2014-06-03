@@ -824,30 +824,32 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         return function( $wrap , videoFile , poster , cfg , cb , focus ){
 
             if( isMobile && !focus ){
-                var $img = $('<img/>')
-                    .appendTo( $wrap )
-                    .load(function(){
-                        var $img = $(this);
-                        var w = $img.width();
-                        var h = $img.height();
-                        $(window).resize(function(){
-                            var ww = $wrap.width();
-                            var hh = $wrap.height();
-                            var tarw = w ,  tarh = h;
-                            if( ww / hh > w / h ){
-                                tarw = ww;
-                                tarh = h / w * ww;
-                            } else {
-                                tarh = hh;
-                                tarw = w / h * hh;
-                            }
-
-                            $img.css({
-                                'margin-top' : (hh - tarh) / 2,
-                                'margin-left' : (ww - tarw) / 2});
-                        }).trigger('resize');
-                    })
-                    .attr('src' , poster );
+				$wrap.addClass('m-videobg');
+				$wrap.css({'background-image':'url('+poster+')'});
+//                var $img = $('<img/>')
+//                    .appendTo( $wrap )
+//                    .load(function(){
+//                        var $img = $(this);
+//                        var w = $img.width();
+//                        var h = $img.height();
+//                        $(window).resize(function(){
+//                            var ww = $wrap.width();
+//                            var hh = $wrap.height();
+//                            var tarw = w ,  tarh = h;
+//                            if( ww / hh > w / h ){
+//                                tarw = ww;
+//                                tarh = h / w * ww;
+//                            } else {
+//                                tarh = hh;
+//                                tarw = w / h * hh;
+//                            }
+//
+//                            $img.css({
+//                                'margin-top' : (hh - tarh) / 2,
+//                                'margin-left' : (ww - tarw) / 2});
+//                        }).trigger('resize');
+//                    })
+//                    .attr('src' , poster );
                 return;
             }
 
@@ -1410,9 +1412,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         var $btn = $(this).attr('disabled' , 'disabled');
         var max_length = 112;
 		var html_buttons = '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>';
-		if(lang == 'zh_cn') {
-			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
+//		}
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
@@ -1605,9 +1607,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
     LP.action('repost' , function( data ){
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
-		if(lang == 'zh_cn') {
-			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+//		}
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
@@ -1762,10 +1764,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     LP.action('leaveteam' , function( e ){
         var self = $(this);
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
-		console.log(lang);
-		if(lang == 'zh_cn') {
-			html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
-		}
+//		if(lang == 'zh_cn') {
+//			html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
+//		}
         var tpl = '<div class="popup_box popup_dialog">\
                 <div class="popup_dialog_msg">#[content]</div>\
                 <div class="popup_dialog_btns">'+html_buttons+'</div>\
@@ -1794,9 +1795,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     LP.action("invite_box_with_auto_join", function (params) {
 	  var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
-	  if(lang == 'zh_cn') {
-		  var html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
-	  }
+//	  if(lang == 'zh_cn') {
+//		  var html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+//	  }
       LP.panel({
         type: "panel",
         "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('You already have team #[now_team_name], Are you want to join team #[team] ? If that, the record in the your team will be destoried.' ,{team: params["team_name"], now_team_name: params["now_team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
@@ -1838,9 +1839,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     
     LP.action("invite_box", function(params) {
       var html_buttons = '<a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a><a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a>';
-	  if(lang == 'zh_cn') {
-		  html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
-	  }
+//	  if(lang == 'zh_cn') {
+//		  html_buttons = '<a href="javascript:void(0);" class="confirm">'+_e("Confirm")+'</a><a href="javascript:void(0);" class="cancel">'+_e("Cancel")+'</a>';
+//	  }
       LP.panel({
         type: "panel",
         "content": '<div class="popup_box popup_dialog"><div class="popup_dialog_msg">' + _e('Do you want to join #[team] ?' ,{team: params["team_name"]}) + '</div><div class="popup_dialog_btns">'+html_buttons+'</div></div>',
@@ -2069,9 +2070,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 			});
 		});
 
-
         // swip to load menu
         if(isMobile) {
+			window.scrollTo(0, 1);
             LP.use('hammer' , function(){
                 var $nav = $('.nav');
 
@@ -2091,6 +2092,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                             case 'swiperight':
                                 break;
                             case 'dragright':
+								if(ev.gesture.center.pageX > 320) {
+									return false;
+								}
                                 LP.triggerAction('show-menu' , {d: 'right'});
                                 //LP.triggerAction('show-menu');
                                 // $nav.stop( true , true )
@@ -2098,6 +2102,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                                 //$('body').bind('touchmove', function(e){e.preventDefault()});
                                 break;
                             case 'release':
+								if($nav.is(':visible')) {
+									LP.triggerAction('show-menu' , {d: 'left'});
+								}
                                 //$('body').unbind('touchmove');
                                 break;
                         }
@@ -2594,7 +2601,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     // render plus 
                     for (var i = (data.inviting || []).length + (team.users || []).length; i < 3; i++) {
                         html.push( '<div class="teambuild_member stand_useritem cs-clear">\
-                                <a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>\
+                                <a href="javascript:;" data-a="member_invent" class="member_add cs-clear"><span>+</span></a>\
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )

@@ -1,5 +1,5 @@
 .nav{left:0px;top:86px;}
-.navicon {margin-left:30px;margin-bottom:28px;}
+.navicon {margin-left:27px;margin-bottom:28px;}
 .post_link span {left:84px;}
 .stand{width: 1030px;left: 220px;margin-left:0;}
 .teambuild_member {height:78px;}
@@ -9,13 +9,15 @@
 .member_speed{margin-left:30px;margin-top:-7px;}
 .memeber_space {font-size:38px;}
 .member_add {width:220px;height:45px;line-height:45px;}
+.member_add span {margin-top:4px;}
+#team-score {left:280px;}
 .stand_useritem {margin-bottom: 25px;}
 .stand {top:32px;}
 .stand_tweetitem{padding:0 20px;}
 .stand_add{right:20px;top:30px;left:auto;}
 .stand_del {left:170px!important;top:30px!important;}
 .stand_chart{width: 380px;height:380px;background-size: cover}
-.stand_chart_score {font-size:24px;left:152px;}
+.stand_chart_score {font-size:24px;left:12px;}
 .team_name,.stand_tit {font-size:24px;}
 .stand_tit {width:516px;height:60px;}
 .stand_achivments {padding:0;font-size:18px;margin-top:-20px;}

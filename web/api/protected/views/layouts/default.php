@@ -4,10 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no" />
+	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no,minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title><?php echo Yii::t("lemans", "PORSCHE")?></title>
+    <title><?php echo Yii::t("lemans", "Porsche #24SocialRace")?></title>
     <link href="/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/js.css" rel="stylesheet" type="text/css" />
 	<!--[if lt IE 9]>
@@ -65,7 +66,13 @@
 	            </div>
             </div>
         </div>
-        <div class="footer_language"><a data-lang="en_us" href="#">En</a> | <a data-lang="zh_cn" href="#">中文</a></div>
+        <div class="footer_language">
+	        <?php if (Yii::app()->language == "zh_cn"): ?>
+		        <a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
+	        <?php else:?>
+		        <span>En</span> | <a class="f_lang_cn" data-lang="zh_cn" href="#">中文</a>
+	        <?php endif;?>
+        </div>
     </div>
 
 	<div class="loading-wrap">

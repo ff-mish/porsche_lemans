@@ -2,7 +2,7 @@
 	<div class="bg1 ">
 		<!-- logo -->
     <div class="header">
-        <div class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></div>
+        <a href="" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
         <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
     </div>
     <div class="page pagebg1">
@@ -52,7 +52,7 @@
         </div>
         
         <div class="stand_tit">
-          <span style="float:right" id="team-score"></span>
+          <span id="team-score"></span>
           <div class="team_name_error_tip" >
 			 <?=Yii::t('lemans','Team name is limited within 12 characters')?>
 		  </div>
