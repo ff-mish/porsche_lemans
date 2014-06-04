@@ -550,26 +550,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         renderTure( off.top - 10 , off.left - 20 , w + 40 , 60 );
                         $('.tutr-step').find('.tutr-step-tip1')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 40 , top: off.top - 10 })
+                            .css( isMobile ? {left: off.left-20 , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 40 , top: off.top - 10 })
                             .fadeIn();
                         break;
                     case 2:
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( off.top , off.left - 20 , $('.stand_tit').width() + 40 , h );
+                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })
+                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })
                             .fadeIn();
                         break;
                     case 3:
                         var off = $('.stand_chart').offset();
                         $('.tutr-step-tip2').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_chart').width() + 20 , $('.stand_chart').height() );
+                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_chart').width() + 50 : $('.stand_chart').width() + 20 , $('.stand_chart').height() );
                         $('.tutr-step').find('.tutr-step-tip3')
                             .delay( 700 )
-                            .css(isMobile ? {left: off.left , top: off.top + $('.stand_chart').height() + 10 } :  {left: off.left  - 600 , top: off.top })
+                            .css(isMobile ? {left: off.left-20 , top: off.top + $('.stand_chart').height() + 10 } :  {left: off.left  - 600 , top: off.top })
                             .fadeIn();
 
                         // if there is no data , render the demo data;
@@ -592,10 +592,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
-                        renderTure( off.top , off.left - 20 , $('.stand_tweet').width() , $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
+                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 100 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
                         break;
                     case 5:
@@ -1148,7 +1148,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         LP.panel({
             content: '<div class="popup_invite">\
                     <div class="popup_close"></div>\
-                    <div class="popup_invite_search"><a class="close-search" href="javascript:;">×</a><input type="text" placeholder="'+ _e('Search') + '"/> <a href="javascript:void(0);" class="search-btn">'+ _e('Search') + '</a></div>\
+                    <div class="popup_invite_search"><a class="close-search" href="javascript:;">×</a><input type="text" placeholder="'+ _e('Invite a friend') + '"/> <a href="javascript:void(0);" class="search-btn">'+ _e('Search') + '</a></div>\
                     <div class="popup_invite_friend_list"></div>\
                     <div class="popup_search_friend_list"></div>\
                     <div class="loading-wrap"><div class="loading"></div></div>\

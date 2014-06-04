@@ -24,6 +24,7 @@
   'Do you want to join' => '',
   'fans_unit' => ' ',
   'Search' => '',
+  'Invite a friend' => '',
   'You can\\\'t invite too many people ' => '',
   'Maximum number of characters attained' => '',
 );

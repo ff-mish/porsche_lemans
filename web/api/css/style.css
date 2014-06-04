@@ -933,13 +933,13 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
     .popup_close {width:50px!important;height:50px!important;}
 
-    .popup_invite{width: 560px;}
+    .popup_invite{width: 560px;margin-top:-130px;}
     .popup_invite .popup_close {right:0px;top:0px;}
     .popup_invite .popup_invite_search input{width: 400px;}
     .popup_invite .popup_invite_search .close-search{left: 390px;}
 
     .nav{background: black;top: 80px;margin-top: 0;bottom: 0;padding-top: 60px;width:250px; }
-    .nav p{height: 61px;font-size:29px;padding-left:45px;}
+    .nav p{height: 61px;font-size:29px;padding-left:42px;}
     .lang-cn .nav p{height: 61px;font-size:28px;padding-left:45px;}
     .mobile_nav {display: block;}
     .mobile_nav p {display: block;font-size:22px;}
@@ -954,6 +954,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
     .footer_link .legal {display:none;}
     .footer_link #share {position:fixed;right:20px;font-size:26px;width:100px;}
+    .footer_link #share span {position: relative;z-index:10;}
     .footer_language {display:none;}
     .share-btns {left:auto!important;right:0px!important;}
 
@@ -965,13 +966,14 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .popup_invite .popup_error {font-size:18px;}
     .popup_invite .popup_invite_search input {font-size:20px;}
     .popup_invite .popup_invite_search .search-btn {font-size:20px;height:37px;line-height:37px;}
+    .popup_invite .popup_invite_btns {margin:50px 0 20px 0;}
     .popup_invite .popup_invite_btns a {font-size:20px;width:150px;height:40px;line-height:40px!important;}
     .popup_invite .friend_item {width:267px;height:89px;}
     .popup_invite .friend_item .name {width: 260px;font-size: 20px;margin: 11px 0;line-height: 1em;}
     .popup_invite .friend_item .avatar img {width:80px;height:80px;}
-    .popup_invite .friend_item .send {font-size:20px;}
+    .popup_invite .friend_item .send {font-size:16px;}
 
-    .popup_invite{height: auto;}
+    .popup_invite{height: auto;padding-top:72px;}
     .popup_invite .friend_item .btns{padding-left: 30px;}
     .popup_invite .popup_invite_friend_list, .popup_invite .popup_search_friend_list{height: 320px;}
 
@@ -984,12 +986,18 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     /* tutor */
     .tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4{width: auto !important;right: 20px !important; height: auto !important;}
     .read_tutr .step-btn {font-size:20px!important;padding:7px 20px!important;}
+    body .tutr-step-tip1 .step-btn {right:42px;}
+    body .popup_email .con-step {font-size:22px;}
+    body .popup_email h4 {margin-top:25px;}
 
-    body .share-btns{position: fixed;top: 80px;text-align:right;height: 100%;background: rgba(0,0,0 ,.7);padding: 200px 85px;width: auto;}
-    body .share-btns a {width: 150px;height: 150px;background: url(../images/share_m_cn_hover.png) no-repeat;margin: 20px 40px;}
+    body .share-btns{position: fixed;top: 80px;text-align:right;height: 100%;background:url(../images/bg_legal.jpg) no-repeat;background-size:auto 100%;padding: 200px 125px;width: auto;}
+    body.lang-en .share-btns {padding-top:110px}
+    body .share-btns a {width: 150px;height: 150px;background: url(../images/share_m_cn.png) no-repeat;margin: 20px 20px;}
+    body .share-btns a:hover {background: url(../images/share_m_cn_hover.png) no-repeat;}
     .btn:hover{opacity: 1;}
 
-    .en_us .share-btns a{background: url(../images/share_m_en_hover.png) no-repeat;}
+    .en_us .share-btns a{background: url(../images/share_m_en.png) no-repeat;}
+    .en_us .share-btns a:hover{background: url(../images/share_m_en_hover.png) no-repeat;}
 
     .zh_cn .share-btns a.i-sina,.zh_cn .share-btns a.i-sina:hover{background-position: 0 0;}
     .zh_cn .share-btns a.i-qz,.zh_cn .share-btns a.i-qz:hover{background-position: -212px 0;}
@@ -1003,11 +1011,17 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .en_us .share-btns a.i-in,.en_us .share-btns a.i-in:hover{background-position: -212px -190px;}
     .en_us .share-btns a.i-p,.en_us .share-btns a.i-p:hover{background-position: 0 -376px;}
 
-
+    .navicon {margin-left:40px;}
+    .nav .on {background: none;color:#ff0000;}
+    .nav p {height:90px;}
+    .nav .mobile_menu p {height:2px;}
+    .nav .mobile_nav p {height:50px;}
+    .nav .mobile_nav .language span {color:#fff;}
     #share .popup_close{display: block; position: absolute; top: 20px ; right: 20px;}
     body #share{padding: 10px; margin-top: 0px;}
     body .footer-icon{width: 50px;height: 50px;}
     .mobile_nav a,.nav p a.logout{padding: 20px; margin-left: -20px; margin-top: -20px; padding-right: 0; font-size: 22px;}
+    .nav p a.logout {display:block;margin-top:20px;}
 
     body .stand_tweet .conut_down_wrap{top: -445px;left: 40px;}
     #team-score {left: 290px;}
@@ -1015,6 +1029,8 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_chart_impact .stand_chart_tip{left:80%;}
     .stand_chart_tip{bottom: 65%; line-height: 1.5em;}
     .tutr-step-skip{top: 90px;}
+
+    body #legal-notice h2 {padding:40px 30px 40px 30px;}
 }
 
 .turnphone {
