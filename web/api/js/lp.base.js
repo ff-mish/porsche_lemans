@@ -595,8 +595,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 100 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 140 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
+						if(isMobile) {
+							setTimeout(function(){
+								$('.tutr-step-bottom').stop().animate({height:90});
+							}, 500);
+						}
                         break;
                     case 5:
                         if( isNoAchivmentsbox ){
@@ -1159,7 +1164,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     </div>\
                 </div>',
             title: '',
-            width: isMobile ? 600 : 760,
+            width: isMobile ? 600 : 920,
             height: 408,
             onload: function() {
                 $_btn.removeAttr( 'disabled' );
@@ -2090,7 +2095,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // swip to load menu
         if(isMobile) {
-			window.scrollTo(0, 1);
             LP.use('hammer' , function(){
                 var $nav = $('.nav');
 
@@ -2303,12 +2307,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                 $(this).find('video').get(0).play();
             });
             // checkOrientation
-            var orientation = window.orientation;
-            if ( orientation != 0 && orientation !== undefined ) {
-                $('.turnphone').show();
-            } else {
-                $('.turnphone').hide();
-            }
+//            var orientation = window.orientation;
+//            if ( orientation != 0 && orientation !== undefined ) {
+//                $('.turnphone').show();
+//            } else {
+//                $('.turnphone').hide();
+//            }
+
+			$(window).bind('orientationchange', function() {
+				var orientation = window.orientation;
+				if ( orientation != 0 && orientation !== undefined ) {
+					$('.turnphone').show();
+				} else {
+					$('.turnphone').hide();
+				}
+			});
 
 
             // no Monitoring

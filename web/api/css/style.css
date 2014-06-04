@@ -370,23 +370,24 @@ body[data-page="stand"] .footer-icon{display: block;}
 .popup_email .con-step{position: absolute;left: 30px;color:#fff;}
 .popup_email .error-tip{color: red;font-size: 20px;position: absolute;width: 94%;bottom: 150px;}
 
-.popup_invite {position: relative; background:#000;width:720px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
+.popup_invite {position: relative; background:#000;width:920px;height:390px;margin-top:60px;padding:53px 10px 0px 30px;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;overflow: hidden;}
 .popup_invite .popup_close {top:15px;right:15px;width:34px;height:34px;z-index:10;}
 .popup_invite .popup_invite_friend_list,.popup_invite .popup_search_friend_list{height: 213px;overflow: auto;-webkit-overflow-scrolling:touch;}
 .popup_invite .popup_search_friend_list{display: none;}
 .popup_invite .popup_invite_search{height: 70px; position: relative;}
-.popup_invite .popup_invite_search input{width: 550px;background: none;border: 1px solid red;padding: 10px;color: white;position: relative;}
+.popup_invite .popup_invite_search input{width: 681px;background: none;border: 1px solid red;padding: 10px;color: white;position: relative;}
 .popup_invite .popup_invite_search .search-btn{display: inline-block;margin: 0 5px;background: #ff0000;color: #fff;font-size: 14px;width: 100px;height: 31px;line-height: 31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
-.popup_invite .popup_invite_search .close-search{display: none; position: absolute;left: 540px;top: 5px;color: red;font-size: 42px;z-index: 1;}
+.popup_invite .popup_invite_search .close-search{display: none; position: absolute;left: 665px;top: 8px;color: red;width:25px;height:25px;text-indent:-999em;z-index: 1;background: url(../images/callto_close_2.png) no-repeat center;}
+.popup_invite .popup_invite_search .close-search:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);}
 
-.popup_invite .friend_item {float:left;width:230px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
+.popup_invite .friend_item {float:left;width:223px;margin:0 0 22px 0;height: 51px;overflow: hidden; }
 .ie8 .popup_invite .friend_item {width: 210px;}
 
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .avatar img{width:50px;height:50px;}
 .popup_invite .friend_item .name {font-size:14px;margin:3px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
-.popup_invite .friend_item .send {font-size:13px;color:#ff0000;cursor: pointer;}
+.popup_invite .friend_item .send {font-size:12px;color:#ff0000;cursor: pointer;}
 .popup_invite .friend_item .send:hover {opacity:0.7;}
 .popup_invite .friend_item .btns {margin:0 0 0 60px;}
 .popup_invite .friend_item .selected {background: url(../images/icon_checked.png) no-repeat;width:24px;height:19px;}

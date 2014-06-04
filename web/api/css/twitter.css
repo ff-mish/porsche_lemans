@@ -45,7 +45,7 @@ a:hover{color:#065be0;}
 .step-btn {background: #065be0;}
 .popup_invite .popup_invite_search input{border: 1px solid #065be0;}
 .popup_invite .popup_invite_search .search-btn{background: #065be0;}
-.popup_invite .popup_invite_search .close-search{color: #065be0;}
+.popup_invite .popup_invite_search .close-search{color: #065be0;background: url(../images/callto_close_2_t.png) no-repeat center;}
 .popup_invite .popup_invite_btns a{background:#065be0; color: white; }
 .team_name.focus{background: #065be0; }
 .team_name_error_tip{background: #065be0;}
