@@ -557,7 +557,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , h );
+                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , isMobile ? h + 25 : h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
                             .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })

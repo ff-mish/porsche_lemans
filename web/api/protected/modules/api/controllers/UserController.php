@@ -232,7 +232,7 @@ class UserController extends Controller{
       }
       
       try {
-        $friends = Yii::app()->twitter->user_followers($user->uuid, $next_cursor);
+        $friends = Yii::app()->twitter->user_friends($user->uuid, $next_cursor);
       }
       catch (Exception $e) {
         $friends = FALSE;
