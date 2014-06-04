@@ -329,7 +329,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
 
 .stand_tit .stand_chart_tip{padding: 4px 10px;bottom: 14px;z-index: 12; width: auto;}
-.stand_tit .stand_chart_tip span{bottom: 17px;}
+.stand_tit .stand_chart_tip span{bottom: 20px;}
 
 .stand_tit span.save_btn {display:inline-block;background: url('../images/ok_bg.png') no-repeat;font-size:10px;display:block;width:44px;height:44px;line-height:44px;text-align:center;color:#f00000;}
 
@@ -386,7 +386,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 .popup_invite .friend_item .avatar {float:left;margin:0 10px 0 0;}
 .popup_invite .friend_item .avatar img{width:50px;height:50px;}
-.popup_invite .friend_item .name {font-size:14px;margin:3px 0;color:white;width:214px;word-break:break-all;word-wrap:break-word;}
+.popup_invite .friend_item .name {font-size:14px;margin:3px 0;color:white;width:148px;float:left;word-break:break-all;word-wrap:break-word;}
 .popup_invite .friend_item .send {font-size:12px;color:#ff0000;cursor: pointer;}
 .popup_invite .friend_item .send:hover {opacity:0.7;}
 .popup_invite .friend_item .btns {margin:0 0 0 60px;}
@@ -867,16 +867,19 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 }
 
 .mobile_nav {display:none;}
+
 @media screen and (max-width:640px){
     .header {height:80px;}
     .logo {top:17px;}
     .hd_info {top:37px;}
-    .page {top:80px;}
     .m-videobg {background-size:auto 110%;background-repeat:no-repeat;}
+    .page {overflow-x:hidden;}
 
     /*nav*/
     .loading-percentage {font-size:14px;}
+    body #legal-notice {top:80px;}
     #home_video{display: none;}
+    #mobile_home_v_poster {position:absolute;top:0;left:0;cursor: pointer;}
     /*home*/
     .home_txt{width: 525px;background: url('../images/home_txt2m.png');height: 300px;margin-left:-262px;}
     .home_share{width: 289px;margin: 300px 0 0 -144px;}
@@ -972,7 +975,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .popup_invite .popup_invite_btns {margin:50px 0 20px 0;}
     .popup_invite .popup_invite_btns a {font-size:20px;width:150px;height:40px;line-height:40px!important;}
     .popup_invite .friend_item {width:267px;height:89px;}
-    .popup_invite .friend_item .name {width: 260px;font-size: 20px;margin: 11px 0;line-height: 1em;}
+    .popup_invite .friend_item .name {width: 167px;font-size: 20px;margin: 11px 0;line-height: 1em;}
     .popup_invite .friend_item .avatar img {width:80px;height:80px;}
     .popup_invite .friend_item .send {font-size:16px;}
 
@@ -987,11 +990,12 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 
     /* tutor */
-    .tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4{width: auto !important;right: 20px !important; height: auto !important;}
+    .tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4{width: auto !important;right: 20px !important; height: auto !important;padding:40px 40px 70px 40px!important;}
     .read_tutr .step-btn {font-size:20px!important;padding:7px 20px!important;}
-    body .tutr-step-tip1 .step-btn {right:42px;bottom:20px;}
+    body .tutr-step .step-con {text-align: justify;}
     body .popup_email .con-step {font-size:22px;}
     body .popup_email h4 {margin-top:25px;}
+    body .tutr-step-tip1 .step-btn, body .tutr-step-tip2 .step-btn, body .tutr-step-tip3 .step-btn, body .tutr-step-tip4 .step-btn {bottom:20px;right:40px;}
 
     body .share-btns{position: fixed;top: 80px;text-align:right;height: 100%;background:url(../images/bg_legal.jpg) no-repeat;background-size:auto 100%;padding: 200px 125px;width: auto;}
     body.lang-en .share-btns {padding-top:110px}
@@ -1032,7 +1036,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_chart_impact .stand_chart_tip{left:80%;}
     .stand_chart_tip{bottom: 65%; line-height: 1.5em;}
     body .tutr-step-skip{top: 100px;font-size:18px;}
-
     body #legal-notice h2 {padding:40px 30px 40px 30px;}
 }
 

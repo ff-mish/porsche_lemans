@@ -1,10 +1,41 @@
 	<!--  -->
-	<div class="bg1 ">
+	<div class="page_wrap bg1 ">
 		<!-- logo -->
     <div class="header">
         <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
         <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
     </div>
+
+		<div class="nav">
+			<div class="post_link">
+				<a href="#" data-a="post_weibo" class="navicon"></a>
+				<div class="post_tips">
+					<?=Yii::t('lemans','Make a tweet')?>
+					<span>◆</span>
+				</div>
+			</div>
+			<p class="on"><?=Yii::t('lemans','Stand')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Race')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
+			<p> &nbsp; </p>
+			<div class="mobile_nav">
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p class="language">
+					<?php if (Yii::app()->language == "zh_cn"): ?>
+						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
+					<?php else:?>
+						<span>En</span> | <a class="f_lang_cn" data-lang="zh_cn" href="#">中文</a>
+					<?php endif;?>
+				</p>
+			</div>
+			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<div class="mobile_menu btn" data-a="show-menu">
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
+		</div>
     <div class="page pagebg1">
       <!-- nav -->
 <!--      <div class="nav">-->
@@ -16,36 +47,6 @@
 <!--          <p> &nbsp; </p>-->
 <!--          <p><a data-a="logout" href="/api/user/logout">--><?//=Yii::t('lemans','Log out')?><!--</a></p>-->
 <!--      </div>-->
-		<div class="nav">
-		    <div class="post_link">
-			    <a href="#" data-a="post_weibo" class="navicon"></a>
-			    <div class="post_tips">
-				    <?=Yii::t('lemans','Make a tweet')?>
-				    <span>◆</span>
-			    </div>
-		    </div>
-			<p class="on"><?=Yii::t('lemans','Stand')?></p>
-		    <p class="disabled"><?=Yii::t('lemans','Race')?></p>
-		    <p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
-		    <p> &nbsp; </p>
-            <div class="mobile_nav">
-                <p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
-                <p class="language">
-	            <?php if (Yii::app()->language == "zh_cn"): ?>
-		            <a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
-	            <?php else:?>
-		            <span>En</span> | <a class="f_lang_cn" data-lang="zh_cn" href="#">中文</a>
-	            <?php endif;?>
-                </p>
-            </div>
-		    <p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
-		    <div class="mobile_menu btn" data-a="show-menu">
-		    	<p></p>
-		    	<p></p>
-		    	<p></p>
-		    </div>
-		</div>
       <!-- stand -->
       <div class="stand">
         <div id="data-stand" style="display:none" 

@@ -114,7 +114,7 @@ outline: none !important;
 .stand_del.disabled{display: none;}
 .stand_add.disabled{display: none;}
 
-#legal-notice{position: fixed;z-index:100;top: 80px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
+#legal-notice{position: fixed;z-index:100;top: 60px; bottom: 0; width: 100%; background:url(../images/bg_legal.jpg) no-repeat center top fixed ; background-size:cover; display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 20px 30px 80px 30px;color:#fff;}
 #legal-notice .popup_close {right:20px;top:20px;z-index:10;}
 #legal-notice .jspDrag{background: white;}
