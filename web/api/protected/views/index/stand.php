@@ -2,7 +2,7 @@
 	<div class="bg1 ">
 		<!-- logo -->
     <div class="header">
-        <a href="" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
+        <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
         <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
     </div>
     <div class="page pagebg1">
