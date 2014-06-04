@@ -209,6 +209,7 @@ class WebController extends Controller {
   // 赛道数据
   public function actionRacedata() {
     
+    $lenght_of_race = 13.6;
     // weibo 
     // 第一步，把所有的Team 的数据拿出来
     $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_WEIBO."'";
@@ -234,7 +235,6 @@ class WebController extends Controller {
     $distance = $speed * $hour;
     
     // 圈数
-    $lenght_of_race = 13.6;
     $lap = round($distance / $lenght_of_race, 0);
     
     $weibo = array(
@@ -245,6 +245,7 @@ class WebController extends Controller {
         "typeIndex" => 0,
     );
     
+    // ===================================================================
     // Twitter
     $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_TWITTER."'";
     $command = Yii::app()->db->createCommand($sql);
@@ -269,7 +270,6 @@ class WebController extends Controller {
     $twittr_distance = $speed * $hour;
     
     // 圈数
-    $lenght_of_race = 13.6;
     $twitter_lap = round($distance / $lenght_of_race, 0);
     
     $twitter = array(
@@ -294,7 +294,52 @@ class WebController extends Controller {
   
   // 计算每组的数据
   public function actionTeamdata() {
-    print "DATA";
+    $lenght_of_race = 13.6;
+    $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
+    
+    $teams = array();
+    foreach ($fromes as $from) {
+      $teams_in = array();
+      // 先把每组速度汇总数据拿出来
+      $sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
+      $command = Yii::app()->db->createCommand($sql);
+      $results = $command->queryAll();
+      
+      foreach ($results as $index => $result) {
+        $total_average = $result["average_total"] + 0.1;
+        $total = $result["team_total"];
+        
+        // 速度
+        $speed = ceil($total_average / $total);
+        
+        // 距离
+        $total_seconds = $total * (30 + 2);
+        $hour = $total_seconds / 3600;
+        $distance = $speed * $hour;
+        
+        // Lap
+        $lap = round($distance / $lenght_of_race, 0);
+        
+        // 排名
+        $ranking = $index + 1;
+        
+        // 组名
+        $team = $result["name"];
+        
+        $teams_in[] = array(
+            "name" => "T1",
+            "distance" => $distance,
+            "rankings" => $ranking,
+            "team" => $team,
+            "speed" => $speed,
+            "lap" => $lap,
+            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
+        );
+      }
+      $teams[$from] = $teams_in;
+    }
+    
+    $this->responseJSON($teams, "SUCCESS");
   }
 }
 
