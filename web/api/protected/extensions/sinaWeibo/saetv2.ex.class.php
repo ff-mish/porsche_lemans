@@ -2941,6 +2941,20 @@ class SaeTClientV2
 		$params['count'] = $count;
 		return $this->oauth->get( 'search/suggestions/users',  $params );
 	}
+  
+  /**
+   * 搜索 Topic #xx# 话题
+   * @param type $q
+   * @param type $count
+   * @param type $page
+   */
+  public function search_topic($q, $count = 10, $page = 1) {
+		$params = array();
+		$params['q'] = $q;
+		$params['count'] = $count;
+    $params["page"] = $page;
+		return $this->oauth->get( 'search/topics',  $params );
+  }
 
 
 	/**
