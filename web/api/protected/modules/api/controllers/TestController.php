@@ -265,7 +265,20 @@ class TestController extends Controller {
       UserAR::getAtScreenNameFromMsg($msg);
       $this->render("invite");
     }
-
-
+    
+    public function actionGeneratedata () {
+      $user = UserAR::crtuser();
+      header("Conent-Type: text/html; charset=utf-8");
+      
+      // 发微博
+      $msg = "发了一个微博";
+      for ($i = 0; $i < 1000; $i++) {
+        $twitteAr = new TwitteAR();
+        $ret = $twitteAr->twittePost($msg);
+        print $ret->tid. "Send weibo ". "<br />";
+      }
+      
+      // 
+    }
 }
 

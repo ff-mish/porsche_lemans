@@ -1638,6 +1638,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     });
 
     LP.action('repost' , function( data ){
+      var self = $(this);
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -1656,14 +1657,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             onload: function(){
                 var panel = this;
                 panel.$panel.find('.popup_dialog_btns .p-cancel')
-                    .click(function(){
+                    .click(function() {
                         panel.close();
                     })
                     .end()
                     .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
-                        api.post( '/api/media/share' , {share_text: msg , media_id: data.mid} , function(){
+                        api.post( '/api/media/share' , {share_text: msg , media_id: self.data("d")} , function(){
                             //LP.right('success');
                             panel.close();
                         }, function () {

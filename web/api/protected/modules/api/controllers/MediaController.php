@@ -94,9 +94,9 @@ class MediaController extends Controller {
     }
     
     $mediaAr = new MediaAR();
-    $mediaAr->share($media_id, $share_text);
+    $ret = $mediaAr->share($media_id, $share_text);
     
-    $this->responseJSON(array(), "success");
+    $this->responseJSON($ret, "success");
   }
 }
 

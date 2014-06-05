@@ -55,7 +55,7 @@
 	<img src="{{image}}" style="width:100%"/>
 	<div class="fuelshade" style="display:none" data-d="mid={{mid}}" data-a="preview"></div>
 	<div class="fuelbtnbox" style="display:none">
-		<div class="fuelbtn fuelbtn1" data-img="{{image}}" data-a="repost"></div>
+		<div class="fuelbtn fuelbtn1" data-d="{{mid}}" data-img="{{image}}" data-a="repost"></div>
 		<div class="fuelbtn fuelbtn2" data-d="mid={{mid}}" data-a="preview"></div>
 	</div>
 </div>
