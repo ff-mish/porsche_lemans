@@ -1,37 +1,56 @@
-	<!--  -->
-	<div class="page pagebg1">
-		<!--  -->
-		<div class="header">
-			<div class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></div>
-			<div class="hd_info"></div>
-		</div>
-		<!--  -->
-		<div class="page ">
-			<!-- nav -->
-			<div class="nav">
-				<a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-				<p><a href="/race"><?=Yii::t('lemans','The Race')?></a></p>
-				<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
-				<p><a href="/stand"><?=Yii::t('lemans','My Stand')?></a></p>
-				<p class="on"><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
-		          <p> &nbsp; </p>
-		          <p><a data-a="logout" href="/api/user/logout"><?=Yii::t('lemans','Log out')?></a></p>
-			</div>
-			<!-- fuel -->
-			<div class="fuel">
-				<div class="fuellist cs-clear">
-				</div>
-				<div class="loading"></div>
-				<!-- fuellist -->
-				<div class="fuelmore">
-					<a href="#" data-a="fuel-load"><?php echo Yii::t("lemans", "LOAD MORE")?></a>
-				</div>
-			</div>
-			<!-- fuel end -->
-		</div>
+<div class="page_wrap ">
+	<div class="header">
+	    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
+	    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
 	</div>
 	<!--  -->
-	<script type="text/tpl" id="fuel-tpl">
+	<div class="page pagebg5">
+		<!--  -->
+		<!-- nav -->
+		<div class="nav">
+			<div class="post_link">
+				<a href="#" data-a="post_weibo" class="navicon"></a>
+				<div class="post_tips">
+					<?=Yii::t('lemans','Make a tweet')?>
+					<span>◆</span>
+				</div>
+			</div>
+			<p><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
+			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p class="on"><?=Yii::t('lemans','Fuel')?></p>
+			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
+			<p> &nbsp; </p>
+			<div class="mobile_nav">
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p class="language">
+					<?php if (Yii::app()->language == "zh_cn"): ?>
+						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
+					<?php else:?>
+						<span>En</span> | <a class="f_lang_cn" data-lang="zh_cn" href="#">中文</a>
+					<?php endif;?>
+				</p>
+			</div>
+			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<div class="mobile_menu btn" data-a="show-menu">
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
+		</div>
+		<!-- fuel -->
+		<div class="fuel">
+			<div class="fuellist cs-clear">
+			</div>
+			<div class="loading"></div>
+			<!-- fuellist -->
+			<div class="fuelmore">
+				<a href="#" data-a="fuel-load"><?php echo Yii::t("lemans", "LOAD MORE")?></a>
+			</div>
+		</div>
+		<!-- fuel end -->
+	</div>
+</div>
+<script type="text/tpl" id="fuel-tpl">
 <div class="fuelitem" {{#if video}}data-video="{{uri}}"{{/if}}>
 	<img src="{{image}}" style="width:100%"/>
 	<div class="fuelshade" style="display:none" data-d="mid={{mid}}" data-a="preview"></div>
@@ -40,5 +59,4 @@
 		<div class="fuelbtn fuelbtn2" data-d="mid={{mid}}" data-a="preview"></div>
 	</div>
 </div>
-	</script>
-<!--  -->
+</script>

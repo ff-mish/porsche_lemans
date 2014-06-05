@@ -1,9 +1,9 @@
 <div class="page_wrap ">
-<div class="header">
-    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
-    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
-</div>
-<div class="page pagebg1">
+	<div class="header">
+	    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
+	    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
+	</div>
+	<div class="page pagebg1">
 		<!-- nav -->
 		<div class="nav">
 			<div class="post_link">
@@ -13,9 +13,9 @@
 					<span>◆</span>
 				</div>
 			</div>
-			<p class="disabled"><?=Yii::t('lemans','Stand')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Race')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
+			<p><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
+			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
 			<p class="on"><?=Yii::t('lemans','Monitoring')?></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
@@ -68,26 +68,27 @@
 		</div>
 		<!-- monitoring end -->
 	</div>
-<div class="tweet-con">
-  <ul class="tweet-list clearfix">
-    <li class="item clearfix">
-      <ul class="tweet-items">
-      </ul>
-    </li>
-    <li class="item">
-      <ul class="tweet-items">
-      </ul>
-    </li>
-    <li class="item">
-      <ul class="tweet-items">
-      </ul>
-    </li>
-    <li class="item">
-      <ul class="tweet-items">
-      </ul>
-    </li>
-  </ul>
-</div>
+	<div class="tweet-con">
+	  <ul class="tweet-list clearfix">
+	    <li class="item clearfix">
+	      <ul class="tweet-items">
+	      </ul>
+	    </li>
+	    <li class="item">
+	      <ul class="tweet-items">
+	      </ul>
+	    </li>
+	    <li class="item">
+	      <ul class="tweet-items">
+	      </ul>
+	    </li>
+	    <li class="item">
+	      <ul class="tweet-items">
+	      </ul>
+	    </li>
+	  </ul>
+	</div>
+<div>
 
 <script type="text/tpl" id="tweet-item-tpl">
         <li class="tweet-signle-item clearfix" data-uuid="{{uuid}}">
@@ -99,8 +100,8 @@
             <div class="time">{{date}}</div>
           </div>
           <div class="btns">
-          	<a href="#" data-a="mo-retweet">Retweet</a>
-          	<a href="#" data-a="mo-comment">Comment</a>
+          	<a href="#" data-a="mo-retweet"><img src="/images/retweet.png"/></a>
+          	<a href="#" data-a="mo-comment"><img src="/images/comment.png"/></a>
           </div>
         </li>
 </script>

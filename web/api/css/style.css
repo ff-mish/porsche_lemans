@@ -116,7 +116,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .callto_close{background: url('../images/callto_close.png') no-repeat;width: 20px;height: 20px;position: absolute;right: 10px;top: 8px;}
 
 .skipintro{background:#000;position:fixed;font-size:14px;padding:8px 0;text-align:center;width:122px;margin-left:-61px;left:50%;bottom: 70px;z-index:10;border-radius: 4px;-webkit-border-radius: 4px;-moz-border-radius: 4px;-o-border-radius: 4px;-ms-border-radius: 4px;display: none;}
-.skipintro:hover {background:#f00;color:#065be0;opacity:1;}
+.skipintro:hover {background:#f00;color:white;opacity:1;}
 
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
@@ -151,7 +151,11 @@ body[data-page="stand"] .footer-icon{display: block;}
 .monitor_list .avatar img{width: 100%;}
 .monitor_list .desc{margin-left: 32%;line-height: 1.4em;word-break: break-all;}
 .monitor_list .desc .title{margin-bottom: 5px;}
-.tweet-signle-item{margin-bottom: 15px;}
+.monitor_list .desc .time{color:#565656;}
+.monitor_list .desc .profile-msg{color: #a5a5a5;}
+.monitor_list .btns{position: absolute;bottom: -3px;right: 0;line-height: 10px;}
+.monitor_list .btns img{vertical-align: middle;margin: 0 2px;}
+.tweet-signle-item{margin-bottom: 15px;position: relative;}
 .monitor_box{color:#a3a3a3;position: relative;margin-bottom: 15px;}
 .monitor_pho{float: left;width: 80px;}
 .monitor_info{float: left;width: 186px;}
@@ -181,8 +185,8 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 /* race */
 .race_track{width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
-.race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%}
-.race_nav{width: 116px;height: 167px;position: absolute;left:74px;top:420px;font-size: 18px;font-weight: bold;}
+.race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%; overflow: hidden;}
+.race_nav{height: 167px;position: absolute;left:74px;bottom: 60px;font-size: 18px;font-weight: bold;}
 .race_time{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat;height: 45px}
 .race_speed{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat 0 -45px;margin-bottom:22px;}
 .race_navitem{background: url('../images/race_nav.png') no-repeat 0 -107px;height: 31px;line-height: 30px;padding-left:45px;}
