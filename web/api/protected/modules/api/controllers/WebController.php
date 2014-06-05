@@ -282,11 +282,11 @@ class WebController extends Controller {
     
     if ($twitter_speed > $speed) {
       $twitter["rankings"] = 1;
-      $weibo["rankings"] = 0;
+      $weibo["rankings"] = 1;
     }
     else {
       $twitter["rankings"] = 0;
-      $weibo["rankings"] = 1;
+      $weibo["rankings"] = 2;
     }
     
     $this->responseJSON(array("twitter" => $twitter, "weibo" => $weibo), "success");
@@ -327,10 +327,10 @@ class WebController extends Controller {
         $team = $result["name"];
         
         $teams_in[] = array(
-            "name" => "T1",
             "distance" => $distance,
             "rankings" => $ranking,
             "team" => $team,
+            "id" => $result["tid"],
             "speed" => $speed,
             "lap" => $lap,
             "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
