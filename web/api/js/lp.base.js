@@ -2914,6 +2914,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             case "race":
                 if(document.createElement("canvas").getContext){
+                  return;
                     LP.use('../race/race');
 
                     // get server time 

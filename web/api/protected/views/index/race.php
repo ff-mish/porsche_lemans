@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<!-- race -->
-		<div class="race">
+<!--		<div class="race">
 			<div class="race_track" id="map"></div>
 			<div class="race_bg" id="container">
 			</div>
@@ -48,7 +48,12 @@
 				<div class="race_navitem "><?=Yii::t('lemans','Networks')?></div>
 				<div class="race_navitem race_navitemon"><?=Yii::t('lemans','Teams')?></div>
 			</div>
-		</div>
+		</div>-->
+    <div id="container"></div>
+    <div id="map"></div>
 		<!-- race end -->
 	</div>
 </div>
+
+<script type="application/javascript" src="/js/track.js"></script>
+  
