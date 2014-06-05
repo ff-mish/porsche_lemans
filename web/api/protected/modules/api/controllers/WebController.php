@@ -75,6 +75,33 @@ class WebController extends Controller {
     die();
   }
   
+  public function actionCronFetchTwitte() {
+    $token = SystemAR::get("weibo_token");
+    $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
+    
+    $ret = $weibo_api->search_topic("2014");
+    
+    if (!isset($ret["statuses"])) {
+      return print_r($ret);
+    }
+    
+    $url = "http://www.letustestit.eu/api/web/cronnewtwitte";
+    //$url = "http://lemans.local/api/web/cronnewtwitte";
+    
+    $ch = curl_init($url);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
+    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+    curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+    $response = curl_exec($ch);
+    
+    print_r($response);
+    die();
+  }
+  
   public function actionCronNewTwitte() {
     $request = Yii::app()->getRequest();
     if (!$request->isPostRequest) {
@@ -86,7 +113,7 @@ class WebController extends Controller {
       return $this->responseError("error", 500);
     }
       
-    $statuses = json_decode($data);
+    $statuses = json_decode($data, TRUE);
     
     $from = $request->getPost("from");
     
@@ -177,6 +204,142 @@ class WebController extends Controller {
         }
       }
     }
+  }
+  
+  // 赛道数据
+  public function actionRacedata() {
+    
+    $lenght_of_race = 13.6;
+    // weibo 
+    // 第一步，把所有的Team 的数据拿出来
+    $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_WEIBO."'";
+    $command = Yii::app()->db->createCommand($sql);
+    
+    $teamScores = $command->queryAll();
+    $total = count($teamScores) + 1;
+    // 然后计算平均速度
+    $total_average = 0.1;
+    foreach ($teamScores as $teamScore) {
+      $total_average += $teamScore['average'];
+    }
+    
+    // 速度
+    $speed = ceil($total_average / $total);
+    
+    // 距离
+    // 速度单位是 KM / Hours
+    // 分数是30秒计算一次, 所以总共是30秒
+    // 可能还要加上2秒误差
+    $total_seconds = $total * (30 + 2);
+    $hour = $total_seconds / 3600;
+    $distance = $speed * $hour;
+    
+    // 圈数
+    $lap = round($distance / $lenght_of_race, 0);
+    
+    $weibo = array(
+        "name"=> Yii::t("lemans" ,"Weibo"),
+        "distance" => $distance,
+        "lap" => $lap,
+        "speed" => $speed,
+        "typeIndex" => 0,
+    );
+    
+    // ===================================================================
+    // Twitter
+    $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_TWITTER."'";
+    $command = Yii::app()->db->createCommand($sql);
+    
+    $teamScores = $command->queryAll();
+    $total = count($teamScores) + 1;
+    // 然后计算平均速度
+    $total_average = 0.1;
+    foreach ($teamScores as $teamScore) {
+      $total_average += $teamScore['average'];
+    }
+    
+    // 速度 
+    $twitter_speed = ceil($total_average / $total);
+    
+    // 距离
+    // 速度单位是 KM / Hours
+    // 分数是30秒计算一次, 所以总共是30秒
+    // 可能还要加上2秒误差
+    $total_seconds = $total * (30 + 2);
+    $hour = $total_seconds / 3600;
+    $twittr_distance = $speed * $hour;
+    
+    // 圈数
+    $twitter_lap = round($distance / $lenght_of_race, 0);
+    
+    $twitter = array(
+        "name"=> Yii::t("lemans" ,"Twitter"),
+        "distance" => $twittr_distance,
+        "lap" => $twitter_lap,
+        "speed" => $twitter_speed,
+        "typeIndex" => 1,
+    );
+    
+    if ($twitter_speed > $speed) {
+      $twitter["rankings"] = 1;
+      $weibo["rankings"] = 0;
+    }
+    else {
+      $twitter["rankings"] = 0;
+      $weibo["rankings"] = 1;
+    }
+    
+    $this->responseJSON(array("twitter" => $twitter, "weibo" => $weibo), "success");
+  }
+  
+  // 计算每组的数据
+  public function actionTeamdata() {
+    $lenght_of_race = 13.6;
+    $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
+    
+    $teams = array();
+    foreach ($fromes as $from) {
+      $teams_in = array();
+      // 先把每组速度汇总数据拿出来
+      $sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
+      $command = Yii::app()->db->createCommand($sql);
+      $results = $command->queryAll();
+      
+      foreach ($results as $index => $result) {
+        $total_average = $result["average_total"] + 0.1;
+        $total = $result["team_total"];
+        
+        // 速度
+        $speed = ceil($total_average / $total);
+        
+        // 距离
+        $total_seconds = $total * (30 + 2);
+        $hour = $total_seconds / 3600;
+        $distance = $speed * $hour;
+        
+        // Lap
+        $lap = round($distance / $lenght_of_race, 0);
+        
+        // 排名
+        $ranking = $index + 1;
+        
+        // 组名
+        $team = $result["name"];
+        
+        $teams_in[] = array(
+            "name" => "T1",
+            "distance" => $distance,
+            "rankings" => $ranking,
+            "team" => $team,
+            "speed" => $speed,
+            "lap" => $lap,
+            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
+        );
+      }
+      $teams[$from] = $teams_in;
+    }
+    
+    $this->responseJSON($teams, "SUCCESS");
   }
 }
 
