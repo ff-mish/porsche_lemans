@@ -187,7 +187,7 @@ class IndexController extends Controller {
     // 查看列表
     else {
       $page = $request->getParam("page", 1);
-      $type = $request->getParam("type", "image");
+      $type = $request->getParam("type", NULL);
       
       $mediaAr = new MediaAR();
       $medias = $mediaAr->getMedias($type, $page);
