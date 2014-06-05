@@ -4,6 +4,9 @@
 LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api ){
     'use strict'
 
+    LP.use('panel');
+
+    
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
@@ -59,17 +62,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
       var msg = self.parents(".tweet-signle-item").find(".profile-msg").text();
       LP.panel({
-        type: "panel",
-        "content": "<textarea name='msg'>"+msg+"</textarea><input name='uuid' type='hidden' value='"+uuid+"'/>",
-        "title": "",
-        mask: true,
-        style: "default",
-        className: "retweet popup",
-        destroy: true,
-        submitButton: true,
-        cancelButton: true,
-        submitText: _e("Repost"),
-        cancelText: _e("Cancel"),
+        content: '<div class="popup_box popup_dialog" >\
+                    <textarea class="popup_dialog_msg" name="msg">' + msg + '</textarea>\
+                    <input name="uuid" type="hidden" value="' + uuid + '"/>\
+                    <p class="error-tip"></p>\
+                    <div class="popup_dialog_btns">\
+                        <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>\
+                    </div>\
+                    <div class="popup_dialog_status">\
+                        <span>' + _e('Success!') + '</span>\
+                    </div>\
+                </div>',
+        title: "",
         closeAble: false,
         onShow: function () {
           //TODO::
@@ -1436,6 +1440,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 
     LP.action("post_weibo" , function( data ){
+        if( $(this).attr('disabled') ) return false;
         var $btn = $(this).attr('disabled' , 'disabled');
         var max_length = 112;
 		var html_buttons = '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>';
@@ -1931,8 +1936,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 
     // for monition here
-    LP.action('mo-retweet' , retweetMonitoring);
-    LP.action('mo-comment' , commentMonitoring);
+    LP.action('mo-retweet' , function(){
+        retweetMonitoring();
+        return false;
+    });
+    LP.action('mo-comment' , function(){
+        commentMonitoring();
+        return false;
+    });
 
 
     // page init here

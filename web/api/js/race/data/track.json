@@ -1,5 +1,5 @@
 {
-    "svgFile":"track.svg",
+    "svgFile":"/js/race/data/track.svg",
     "startDistance":100,
     "slopeScale":1,
     "slopes":[
