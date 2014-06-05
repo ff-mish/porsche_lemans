@@ -1,7 +1,7 @@
 /*
  * page base action
  */
-LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
+LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api ){
     'use strict'
 
     if( $.browser.msie && $.browser.version <= 8 ){
@@ -480,6 +480,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
     })();
 
     var animateTure =  (function(){
+		$('.page').css({'overflow-x':'visible'});
         $('.tutr-step').find('.step-btn')
             .click(function(){
                 animateTure.showStep( $(this).data('step') );
@@ -490,6 +491,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         $(document.body).delegate('.read_tutr .tutr-step-skip,.read_tutr .tutr-step-top,.read_tutr .tutr-step-left,.read_tutr .tutr-step-right,.read_tutr .tutr-step-bottom',
             'click' , function(){
                 $('.tutr-step').fadeOut();
+				if( isNoAchivmentsbox ){
+					$('.stand_achivments .stand_achivmentsbox .full-star').removeClass('full-star').html('');
+				}
             })
         // if( $('.read_tutr').length ){
         //     $('.tutr-step-skip,.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom').click(function(){
@@ -499,6 +503,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         $('body').keyup(function(e){
             if(e.keyCode == 27 && $('.tutr-step').hasClass('read_tutr')) {
+				$('.page').css({'overflow-x':'hidden'});
                 $('.tutr-step').fadeOut();
             }
         });
@@ -557,7 +562,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , h );
+                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , isMobile ? h + 25 : h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
                             .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })
@@ -595,7 +600,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 140 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 160 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
 						if(isMobile) {
 							setTimeout(function(){
@@ -689,6 +694,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                         });
                         
                     default:
+						$('.page').css({'overflow-x':'hidden'});
                         $('.tutr-step').fadeOut();
 
                 }
@@ -1412,7 +1418,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
         // push all content to right
         $('.page').width( $('.page').width() );
 
-        $('.page').animate({
+        $('.stand').animate({
             marginLeft: left >= 0 ? 0 : 250
         } , 400);
 
@@ -2075,6 +2081,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
             } , 300);
         });
 
+		$('#share').click(function(){
+			$('.share-btns').stop( true , true ).fadeIn();
+		});
+
 		// init post twitter button
 		$('.post_link').hover(function(){
 			$(this).find('.post_tips').fadeIn();
@@ -2303,9 +2313,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 
         // render mobile video
         if( isMobile ){
-            $("#mobile_home_v").html('<video style="width: 100%;height: 100%;"\
-                preload="true" poster="/images/home_v.jpg" src="/videos/intro.mp4">\
-                 <source src="/videos/intro.mp4" type="video/mp4" />\
+            $("#mobile_home_v").html('<div id="mobile_home_v_poster"><img src="/images/home_v.jpg" /></div><video style="width: 100%;height: 100%;"\
+                preload="true" poster="/images/home_v.jpg" src="/videos/intro_1.mp4">\
+                 <source src="/videos/intro_1.mp4" type="video/mp4" />\
             </video>').click(function(){
                 $(this).find('video').get(0).play();
             });
@@ -2316,6 +2326,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
 //            } else {
 //                $('.turnphone').hide();
 //            }
+
+			$('#mobile_home_v_poster').click(function(){
+				$(this).hide();
+				$('#mobile_home_v').find('video').get(0).play();
+			});
 
 			$(window).bind('orientationchange', function() {
 				var orientation = window.orientation;
@@ -2525,15 +2540,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader'] , function( $ , api ){
                     var cw = $('.stand_chart_tip').width();
                     var tw = $('.member_item').width();
 
-                    console.log( w , cw  , tw );
                     if( w + cw < tw ){
                         $('.stand_chart_tip').css({
                             left: w,
                             top: 4,
                             bottom: 'auto'
                         }).find('span').css({
-                            left: 0,
-                            top: 4
+                            left: 4,
+                            top: 3
                         });
                     } else {
                         $('.stand_chart_tip').css({
