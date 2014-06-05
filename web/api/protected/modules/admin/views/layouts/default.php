@@ -13,6 +13,7 @@
     <link href="/admin/css/style.css" rel="stylesheet" type="text/css" />
 </head>
   <body class="container" ng-app="AdminApp">
+    <?php if (Yii::app()->session["admin_login"]):?>
   <div class="row">
     <div class="menu-bar span2">
       <ul class='nav nav-tabs nav-stacked'>
@@ -23,6 +24,7 @@
         <li><a href="/admin/index/logout">Logout</a></li>
       </ul>
     </div>
+    <?php endif;?>
     <div class="container  span10">
         <?php echo $content?>
     </div>

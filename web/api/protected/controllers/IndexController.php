@@ -182,5 +182,13 @@ class IndexController extends Controller {
     
     $this->render("winnerprices");
   }
+  
+  public function actionTeamrace() {
+    $params = array(
+        "page_name" => "teamrace"
+    );
+    $this->page_name = $params["page_name"];
+    $this->render("teamrace", $params);
+  }
 }
 

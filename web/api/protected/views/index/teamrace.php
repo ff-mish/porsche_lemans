@@ -50,7 +50,6 @@
 			</div>
 		</div>-->
     <div id="container"></div>
-    <div id="map"></div>
     <div class="race_nav">
       <div class="race_time"></div>
       <div class="race_speed"></div>
@@ -61,5 +60,5 @@
 	</div>
 </div>
 
-<script type="application/javascript" src="/js/track.js"></script>
+<script type="application/javascript" src="/js/sticks.js"></script>
   

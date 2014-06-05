@@ -51,7 +51,9 @@ class TwitteAR extends CActiveRecord {
    }
    else if ($twitte->ref_type && $twitte->ref_id) {
      $share_media = MediaAR::model()->findByPk($twitte->ref_id);
-     $media = $share_media->uri;
+     if ($share_media) {
+      $media = $share_media->uri;
+     }
    }
    
    return $media;

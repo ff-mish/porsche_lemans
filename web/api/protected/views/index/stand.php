@@ -81,27 +81,27 @@
 			</div>
 			<!--  -->
 			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
-				<h2 class="fl"><?php echo Yii::t("lemans", "Race Starts In")?></h2>
-				<div class="conut_down_wrap stand_count_down">
+				<h2 class="fl"><?php echo Yii::t("lemans", "latest post")?></h2>
+				<!--<div class="conut_down_wrap stand_count_down">
 			      	<div class="conut_down cs-clear" data-fadein>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "d")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "h")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "min")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;"><?php echo Yii::t("lemans", "sec")?></span>
 					</div>
-			      </div>
-				<!-- <div style="display:none;">
+			      </div>-->
+				 <div>
 					<a class="stand_del disabled"><img src="/images/stand_del.png"></a>
 					<a class="stand_add"><img src="/images/stand_add.png"></a>
 					<div class="stand_posts"><div class="stand_posts_inner"></div></div>
 				</div>
-				<div class="stand_posts_p1">
+<!--				<div class="stand_posts_p1">
 					<div class="stand_posts_item">-</div>
 					<div class="stand_posts_item">-</div>
-<!--					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>
+					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>
 				</div> -->
 			</div>
-			<!--  -->
+			
 			<div class="stand_chart">
 				<div class="stand_chart_score">
 				</div>
