@@ -91,7 +91,7 @@
 <div>
 
 <script type="text/tpl" id="tweet-item-tpl">
-        <li class="tweet-signle-item clearfix" data-uuid="{{uuid}}">
+        <li class="tweet-signle-item clearfix">
         {{#if media}}<div class="avatar"><img src="{{media}}" alt="" /></div>{{/if}}
           <div class="desc {{#unless media}}no-media{{/unless}}">
             <div class="title">@{{name}}</div>
@@ -100,8 +100,8 @@
             <div class="time">{{date}}</div>
           </div>
           <div class="btns">
-          	<a href="#" data-a="mo-retweet"><img src="/images/retweet.png"/></a>
-          	<a href="#" data-a="mo-comment"><img src="/images/comment.png"/></a>
+          	<a href="#" data-a="mo-retweet" data-d="uuid={{uuid}}"><img src="/images/retweet.png"/></a>
+          	<a href="#" data-a="mo-comment" data-d="uuid={{uuid}}"><img src="/images/comment.png"/></a>
           </div>
         </li>
 </script>
