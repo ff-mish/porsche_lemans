@@ -1473,7 +1473,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var keycode = event.which;
                     if (keycode != 8) {
                       //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
-					  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                      panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
                       event.preventDefault();
                       return false;
                     }
@@ -1558,7 +1558,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 </div>\
                 <div class="cs-clear"></div>\
             </div>'
-        }
+        };
 
         var $img = $(this)
             .closest('.fuelitem')
@@ -1659,8 +1659,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
                         api.post( '/api/media/share' , {share_text: msg , media_id: data.mid} , function(){
-                            LP.right('success');
-                        } );
+                            //LP.right('success');
+                            panel.close();
+                        }, function () {
+                          panel.close();
+                        });
                     });
             }
         });
