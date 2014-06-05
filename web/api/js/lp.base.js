@@ -1639,6 +1639,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     LP.action('repost' , function( data ){
       var self = $(this);
+      var max_length = 112;
+      var share_text = "They’re watching you! Share image for getting more fuel for your race ";
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -1646,9 +1648,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
-                        <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
-                    </div>\
-                    <div class="popup_dialog_btns">'+html_buttons+'</div>\
+                        <textarea>' + _e(share_text) + '</textarea>\
+                    </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">'+share_text.length+'</span>/<span class="s2">' + max_length + '</span></div></div>\
+                    <div class="popup_dialog_btns">'+html_buttons+'<span class="loading"></span></div><div class="popup_dialog_status"><span>' + _e('Success!') + '</span></div>\
                 </div>';
 
         LP.panel({
@@ -1656,6 +1658,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             title: "",
             onload: function(){
                 var panel = this;
+                var loading = panel.$panel.find(".loading");
                 panel.$panel.find('.popup_dialog_btns .p-cancel')
                     .click(function() {
                         panel.close();
@@ -1664,8 +1667,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
+                        loading.css("display", "block");
                         api.post( '/api/media/share' , {share_text: msg , media_id: self.data("d")} , function(){
                             //LP.right('success');
+                            loading.css("display", "none");
                             panel.close();
                         }, function () {
                           panel.close();
