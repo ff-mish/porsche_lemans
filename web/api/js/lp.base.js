@@ -933,16 +933,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( resize ){
                         $(window).bind( 'resize.video-' + id , function(){
                             if( v.isRemoved  ) return;
-                            var w = $wrap.width() + 10;
-                            var h = $wrap.height() + 10;
+                            var w = $wrap.width() + 40;
+                            var h = $wrap.height() + 40;
                             var vh = 0 ;
                             var vw = 0 ;
                             if( h / w > ratio ){
-                                vh = h;
-                                vw = h / ratio;
+                                vh = h + 40;
+                                vw = vh / ratio;
                             } else {
-                                vh = w * ratio;
-                                vw = w;
+                                vw = w + 40;
+                                vh = vw * ratio;
                             }
                             v.dimensions( vw , vh );
 
