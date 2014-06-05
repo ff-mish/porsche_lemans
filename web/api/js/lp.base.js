@@ -480,6 +480,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     })();
 
     var animateTure =  (function(){
+		$('.page').css({'overflow-x':'visible'});
         $('.tutr-step').find('.step-btn')
             .click(function(){
                 animateTure.showStep( $(this).data('step') );
@@ -502,6 +503,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         $('body').keyup(function(e){
             if(e.keyCode == 27 && $('.tutr-step').hasClass('read_tutr')) {
+				$('.page').css({'overflow-x':'hidden'});
                 $('.tutr-step').fadeOut();
             }
         });
@@ -692,6 +694,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                         
                     default:
+						$('.page').css({'overflow-x':'hidden'});
                         $('.tutr-step').fadeOut();
 
                 }
