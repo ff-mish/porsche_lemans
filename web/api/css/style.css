@@ -885,7 +885,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .logo {top:17px;}
     .hd_info {top:37px;}
     .m-videobg {background-size:auto 110%;background-repeat:no-repeat;}
-    .page {overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+    .page {-webkit-overflow-scrolling:touch;}
 
     /*nav*/
     .loading-percentage {font-size:14px;}
