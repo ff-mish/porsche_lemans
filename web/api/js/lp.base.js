@@ -6,7 +6,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     LP.use('panel');
 
-    
+
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
@@ -57,78 +57,120 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 	// 	});
 	// }
 
-    function retweetMonitoring() {
-      var self = $(this);
-      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
-      var msg = self.parents(".tweet-signle-item").find(".profile-msg").text();
+    function retweetMonitoring( data ) {
+      var msg = $(this).closest(".tweet-signle-item").find(".profile-msg").text();
+      var max_length = 112;
       LP.panel({
-        content: '<div class="popup_box popup_dialog" >\
-                    <textarea class="popup_dialog_msg" name="msg">' + msg + '</textarea>\
-                    <input name="uuid" type="hidden" value="' + uuid + '"/>\
-                    <p class="error-tip"></p>\
-                    <div class="popup_dialog_btns">\
-                        <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>\
-                    </div>\
-                    <div class="popup_dialog_status">\
-                        <span>' + _e('Success!') + '</span>\
-                    </div>\
-                </div>',
+        content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
+                <textarea style="overflow:auto;">' + msg + '</textarea>\
+            </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
+            <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
+                '<span class="loading"></span>\
+            </div>\
+            <div class="popup_dialog_status">\
+                <span>' + _e('Success!') + '</span>\
+            </div>',
         title: "",
         closeAble: false,
         onShow: function () {
-          //TODO::
-        },
-        onSubmit: function () {
-            if( this.disabled ) return;
-            this.disabled = true;
-
-          var textarea = this.$panel.find('textarea');
-          var uuid  = this.$panel.find("input[name='uuid']");
-          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
-                this.disabled = false;
-          });
-        },
-        onCancel: function () {
-          
+            var panel = this;
+            panel.$panel.find('.p-cancel')
+                .click(function(){
+                    panel.close();
+                });
+            panel.$panel.find('textarea').bind("keydown", function (event) {
+              var self = $(this);
+              var length = self.val().length;
+              panel.$panel.find(".msg-sug .s1").html(length);
+              if (length >= max_length) {
+                var keycode = event.which;
+                if (keycode != 8) {
+                  //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                  event.preventDefault();
+                  return false;
+                }
+              }
+              else {
+                panel.$panel.find(".alert-message .msg").html("");
+              }
+            }).trigger('keydown');
+            var isDisabled = false;
+            panel.$panel.find('.p-confirm')
+                .click(function(){
+                    if( isDisabled ) return;
+                    isDisabled = true;
+                    var textarea = this.$panel.find('textarea');
+                    api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
+                        panel.close();
+                    } , null , function(){
+                        isDisabled = false;
+                    });
+                });
         },
         width: $(window).width() * 0.6
       });
+        return false;
     }
     
-    function commentMonitoring() {
+    function commentMonitoring( data ) {
       var self = $(this);
-      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
+      var max_length = 100;
       var screen_name = self.parents(".tweet-signle-item").find(".title").text();
       LP.panel({
-        type: "panel",
-        "content": "<textarea name='msg'>"+screen_name+" " + window.topic +"</textarea>",
-        "title": "",
-        mask: true,
-        style: "default",
-        className: "retweet popup",
-        destroy: true,
-        submitButton: true,
-        cancelButton: true,
-        submitText: _e("Repost"),
-        cancelText: _e("Cancel"),
+        content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
+                <textarea style="overflow:auto;">' + screen_name + " " + window.topic + '</textarea>\
+            </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">0</span>/<span class="s2">' + max_length + '</span></div></div>\
+            <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
+                '<span class="loading"></span>\
+            </div>\
+            <div class="popup_dialog_status">\
+                <span>' + _e('Success!') + '</span>\
+            </div>',
+        title: "",
         closeAble: false,
         onShow: function () {
-          //TODO::
-        },
-        onSubmit: function () {
-            if( this.disabled ) return;
-            this.disabled = true;
-          var textarea = this.$panel.find('textarea');
-          var uuid  = this.$panel.find("input[name='uuid']");
-          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
-            this.disabled = false;
-          });
-        },
-        onCancel: function () {
-          
+            var panel = this;
+            panel.$panel.find('.p-cancel')
+                .click(function(){
+                    panel.close();
+                });
+            panel.$panel.find('textarea').bind("keydown", function (event) {
+              var self = $(this);
+              var length = self.val().length;
+              panel.$panel.find(".msg-sug .s1").html(length);
+              if (length >= max_length) {
+                var keycode = event.which;
+                if (keycode != 8) {
+                  //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                  event.preventDefault();
+                  return false;
+                }
+              }
+              else {
+                panel.$panel.find(".alert-message .msg").html("");
+              }
+            }).trigger('keydown');
+            var isDisabled = false;
+            panel.$panel.find('.p-confirm')
+                .click(function(){
+                    if( isDisabled ) return;
+                    isDisabled = true;
+
+                    var textarea = this.$panel.find('textarea');
+                    api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
+                        panel.close();
+                    } , null , function(){
+                        isDisabled = false;
+                    });
+                });
         },
         width: $(window).width() * 0.6
       });
+      return false;
     }
 
     // widgets and common functions here
@@ -1486,7 +1528,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                   else {
                     panel.$panel.find(".alert-message .msg").html("");
                   }
-                });
+                }).trigger('keydown');
                 this.$panel.find('.p-confirm')
                     .click(function(){
 						if($(this).hasClass('disable')) {
@@ -1936,14 +1978,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 
     // for monition here
-    LP.action('mo-retweet' , function(){
-        retweetMonitoring();
-        return false;
-    });
-    LP.action('mo-comment' , function(){
-        commentMonitoring();
-        return false;
-    });
+    LP.action('mo-retweet' , retweetMonitoring);
+    LP.action('mo-comment' , commentMonitoring);
 
 
     // page init here
