@@ -1577,6 +1577,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     LP.action('preview' , function( data ){
 
         var media = $(this).closest('.fuelitem').data('media');
+        
         // show big pic or big video
         var tpls = {
             'video': '<div class="popup_fuel">\
@@ -1586,7 +1587,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -1600,7 +1601,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         #[description]\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -1610,6 +1611,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var $img = $(this)
             .closest('.fuelitem')
             .children('img');
+        var self = $(this);
+        
         // var imgH = $img.height();
         // var imgW = $img.width();
         var video = $(this).closest('.fuelitem').data('video');
@@ -1665,6 +1668,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 this.$panel.find('.popup_close')
                     .click(function(){
+                      console.log(panel);
                         panel.close();
                     });
             },
@@ -1672,9 +1676,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var $panel = this.$panel;
                 // unbind event
                 $(window).off('resize.fixfuel');
-                return false;
+                return true;
             },
             onSubmit: function(){
+              //
             }
         });
     });
@@ -1701,6 +1706,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             onload: function(){
                 var panel = this;
                 var loading = panel.$panel.find(".loading");
+                
+                var $textarea = panel.$panel.find('textarea');
+                $textarea.bind("keydown", function (event) {
+                  var self = $(this);
+                  var length = self.val().length;
+                  panel.$panel.find(".msg-sug .s1").html(length);
+                  if (length >= max_length) {
+                    var keycode = event.which;
+                    if (keycode != 8) {
+                      //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                      panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                      event.preventDefault();
+                      return false;
+                    }
+                  }
+                  else {
+                    panel.$panel.find(".alert-message .msg").html("");
+                  }
+                }).trigger('keydown');
+                
                 panel.$panel.find('.popup_dialog_btns .p-cancel')
                     .click(function() {
                         panel.close();
@@ -1713,7 +1738,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         api.post( '/api/media/share' , {share_text: msg , media_id: self.data("d")} , function(){
                             //LP.right('success');
                             loading.css("display", "none");
-                            panel.close();
+                            var height = panel.$panel.find('.popup_dialog').height();
+                            panel.$panel.find('.popup_dialog').height(height);
+                            panel.$panel.find('.popup_dialog_btns').fadeOut();
+                            panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
+                              setTimeout(function(){
+                                            panel.close();
+                              }, 500);
+                            });
                         }, function () {
                           panel.close();
                         });
@@ -2958,7 +2990,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <embed name="flash" src="/js/raceflash/track.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/track.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
                         </object>'
                         );
-                     
                 }
                 
                 break;
