@@ -157,7 +157,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             //         .attr("stroke-width" , stockWidth);
 
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '12px' : '13px'});
+                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
 
             var now ;
@@ -557,6 +557,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             .delay( 700 )
                             .css( isMobile ? {left: off.left-20 , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 40 , top: off.top - 10 })
                             .fadeIn();
+
+                        if( isMobile ){
+                            $(document.body).animate({
+                                scrollTop: 0
+                            } , 200);
+                        }
+
                         break;
                     case 2:
                         var off = $('.stand_tit').offset();
@@ -1919,6 +1926,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     });
 
 
+
+    // for monition here
+    LP.action('mo-retweet' , retweetMonitoring);
+    LP.action('mo-comment' , commentMonitoring);
+
+
     // page init here
     // =======================================================================
 	var isComplete = false;
@@ -2812,7 +2825,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               var callbackRender = function(index, group) {
                   for (var i = 0; i < group.length; i++) {
                     var tweet = {
-                      media: group[i]["media"],
+                      media: group[i]['user']["avatar"],
                       date: group[i]["date"],
                       name: group[i]["user"]["name"],
                       from: group[i]["from"],
@@ -2839,9 +2852,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
-                
-                $(".btns .retweet").live("click", retweetMonitoring);
-                $(".btns .comment").live("click", commentMonitoring);
               });
               
               break;

@@ -64,6 +64,7 @@ body{background:#000;height: 100%;width: 100%}
 ================================================================================================= */
 .header{background: #fff;height:60px;position: fixed;left:0;right: 0;top:0;z-index: 1000}
 .logo{background: url('../images/logo2.png') no-repeat;width: 77px;height: 45px;top: 7px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
+a.logo:hover{opacity: 1;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 211px;height: 18px;position: absolute;right: 34px;top: 22px}
 .lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 147px;height: 16px;}
 .nav{font-size: 14px;position: fixed;top: 180px;left:22px;z-index:5;}
@@ -138,13 +139,19 @@ body[data-page="stand"] .footer-icon{display: block;}
 .kv_share{background: url('../images/kv_share.png') no-repeat;width: 300px;height: 130px;margin: 318px auto 0;}
 
 /*monitor*/
-.monitor{width: 1320px;position: absolute;top: 70px;left:250px;}
+.monitor{position: absolute;top: 70px;left:250px;right: 20px;}
 .monitor_tit{font-size: 25px;color:#ddd;line-height: 30px;height: 55px;}
 .monitor_com{padding: 0 0 50px;}
-.monitor_item{float: left;width: 266px;background: #000;padding: 0 17px 16px;margin:0 28px 15px 0;
+.monitor_item{float: left;width: 22%;background: #000;margin:0 3% 15px 0;
     border-radius: 8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;-o-border-radius: 8px;-ms-border-radius: 8px; }
 .monitor_item h2{font-size: 20px;text-align: center;line-height: 70px;}
-.monitor_list{}
+.monitor_list{margin: 0 15px 15px;}
+.monitor_list li{list-style: none;}
+.monitor_list .avatar{width: 27%;float: left;}
+.monitor_list .avatar img{width: 100%;}
+.monitor_list .desc{margin-left: 32%;line-height: 1.4em;word-break: break-all;}
+.monitor_list .desc .title{margin-bottom: 5px;}
+.tweet-signle-item{margin-bottom: 15px;}
 .monitor_box{color:#a3a3a3;position: relative;margin-bottom: 15px;}
 .monitor_pho{float: left;width: 80px;}
 .monitor_info{float: left;width: 186px;}
@@ -326,7 +333,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#aaa;border-radius: 4px;bottom: 70%;width: 185px;padding: 10px;left: 0;font-size: 11px;}
 
 /*.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}*/
-.stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 22px;color: #000;left: 50%;margin-left: -11px;}
+.stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 18px;color: #000;left: 50%;margin-left: -11px;}
 
 .stand_tit .stand_chart_tip{padding: 4px 10px;bottom: 14px;z-index: 12; width: auto;}
 .stand_tit .stand_chart_tip span{bottom: 20px;}

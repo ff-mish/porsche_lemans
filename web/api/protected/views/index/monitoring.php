@@ -1,16 +1,39 @@
+<div class="page_wrap ">
 <div class="header">
-        <div class="logo">PORSCHE</div>
-        <div class="hd_info"></div>
-    </div>
+    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
+    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
+</div>
 <div class="page pagebg1">
 		<!-- nav -->
 		<div class="nav">
-	        <a href="#" data-a="post_weibo" class="navicon"> &nbsp;</a>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/race">The Race</a></p>
-	        <p class="on" style="opacity: 1; margin-left: 0px;"><a href="/monitoring">Monitoring</a></p>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/stand">My Stand</a></p>
-	        <p style="opacity: 1; margin-left: 0px;"><a href="/fuel">Fuel</a></p>
-	        <div class="logout">Log out</div>
+			<div class="post_link">
+				<a href="#" data-a="post_weibo" class="navicon"></a>
+				<div class="post_tips">
+					<?=Yii::t('lemans','Make a tweet')?>
+					<span>◆</span>
+				</div>
+			</div>
+			<p class="disabled"><?=Yii::t('lemans','Stand')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Race')?></p>
+			<p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
+			<p class="on"><?=Yii::t('lemans','Monitoring')?></p>
+			<p> &nbsp; </p>
+			<div class="mobile_nav">
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p class="language">
+					<?php if (Yii::app()->language == "zh_cn"): ?>
+						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
+					<?php else:?>
+						<span>En</span> | <a class="f_lang_cn" data-lang="zh_cn" href="#">中文</a>
+					<?php endif;?>
+				</p>
+			</div>
+			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<div class="mobile_menu btn" data-a="show-menu">
+				<p></p>
+				<p></p>
+				<p></p>
+			</div>
 		</div>
 		<!-- monitoring -->
 		<div class="monitor">
@@ -76,10 +99,8 @@
             <div class="time">{{date}}</div>
           </div>
           <div class="btns">
-            <ul class="btn-items">
-              <li class="retweet">Retweet</li>
-              <li class="comment">Comment</li>
-            </ul>
+          	<a href="#" data-a="mo-retweet">Retweet</a>
+          	<a href="#" data-a="mo-comment">Comment</a>
           </div>
         </li>
 </script>

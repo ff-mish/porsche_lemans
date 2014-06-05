@@ -30,7 +30,7 @@ return array (
     "Fuel" => "能量",
     "Make a tweet" => "发一个微博",
     "Stand" => "准备室",
-    "Log out" => "登出",
+    "Log out" => "注销",
     "Edit team name" => "修改队伍名字",
     "Achievements" => "比赛成就",
     "Latest Posts" => "最新微博",
