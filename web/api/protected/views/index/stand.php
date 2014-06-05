@@ -14,10 +14,11 @@
 					<span>◆</span>
 				</div>
 			</div>
-			<p class="on"><?=Yii::t('lemans','Stand')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Race')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
+			<p class="on"><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
+			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p ><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
+			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
+      
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
 				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
@@ -166,3 +167,5 @@
 		</div>
 	</div>
 	<!--  -->
+  
+

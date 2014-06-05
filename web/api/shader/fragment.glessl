@@ -1,0 +1,22 @@
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+   precision highp float;
+#else
+   precision mediump float;
+#endif
+
+uniform float fillPercent;
+uniform vec3 color;
+uniform float opacity;
+uniform float gradientLength;
+uniform float gradientStartOpacity;
+
+varying float h;
+varying float p;
+
+void main( void ) {
+    if (p>fillPercent) {
+        discard;
+    } else {
+        gl_FragColor=vec4(color,opacity*(gradientStartOpacity+clamp(h,0.0,gradientLength)/gradientLength*(1.0-gradientStartOpacity)));
+    }
+}

@@ -1,0 +1,4 @@
+@font-face {
+    font-family: 'Porsche News Gothic';
+    src: /* local('Porsche News Gothic') ,本地字体出现锯齿 */ url('../font/lt21023.woff') format('woff');
+}
