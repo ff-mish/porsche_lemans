@@ -235,7 +235,7 @@ class WebController extends Controller {
     $distance = $speed * $hour;
     
     // 圈数
-    $lap = round($distance / $lenght_of_race, 0);
+    $lap = ceil($distance / $lenght_of_race);
     
     $weibo = array(
         "name"=> Yii::t("lemans" ,"Weibo"),
@@ -282,11 +282,11 @@ class WebController extends Controller {
     
     if ($twitter_speed > $speed) {
       $twitter["rankings"] = 1;
-      $weibo["rankings"] = 0;
+      $weibo["rankings"] = 1;
     }
     else {
       $twitter["rankings"] = 0;
-      $weibo["rankings"] = 1;
+      $weibo["rankings"] = 2;
     }
     
     $this->responseJSON(array("twitter" => $twitter, "weibo" => $weibo), "success");
@@ -318,7 +318,7 @@ class WebController extends Controller {
         $distance = $speed * $hour;
         
         // Lap
-        $lap = round($distance / $lenght_of_race, 0);
+        $lap = ceil($distance / $lenght_of_race);
         
         // 排名
         $ranking = $index + 1;
@@ -327,10 +327,10 @@ class WebController extends Controller {
         $team = $result["name"];
         
         $teams_in[] = array(
-            "name" => "T1",
             "distance" => $distance,
             "rankings" => $ranking,
             "team" => $team,
+            "id" => $result["tid"],
             "speed" => $speed,
             "lap" => $lap,
             "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
@@ -339,7 +339,30 @@ class WebController extends Controller {
       $teams[$from] = $teams_in;
     }
     
-    $this->responseJSON($teams, "SUCCESS");
+    // 然后去掉分组
+    $total_twitter = count($teams[UserAR::FROM_TWITTER]);
+    $total_weibo = count($teams[UserAR::FROM_WEIBO]);
+    
+    $t_teams = array();
+    $t_teams = $teams[UserAR::FROM_TWITTER] + $teams[UserAR::FROM_WEIBO];
+    
+    usort($t_teams, "sort_team_data");
+    
+    $ret_data = array(
+        "teams" => $t_teams,
+        "twitter_total" => $total_twitter,
+        "weibo_total" => $total_weibo
+    );
+    
+    $this->responseJSON($ret_data, "SUCCESS");
   }
+}
+
+// 
+function sort_team_data($a, $b) {
+    if ($a["distance"] == $b["distance"]) {
+        return 0;
+    }
+    return ($a["distance"] < $b["distance"]) ? 1 : -1;
 }
 

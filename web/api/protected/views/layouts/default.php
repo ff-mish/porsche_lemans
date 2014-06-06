@@ -27,6 +27,18 @@
         
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
+    
+    <link rel="stylesheet" type="text/css" href="/css/webFonts.css" />
+    <link rel="stylesheet" type="text/css" href="/css/track.css" />
+    
+    <script type="application/javascript" src="/js/jquery-1.7.1.min.js"></script>
+    <script type="application/javascript" src="/js/three.min.js"></script>
+    <script type="application/javascript" src="/js/stats.min.js"></script>
+    <script type="application/javascript" src="/js/svgTool.js"></script>
+    <script type="application/javascript" src="/js/common.js"></script>
+    <script type="application/javascript" src="/js/jquery.base64.js"></script>
+    <script type="application/javascript" src="/js/data.min.js"></script>
+    
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

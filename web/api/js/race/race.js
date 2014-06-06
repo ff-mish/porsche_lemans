@@ -92,7 +92,7 @@ define(function( require , exports , model ){
 	}
 
 	$(function($){
-		$.ajax({ url:'data/track.json', type:"GET", async:true, cache:false, dataType: "json", success:function(track){
+		$.ajax({ url:'/js/race/data/track.json', type:"GET", async:true, cache:false, dataType: "json", success:function(track){
 			var cameraFollowConf=track.cameraFollow;
 			sideShiftPercents=track.sideShiftPercents;
 			var svgFile=track.svgFile;

@@ -4,6 +4,9 @@
 LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api ){
     'use strict'
 
+    LP.use('panel');
+
+
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
@@ -54,77 +57,120 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 	// 	});
 	// }
 
-    function retweetMonitoring() {
-      var self = $(this);
-      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
-      var msg = self.parents(".tweet-signle-item").find(".profile-msg").text();
+    function retweetMonitoring( data ) {
+      var msg = $(this).closest(".tweet-signle-item").find(".profile-msg").text();
+      var max_length = 112;
       LP.panel({
-        type: "panel",
-        "content": "<textarea name='msg'>"+msg+"</textarea><input name='uuid' type='hidden' value='"+uuid+"'/>",
-        "title": "",
-        mask: true,
-        style: "default",
-        className: "retweet popup",
-        destroy: true,
-        submitButton: true,
-        cancelButton: true,
-        submitText: _e("Repost"),
-        cancelText: _e("Cancel"),
+        content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
+                <textarea style="overflow:auto;">' + msg + '</textarea>\
+            </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
+            <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
+                '<span class="loading"></span>\
+            </div>\
+            <div class="popup_dialog_status">\
+                <span>' + _e('Success!') + '</span>\
+            </div>',
+        title: "",
         closeAble: false,
         onShow: function () {
-          //TODO::
-        },
-        onSubmit: function () {
-            if( this.disabled ) return;
-            this.disabled = true;
-
-          var textarea = this.$panel.find('textarea');
-          var uuid  = this.$panel.find("input[name='uuid']");
-          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
-                this.disabled = false;
-          });
-        },
-        onCancel: function () {
-          
+            var panel = this;
+            panel.$panel.find('.p-cancel')
+                .click(function(){
+                    panel.close();
+                });
+            panel.$panel.find('textarea').bind("keydown", function (event) {
+              var self = $(this);
+              var length = self.val().length;
+              panel.$panel.find(".msg-sug .s1").html(length);
+              if (length >= max_length) {
+                var keycode = event.which;
+                if (keycode != 8) {
+                  //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                  event.preventDefault();
+                  return false;
+                }
+              }
+              else {
+                panel.$panel.find(".alert-message .msg").html("");
+              }
+            }).trigger('keydown');
+            var isDisabled = false;
+            panel.$panel.find('.p-confirm')
+                .click(function(){
+                    if( isDisabled ) return;
+                    isDisabled = true;
+                    var textarea = this.$panel.find('textarea');
+                    api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
+                        panel.close();
+                    } , null , function(){
+                        isDisabled = false;
+                    });
+                });
         },
         width: $(window).width() * 0.6
       });
+        return false;
     }
     
-    function commentMonitoring() {
+    function commentMonitoring( data ) {
       var self = $(this);
-      var uuid = self.parents(".tweet-signle-item").attr("data-uuid");
+      var max_length = 100;
       var screen_name = self.parents(".tweet-signle-item").find(".title").text();
       LP.panel({
-        type: "panel",
-        "content": "<textarea name='msg'>"+screen_name+" " + window.topic +"</textarea>",
-        "title": "",
-        mask: true,
-        style: "default",
-        className: "retweet popup",
-        destroy: true,
-        submitButton: true,
-        cancelButton: true,
-        submitText: _e("Repost"),
-        cancelText: _e("Cancel"),
+        content: '<div class="popup_dialog popup_post" style="width:auto;">\
+            <div class="popup_dialog_msg" style="height:110px;width: auto;">\
+                <textarea style="overflow:auto;">' + screen_name + " " + window.topic + '</textarea>\
+            </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">0</span>/<span class="s2">' + max_length + '</span></div></div>\
+            <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
+                '<span class="loading"></span>\
+            </div>\
+            <div class="popup_dialog_status">\
+                <span>' + _e('Success!') + '</span>\
+            </div>',
+        title: "",
         closeAble: false,
         onShow: function () {
-          //TODO::
-        },
-        onSubmit: function () {
-            if( this.disabled ) return;
-            this.disabled = true;
-          var textarea = this.$panel.find('textarea');
-          var uuid  = this.$panel.find("input[name='uuid']");
-          api.post("/api/twitte/post", {"msg": textarea.val(), "uuid": uuid.val()}, function (e) {
-            this.disabled = false;
-          });
-        },
-        onCancel: function () {
-          
+            var panel = this;
+            panel.$panel.find('.p-cancel')
+                .click(function(){
+                    panel.close();
+                });
+            panel.$panel.find('textarea').bind("keydown", function (event) {
+              var self = $(this);
+              var length = self.val().length;
+              panel.$panel.find(".msg-sug .s1").html(length);
+              if (length >= max_length) {
+                var keycode = event.which;
+                if (keycode != 8) {
+                  //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                  event.preventDefault();
+                  return false;
+                }
+              }
+              else {
+                panel.$panel.find(".alert-message .msg").html("");
+              }
+            }).trigger('keydown');
+            var isDisabled = false;
+            panel.$panel.find('.p-confirm')
+                .click(function(){
+                    if( isDisabled ) return;
+                    isDisabled = true;
+
+                    var textarea = this.$panel.find('textarea');
+                    api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
+                        panel.close();
+                    } , null , function(){
+                        isDisabled = false;
+                    });
+                });
         },
         width: $(window).width() * 0.6
       });
+      return false;
     }
 
     // widgets and common functions here
@@ -157,7 +203,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             //         .attr("stroke-width" , stockWidth);
 
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '12px' : '13px'});
+                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
 
             var now ;
@@ -556,6 +602,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             .delay( 700 )
                             .css( isMobile ? {left: off.left-20 , top: off.top + $('.stand_tit').height() + 10 } : {left: off.left + w + 40 , top: off.top - 10 })
                             .fadeIn();
+
+                        if( isMobile ){
+                            $(document.body).animate({
+                                scrollTop: 0
+                            } , 200);
+                        }
+
                         break;
                     case 2:
                         var off = $('.stand_tit').offset();
@@ -1428,6 +1481,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 
     LP.action("post_weibo" , function( data ){
+        if( $(this).attr('disabled') ) return false;
         var $btn = $(this).attr('disabled' , 'disabled');
         var max_length = 112;
 		var html_buttons = '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>';
@@ -1465,7 +1519,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var keycode = event.which;
                     if (keycode != 8) {
                       //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
-					  panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                      panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
                       event.preventDefault();
                       return false;
                     }
@@ -1473,7 +1527,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                   else {
                     panel.$panel.find(".alert-message .msg").html("");
                   }
-                });
+                }).trigger('keydown');
                 this.$panel.find('.p-confirm')
                     .click(function(){
 						if($(this).hasClass('disable')) {
@@ -1524,6 +1578,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     LP.action('preview' , function( data ){
 
         var media = $(this).closest('.fuelitem').data('media');
+        
         // show big pic or big video
         var tpls = {
             'video': '<div class="popup_fuel">\
@@ -1533,7 +1588,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -1547,16 +1602,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         #[description]\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="mid=#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
             </div>'
-        }
+        };
 
         var $img = $(this)
             .closest('.fuelitem')
             .children('img');
+        var self = $(this);
+        
         // var imgH = $img.height();
         // var imgW = $img.width();
         var video = $(this).closest('.fuelitem').data('video');
@@ -1612,6 +1669,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 this.$panel.find('.popup_close')
                     .click(function(){
+                      console.log(panel);
                         panel.close();
                     });
             },
@@ -1619,14 +1677,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var $panel = this.$panel;
                 // unbind event
                 $(window).off('resize.fixfuel');
-                return false;
+                return true;
             },
             onSubmit: function(){
+              //
             }
         });
     });
 
     LP.action('repost' , function( data ){
+      var self = $(this);
+      var max_length = 112;
+      var share_text = "They’re watching you! Share image for getting more fuel for your race ";
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -1634,9 +1696,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
                     <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
-                        <textarea>' + _e('They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is') + '</textarea>\
-                    </div>\
-                    <div class="popup_dialog_btns">'+html_buttons+'</div>\
+                        <textarea>' + _e(share_text) + '</textarea>\
+                    </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">'+share_text.length+'</span>/<span class="s2">' + max_length + '</span></div></div>\
+                    <div class="popup_dialog_btns">'+html_buttons+'<span class="loading"></span></div><div class="popup_dialog_status"><span>' + _e('Success!') + '</span></div>\
                 </div>';
 
         LP.panel({
@@ -1644,17 +1706,50 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             title: "",
             onload: function(){
                 var panel = this;
+                var loading = panel.$panel.find(".loading");
+                
+                var $textarea = panel.$panel.find('textarea');
+                $textarea.bind("keydown", function (event) {
+                  var self = $(this);
+                  var length = self.val().length;
+                  panel.$panel.find(".msg-sug .s1").html(length);
+                  if (length >= max_length) {
+                    var keycode = event.which;
+                    if (keycode != 8) {
+                      //panel.$panel.find(".alert-message .msg").html(_e("Max length of twitte is " + max_length));
+                      panel.$panel.find(".alert-message .msg").html(_e("Maximum number of characters attained"));
+                      event.preventDefault();
+                      return false;
+                    }
+                  }
+                  else {
+                    panel.$panel.find(".alert-message .msg").html("");
+                  }
+                }).trigger('keydown');
+                
                 panel.$panel.find('.popup_dialog_btns .p-cancel')
-                    .click(function(){
+                    .click(function() {
                         panel.close();
                     })
                     .end()
                     .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
                         var msg = panel.$panel.find('textarea').val();
-                        api.post( '/api/media/share' , {share_text: msg , media_id: data.mid} , function(){
-                            LP.right('success');
-                        } );
+                        loading.css("display", "block");
+                        api.post( '/api/media/share' , {share_text: msg , media_id: self.data("d")} , function(){
+                            //LP.right('success');
+                            loading.css("display", "none");
+                            var height = panel.$panel.find('.popup_dialog').height();
+                            panel.$panel.find('.popup_dialog').height(height);
+                            panel.$panel.find('.popup_dialog_btns').fadeOut();
+                            panel.$panel.find('.popup_dialog_status').delay(500).fadeIn(function(){
+                              setTimeout(function(){
+                                            panel.close();
+                              }, 500);
+                            });
+                        }, function () {
+                          panel.close();
+                        });
                     });
             }
         });
@@ -1918,6 +2013,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     LP.action('close-share' , function(){
         $('#share .share-btns').fadeOut();
     });
+
+
+
+    // for monition here
+    LP.action('mo-retweet' , retweetMonitoring);
+    LP.action('mo-comment' , commentMonitoring);
 
 
     // page init here
@@ -2813,7 +2914,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               var callbackRender = function(index, group) {
                   for (var i = 0; i < group.length; i++) {
                     var tweet = {
-                      media: group[i]["media"],
+                      media: group[i]['user']["avatar"],
                       date: group[i]["date"],
                       name: group[i]["user"]["name"],
                       from: group[i]["from"],
@@ -2840,15 +2941,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
-                
-                $(".btns .retweet").live("click", retweetMonitoring);
-                $(".btns .comment").live("click", commentMonitoring);
               });
               
               break;
 
             case "race":
                 if(document.createElement("canvas").getContext){
+                  return;
                     LP.use('../race/race');
 
                     // get server time 
@@ -2892,7 +2991,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <embed name="flash" src="/js/raceflash/track.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/track.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
                         </object>'
                         );
-                     
                 }
                 
                 break;
