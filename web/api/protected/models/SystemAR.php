@@ -61,9 +61,5 @@ class SystemAR extends CActiveRecord {
       return $row;
     }
   }
-  
-  public static function gameIsStart() {
-    
-  }
 }
 

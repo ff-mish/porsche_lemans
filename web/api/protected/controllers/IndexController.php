@@ -17,8 +17,6 @@ class IndexController extends Controller {
     if ($now >= $start_data) {
       $this->is_start = TRUE;
     }
-    
-
   }
   
   public function beforeAction($action) {
@@ -37,7 +35,7 @@ class IndexController extends Controller {
     $this->page_name = $params["page_name"];
     $startTime = strtotime(Yii::app()->params["startTime"]);
     $now = time();
-    if ($now >= $startTime) {
+    if ($this->is_start) {
       $this->render("index", $params);
     }
     else {
@@ -145,7 +143,12 @@ class IndexController extends Controller {
       }
     }
     
-    $this->render("stand", $params);
+    if ($this->is_start) {
+      $this->render("stand_p2", $params);
+    }
+    else {
+      $this->render("stand", $params);
+    }
   }
   
   public function actionTeambuild() {
