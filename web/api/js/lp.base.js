@@ -2002,7 +2002,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var $dom = $(this).closest('.teambuild_member ');
         api.post('/api/user/cancelinvite' , {uuid: data.uuid} , function(){
             $dom.children().fadeOut( function(){
-                $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear">+</a>' )
+                $dom.html( '<a href="javascript:;" data-a="member_invent" class="member_add cs-clear"><span>+</span></a>' )
                     .removeClass('stand_inviting')
                     .css('opacity' , 1);
             } );

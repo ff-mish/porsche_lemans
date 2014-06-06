@@ -96,7 +96,7 @@ a.logo:hover{opacity: 1;}
 
 /*FOOTER*/
 .footer{font-size: 14px;font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;}
-.footer_link{position: fixed;z-index: 4; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 25px;}
+.footer_link{position: fixed;z-index: 4; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 0px;}
 .footer_link p{float: left;padding:0 6px;font-weight: bold;}
 .footer_link #share {font-weight:bold;}
 .footer_language{position: fixed;bottom: 15px;right: 25px;font-weight: bold;}
@@ -106,9 +106,10 @@ a.logo:hover{opacity: 1;}
 .lang-en .f_lang_en {color:#777;}
 .lang-cn .f_lang_cn {color:#777;}
 
-.footer-icon{position: absolute;height: 23px;width: 20px; left: 2px; top:0;display: none;}
+.footer-icon{position:relative;height: 23px;width: 59px;font-weight:bold;float:left;display: none;}
+.footer-icon:hover {color:#fff;}
 .footer_link{background: none;}
-body[data-page="stand"] .footer_link{background: url('../images/footer_link.png') no-repeat;}
+body[data-page="stand"] .footer_link{}
 body[data-page="stand"] .footer-icon{display: block;}
 
 
@@ -235,7 +236,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .stand_useritem .member_item{margin: 0}
 .stand_achivments{font-size: 28px;color:#fefefe;line-height:60px; padding: 10px 0 0;display: none;}
 .stand_achivmentsbox{float: left;padding:0 0 0 50px;}
-.stand_achivmentsbox p{width: 30px;height: 36px;background:url('../images/star.png') no-repeat; float: left;text-align: center;line-height: 36px;font-size: 16px;}
+.stand_achivmentsbox p{width: 30px;height: 36px;background:url('../images/star.png') no-repeat; float: left;text-align: center;line-height: 36px;font-size: 15px;}
 .stand_achivmentsbox p.full-star{background: url(../images/full-star.png) no-repeat;}
 .stand_tweet{color:#fefefe;position: relative; display: none;}
 .stand_tweet h2{font-size: 28px;padding:20px 0 0 0;width: 240px}
@@ -274,7 +275,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
 .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
 .conut_tips{font-size: 25px;color:#fff;text-align: center;margin-top:186px;}
-.lang-en .conut_tips{font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;}
+.lang-en .conut_tips{font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;font-weight:bold;}
 .count .home_share{margin-top: 178px;}
 .count .home_winners{margin-top: 237px;}
 .stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
@@ -336,7 +337,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .stand_chart_assiduite{position: absolute;z-index: 1;width: 100px;height: 50px;left: 50%;bottom: 30px;margin-left: -50px;}
 .stand_chart_impact{position: absolute;top: 50%;z-index: 1;width: 100px;height: 50px;left: -15px;margin-top: -25px;}
 .stand_chart_score{position: absolute; width: 100%; left: 0;font-size:38px;top:12px; text-align: center;}
-.stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#aaa;border-radius: 4px;bottom: 70%;width: 185px;padding: 10px;left: 0;font-size: 11px;}
+.stand_chart_tip {line-height: 2em;display: none; position: absolute;background: black;color:#aaa;border-radius: 4px;bottom: 52%;width: 185px;padding: 10px;left: 0;font-size: 11px;}
 
 /*.lang-cn .stand_chart_tip{width: auto;white-space: nowrap;left: 50%;margin-left: -50%;}*/
 .stand_chart_tip span{z-index: -1; position: absolute;bottom: -9px;font-size: 18px;color: #000;left: 50%;margin-left: -11px;}
@@ -617,7 +618,8 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 .stand{top: 50px;padding: ;}
 .stand_chart{width: 600px;height: 600px;}
 .member_speed,.memeber_space{font-size: 38px;}
-.stand_chart_tip{left: 50%;margin-left: -100px;}
+.stand_chart_tip{left: 50%;margin-left: -114px;}
+.stand_chart_assiduite .stand_chart_tip {margin-left:-99px;bottom:70%;}
 
 .stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
 .stand_achivments h2, .stand_tweet h2{width: 300px;}
@@ -912,7 +914,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .home_v{width: 289px;height: 144px;position: absolute;left:50%;top:50%;margin: 136px 0 0 -144px;display: block;}
     /*ft*/
     .footer_link {bottom:60px;}
-    body .footer-icon {background: url('../images/footer_linkm.png') no-repeat;height: 58px;right:25px;padding:0; width: 40px;position: absolute;}
+    body .footer-icon {background:none;padding:10px 0 0; width: 100px;position: absolute;font-size:26px;}
 
     .footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
     .footer_share{position: absolute;right: 0}
@@ -1052,12 +1054,12 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .nav .mobile_nav .language span {color:#fff;}
     #share .popup_close{display: block; position: absolute; top: 20px ; right: 20px;}
     body #share{padding: 10px; margin-top: 0px;}
-    body .footer-icon{width: 50px;height: 50px;}
+    body .footer-icon{}
     .mobile_nav a,.nav p a.logout{padding: 20px; margin-left: -20px; margin-top: -20px; padding-right: 0; font-size: 22px;}
     .nav p a.logout {display:block;margin-top:20px;}
 
     body .stand_tweet .conut_down_wrap{top:0;left: 200px;}
-    #team-score {left:327px;width:231px;}
+    #team-score {left:298px!important;width:231px;}
     .stand_chart_quality .stand_chart_tip{left: 10%;}
     .stand_chart_impact .stand_chart_tip{left:80%;}
     .stand_chart_tip{bottom: 65%; line-height: 1.5em;}
@@ -1085,11 +1087,11 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 /*// new rule */
 .member_item ,.member_add{width: 23% !important;}
 .member_name {width: auto !important;float: none !important;}
-.member_speed{text-align: left;margin-left:7% !important;}
+.member_speed{text-align: left;margin-left:6% !important;}
 .stand_achivments{position: relative; height: 60px;}
 .stand_achivmentsbox{ position: absolute; padding:0 !important;  height: 36px ; left: 30%; top: 50%; margin-top: -18px !important; margin-left: 10px !important; }
-#team-score{position: absolute;left: 30%;padding-left: 10px;}
-body .stand_tweet .conut_down_wrap{left: 30%; margin-left: 5px !important; height: 80px !important;top:0 !important;}
+#team-score{position: absolute;left: 30%;padding-left: 12px;}
+body .stand_tweet .conut_down_wrap{left: 30%; margin-left: 9px !important; height: 80px !important;top:0 !important;}
 .stand_tweet{height: 80px !important;line-height: 80px !important;}
 .stand_tweet h2{margin-top: 0 !important; padding: 0!important;}
 
