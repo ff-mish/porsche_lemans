@@ -61,7 +61,7 @@
   
 	<div class="footer">
         <div class="footer_link cs-clear">
-            <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
+            <a class="btn footer-icon" href="/stand" data-a="start-tutr"><?php echo Yii::t("lemans", "Tutorial")?></a>
             <p class="btn legal" data-a="legal-mentions" style="display:none"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
             <div class="btn <?php echo Yii::app()->language;?>" id="share"> <span class="label"> <?php echo Yii::t("lemans", "Share")?></span>
             	<div class="share-btns">

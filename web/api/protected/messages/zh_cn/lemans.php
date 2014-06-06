@@ -38,6 +38,7 @@ return array (
     "Winners’ Prizes" => "活动奖品",
 	"Back" => "返回",
     "Skip intro" => "跳过简介",
+	"Tutorial" => "教程",
     "Legal Mentions" => "法律公告",
     "Share" => "分享",
     "Legal Notice" => "法律公告",

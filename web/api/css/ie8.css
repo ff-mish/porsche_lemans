@@ -6,11 +6,11 @@
 .member_item {width: 220px;height:45px;}
 .member_item img {width:45px;}
 .member_name{width: 150px;padding-top:14px;}
-.member_speed{margin-left:30px;margin-top:-7px;}
+body .member_speed{margin-left:50px!important;margin-top:-7px;}
 .memeber_space {font-size:38px;}
 .member_add {width:220px;height:45px;line-height:45px;}
 .member_add span {margin-top:4px;}
-#team-score {left:280px;}
+#team-score {left:310px;}
 .stand_useritem {margin-bottom: 25px;}
 .stand {top:32px;}
 .stand_tweetitem{padding:0 20px;}
