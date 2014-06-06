@@ -162,7 +162,11 @@ class TwitteAR extends CActiveRecord {
           }
           // 如果是分享视频 就分享一个视频链接
           else {
-            $video_link = $media->media_link;
+            $video_link = MediaAR::videoViewURL($this->ref_id);
+            $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
+            $short_urls = $weibo_api->short_url_shorten($video_link);
+            $video_link = $short_urls["urls"][0]["url_short"];
+        
             $content .= " ". $video_link;
             $ret = $weibo_api->update($content);
             
@@ -191,7 +195,8 @@ class TwitteAR extends CActiveRecord {
           }
           // 如果是分享视频 就分享一个视频链接
           else {
-            $video_link = $media->media_link;
+            $video_link = MediaAR::videoViewURL($this->ref_id);
+            $video_link = Yii::app()->shorturl->shorten($video_link);
             $content .= " ". $video_link;
             $ret = Yii::app()->twitter->status_update($content);
             

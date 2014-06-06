@@ -184,5 +184,13 @@ class MediaAR extends CActiveRecord {
   public function urlPath($uri) {
     
   }
+  
+  /**
+   * 生成视频的播放地址
+   * @param type $mid
+   */
+  public static function videoViewURL($mid) {
+    return Yii::app()->getBaseUrl(TRUE).'/video/'. $mid;
+  }
 }
 

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xml
-	distance0="13600"
->
-	
-	<data src="/js/raceflash/test/data1.txt"/>
-	
+<xml distance0="13600">
+  <data src="/api/web/racedata"/>
 </xml>

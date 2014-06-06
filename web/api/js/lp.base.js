@@ -2949,17 +2949,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if(document.createElement("canvas").getContext){
                     // get server time 
                     var getServerTime = function () {
-                        api.get('/api/web/time' , function( e ){
+                        api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
                             var now = +new Date( e.data.time_now ) / 1000;
                             var start = +new Date( e.data.time_start ) / 1000;
+                            
 
                             interval = setInterval( function(){
                                 now += 1;
                                 var duration = now - start;
-                                var hour = ~~(duration / 3600);
-                                var minute = ~~( ( duration - hour * 3600 ) / 60 );
+                                var hour = ~~((duration / 3600));
+                                var minute = ~~(( ( duration - hour * 3600 ) / 60 ));
                                 var seconds = duration - hour * 3600 - minute * 60;
+                                
 
                                 $('.race_time').html( ( hour > 9 ? hour : '0' + hour ) + ':' + 
                                  ( minute > 9 ? minute : '0' + minute ) + ':' + 
@@ -2977,14 +2979,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                 } else {
                     // render flash
-                    //TODO::
+                    // render flash
+                    $('.race_nav,.nav').hide();
+                    $('#container').html(
+                        '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
+                            <param name="movie" value="/js/raceflash/Sticks.swf"/>\
+                            <param name="quality" value="high"/>\
+                            <param name="wmode" value="transparent"/>\
+                            <param name="flashVars" value="xml=/js/raceflash/xml/sticks.xml"/>\
+                            <embed name="flash" src="/js/raceflash/Sticks.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/sticks.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
+                        </object>'
+                        );
                 }
             break;
 
             case "race":
                 if(document.createElement("canvas").getContext){
                     var getServerTime = function () {
-                        api.get('/api/web/time' , function( e ){
+                        api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
                             var now = +new Date( e.data.time_now ) / 1000;
                             var start = +new Date( e.data.time_start ) / 1000;
