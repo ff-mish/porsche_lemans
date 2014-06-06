@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" afterPath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/track.css" afterPath="$PROJECT_DIR$/web/api/css/track.css" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,7 +103,7 @@
     <file path="/mobile.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401450519806" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/css/main.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401455054744" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/js/common/switchPage.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401798592287" ignored="false" />
-    <file path="$PROJECT_DIR$/../lily_official/html/js/common/helper.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401452755271" ignored="false" />
+    <file path="$PROJECT_DIR$/../lily_official/html/js/common/helper.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402032185437" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/js/config.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401452755271" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/flash/player/web/player6.htm" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401452914813" ignored="false" />
     <file path="/main.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401455054436" ignored="false" />
@@ -124,6 +126,9 @@
     <file path="$PROJECT_DIR$/../lily_official/html/news.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401882815914" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/css/jquery.fancybox.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401883058255" ignored="false" />
     <file path="/lemans.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402018286679" ignored="false" />
+    <file path="$PROJECT_DIR$/../lily_official/html/campaign.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402031928464" ignored="false" />
+    <file path="/campaign.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402031928464" ignored="false" />
+    <file path="/helper.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402032156593" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,20 +157,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="countdown.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="countdown.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="29" selection-start="1656" selection-end="1656" vertical-scroll-proportion="0.0">
+            <state line="38" column="69" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.6327783">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="84" column="44" selection-start="6762" selection-end="6762" vertical-scroll-proportion="0.33628318">
+            <state line="106" column="27" selection-start="7477" selection-end="7477" vertical-scroll-proportion="-38.25">
               <folding>
+                <element signature="n#style#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <marker date="1402029528000" expanded="true" signature="21868:21981" placeholder="..." />
                 <marker date="1402029528000" expanded="true" signature="22049:22456" placeholder="..." />
                 <marker date="1402029528000" expanded="true" signature="22078:22098" placeholder="{...}" />
@@ -177,7 +183,7 @@
       <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="23" selection-start="1165" selection-end="1165" vertical-scroll-proportion="0.0">
+            <state line="53" column="45" selection-start="2301" selection-end="2301" vertical-scroll-proportion="-15.607142">
               <folding />
             </state>
           </provider>
@@ -244,7 +250,6 @@
         <option value="$PROJECT_DIR$/web/api/protected/views/index/monitoring.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/race.php" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
         <option value="$PROJECT_DIR$/web/api/css/js.css" />
         <option value="$PROJECT_DIR$/web/api/css/twitter.css" />
@@ -253,6 +258,7 @@
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
         <option value="$PROJECT_DIR$/web/api/css/track.css" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
       </list>
     </option>
   </component>
@@ -1046,20 +1052,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="29" selection-start="1656" selection-end="1656" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="1165" selection-end="1165" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/webFonts.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="1" selection-start="152" selection-end="152" vertical-scroll-proportion="0.048759624">
@@ -1081,14 +1073,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="45" selection-start="2301" selection-end="2301" vertical-scroll-proportion="-15.607142">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="84" column="44" selection-start="6762" selection-end="6762" vertical-scroll-proportion="0.33628318">
+        <state line="106" column="27" selection-start="7477" selection-end="7477" vertical-scroll-proportion="-38.25">
           <folding>
+            <element signature="n#style#0;n#div#1;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1402029528000" expanded="true" signature="21868:21981" placeholder="..." />
             <marker date="1402029528000" expanded="true" signature="22049:22456" placeholder="..." />
             <marker date="1402029528000" expanded="true" signature="22078:22098" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="69" selection-start="2162" selection-end="2162" vertical-scroll-proportion="0.6327783">
+          <folding />
         </state>
       </provider>
     </entry>

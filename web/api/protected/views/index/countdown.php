@@ -37,7 +37,6 @@
                 <img class="winners-icon" src="/images/winner_prizes.png">
                 <div class="winners-prizes-con clearfix">
                     <?php echo Yii::t("lemans", "race_description")?>
-	                <div class="winners-close btn"><?=Yii::t('lemans','Back')?></div>
                 </div>
             </div>
 		</div>
