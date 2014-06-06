@@ -480,13 +480,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     })();
 
     var animateTure =  (function(){
-		$('.page').css({'overflow-x':'visible'});
+
         $('.tutr-step').find('.step-btn')
             .click(function(){
                 animateTure.showStep( $(this).data('step') );
                 return false;
             });
-
 
         $(document.body).delegate('.read_tutr .tutr-step-skip,.read_tutr .tutr-step-top,.read_tutr .tutr-step-left,.read_tutr .tutr-step-right,.read_tutr .tutr-step-bottom',
             'click' , function(){
@@ -880,16 +879,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( resize ){
                         $(window).bind( 'resize.video-' + id , function(){
                             if( v.isRemoved  ) return;
-                            var w = $wrap.width() + 10;
-                            var h = $wrap.height() + 10;
+                            var w = $wrap.width()  ;
+                            var h = $wrap.height() ;
                             var vh = 0 ;
                             var vw = 0 ;
                             if( h / w > ratio ){
-                                vh = h;
-                                vw = h / ratio;
+                                vh = h + 40;
+                                vw = vh / ratio;
                             } else {
-                                vh = w * ratio;
-                                vw = w;
+                                vw = w + 40;
+                                vh = vw * ratio;
                             }
                             v.dimensions( vw , vh );
 
@@ -1515,6 +1514,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // set cookit 
             LP.setCookie('_t_' , 1);
         } else {
+
+			$('.page').css({'overflow-x':'visible'});
             animateTure.showStep( 1 );
             return false;
         }
@@ -2361,7 +2362,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 })
                 // show the big video
                 if( !isMobile ){
-                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 516 / 893 , loop: false} , function(){
+                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                         $('#' + this.Q).css('z-index' , 0);
                         this.on('ended' , function(){
                             LP.triggerAction('skip-intro');
