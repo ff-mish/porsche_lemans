@@ -54,8 +54,8 @@
     <div class="race_nav">
       <div class="race_time"></div>
       <div class="race_speed"></div>
-      <div class="race_navitem "><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
-      <div class="race_navitem race_navitemon"><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
+      <div class="race_navitem race_navitemon"><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
+      <div class="race_navitem "><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
     </div>
 		<!-- race end -->
 	</div>

@@ -208,6 +208,10 @@ class WebController extends Controller {
   
   // 赛道数据
   public function actionRacedata() {
+    $time_now = time();
+    $time_start = strtotime(Yii::app()->params["startTime"]);
+    $hour = ($time_now - $time_start) / 3600;
+    
     
     $lenght_of_race = 13.6;
     // weibo 
@@ -216,7 +220,7 @@ class WebController extends Controller {
     $command = Yii::app()->db->createCommand($sql);
     
     $teamScores = $command->queryAll();
-    $total = count($teamScores) + 1;
+    $total = count($teamScores);
     // 然后计算平均速度
     $total_average = 0.1;
     foreach ($teamScores as $teamScore) {
@@ -231,7 +235,6 @@ class WebController extends Controller {
     // 分数是30秒计算一次, 所以总共是30秒
     // 可能还要加上2秒误差
     $total_seconds = $total * (30 + 2);
-    $hour = $total_seconds / 3600;
     $distance = $speed * $hour;
     
     // 圈数
@@ -251,7 +254,7 @@ class WebController extends Controller {
     $command = Yii::app()->db->createCommand($sql);
     
     $teamScores = $command->queryAll();
-    $total = count($teamScores) + 1;
+    $total = count($teamScores);
     // 然后计算平均速度
     $total_average = 0.1;
     foreach ($teamScores as $teamScore) {
@@ -265,8 +268,6 @@ class WebController extends Controller {
     // 速度单位是 KM / Hours
     // 分数是30秒计算一次, 所以总共是30秒
     // 可能还要加上2秒误差
-    $total_seconds = $total * (30 + 2);
-    $hour = $total_seconds / 3600;
     $twittr_distance = $speed * $hour;
     
     // 圈数
@@ -328,7 +329,6 @@ class WebController extends Controller {
         
         $teams_in[] = array(
             "distance" => $distance,
-            "rankings" => $ranking,
             "team" => $team,
             "id" => $result["tid"],
             "speed" => $speed,
@@ -347,6 +347,10 @@ class WebController extends Controller {
     $t_teams = $teams[UserAR::FROM_TWITTER] + $teams[UserAR::FROM_WEIBO];
     
     usort($t_teams, "sort_team_data");
+    
+    foreach ($t_teams as $key => &$t_team) {
+      $t_team["rankings"] = $key + 1;
+    }
     
     $ret_data = array(
         "teams" => $t_teams,
