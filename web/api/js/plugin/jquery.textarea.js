@@ -176,35 +176,33 @@ define(function( require , exports , model ){
                 var value = textarea.value,
                     len = textarea.value.length,
                     inH;
-                if( numDom ){
-                    if(num - len >= 0 ){
-                        inH = '还可以输入<em>' + (num - len) + '</em>字';
-                        
-                        if ( is_simple ) inH = '<em>' + len + '</em>';
-                        
-                        numDom.innerHTML = inH;
-                    }else{
-                        inH = '已经超出<em style="color:red;">' + (len - num) + '</em>字';
+                if(num - len >= 0 ){
+                    inH = '还可以输入<em>' + (num - len) + '</em>字';
+                    
+                    if ( is_simple ) inH = '<em>' + len + '</em>';
+                    
+                    numDom.innerHTML = inH;
+                }else{
+                    inH = '已经超出<em style="color:red;">' + (len - num) + '</em>字';
 
-                        if ( is_simple ) inH = '<em style="color:red;">' + len + '</em>';
+                    if ( is_simple ) inH = '<em style="color:red;">' + len + '</em>';
 
-                        numDom.innerHTML = inH;
-                    }
+                    numDom.innerHTML = inH;
                 }
                 callback && callback(num - len , len);
             }
             $(textarea).bind('countwords' , function(){
                 counts();
             });
-            // if($.browser.msie && $.browser.version < 7){
-            //     // set width fix for ie6
-            //     var $textarea = $(textarea),
-            //         width = $textarea.width();
-            //     if(width > 0)
-            //     $textarea.css('width' , width);
-            // }
+            if($.browser.msie && $.browser.version < 7){
+                // set width fix for ie6
+                var $textarea = $(textarea),
+                    width = $textarea.width();
+                if(width > 0)
+                $textarea.css('width' , width);
+            }
 
-            $(textarea).keyup(function(){
+            $textarea.keyup(function(){
                 $(this).trigger('countwords');
             });
 

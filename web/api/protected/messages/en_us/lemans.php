@@ -6,6 +6,8 @@
  * Time: 上午3:22
  */
 return array (
+	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. The better you'll tweet, the faster you'll go!<br/>The first team will win an exclusive trip to attend a LMP race and have the chance to see the legendary 919 Hybrid.",
+	"PORSCHE_LINK" => "http://www.porsche.com/international/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
     "tutorial_step_4" => "Achievements will be unlocked each time you will answer right to 3 Porsche challenges. ",//Lastests posts will allow you to have a quick look at your team tweets. Your training is now almost completed.
     "tutorial_step_3" => 'The Porsche graph is the most important part of the stand. It allows you to see which stats to improve to go faster in the race. There are 4 different parameters.
 <br><br>
@@ -24,5 +26,5 @@ The 4 factors together allow to obtain an average speed per hour. The highest it
     "tutorial_step_2" => "This part is an overview of your team: name, tweets per hour and number of followers.
 <br><br>
 You can also invite other pilots to join your crew and increase your chance  to win the race.",
-    "race_description" => "At the end of the 24h social race, the first team will win a very exclusive global trip to attend every motorsports events in the world, from the classic 24h of Daytona, the famous 12h of Sebring or the next edition of Le Mans, all with VIP access.",
+    "race_description" => "The first team will win a very exclusive VIP package to attend an LMP race (in Austin or Shanghai) and will have the chance to approach the legendary 919 Hybrid. This experience will include flight tickets, VIP passes, access to Porsche hospitality, a meeting with one of the Porsche works driver and a visit to the Porsche LMP1 garage.",
 );

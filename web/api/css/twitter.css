@@ -48,6 +48,7 @@ a:hover{color:#065be0;}
 .popup_invite .popup_invite_search .close-search{color: #065be0;background: url(../images/callto_close_2_t.png) no-repeat center;}
 .popup_invite .popup_invite_btns a{background:#065be0; color: white; }
 
+.winners-close:hover {background:#065be0;color:white;opacity:1;}
 
 .alert-message  {
   color: #065be0;
