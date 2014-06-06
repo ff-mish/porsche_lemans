@@ -10,7 +10,7 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a Tweet')?>
+					<?=Yii::t('lemans','Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
-				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
 				<p class="language">
 					<?php if (Yii::app()->language == "zh_cn"): ?>
 						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>

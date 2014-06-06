@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" afterPath="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lang/en_us.js" afterPath="$PROJECT_DIR$/web/api/js/lang/en_us.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/en_us.php" afterPath="$PROJECT_DIR$/web/api/script/en_us.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/index.php" afterPath="$PROJECT_DIR$/web/api/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" afterPath="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" afterPath="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" afterPath="$PROJECT_DIR$/web/api/js/lang/zh_cn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/script/zh_cn.php" afterPath="$PROJECT_DIR$/web/api/script/zh_cn.php" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +28,7 @@
     <file path="$PROJECT_DIR$/../avene_selfie/m/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401006972989" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_selfie/js/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401006972989" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_selfie/protected/views/index/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401094875743" ignored="false" />
-    <file path="/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402056054137" ignored="false" />
+    <file path="/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402063768310" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/index.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401761918618" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/css/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401165247392" ignored="false" />
     <file path="/*.regexp" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401178440182" ignored="false" />
@@ -142,7 +131,7 @@
     <file path="$PROJECT_DIR$/../ave_1000/yii/protected/views/layouts/footer.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402058024626" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/yii/js/index/index.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402054149980" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/yii/css/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402058406559" ignored="false" />
-    <file path="$PROJECT_DIR$/../ave_1000/yii/protected/views/site/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402054786915" ignored="false" />
+    <file path="$PROJECT_DIR$/../ave_1000/yii/protected/views/site/index.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402063818044" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/yii/js/index.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402054907041" ignored="false" />
     <file path="$PROJECT_DIR$/../ave_1000/yii/.htaccess" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402055198656" ignored="false" />
     <file path="/.htaccess" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402055171864" ignored="false" />
@@ -184,7 +173,7 @@
       <file leaf-file-name="default.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="112" column="84" selection-start="7771" selection-end="7791" vertical-scroll-proportion="-14.5">
+            <state line="111" column="61" selection-start="7697" selection-end="7703" vertical-scroll-proportion="-13.821428">
               <folding>
                 <marker date="1402061876000" expanded="true" signature="8266:8379" placeholder="..." />
                 <marker date="1402061876000" expanded="true" signature="8447:8854" placeholder="..." />
@@ -263,16 +252,16 @@
       <file leaf-file-name="en_us.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="18" selection-start="152" selection-end="152" vertical-scroll-proportion="-4.75">
+            <state line="8" column="18" selection-start="152" selection-end="152" vertical-scroll-proportion="-5.428571">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zh_cn.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="zh_cn.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="35" selection-start="861" selection-end="861" vertical-scroll-proportion="0.4163015">
+            <state line="8" column="19" selection-start="230" selection-end="230" vertical-scroll-proportion="-5.428571">
               <folding />
             </state>
           </provider>
@@ -303,10 +292,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="stand.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="48" selection-start="435" selection-end="435" vertical-scroll-proportion="-8.142858">
+            <state line="12" column="45" selection-start="427" selection-end="432" vertical-scroll-proportion="0.19982472">
               <folding>
                 <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -317,12 +306,12 @@
       <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="128" column="213" selection-start="18240" selection-end="18240" vertical-scroll-proportion="-62.0">
+            <state line="31" column="10" selection-start="988" selection-end="993" vertical-scroll-proportion="-14.035714">
               <folding>
-                <marker date="1402061900000" expanded="true" signature="7837:8117" placeholder="..." />
-                <marker date="1402061900000" expanded="true" signature="10897:11319" placeholder="..." />
-                <marker date="1402061900000" expanded="true" signature="11323:12102" placeholder="..." />
-                <marker date="1402061900000" expanded="true" signature="14104:14295" placeholder="..." />
+                <marker date="1402063966000" expanded="true" signature="7830:8110" placeholder="..." />
+                <marker date="1402063966000" expanded="true" signature="10890:11312" placeholder="..." />
+                <marker date="1402063966000" expanded="true" signature="11316:12095" placeholder="..." />
+                <marker date="1402063966000" expanded="true" signature="14097:14288" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -371,15 +360,15 @@
         <option value="$PROJECT_DIR$/web/api/protected/views/index/countdown.php" />
         <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/index.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
         <option value="$PROJECT_DIR$/web/api/css/js.css" />
         <option value="$PROJECT_DIR$/web/api/js/lp.base.js" />
         <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
         <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
+        <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
       </list>
     </option>
   </component>
@@ -1149,30 +1138,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="48" selection-start="435" selection-end="435" vertical-scroll-proportion="-8.142858">
-          <folding>
-            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="28" selection-start="87" selection-end="87" vertical-scroll-proportion="-2.0357144">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="112" column="84" selection-start="7771" selection-end="7791" vertical-scroll-proportion="-14.5">
-          <folding>
-            <marker date="1402061876000" expanded="true" signature="8266:8379" placeholder="..." />
-            <marker date="1402061876000" expanded="true" signature="8447:8854" placeholder="..." />
-            <marker date="1402061876000" expanded="true" signature="8476:8496" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1186,18 +1155,6 @@
             <marker date="1402061900000" expanded="true" signature="11373:12126" placeholder="..." />
             <marker date="1402061900000" expanded="true" signature="14154:14345" placeholder="..." />
             <marker date="1402061900000" expanded="true" signature="14154:14345" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="128" column="213" selection-start="18240" selection-end="18240" vertical-scroll-proportion="-62.0">
-          <folding>
-            <marker date="1402061900000" expanded="true" signature="7837:8117" placeholder="..." />
-            <marker date="1402061900000" expanded="true" signature="10897:11319" placeholder="..." />
-            <marker date="1402061900000" expanded="true" signature="11323:12102" placeholder="..." />
-            <marker date="1402061900000" expanded="true" signature="14104:14295" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1280,17 +1237,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
+    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="18" selection-start="152" selection-end="152" vertical-scroll-proportion="-4.75">
+        <state line="8" column="19" selection-start="230" selection-end="230" vertical-scroll-proportion="-5.428571">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
+    <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="35" selection-start="861" selection-end="861" vertical-scroll-proportion="0.4163015">
+        <state line="8" column="18" selection-start="152" selection-end="152" vertical-scroll-proportion="-5.428571">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="61" selection-start="7697" selection-end="7703" vertical-scroll-proportion="-13.821428">
+          <folding>
+            <marker date="1402061876000" expanded="true" signature="8266:8379" placeholder="..." />
+            <marker date="1402061876000" expanded="true" signature="8447:8854" placeholder="..." />
+            <marker date="1402061876000" expanded="true" signature="8476:8496" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="10" selection-start="988" selection-end="993" vertical-scroll-proportion="-14.035714">
+          <folding>
+            <marker date="1402063966000" expanded="true" signature="7830:8110" placeholder="..." />
+            <marker date="1402063966000" expanded="true" signature="10890:11312" placeholder="..." />
+            <marker date="1402063966000" expanded="true" signature="11316:12095" placeholder="..." />
+            <marker date="1402063966000" expanded="true" signature="14097:14288" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="45" selection-start="427" selection-end="432" vertical-scroll-proportion="0.19982472">
+          <folding>
+            <element signature="n#style#0;n#span#1;n#div#1;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

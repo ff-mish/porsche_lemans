@@ -29,7 +29,7 @@ return array (
     "Race" => "赛场",
     "Monitoring" => "赛况",
     "Fuel" => "能量",
-    "Make a Tweet" => "发一个微博",
+    "Tweet" => "发一个微博",
     "Stand" => "准备室",
     "Log out" => "注销",
     "Edit team name" => "修改队伍名字",
