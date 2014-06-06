@@ -1,7 +1,7 @@
 <div class="page_wrap ">
 	<div class="header">
 	    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
-	    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
+		<a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
 	</div>
 	<div class="page pagebg1">
 		<!-- nav -->

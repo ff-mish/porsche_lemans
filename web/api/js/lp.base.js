@@ -614,10 +614,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() + 40 , isMobile ? h + 25 : h );
+                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() - $('.stand_chart_score').width() , isMobile ? h + 25 : h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: off.left + $('.stand_tit').width() + 60 , top: off.top , height: h - 80 })
+                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: isMobile ? off.left + $('.stand_tit').width() + 60 : off.left + $('.stand_tit').width() - $('.stand_chart_score').width(), top: off.top , height: h - 80 })
                             .fadeIn();
                         break;
                     case 3:
@@ -1569,7 +1569,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             LP.setCookie('_t_' , 1);
         } else {
 
-			$('.page').css({'overflow-x':'visible'});
+			$('.page').css({'overflow':'visible','overflow-x':'visible'});
             animateTure.showStep( 1 );
             return false;
         }
@@ -2199,7 +2199,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         })
 
 		// init #legal-notice
-		$('#winners-prizes .popup_close').click(function(){
+		$('#winners-prizes .popup_close,.winners-close').click(function(){
 			$('#winners-prizes').fadeOut(function(){
 				$('#winners-prizes .videobg').remove();
 			});
@@ -2716,14 +2716,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
                             <p class="member_name">@#[name]<br/></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span>' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\

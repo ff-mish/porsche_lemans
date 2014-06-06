@@ -27,10 +27,10 @@
         
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
-    
+	<?php if ($this->page_name == 'race'): ?>
     <link rel="stylesheet" type="text/css" href="/css/webFonts.css" />
     <link rel="stylesheet" type="text/css" href="/css/track.css" />
-    
+	<?php endif;?>
     <script type="application/javascript" src="/js/jquery-1.7.1.min.js"></script>
     <script type="application/javascript" src="/js/three.min.js"></script>
     <script type="application/javascript" src="/js/stats.min.js"></script>
@@ -62,7 +62,7 @@
 	<div class="footer">
         <div class="footer_link cs-clear">
             <a class="btn footer-icon" href="/stand" data-a="start-tutr">&nbsp;&nbsp;</a>
-            <p class="btn legal" data-a="legal-mentions"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+            <p class="btn legal" data-a="legal-mentions" style="display:none"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
             <div class="btn <?php echo Yii::app()->language;?>" id="share"> <span class="label"> <?php echo Yii::t("lemans", "Share")?></span>
             	<div class="share-btns">
 	            <?php if (Yii::app()->language == "zh_cn"): ?>
@@ -82,6 +82,9 @@
 	            </div>
             </div>
         </div>
+		<div class="footer_logout no-m">
+			<a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a>
+		</div>
         <div class="footer_language">
 	        <?php if (Yii::app()->language == "zh_cn"): ?>
 		        <a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>

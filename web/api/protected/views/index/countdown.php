@@ -1,9 +1,9 @@
 	<!--  -->
-	<div class="page pagebg8">
+	<div class="page page_count pagebg8">
         <!--  -->
         <div class="header">
             <div class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></div>
-	        <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
+	        <a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
         </div>
 
 		<div class="count">
@@ -18,7 +18,7 @@
               </div>
 			
 			<!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
-			<div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div>
+			<div class="conut_tips" ><?php echo Yii::t("lemans", "JOIN_NOW")?></div>
 			<div class="home_v btn" id="mobile_home_v"></div>
 			<div class="home_share">
 				<!--   -->
@@ -37,6 +37,7 @@
                 <img class="winners-icon" src="/images/winner_prizes.png">
                 <div class="winners-prizes-con clearfix">
                     <?php echo Yii::t("lemans", "race_description")?>
+	                <div class="winners-close btn"><?=Yii::t('lemans','Back')?></div>
                 </div>
             </div>
 		</div>
