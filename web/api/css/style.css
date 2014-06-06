@@ -96,7 +96,7 @@ a.logo:hover{opacity: 1;}
 
 /*FOOTER*/
 .footer{font-size: 14px;font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;}
-.footer_link{position: fixed;z-index: 4; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 0px;}
+.footer_link{position: fixed;z-index: 101; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 0px;}
 .footer_link p{float: left;padding:0 6px;font-weight: bold;}
 .footer_link #share {font-weight:bold;}
 .footer_language{position: fixed;bottom: 15px;right: 25px;font-weight: bold;}

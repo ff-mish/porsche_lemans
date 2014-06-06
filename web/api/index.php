@@ -2,12 +2,13 @@
 
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/yii/yii.php';
-if ($_GET["v2"] == 1) {
-  $config=dirname(__FILE__).'/protected/config/main_v2.php';
-}
-else {
-  $config=dirname(__FILE__).'/protected/config/main.php';
-}
+//if ($_GET["v2"] == 1) {
+//  $config=dirname(__FILE__).'/protected/config/main_v2.php';
+//}
+//else {
+//  $config=dirname(__FILE__).'/protected/config/main.php';
+//}
+$config=dirname(__FILE__).'/protected/config/main.php';
 
 // remove the following lines when in production mode
 defined('YII_DEBUG') or define('YII_DEBUG',true);

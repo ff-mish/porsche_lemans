@@ -409,7 +409,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     paper.text( ystart[0] , ystart[1] - 20 , _e('Speed') )
                         .attr( textAttr );
-                    paper.text( yend[0] , yend[1] + 20  , _e('Assiduity') )
+                    paper.text( yend[0] , yend[1] + 20  , _e('Knowledge') )
                         .attr( textAttr );
 
 
@@ -668,7 +668,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         LP.panel({
                             title: '',
                             content: '<div class="popup_box popup_dialog popup_email" >\
-                                    <span class="con-step">5/5</span>\
+                                    <span class="con-step">' + _e('5/5') + '</span>\
                                     <h4>' + _e('Receive a reminder for the d-day') + '</h4>\
                                     <input class="popup_dialog_msg" placeholder="' + _e('Enter your email address') + '" />\
                                     <p class="error-tip"></p>\
@@ -1491,7 +1491,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + '</textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace @Porsche' ) + '</textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\

@@ -10,7 +10,7 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a tweet')?>
+					<?=Yii::t('lemans','Make a Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "This display the number of tweets per hour") ?>
+						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
 						<span>◆</span>
 					</div>
 				</div>
@@ -140,25 +140,25 @@
 		<div class="tutr-step-left"></div>
 		<div class="tutr-step-right"></div>
 		<div class="tutr-step-tip1">
-			<p class="step-num">1/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "1/5")?></p>
 			<div class="step-con">
 				<?php echo Yii::t("lemans", "tutorial_step_1")?>
 			</div>
 			<a href="#" class="step-btn" data-step="2"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip2">
-			<p class="step-num">2/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "2/5")?></p>
 			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_2")?>
 		</div>
 			<a href="#" class="step-btn" data-step="3"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip3">
-			<p class="step-num">3/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "3/5")?></p>
 			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_3")?>			</div>
 			<a href="#" class="step-btn" data-step="4"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip4">
-			<p class="step-num">4/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "4/5")?></p>
 			<div class="step-con">
 				<?php echo Yii::t("lemans", "tutorial_step_4")?>
 			</div>
