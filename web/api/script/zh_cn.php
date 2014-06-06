@@ -26,5 +26,6 @@
   'Do you want to join #[team] ?' => '你想要加入#[team]团队吗？',
   'fans_unit' => '粉丝',
   'Search' => '搜索',
+  'latest post' => '最新微博',
   'Invite a friend' => '邀请好友',
 );

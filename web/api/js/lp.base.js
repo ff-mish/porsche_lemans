@@ -2944,19 +2944,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               });
               
               break;
-
-            case "race":
+              
+          case "teamrace":
                 if(document.createElement("canvas").getContext){
-                  return;
-                    LP.use('../race/race');
-
                     // get server time 
-                    var getServerTime = function(){
+                    var getServerTime = function () {
                         api.get('/api/web/time' , function( e ){
                             clearInterval( interval );
                             var now = +new Date( e.data.time_now ) / 1000;
                             var start = +new Date( e.data.time_start ) / 1000;
-                            
+
                             interval = setInterval( function(){
                                 now += 1;
                                 var duration = now - start;
@@ -2969,13 +2966,43 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                  ( seconds > 9 ? seconds : '0' + seconds ) );
                             } , 1000 );
                         });
+                    };
+                    var interval;
+                    setInterval(getServerTime , 30 * 1000);
+                    getServerTime();
+                    
+                    api.get('/api/user' , function( e ){
+                        var speed = e.data.team.score ? e.data.team.score.average : 0;
+                        $('.race_speed').html( speed + 'Kp/h' );
+                    });
+                } else {
+                    // render flash
+                    //TODO::
+                }
+            break;
 
+            case "race":
+                if(document.createElement("canvas").getContext){
+                    var getServerTime = function () {
+                        api.get('/api/web/time' , function( e ){
+                            clearInterval( interval );
+                            var now = +new Date( e.data.time_now ) / 1000;
+                            var start = +new Date( e.data.time_start ) / 1000;
 
-                        api.get('/api/user' , function( e ){
-                            var speed = e.data.team.score ? e.data.team.score.average : 0;
-                            $('.race_speed').html( speed + 'Kp/h' );
+                            interval = setInterval( function(){
+                                now += 1;
+                                var duration = now - start;
+                                var hour = ~~(duration / 3600);
+                                var minute = ~~( ( duration - hour * 3600 ) / 60 );
+                                var seconds = duration - hour * 3600 - minute * 60;
+
+                                $('.race_time').html( ( hour > 9 ? hour : '0' + hour ) + ':' + 
+                                 ( minute > 9 ? minute : '0' + minute ) + ':' + 
+                                 ( seconds > 9 ? seconds : '0' + seconds ) );
+                            } , 1000 );
                         });
-                    }
+                    };
+                    // get server time 
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
                     getServerTime();
@@ -2992,7 +3019,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         </object>'
                         );
                 }
-                
                 break;
         }
     });
@@ -3002,6 +3028,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     //     alert($('.conut_down_wrap .conut_down').css('left'));
     //     alert($('.conut_down_wrap  .conut_down').css('top' , 0));
     // } , 2000);
+    
+
 });
 
 
