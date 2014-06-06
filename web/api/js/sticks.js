@@ -1,6 +1,6 @@
 (function() {
     var stickHeight = 400, stickWidth = 3, stickPadding = 0.4, fillAniFinished = false;
-    var container, stats;
+    var container;
     var camera, scene, projector, renderer;
 
     var mouseX = 0, mouseY = 0;
@@ -202,11 +202,6 @@
                         window.addEventListener('resize', onWindowResize, false);
                         document.addEventListener('mousemove', onDocumentMouseMove, false);
                     });
-
-                    stats = new Stats();
-                    stats.domElement.style.position = 'absolute';
-                    stats.domElement.style.top = '0px';
-                    container.appendChild(stats.domElement);
                 }
             }});
         }});
@@ -298,7 +293,6 @@
             camera.position.x += ( cameraX - camera.position.x ) * 0.1;
 
             render();
-            stats.update();
         }
 
         function render() {
