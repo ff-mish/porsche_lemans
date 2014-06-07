@@ -9,7 +9,7 @@
   'Cancel' => '取消',
   'Repost' => '转发',
   'Cancel Invitation' => '取消邀请',
-  'Assiduity' => '成就值',
+  'Knowledge' => '成就值',
   'Success!' => '成功!',
   'wrong email' => '请输入有效的邮箱地址',
   'Maximum number of characters attained' => '超出最大字数限制',
@@ -28,4 +28,6 @@
   'Search' => '搜索',
   'latest post' => '最新微博',
   'Invite a friend' => '邀请好友',
+  '5/5' => '',
+  'Assiduity' => '',
 );
