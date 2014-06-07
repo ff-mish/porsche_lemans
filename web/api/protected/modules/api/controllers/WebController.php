@@ -1,5 +1,5 @@
 <?php
-
+Yii::import('ext.sinaWeibo.SinaWeibo',true);
 /**
  * @author Jackey <jziwenchen@gmail.com>
  * 系统级别的Controller 比如 404  / 错误 
@@ -75,18 +75,19 @@ class WebController extends Controller {
     die();
   }
   
+  // 从Weibo 抓数据后 推送数据到对方接口
   public function actionCronFetchTwitte() {
     $token = SystemAR::get("weibo_token");
     $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
     
-    $ret = $weibo_api->search_topic("2014");
+    $ret = $weibo_api->search_topic(Yii::app()->params["search_topic"], 50);
     
     if (!isset($ret["statuses"])) {
       return print_r($ret);
     }
     
-    $url = "http://www.letustestit.eu/api/web/cronnewtwitte";
-    //$url = "http://lemans.local/api/web/cronnewtwitte";
+    $service_url = Yii::app()->params["service_url"];
+    $url = $service_url."/api/web/cronnewtwitte";
     
     $ch = curl_init($url);
     
@@ -98,10 +99,12 @@ class WebController extends Controller {
     curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
     $response = curl_exec($ch);
     
+    header("content-type:text/html; charset=utf-8");
     print_r($response);
     die();
   }
   
+  // 接受新浪抓过来的微博  － 仅供 代理服务器 接受数据用
   public function actionCronNewTwitte() {
     $request = Yii::app()->getRequest();
     if (!$request->isPostRequest) {

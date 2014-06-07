@@ -275,13 +275,24 @@ class TwitteAR extends CActiveRecord {
     }
     else if ($level == self::LEVEL_WEB) {
       if ($from == UserAR::FROM_TWITTER) {
-        $uids[] = Yii::app()->params["twitter_uid"];
+        $userAr = new UserAR();
+        $porsche_user = $userAr->load_user_by_uuid(Yii::app()->params["porsche_twitter_uid"]);
+        if ($porsche_user) {
+          $uids[] = $porsche_user->uid;
+        }
       }
       else {
-        $uids[] = Yii::app()->params["weibo_uid"];
+        $userAr = new UserAR();
+        $porsche_user = $userAr->load_user_by_uuid(Yii::app()->params["porsche_weibo_uid"]);
+        if ($porsche_user) {
+          $uids[] = $porsche_user->uid;
+        }
       }
       $query->addCondition($this->tableAlias.".uid in (:uid)");
       $params[":uid"] = implode(",", $uids);
+      
+//      $query->addCondition("is_from_thirdpart=:is_from_thirdpart");
+//      $params[":is_from_thirdpart"] = 1;
     }
     
     $query->order = $this->tableAlias.".cdate DESC";

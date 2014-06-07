@@ -10,7 +10,7 @@ class TwitterCommand extends CConsoleCommand {
   
   public function actionSearchtag() {
     // 搜索的关键词
-    $keyword = Yii::app()->params["twitter_search_topic"];
+    $keyword = '#'.Yii::app()->params["search_topic"];
     $timelines = Yii::app()->twitter->search_topic($keyword, array("result_type" => "rencent", "count" => 100));
     
     $statuses = $timelines["statuses"];
@@ -98,6 +98,5 @@ class TwitterCommand extends CConsoleCommand {
         print "time: ". date("Y-m-d H:m:s"). "unknow error\r\n";
       }
     }
-    
   }
 }
