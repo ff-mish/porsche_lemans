@@ -45,3 +45,7 @@ opacity: 0.3;
   background-size: 100%;
   z-index: 1000;
 }
+
+form .ng-invalid {
+  border: 1px solid #f00;
+}

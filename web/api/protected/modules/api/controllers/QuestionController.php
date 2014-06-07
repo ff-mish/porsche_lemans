@@ -24,19 +24,35 @@ class QuestionController extends Controller {
     if (!$request->isPostRequest) {
       return $this->responseError("post only", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
-    
     $question = $request->getPost("question");
-    $anwser_1 = $request->getPost("answer_1");
-    $anwser_2 = $request->getPost("answer_2");
-    $anwser_3 = $request->getPost("answer_3");
-    $anwser_4 = $request->getPost("answer_4");
+    $anwser_1 = $request->getPost("answer1");
+    $anwser_2 = $request->getPost("answer2");
+    $anwser_3 = $request->getPost("answer3");
+    $anwser_4 = $request->getPost("answer4");
     $right = $request->getPost("right");
     
-    $qa_ar = new QAAR();
-    $ret = $qa_ar->addNewQuestion($question, array($anwser_1, $anwser_2, $anwser_3, $anwser_4), $right);
-    
-    if ($ret instanceof QAAR) {
+    $qaid = $request->getPost("qaid", false);
+    if ($qaid) {
+      $qaAr = QAAR::model()->findByPk($qaid);
+      if (!$qaAr) {
+        $ret = FALSE;
+      }
+      $qaAr->question = $question;
+      $qaAr->answer1 = $anwser_1;
+      $qaAr->answer2 = $anwser_2;
+      $qaAr->answer3 = $anwser_3;
+      $qaAr->answer4 = $anwser_4;
+      $qaAr->right = $right;
       
+      $ret = $qaAr->save();
+    }
+    else {
+      $qaAr = new QAAR();
+      $ret = $qaAr->addNewQuestion($question, array($anwser_1, $anwser_2, $anwser_3, $anwser_4), $right);
+    }
+    
+    if ($ret) {
+      $this->responseJSON($qaAr, "success");
     }
     else {
       return $this->responseError("save question error", ErrorAR::ERROR_VALIDATE_FAILED, $ret);
@@ -58,13 +74,13 @@ class QuestionController extends Controller {
   }
   
   public function actionDelete() {
-    $requst = Yii::app()->getRequest();
+    $request = Yii::app()->getRequest();
     
-    if (!$requst->isPostRequest) {
+    if (!$request->isPostRequest) {
       return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     
-    $qaid = $request->getPost($qaid);
+    $qaid = $request->getPost("qaid");
     $qa_ar = new QAAR();
     $qa_ar->deleteByPk($qaid);
     
@@ -120,6 +136,19 @@ class QuestionController extends Controller {
     );
     
     $this->responseJSON($data, "success");
+  }
+  
+  //
+  public function actionIndex() {
+    $request = Yii::app()->getRequest();
+    
+    $qaid = $request->getParam("qaid", FALSE);
+    if (!$qaid) {
+      return $this->responseError("miss param", 500);
+    }
+    
+    $qa = QAAR::model()->findByPk($qaid);
+    $this->responseJSON($qa, "success");
   }
 }
 
