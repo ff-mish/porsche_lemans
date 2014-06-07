@@ -14,7 +14,6 @@ class QAAR extends CActiveRecord {
   
   public function rules() {
     return array(
-        array("right", "numerical"),
         array("question,answer1, answer2,answer3, answer4,right, answered, right_answered, cdate, udate, uid", "safe"),
     );
   }
