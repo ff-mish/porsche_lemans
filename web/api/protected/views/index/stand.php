@@ -37,16 +37,6 @@
 			</div>
 		</div>
     <div class="page pagebg1">
-      <!-- nav -->
-<!--      <div class="nav">-->
-<!--          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span>--><?//=Yii::t('lemans','Make a tweet')?><!--</span></div>-->
-<!--          <p class="on">--><?//=Yii::t('lemans','Stand')?><!--</p>-->
-<!--          <p class="disabled">--><?//=Yii::t('lemans','Race')?><!--</p>-->
-<!--		  <p class="disabled">--><?//=Yii::t('lemans','Fuel')?><!--</p>-->
-<!--          <p class="disabled">--><?//=Yii::t('lemans','Monitoring')?><!--</p>-->
-<!--          <p> &nbsp; </p>-->
-<!--          <p><a data-a="logout" href="/api/user/logout">--><?//=Yii::t('lemans','Log out')?><!--</a></p>-->
-<!--      </div>-->
       <!-- stand -->
       <div class="stand">
         <div id="data-stand" style="display:none" 
@@ -88,17 +78,14 @@
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "min")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;"><?php echo Yii::t("lemans", "sec")?></span>
 					</div>
-			      </div>
-				<!-- <div style="display:none;">
-					<a class="stand_del disabled"><img src="/images/stand_del.png"></a>
-					<a class="stand_add"><img src="/images/stand_add.png"></a>
-					<div class="stand_posts"><div class="stand_posts_inner"></div></div>
+			    </div>
+			</div>
+			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
+				<div class="stand_posts">
+					<div class="stand_posts_inner clearfix"></div>
+					<div class="stand_add"></div>
 				</div>
-				<div class="stand_posts_p1">
-					<div class="stand_posts_item">-</div>
-					<div class="stand_posts_item">-</div>
-<!--					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>
-				</div> -->
 			</div>
 			<!--  -->
 			<div class="stand_chart">

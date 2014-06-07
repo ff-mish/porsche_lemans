@@ -175,6 +175,92 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     // widgets and common functions here
     // ======================================================================
+    var rotateAnimateMgr = (function( $dom , cb ){
+        var redPath , text , width , height , r , stockWidth = 8 , stockColor = COLOR , lastValue = 0;
+        return {
+            initAnimate: function( $dom , cb ){
+                if( redPath ){
+                    cb && cb();
+                    return false;
+                }
+                LP.use('raphaeljs' , function( Raphael ){
+                    // Creates canvas 320 × 200 at 10, 50
+                    width = $dom.width();
+                    height = $dom.height();
+                    var memberHeight = $('.member_item').outerHeight() - 8;
+                    r = memberHeight / 2 - 5 ;
+
+                    var paper = Raphael( $dom.get(0) , width , height );
+
+                    var circleBg = paper.circle( width / 2 , height / 2, r )
+                            .attr("stroke" , '#000' )
+                            .attr("stroke-width" , 0 )
+                            .animate({'stroke-width': stockWidth} , 700);
+
+                    redPath = paper.path( "" )
+                            .attr("stroke" , stockColor )
+                            .attr("stroke-width" ,stockWidth );
+                    // var blackPath = paper.path( "" )
+                    //         .attr("stroke", "#000")
+                    //         .attr("stroke-width" , stockWidth);
+
+                    text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
+                        .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
+
+                    cb && cb();
+                });
+            },
+            runAnimate: function( current , noMoveNum ){
+                current = current || 0;
+                var percent = Math.min( current , 1 ) ;
+                var startAngle = 45;
+                startAngle = startAngle / 180 * Math.PI || 0;
+                var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
+                var now ;
+                var duration = 700;
+                var ani = function(){
+                    var p = Math.min( 1 ,  ( new Date() - now ) / duration );
+                    var end = [ width / 2 + Math.cos( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r  ]
+                    var path = [
+                        'M' , start[0] , ' ' , start[1] ,
+                        'A' , r , ' ' , r , ' 0 ' , ( lastValue + ( percent - lastValue ) * p ) > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
+                        ].join("");
+                    // var otherPath = [
+                    //     'M' , start[0] , ' ' , start[1] ,
+                    //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
+                    // ].join("");
+
+                    if( percent * p < 1 ){
+                        redPath.attr( 'path' , path );
+                        //blackPath.attr( 'path' , otherPath );
+                    }
+                    // if( percent * p == 1 ){
+                    //     paper.circle( width / 2 , height / 2, r )
+                    //         .attr("stroke" , stockColor )
+                    //         .attr("stroke-width" ,stockWidth );
+                    //     redPath.remove();
+                    //     blackPath.remove();
+                    // }
+
+                    // render numbers
+                    if( !noMoveNum )
+                        text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
+
+                    if( p != 1 ){
+                        setTimeout(ani , 60/1000);
+                    } else {
+                        lastValue = current;
+                    }
+                }
+                if( percent ){
+                    setTimeout( function(){
+                        now = new Date();
+                        ani();
+                    } , 700 );
+                }
+            }
+        }
+    })();
     var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
         current = current || 0;
         var percent = Math.min( current / total , 1 ) ;
@@ -185,8 +271,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var height = $dom.height();
             var memberHeight = $('.member_item').outerHeight() - 8;
             var r = memberHeight / 2 - 5 , stockWidth = 8 , stockColor = COLOR;
-
-            var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
             var paper = Raphael( $dom.get(0) , width , height );
 
@@ -205,7 +289,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
                 .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
-
+            var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
             var now ;
             var duration = 700;
             var ani = function(){
@@ -278,6 +362,89 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         return $input.val() == $input.attr('placeholder') ? "" : $input.val();
     }
 
+    var initTeamName = function(){
+        var lastTname = null;
+        var hideTimer = null;
+        $('.team_name').blur(function(){
+            $(this).removeClass('focus');
+            var txt = $(this).text();
+            if( lastTname === txt ) return;
+            // match
+            
+            var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+            if( tmp.length > 12 ){
+                $('.team_name_error_tip').fadeIn();
+                clearTimeout( hideTimer );
+                hideTimer = setTimeout(function(){
+                    $('.team_name_error_tip').fadeOut();
+                } , 3000);
+                $(this).focus();
+                return false;
+            }
+            if(txt.length != 0) {
+                lastTname = txt;
+                api.post("/api/user/updateteam" , {name: txt}, function(){
+                    $('.team_name').data('team', txt);
+                });
+            }
+            else {
+                $('.team_name').text($('.team_name').data('team'));
+            }
+        }).keydown(function( ev ){ 
+            if( ev.shiftKey && ( ev.which == 57
+                || ev.which == 48 || ev.which == 49 || ev.which == 50 )
+                ) return false;
+            switch( ev.which ){
+                case 221:
+                case 219:
+                    return false;
+                case 13:
+                    $(this).trigger('blur');
+                    return false;
+                    break;
+            }
+
+            var txt = $(this).text();
+            var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+            if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
+                $('.team_name_error_tip').fadeIn();
+                clearTimeout( hideTimer );
+                hideTimer = setTimeout(function(){
+                    $('.team_name_error_tip').fadeOut();
+                } , 3000);
+                return false;
+            }
+            $('.team_name_error_tip').fadeOut();
+        })
+        .keyup(function(){
+            var w = $(this).width() + 20;
+            var cw = $('.stand_chart_tip').width();
+            var tw = $('.member_item').width();
+
+            if( w + cw < tw ){
+                $('.stand_chart_tip').css({
+                    left: w,
+                    top: 4,
+                    bottom: 'auto'
+                }).find('span').css({
+                    left: 4,
+                    top: 3
+                });
+            } else {
+                $('.stand_chart_tip').css({
+                    left: ( w - cw - 30 ) / 2,
+                    top: '',
+                    bottom: ''
+                }).find('span').css({
+                    left: '',
+                    top: ''
+                });
+            }
+        })
+        .focus(function(){
+            $(this).addClass('focus');
+        });
+    }
 
     var questionTimerInitTimer = null;
     var questionTimerInit = function( $dom  , duration , cb ){
@@ -341,9 +508,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     }
     // left { max: xx , tip : '' , text: yyy }
     var coordinate = (function(){
-        var object = {};
+        var object = {} , isInit = false;
         function init( $dom , cb ){
-            
+            if( isInit ){
+                cb && cb();
+                return false;
+            }
+            isInit = true;
             //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
             var pathAttr = {
@@ -449,13 +620,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var target = [];
 
-        function runAnimate( left , right , top , bottom , noAnimate ){
+        function runAnimate( left , right , top , bottom  ){
             // left = 0.5;
             // right = 0.7;
             // top = 0.9;
             // bottom = 0.3;
             target = [left , right , top , bottom];
-            
 
             var center = object.center;
             var xwidth = object.xwidth;
@@ -478,21 +648,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 var rpath = [];
                 $.each([ left, top , right , bottom] , function( i , dot){
-                    rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
+                    rpath.push( ( i == 0 ? 'M' : 'L' ) + ~~dot[0] + ' ' + ~~dot[1] );
                 });
                 rpath.push('Z');
 
                 object.path.attr( 'path' , rpath.join("") );
             }
 
-            if( noAnimate ){
-                renderPath( left , right , top , bottom  );
-                object.lastLeft = left;
-                object.lastRight = right;
-                object.lastTop = top;
-                object.lastBottom = bottom;
-                return;
-            }
+            // if( noAnimate ){
+            //     renderPath( left , right , top , bottom );
+            //     object.lastLeft = left;
+            //     object.lastRight = right;
+            //     object.lastTop = top;
+            //     object.lastBottom = bottom;
+            //     return;
+            // }
             var ani = function(){
                 var dur = new Date - now;
                 var per = dur / duration;
@@ -1669,7 +1839,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 this.$panel.find('.popup_close')
                     .click(function(){
-                      console.log(panel);
                         panel.close();
                     });
             },
@@ -2580,90 +2749,137 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     }
                 });
 
+                var animateTo = function( arrSrarts , arrEnds , duration , step ){
+                    var now = new Date();
+                    var ani = function(){
+                        var dur = new Date() - now;
+                        var per = dur / duration;
+                        if( per > 1 ){
+                            per = 1;
+                        }
+                        var nums = [];
+                        $.each( arrSrarts , function( i , num ){
+                            nums.push( num + ( arrEnds[ i ] - num ) * per );
+                        } );
+                        step( nums );
+                        per < 1 && setTimeout( ani , 1000 / 60 );
+                    }
+                    ani();
+                }
+
+
+                // var animateTo = function(  $dom , num , unit ){
+                //     var dur = new Date() - now;
+                //     var per = dur / duration;
+                //     if( per > 1 ){
+                //         per = 1;
+                //     }
+                //     if(( num + '' ).indexOf('.') < 0 )
+                //         var fixNum = 0;
+                //     else 
+                //         var fixNum = 1;
+                //     $dom.html( parseFloat((num * per).toFixed(fixNum)) + unit );
+                //     if( per < 1 ){
+                //         setTimeout( function(){
+                //             animateTo( $dom , num , unit );
+                //         } , 1000 / 60);
+                //     }
+                // }
+
+                var animateData = function( data ){
+                    var team = data.team;
+
+                    // spped
+                    $.each( team.users || [] , function( i , user ){
+                        var speed = user.score ? user.score.speed : 0;
+
+                        rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
+                            rotateAnimateMgr.runAnimate( parseFloat( speed ) || 0.7 , true );
+                        } )  
+                        //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
+                    } );
+                    // space
+                    var spaces = [1000000 , 1000 , 1];
+                    var spacesUnit = ['M' , 'K' , ''];
+                    $('.teambuild_members')
+                        .find('.memeber_space span')
+                        .each( function( i ){
+                            var $this = $(this);
+                            setTimeout(function(){
+                                var user = team.users[ i ];
+                                var space = '';
+                                var unit = '';
+                                if( user.friends > 1000 ){
+                                    $.each( spaces , function( k , sp ){
+                                        space =  Math.round((user.friends / sp)*10) / 10;
+                                        if( space >= 1 ){
+                                            unit = spacesUnit[k];
+                                            return false;
+                                        }
+                                        unit = spacesUnit[k];
+                                    } );
+                                } else {
+                                    space = user.friends;
+                                }
+                                var lastNum = parseFloat( $this.data('last-num') ) || 0;
+                                animateTo( [ lastNum ] , [ space ] , 600 , function( num ){
+                                    $this.html( parseFloat(num[0].toFixed(1)) + unit );
+                                } );
+                                $this.data('last-num' , space);
+                            } , 1000);
+                        } );
+
+                    // render stars
+                    var $stars = $('.stand_achivmentsbox p');
+                    var addIndex = 0;
+                    for( var i = 0 ; i < data.team_star ; i ++ ){
+                        if( $stars.eq(i).children().length ) continue;
+                        $('<img src="/images/full-star.png" />')
+                            .css({
+                                width: 100,
+                                marginTop: -45,
+                                marginLeft: -40,
+                                opacity: 0
+                            })
+                            .appendTo( $stars.eq(i) )
+                            .delay(1000 * ( ++addIndex ) )
+                            .animate({
+                                width: 30,
+                                marginTop: 0,
+                                marginLeft: 0,
+                                opacity: 1
+                            } , 500);
+                    }
+
+                    var tsc = [ data.team_position , data.team_total ];
+                    var $tsc = $('#team-score');
+                    var last_tsc = $tsc.data('last-num') || [0 , 0];
+                    animateTo( last_tsc , tsc , 600 , function( nums ){
+                        nums[0] = ~~nums[0];
+                        nums[1] = ~~nums[1];
+                        $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
+                    } );
+
+
+                    // render stand_chart
+                    var score = team.score || {};
+                    // animate
+                    var $score = $('.stand_chart_score');
+                    animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
+                        $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
+                    } );
+                    $score.data('last-num' , score.average );
+
+
+                    coordinate.init( $('.stand_chart') , function(){
+                        coordinate.run( parseFloat( score.impact ) || 0 , parseFloat( score.quality )|| 0 , parseFloat( score.speed ) || 0 , parseFloat( score.assiduity )|| 0 );
+                    } );
+                }
+
                 // init team name
-                var lastTname = null;
-                var hideTimer = null;
-                $('.team_name').blur(function(){
-                    $(this).removeClass('focus');
-                    var txt = $(this).text();
-                    if( lastTname === txt ) return;
-                    // match
-                    
-                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-                    if( tmp.length > 12 ){
-                        $('.team_name_error_tip').fadeIn();
-                        clearTimeout( hideTimer );
-                        hideTimer = setTimeout(function(){
-                            $('.team_name_error_tip').fadeOut();
-                        } , 3000);
-                        $(this).focus();
-                        return false;
-                    }
-					if(txt.length != 0) {
-						lastTname = txt;
-						api.post("/api/user/updateteam" , {name: txt}, function(){
-							$('.team_name').data('team', txt);
-						});
-					}
-					else {
-						$('.team_name').text($('.team_name').data('team'));
-					}
-                }).keydown(function( ev ){ 
-                    if( ev.shiftKey && ( ev.which == 57
-                        || ev.which == 48 || ev.which == 49 || ev.which == 50 )
-                        ) return false;
-                    switch( ev.which ){
-                        case 221:
-                        case 219:
-                            return false;
-                        case 13:
-                            $(this).trigger('blur');
-                            return false;
-                            break;
-                    }
+                initTeamName();
+                countDownMgr.initCountDown();
 
-                    var txt = $(this).text();
-                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-                    if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
-                        $('.team_name_error_tip').fadeIn();
-                        clearTimeout( hideTimer );
-                        hideTimer = setTimeout(function(){
-                            $('.team_name_error_tip').fadeOut();
-                        } , 3000);
-                        return false;
-                    }
-                    $('.team_name_error_tip').fadeOut();
-                })
-                .keyup(function(){
-                    var w = $(this).width() + 20;
-                    var cw = $('.stand_chart_tip').width();
-                    var tw = $('.member_item').width();
-
-                    if( w + cw < tw ){
-                        $('.stand_chart_tip').css({
-                            left: w,
-                            top: 4,
-                            bottom: 'auto'
-                        }).find('span').css({
-                            left: 4,
-                            top: 3
-                        });
-                    } else {
-                        $('.stand_chart_tip').css({
-                            left: ( w - cw - 30 ) / 2,
-                            top: '',
-                            bottom: ''
-                        }).find('span').css({
-                            left: '',
-                            top: ''
-                        });
-                    }
-                })
-                .focus(function(){
-                    $(this).addClass('focus');
-                });
-
-               countDownMgr.initCountDown();
 
 
                 api.get('/api/user' , function( e ){
@@ -2687,27 +2903,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var team = data.team;
                     
                     // TODO:: 如果发现team 是空， 则需要返回到team building 页面
-                    
-//                    var team = data.team || {
-//                        score: {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2},
-//                        name:'xxxx',
-//                        users:[{
-//                            "uid":"101648",
-//                            "name":"\u8299\u7f8e\u513f",
-//                            "from":"weibo",
-//                            "cdate":"2014-05-16 10:39:25",
-//                            "udate":"2014-05-16 10:39:25",
-//                            "uuid":"5072167230",
-//                            "lat":null,
-//                            "lng":null,
-//                            "speed": 0.9,
-//                            "impact": 3452,
-//                            "invited_by":"0","profile_msg":"","avatar":"http:\/\/tp3.sinaimg.cn\/5072167230\/180\/40049599975\/0","status":"1","friends":"81","location":"","score":null
-//                    }]};
-
-                    // 
                     $('.team_name').html( team.name).data('team', team.name);
-                    $('#team-score').html( _e('P') + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -2716,14 +2912,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span>0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
                             <p class="member_name">@#[name]<br/></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span>0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
@@ -2731,54 +2927,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         </div></div>';
                     var html = [];
                     var speeds = [];
-                    var spaces = [1000000 , 1000 , 1];
-                    var spacesUnit = ['M' , 'K' , ''];
-
-                    var duration = 600;
-                    var now = (+new Date()) + 1000;
-                    var animateTo = function(  $dom , num , unit ){
-                        var dur = new Date() - now;
-                        var per = dur / duration;
-                        if( per > 1 ){
-                            per = 1;
-                        }
-                        if(( num + '' ).indexOf('.') < 0 )
-                            var fixNum = 0;
-                        else 
-                            var fixNum = 1;
-                        $dom.html( parseFloat((num * per).toFixed(fixNum)) + unit );
-                        if( per < 1 ){
-                            setTimeout( function(){
-                                animateTo( $dom , num , unit );
-                            } , 1000 / 60);
-                        }
-                    } 
+                    
 
                     // render invited user
                     $.each( team.users || [] , function( i , user ){
-                        var space = '';
-                        var unit = '';
-
-                        if( user.friends > 1000 ){
-                            $.each( spaces , function( k , sp ){
-                                space =  Math.round((user.friends / sp)*10) / 10;
-                                if( space >= 1 ){
-                                    unit = spacesUnit[k];
-                                    return false;
-                                }
-                                unit = spacesUnit[k];
-                            } );
-                        } else {
-                            space = user.friends;
-                        }
 
                         html.push( LP.format( user.uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
                             avatar:     user.avatar,
-                            name:       user.name,
-                            num:        space,
-                            unit:       unit,
-                            space:      space + unit}));
-                        speeds.push( user.score ? user.score.speed : 0 );
+                            name:       user.name}));
                     } );
                     // render inviting user
                     $.each( data.inviting || [] , function( i , user ){
@@ -2797,14 +2953,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )
-                        .find('.memeber_space span')
-                        .each( function(){
-                            var $this = $(this);
-                            setTimeout(function(){
-                                animateTo( $this , $this.data('num') , $this.data('unit') );
-                            } , 1000);
-                            
-                        } );
+                        // .find('.memeber_space span')
+                        // .each( function(){
+                        //     var $this = $(this);
+                        //     setTimeout(function(){
+                        //         animateTo( $this , $this.data('num') , $this.data('unit') );
+                        //     } , 1000);
+                        // } );
 					// init member effect
 					$('.teambuild_member:not(.stand_inviting)').css({opacity:0}).each(function( i ){
 						$(this).delay( i * 200 )
@@ -2812,19 +2967,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 								opacity: 1
 							} , 500);
 					});
-                    $.each( speeds , function( i , speed ){
-                        rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
-                    } );
+                    // $.each( speeds , function( i , speed ){
+                    //     rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
+                    // } );
 
                     // render achive
                     var ahtml = [];
 
                     for( var i = 0 ; i < 5 ; i++ ){
-                        if( i < data.team_star ){
-                            ahtml.push('<p class="full-star">' + ( i + 1 ) + '</p>');
-                        } else {
-                            ahtml.push('<p></p>');
-                        }
+                        ahtml.push('<p></p>');
                     }
 
                     $('.stand_achivmentsbox').html( ahtml.join("") );
@@ -2834,46 +2985,70 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // render post
                     var aHtml = [];
                     $.each( posts , function( i , post ){
-                        aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
+                        aHtml.push("<div class=\"stand_postsbox\">" + post["content"] + "</div>");
                     } );
+                    // add first to  to last dom
+                    if( posts.length < 3 ){
+                        $('.stand_add').addClass('disabled');
+                        for( var i = 0 ; i < 2 - posts.length ; i ++ ){
+                            aHtml.push("<div class=\"stand_postsbox\" style=\"text-align:center;\">- -</div>");
+                        }
 
-                    var postWidth = $('.stand_posts').width() / 2 + 21;
-                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
-                        .data('index' , 0 );
+                    } else {
+                        $.each( posts , function( i , post ){
+                            aHtml.push("<div class=\"stand_postsbox\">" + post["content"] + "</div>");
+                        } );
+                    }
+
+                    var postWidth = $('.stand_posts').width() / 2;
+                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , $('.stand_posts_inner').children().length * postWidth )
+                        .data('index' , 0 )
+                        .children()
+                        .css('width' , postWidth - 20);
                     $('.stand_tweet').fadeIn();
                     
+
+                    $(window).resize(function(){
+                        postWidth = $('.stand_posts').width() / 2;
+                        $('.stand_posts_inner').children()
+                            .css('width' , postWidth - 20);
+                    });
+
                     // redner next page
                     $('.stand_add').click(function(){
                         if($(this).hasClass('disabled') ) return;
-                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
-                        >= $('.stand_posts_inner').width()) return;
+                        var mleft = Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') ));
+                        var iwidth = $('.stand_posts_inner').width();
+                        if( mleft >= iwidth / 2 ){
+                            $('.stand_posts_inner').css('marginLeft' , - mleft + iwidth / 2 );
+                        }
 
                         $(this).addClass('disabled');
                         $('.stand_posts_inner').animate({
                             marginLeft: '-=' + ( postWidth * 2 )
                         } , 500 , '' , function(){
-                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
-                                >= $('.stand_posts_inner').width()){
-                                $('.stand_add').adddlass('disabled');
-                            }
-                            $('.stand_del').removeClass('disabled');
-                        });
-                    });
-
-                    $('.stand_del').click(function(){
-                        if($(this).hasClass('disabled') ) return;
-                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ) return;
-
-                        $(this).addClass('disabled');
-                        $('.stand_posts_inner').animate({
-                            marginLeft: '+=' + ( postWidth * 2 )
-                        } , 500 , '' , function(){
-                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ){
-                                $('.stand_del').addClass('disabled');
-                            }
+                            // if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
+                            //     >= $('.stand_posts_inner').width()){
+                            //     $('.stand_add').adddlass('disabled');
+                            // }
                             $('.stand_add').removeClass('disabled');
                         });
                     });
+
+                    // $('.stand_del').click(function(){
+                    //     if($(this).hasClass('disabled') ) return;
+                    //     if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ) return;
+
+                    //     $(this).addClass('disabled');
+                    //     $('.stand_posts_inner').animate({
+                    //         marginLeft: '+=' + ( postWidth * 2 )
+                    //     } , 500 , '' , function(){
+                    //         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ){
+                    //             $('.stand_del').addClass('disabled');
+                    //         }
+                    //         $('.stand_add').removeClass('disabled');
+                    //     });
+                    // });
 
 
                     // hover to show the leave team
@@ -2898,15 +3073,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         $(this).animate({opacity: 0.5});
                     });
 
-                    // render stand_chart
-                    var score = team.score || {};
-                    $('.stand_chart_score').html( (score.average || 0) + ' km/h' );
-                    coordinate.init( $('.stand_chart') , function(){
-                        coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduity || 0 );
-                    } );
-                        
-                });
 
+                    animateData( data );
+
+
+                    setInterval(function(){
+                        api.get('/api/user' , function( e ){
+                            var data = e.data;
+                            animateData( data );
+                        });
+                    } , 60000);
+                });
                 break;
                 
             case "monitoring":
