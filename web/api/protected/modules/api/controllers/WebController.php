@@ -213,7 +213,7 @@ class WebController extends Controller {
   public function actionRacedata() {
     $time_now = time();
     $time_start = strtotime(Yii::app()->params["startTime"]);
-    $hour = ($time_now - $time_start) / 3600;
+    $hour = ceil(($time_now - $time_start) / 3600);
     
     $lenght_of_race = 13.6;
     // weibo 

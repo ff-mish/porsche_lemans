@@ -3145,10 +3145,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               break;
               
           case "teamrace":
-                if(document.createElement("canvas").getContext){
-                    // get server time 
+                if(document.createElement("canvas").getContext) {
+                    // get server time
                     var getServerTime = function () {
-                        api.get('/api/web/time?v2=1' , function( e ){
+                        api.get('/api/web/time?v2=1' , function( e ) {
                             clearInterval( interval );
                             var now = +new Date( e.data.time_now ) / 1000;
                             var start = +new Date( e.data.time_start ) / 1000;
@@ -3191,7 +3191,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             
                         });
                 } else {
-                    // render flash
                     // render flash
                     $('.race_nav,.nav').hide();
                     $('#container').html(
