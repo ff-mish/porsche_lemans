@@ -80,13 +80,13 @@
 					</div>
 			    </div>
 			</div>
-			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+<!--			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
 				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
 				<div class="stand_posts">
 					<div class="stand_posts_inner clearfix"></div>
 					<div class="stand_add"></div>
 				</div>
-			</div>
+			</div>-->
 			<!--  -->
 			<div class="stand_chart">
 				<div class="stand_chart_score">

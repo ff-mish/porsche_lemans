@@ -8,7 +8,7 @@
 return array (
     "Networks" => "网络",
     "Teams" => "团队",
-    "latest post" => "最新微博",
+    "Latest Post" => "最新微博",
     "Speed" => "速度",
     "Quality" => "内容",
     "Impact" => "影响力",

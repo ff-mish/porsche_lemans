@@ -3,25 +3,24 @@
 		<!-- logo -->
     <div class="header">
         <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
-        <a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
+	    <a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
     </div>
 
 		<div class="nav">
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a tweet')?>
+					<?=Yii::t('lemans','Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
 			<p class="on"><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
-			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
-			<p ><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
-			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
-      
+			<p class="disabled"><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p class="disabled"><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
+			<p class="disabled"><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
-				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
 				<p class="language">
 					<?php if (Yii::app()->language == "zh_cn"): ?>
 						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
@@ -30,7 +29,7 @@
 					<?php endif;?>
 				</p>
 			</div>
-			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<p class="m"><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 			<div class="mobile_menu btn" data-a="show-menu">
 				<p></p>
 				<p></p>
@@ -38,16 +37,6 @@
 			</div>
 		</div>
     <div class="page pagebg1">
-      <!-- nav -->
-<!--      <div class="nav">-->
-<!--          <div class="post_link"><a href="#" data-a="post_weibo" class="navicon"></a><span>--><?//=Yii::t('lemans','Make a tweet')?><!--</span></div>-->
-<!--          <p class="on">--><?//=Yii::t('lemans','Stand')?><!--</p>-->
-<!--          <p class="disabled">--><?//=Yii::t('lemans','Race')?><!--</p>-->
-<!--		  <p class="disabled">--><?//=Yii::t('lemans','Fuel')?><!--</p>-->
-<!--          <p class="disabled">--><?//=Yii::t('lemans','Monitoring')?><!--</p>-->
-<!--          <p> &nbsp; </p>-->
-<!--          <p><a data-a="logout" href="/api/user/logout">--><?//=Yii::t('lemans','Log out')?><!--</a></p>-->
-<!--      </div>-->
       <!-- stand -->
       <div class="stand">
         <div id="data-stand" style="display:none" 
@@ -80,34 +69,31 @@
 				</div>
 			</div>
 			<!--  -->
-			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
-				<h2 class="fl"><?php echo Yii::t("lemans", "latest post")?></h2>
-				<!--<div class="conut_down_wrap stand_count_down">
+<!--			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+				<h2 class="fl"><?php echo Yii::t("lemans", "Race Starts In")?></h2>
+				<div class="conut_down_wrap stand_count_down">
 			      	<div class="conut_down cs-clear" data-fadein>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "d")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "h")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "min")?></span>
 						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;"><?php echo Yii::t("lemans", "sec")?></span>
 					</div>
-			      </div>-->
-				 <div>
-					<a class="stand_del disabled"><img src="/images/stand_del.png"></a>
-					<a class="stand_add"><img src="/images/stand_add.png"></a>
-					<div class="stand_posts"><div class="stand_posts_inner"></div></div>
+			    </div>
+			</div>-->
+			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+				<h2 class="fl"><?php echo Yii::t("lemans", "Latest Post")?></h2>
+				<div class="stand_posts">
+					<div class="stand_posts_inner clearfix"></div>
+					<div class="stand_add"></div>
 				</div>
-<!--				<div class="stand_posts_p1">
-					<div class="stand_posts_item">-</div>
-					<div class="stand_posts_item">-</div>
-					<a class="stand_add_p1"><img src="/images/stand_add2.png"></a>
-				</div> -->
 			</div>
-			
+			<!--  -->
 			<div class="stand_chart">
 				<div class="stand_chart_score">
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "This display the number of tweets per hour") ?>
+						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
 						<span>◆</span>
 					</div>
 				</div>
@@ -141,25 +127,25 @@
 		<div class="tutr-step-left"></div>
 		<div class="tutr-step-right"></div>
 		<div class="tutr-step-tip1">
-			<p class="step-num">1/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "1/5")?></p>
 			<div class="step-con">
 				<?php echo Yii::t("lemans", "tutorial_step_1")?>
 			</div>
 			<a href="#" class="step-btn" data-step="2"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip2">
-			<p class="step-num">2/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "2/5")?></p>
 			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_2")?>
 		</div>
 			<a href="#" class="step-btn" data-step="3"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip3">
-			<p class="step-num">3/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "3/5")?></p>
 			<div class="step-con"><?php echo Yii::t("lemans", "tutorial_step_3")?>			</div>
 			<a href="#" class="step-btn" data-step="4"><?php echo Yii::t("lemans", "Next")?></a>
 		</div>
 		<div class="tutr-step-tip4">
-			<p class="step-num">4/5</p>
+			<p class="step-num"><?php echo Yii::t("lemans", "4/5")?></p>
 			<div class="step-con">
 				<?php echo Yii::t("lemans", "tutorial_step_4")?>
 			</div>
@@ -167,5 +153,3 @@
 		</div>
 	</div>
 	<!--  -->
-  
-
