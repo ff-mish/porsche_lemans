@@ -154,8 +154,6 @@
                     if (raceData.status!=0) {
                         console.error('Data status invalid: '+raceData.message, raceData);
                     } else {
-                        init();
-                        animate();
 
                         function init() {
 
@@ -466,6 +464,9 @@
                             renderer.render(scene, camera);
                             rendererMap.render(sceneMap, cameraMap);
                         }
+                        
+                        init();
+                        animate();
                     }
                 });
             }});

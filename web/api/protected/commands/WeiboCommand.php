@@ -25,7 +25,7 @@ class WeiboCommand extends CConsoleCommand {
   public function actionSearchtag() {
     $weibo_api = $this->weibo_api;
     
-    $ret = $weibo_api->search_topic(Yii::app()->params["search_topic"], 50);
+    $ret = $weibo_api->search_topic(Yii::app()->params["search_weibo_topic"], 50);
     
     // 在这里我们不做保存工作了，直接发送到远程的接入服务器 (正式服务器)
     if (!isset($ret["statuses"])) {

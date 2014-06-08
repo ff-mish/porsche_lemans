@@ -35,7 +35,7 @@ class SnsController extends Controller
 			}
 		}
     else {
-      $this->redirect("/index");
+      return $this->redirect("/");
     }
 		
     // Step2, 授权成功后进行登录
@@ -63,7 +63,7 @@ class SnsController extends Controller
   
   public function actionTwittercallback() {
     if (isset($_REQUEST["denied"])) {
-      return $this->redirect("index");
+      return $this->redirect("/");
     }
     //先获取access token
     Yii::app()->twitter->getAccess_token();

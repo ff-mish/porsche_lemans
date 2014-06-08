@@ -1,3 +1,139 @@
+/**********************************************************
+IEWebGL support routines
+You can copy, use, modify, distribute this file.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+**********************************************************/
+
+var WebGLHelper = {
+
+    'GetGLContext': function (cnv, attributes) {
+        var ctxNames = ["webgl", "experimental-webgl"];
+        var glCtx = null;
+        try {
+            for (var i = 0; i < ctxNames.length && glCtx == null; ++i)
+                glCtx = cnv.getContext(ctxNames[i], attributes);
+        }
+        catch (e) { }
+        return glCtx;
+    },
+
+    'CreateNativeCanvas': function (element, id, replace) {
+        var cnv = document.createElement("canvas");
+        if (replace) {
+            if (element.attributes.width) cnv.width = element.attributes.width.value;
+            if (element.attributes.height) cnv.height = element.attributes.height.value;
+            if (element.attributes.style) cnv.style.cssText = element.attributes.style.value;
+            element.parentNode.replaceChild(cnv, element);
+        }
+        else {
+            element.appendChild(cnv);
+        }
+
+        cnv.innerHTML = "Your browser does not support &lt;canvas&gt; tag.";
+        cnv.id = id;
+        return cnv;
+    },
+
+    'CreatePluginCanvas': function (element, id, replace) {
+        var obj = document.createElement("object");
+
+        if (replace) {
+            if (element.attributes.width) obj.width = element.attributes.width.value;
+            if (element.attributes.height) obj.height = element.attributes.height.value;
+            if (element.attributes.style) obj.style.cssText = element.attributes.style.value;
+            element.parentNode.replaceChild(obj, element);
+        }
+        else {
+            element.appendChild(obj);
+        }
+
+        var altMessage = 'To get WebGL support, please <a href="http://iewebgl.com/download/latest/">download</a> and install IEWebGL plugin and refresh the page.';
+        if (obj.innerHTML) {
+            obj.innerHTML = altMessage;
+        }
+        else { /* IE8 workaround */
+            obj.altHtml = altMessage;
+        }
+        
+        obj.id = id;
+        obj.type = "application/x-webgl";
+        return obj;
+    },
+
+    'CreateGLCanvas': function (el, id, replace) {
+        if (navigator.userAgent.indexOf("MSIE") >= 0) {
+            var usePlugin;
+            try {
+                usePlugin = WebGLRenderingContext.hasOwnProperty('iewebgl');
+            } catch (e) {
+                usePlugin = true;
+            }
+
+            if (usePlugin) {
+                return WebGLHelper.CreatePluginCanvas(el, id, replace);
+            }
+            else {
+                return WebGLHelper.CreateNativeCanvas(el, id, replace);
+            }
+        }
+        else {
+            return WebGLHelper.CreateNativeCanvas(el, id, replace);
+        }
+    },
+
+    'CreateGLContext': function (element, id, replace, attributes) {
+
+        var cnv = WebGLHelper.CreateGLCanvas(element, id, replace);
+        var gl = WebGLHelper.GetGLContext(cnv, attributes);
+
+        return gl;
+    },
+
+    'CreateGLCanvasInline': function (id) {
+        var placeHolder = document.getElementById("WebGLCanvasCreationScript");
+        WebGLHelper.CreateGLCanvas(placeHolder, id, true);
+    }
+
+}
+
+//
+function is_support_webgl() {
+  var ctx;
+  try {
+    var cvs = document.createElement('canvas');
+    var contextNames = ['webgl','experimental-webgl','moz-webgl','webkit-3d'];
+    if(navigator.userAgent.indexOf('MSIE') >= 0) {
+      try{
+        ctx = WebGLHelper.CreateGLContext(cvs, 'canvas');
+       }catch(e){
+
+       }
+    }
+    else{
+      for(var i = 0; i < contextNames.length; i++){
+        try{
+          ctx = cvs.getContext(contextNames[i]);
+          if(ctx){
+            addLine('tab','Context Name', contextNames[i]);
+            break;
+          }
+        }catch(e){
+
+        }
+      }
+    }
+  }
+  catch (e) {
+    return false;
+  }
+  return ctx ? true: false;
+}
+
 /*
  * page base action
  */
@@ -3248,10 +3384,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               break;
               
           case "teamrace":
-                if(document.createElement("canvas").getContext){
-                    // get server time 
+                if(document.createElement("canvas").getContext) {
+                    // get server time
                     var getServerTime = function () {
-                        api.get('/api/web/time?v2=1' , function( e ){
+                        api.get('/api/web/time?v2=1' , function( e ) {
                             clearInterval( interval );
                             var times = e.data.time_now.split(/[- :]/);
                             var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
@@ -3297,7 +3433,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                 } else {
                     // render flash
-                    // render flash
                     $('.race_nav,.nav').hide();
                     $('#container').html(
                         '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
@@ -3312,7 +3447,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             break;
 
             case "race":
-                if(document.createElement("canvas").getContext){
+                if(is_support_webgl()){
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );

@@ -10,7 +10,7 @@ class TwitterCommand extends CConsoleCommand {
   
   public function actionSearchtag() {
     // 搜索的关键词
-    $keyword = '#'.Yii::app()->params["search_topic"];
+    $keyword = '#'.Yii::app()->params["search_twitter_topic"];
     $timelines = Yii::app()->twitter->search_topic($keyword, array("result_type" => "rencent", "count" => 100));
     
     $statuses = $timelines["statuses"];
