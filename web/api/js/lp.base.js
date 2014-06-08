@@ -176,13 +176,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // widgets and common functions here
     // ======================================================================
     var rotateAnimateMgr = (function( $dom , cb ){
-        var redPath , text , width , height , r , stockWidth = 8 , stockColor = COLOR , lastValue = 0;
+        var width , height , r , stockWidth = 8 , stockColor = COLOR , lastValue = 0;
         return {
             initAnimate: function( $dom , cb ){
-                if( redPath ){
+                if( $dom.data('init') ){
                     cb && cb();
                     return false;
                 }
+                $dom.data('init' , true);
                 LP.use('raphaeljs' , function( Raphael ){
                     // Creates canvas 320 × 200 at 10, 50
                     width = $dom.width();
@@ -197,20 +198,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             .attr("stroke-width" , 0 )
                             .animate({'stroke-width': stockWidth} , 700);
 
-                    redPath = paper.path( "" )
+                    var redPath = paper.path( "" )
                             .attr("stroke" , stockColor )
                             .attr("stroke-width" ,stockWidth );
                     // var blackPath = paper.path( "" )
                     //         .attr("stroke", "#000")
                     //         .attr("stroke-width" , stockWidth);
 
-                    text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
+                    var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
                         .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
+                    $dom.data('raphael' , {redPath:redPath , text: text });
                     cb && cb();
                 });
             },
-            runAnimate: function( current , noMoveNum ){
+            runAnimate: function( $dom , current , noMoveNum ){
                 current = current || 0;
                 var percent = Math.min( current , 1 ) ;
                 var startAngle = 45;
@@ -218,6 +220,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
                 var now ;
                 var duration = 700;
+                var raphaelObj = $dom.data('raphael');
                 var ani = function(){
                     var p = Math.min( 1 ,  ( new Date() - now ) / duration );
                     var end = [ width / 2 + Math.cos( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r  ]
@@ -230,8 +233,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
                     // ].join("");
 
+
                     if( percent * p < 1 ){
-                        redPath.attr( 'path' , path );
+                        raphaelObj.redPath.attr( 'path' , path );
                         //blackPath.attr( 'path' , otherPath );
                     }
                     // if( percent * p == 1 ){
@@ -244,7 +248,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     // render numbers
                     if( !noMoveNum )
-                        text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
+                        raphaelObj.text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
 
                     if( p != 1 ){
                         setTimeout(ani , 60/1000);
@@ -564,7 +568,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     paper.text( xstart[0] - 40 , xstart[1] , _e('Impact') )
                         .attr( textAttr );
-                    paper.text( xend[0] + 40 , xend[1] , _e('Quality') )
+                    paper.text( xend[0] + 40 , xend[1] , _e('Speed') )
                         .attr( textAttr );
 
                     // draw y
@@ -578,7 +582,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     }
                     paper.path( ypath.join("") ).attr(pathAttr).attr({'stroke-width': 1});;
 
-                    paper.text( ystart[0] , ystart[1] - 20 , _e('Speed') )
+                    paper.text( ystart[0] , ystart[1] - 20 , _e('Quality') )
                         .attr( textAttr );
                     paper.text( yend[0] , yend[1] + 20  , _e('Knowledge') )
                         .attr( textAttr );
@@ -620,7 +624,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var target = [];
 
-        function runAnimate( left , right , top , bottom , noAnimate ){
+        function runAnimate( left , top , right , bottom , noAnimate ){
             // left = 0.5;
             // right = 0.7;
             // top = 0.9;
@@ -1332,6 +1336,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
 
+        if( videoname == 'teamrace' ){
+            videoname = 'race';
+        }
+
         renderVideo( $('<div></div>').css({
             "position": "fixed",
             "z-index": "-1",
@@ -1383,7 +1391,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var speed = user.score ? user.score.speed : 0;
 
             rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
-                rotateAnimateMgr.runAnimate( parseFloat( speed ) || 0.7 , true );
+                rotateAnimateMgr.runAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , true );
             } )  
             //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
         } );
@@ -1448,6 +1456,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             nums[1] = ~~nums[1];
             $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
         } );
+        $tsc.data('last-num' , tsc);
 
 
         // render stand_chart
@@ -1862,7 +1871,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     <div class="popup_close"></div>\
                     <div class="popup_fuel_video">\
                         <h4>#[title]</h4>\
-                        <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
+                        <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
                         <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
@@ -1897,7 +1906,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // init panel width and height
         // var $img = $('<img/>')
-
+        console.log( media );
         var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
         LP.panel({
             content: content,
@@ -1906,6 +1915,34 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             height: 'auto',
             width: 'auto',
             onShow: function(){
+                var panel = this;
+                var $wrap = panel.$panel.find('.popup_image_wrap');
+                var imageWrapWidth = $wrap.width();
+                var imageWrapHeight = $wrap.height();
+                $('<img/>').load(function(){
+                    var width = this.width;
+                    var height = this.height;
+                    var marginTop = 0 , marginLeft = 0 , imgWidth , imgHeight;
+                    console.log( width , height , imageWrapWidth , imageWrapHeight );
+                    if( width / height > imageWrapWidth / imageWrapHeight ){
+                        imgHeight = imageWrapHeight;
+                        imgWidth = width / height * imgHeight;
+                        marginLeft = ( imageWrapWidth - imgWidth ) / 2;
+                    } else {
+                        imgWidth = imageWrapWidth;
+                        imgHeight =  height / width * imgWidth;
+                        marginTop = ( imageWrapHeight - imgHeight ) / 2;
+                    }
+                    $wrap.find('img').css({
+                        marginTop: marginTop,
+                        marginLeft: marginLeft,
+                        width: imgWidth,
+                        height: imgHeight
+                    });
+                })  
+                .attr('src' , $wrap.find('img').attr('src') );
+
+
                 this.$panel.find('.lpn_panel')
                     .css({
                         'margin-top': '-50%',
@@ -1915,11 +1952,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         marginTop: 0,
                         opacity: 1
                     } , 500 , 'easeOutQuart' , function(){
-                        var imgH = $('.popup_image_wrap img').height();
-                        var imgW = $('.popup_image_wrap img').width();
+                        var imgH = $('.popup_image_wrap').height();
+                        var imgW = $('.popup_image_wrap').width();
                         if( video ){ // play the video
                             $('.popup_image_wrap img').hide();
-                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH + 30}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
+                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
                                 controls: true,
                                 resize: false
                             } );
@@ -1943,6 +1980,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     } );
 
                 var panel = this;
+
+                panel.$panel.find('.repost')
+                    .click(function(){
+                        panel.close();
+                    });
 
                 this.$panel.find('.popup_close')
                     .click(function(){
@@ -1969,8 +2011,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
 //		}
-        var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
-                    <div class="popup_dialog_msg">\
+        var tpl = '<div class="popup_dialog popup_post popup_post_with_photo" style="width:auto;">\
+                    <div class="popup_dialog_msg" style="width:auto;">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
                         <textarea>' + _e(share_text) + '</textarea>\
                     </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">'+share_text.length+'</span>/<span class="s2">' + max_length + '</span></div></div>\
@@ -1980,10 +2022,36 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: LP.format( tpl , {imgsrc: $(this).data('img')}),
             title: "",
+            width: 600,
             onload: function(){
                 var panel = this;
                 var loading = panel.$panel.find(".loading");
-                
+                var $wrap = panel.$panel.find('.popup_post_photo');
+                var imageWrapWidth = $wrap.width();
+                var imageWrapHeight = $wrap.height();
+                $('<img/>').load(function(){
+                    var width = this.width;
+                    var height = this.height;
+                    var marginTop = 0 , marginLeft = 0 , imgWidth , imgHeight;
+                    console.log( width , height , imageWrapWidth , imageWrapHeight );
+                    if( width / height > imageWrapWidth / imageWrapHeight ){
+                        imgHeight = imageWrapHeight;
+                        imgWidth = width / height * imgHeight;
+                        marginLeft = ( imageWrapWidth - imgWidth ) / 2;
+                    } else {
+                        imgWidth = imageWrapWidth;
+                        imgHeight =  height / width * imgWidth;
+                        marginTop = ( imageWrapHeight - imgHeight ) / 2;
+                    }
+                    $wrap.find('img').css({
+                        marginTop: marginTop,
+                        marginLeft: marginLeft,
+                        width: imgWidth,
+                        height: imgHeight
+                    });
+                })  
+                .attr('src' , $wrap.find('img').attr('src') );
+
                 var $textarea = panel.$panel.find('textarea');
                 $textarea.bind("keydown", function (event) {
                   var self = $(this);
@@ -2073,6 +2141,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             function callback(){
                 turnImage();
                 $(this).removeAttr('disabled');
+                var width = $('.fuellist').width();
+                var minWidth = 180;
+                var itemWidth = ~~( width / ~~ ( width / minWidth ) );
+                $('.fuellist').children().width( itemWidth );
                 LP.use('isotope' , function(){
                     // first init isotope , render no animate effect
                     $('.fuellist')
@@ -2317,6 +2389,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // page init here
     // =======================================================================
 	var isComplete = false;
+    var loadingFiles = {
+        'stand': ['raphaeljs' , 'jquery']
+    }
 	var initComplete = function(){
 		if(isComplete) return;
         isComplete = true;
@@ -2373,7 +2448,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 				}
 			});
 	}
-
     // page load event
     $(document.body).queryLoader2({
         onLoading : function( percentage ){
@@ -2381,7 +2455,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             $('.loading-percentage').html(per+'%');
             $('.loading-bar').css({'width':per+'%'});
             if(per == 100) {
-				initComplete();
+                var page = $(document.body).data('page');
+                if( loadingFiles[ page ] ){
+                    LP.use( loadingFiles[ page ] , initComplete );
+                } else {
+                    initComplete();
+                }
 //                var timer = setInterval(function(){
 //                    if( globalVideos.length == 0 ) return ;
 //                    var total = 0;
@@ -2400,7 +2479,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         },
         onComplete : function(){
-			initComplete();
+			var page = $(document.body).data('page');
+            if( loadingFiles[ page ] ){
+                LP.use( loadingFiles[ page ] , initComplete );
+            } else {
+                initComplete();
+            }
 
             // load all the video
 //            var timer = setInterval(function(){
@@ -2810,22 +2894,38 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 //fuel
                 $('.fuelitem').live({
                     'mouseenter':function(){
-                        $(this).children('.fuelshade').stop().fadeIn()
-                        $(this).children('.fuelbtnbox').stop().fadeIn()
+                        $(this).children('.fuelshade').show().stop().animate({
+                            opacity: 0.7
+                        } , 600);
+                        $(this).children('.fuelbtnbox').show().stop().animate({
+                            opacity: 0.7
+                        } , 600);
                     },
                     'mouseleave':function(){
-                        $(this).children('.fuelshade').stop().fadeOut()
-                        $(this).children('.fuelbtnbox').stop().fadeOut()
+                        $(this).children('.fuelshade').show().stop().animate({
+                            opacity: 0
+                        } , 600);
+                        $(this).children('.fuelbtnbox').show().stop().animate({
+                            opacity: 0
+                        } , 600);
                     }
                 });
 
                 // page loaded
                 LP.triggerAction('fuel-load');
+                var reloadTimer = null;
                 $(window).resize(function(){
                     var width = $('.fuellist').width();
-                    var maxWidth = 280;
-                    var itemWidth = width / ~~ ( width / maxWidth );
+                    var minWidth = 180;
+                    var itemWidth = ~~( width / ~~ ( width / minWidth ) );
                     $('.fuellist').children().width( itemWidth );
+
+                    if( $('.fuellist').children('.isotope-item').length ){
+                        clearTimeout( reloadTimer );
+                        reloadTimer = setTimeout(function(){
+                            $('.fuellist').isotope('reLayout');
+                        } , 300 );
+                    }
                 });
                 
                 break;
@@ -3021,13 +3121,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             aHtml.push("<div class=\"stand_postsbox\">" + post["content"] + "</div>");
                         } );
                     }
-
+                    $('.stand_tweet').show().css('opacity' , 0)
+                        .animate({
+                            opacity: 1
+                        } , 600);
                     var postWidth = $('.stand_posts').width() / 2;
+
                     $('.stand_posts_inner').append( aHtml.join("") ).css('width' , $('.stand_posts_inner').children().length * postWidth )
                         .data('index' , 0 )
                         .children()
                         .css('width' , postWidth - 20);
-                    $('.stand_tweet').fadeIn();
                     
 
                     $(window).resize(function(){
@@ -3150,8 +3253,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
-                            var now = +new Date( e.data.time_now ) / 1000;
-                            var start = +new Date( e.data.time_start ) / 1000;
+                            var times = e.data.time_now.split(/[- :]/);
+                            var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
+                            var times = e.data.time_start.split(/[- :]/);
+                            var start = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
                             
 
                             interval = setInterval( function(){
@@ -3211,8 +3316,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
-                            var now = +new Date( e.data.time_now ) / 1000;
-                            var start = +new Date( e.data.time_start ) / 1000;
+                            // var now = +new Date( e.data.time_now ) / 1000;
+                            // var start = +new Date( e.data.time_start ) / 1000;
+                            var times = e.data.time_now.split(/[- :]/);
+                            var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
+                            var times = e.data.time_start.split(/[- :]/);
+                            var start = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
 
                             interval = setInterval( function(){
                                 now += 1;
