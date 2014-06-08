@@ -107,11 +107,13 @@ define(function( require , exports , model ){
 					container = document.getElementById('container' );
 					renderer = new THREE.CanvasRenderer({alpha: true});
 					renderer.setClearColor(0x000000, 0);
-					renderer.setSize( window.innerWidth, window.innerHeight );
+					var width = window.innerWidth;
+					var height = window.innerHeight - $('.header').height();
+					renderer.setSize( width , height );
 					container.appendChild( renderer.domElement );
 
 					scene = new THREE.Scene();
-					camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.5, 3000000 );
+					camera = new THREE.PerspectiveCamera( 55, width / height, 0.5, 3000000 );
 
 					clock = new THREE.Clock();
 
@@ -237,12 +239,16 @@ define(function( require , exports , model ){
 				}
 
 				function onWindowResize() {
-					windowHalfX = window.innerWidth / 2;
-					windowHalfY = window.innerHeight / 2;
-					camera.aspect = window.innerWidth / window.innerHeight;
+					var width = window.innerWidth;
+					var height = window.innerHeight - $('.header').height();
+
+					
+					windowHalfX = width / 2;
+					windowHalfY = height / 2;
+					camera.aspect = width / height;
 					camera.updateProjectionMatrix();
 
-					renderer.setSize( window.innerWidth, window.innerHeight );
+					renderer.setSize( width, height );
 
 				}
 

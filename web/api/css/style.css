@@ -99,10 +99,10 @@ a.logo:hover{opacity: 1;}
 .footer_link{position: fixed;z-index: 101; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 0px;}
 .footer_link p{float: left;padding:0 6px;font-weight: bold;}
 .footer_link #share {font-weight:bold;}
-.footer_language{position: fixed;bottom: 15px;right: 25px;font-weight: bold;}
+.footer_language{position: fixed;bottom: 15px;right: 25px;font-weight: bold;z-index: 4;}
 .footer_language a,.footer_language span {padding: 0 5px}
 .footer_language span {color:#777;}
-.footer_logout {position:fixed;bottom:15px;right:130px;font-weight: bold;}
+.footer_logout {position:fixed;bottom:15px;right:130px;font-weight: bold;z-index: 4;}
 .lang-en .f_lang_en {color:#777;}
 .lang-cn .f_lang_cn {color:#777;}
 
@@ -176,7 +176,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 /*fuel*/
 .fuel{right: 20px;position: absolute;left:250px;top:70px;}
-.fuelitem{width:22%;float: left;display: inline; position: relative;}
+.fuelitem{width:22%;float: left;display: inline; position: relative;-webkit-transition: -webkit-transform 0.5s ease-out;-moz-transition:  -moz-transform 0.5s ease-out;-o-transition:  -o-transform 0.5s ease-out;-ms-transition:  -ms-transform 0.5s ease-out;transition:  transform 0.5s ease-out;}
 .fuelshade{position: absolute;width:100%;height: 100%;top: 0;left:0;background: #000;opacity: 0.7;filter:alpha(opacity=70);}
 .fuelbtnbox{position: absolute;top: 50%;left: 50%;margin-top: -23px;margin-left: -46px;}
 .fuelbtn{background: url('../images/fuelbtn.png') no-repeat;width: 22px;height: 22px;float: left;margin: 12px;display: inline;cursor: pointer;}
@@ -188,11 +188,11 @@ body[data-page="stand"] .footer-icon{display: block;}
 /* race */
 .race_track{width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
 .race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%; overflow: hidden;}
-.race_nav{position: absolute;left: 0;bottom: 60px;font-size: 14px;font-weight: bold;}
-.race_time{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat;height: 45px}
-.race_speed{padding: 0 0 0 45px;line-height: 40px;background: url('../images/race_nav.png') no-repeat 0 -45px;margin-bottom:22px;}
-.race_navitem{background: url('../images/race_nav.png') no-repeat 0 -107px;height: 31px;line-height: 30px;padding-left:45px;}
-.race_navitemon{background-position: 0 -138px;}
+.race_nav{position: absolute;left: 22px;bottom: 100px;font-size: 14px;font-weight: bold;}
+.race_time{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px 0;height: 24px;}
+.race_speed{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px -35px;margin-bottom: 22px;margin-top: 10px;}
+.race_navitem{background: url('../images/race_nav.png') no-repeat 10px -76px;height: 24px;line-height: 24px;padding-left:55px;}
+.race_navitemon{background-position: 10px -100px;}
 
 /* teambuild */
 .teambuild{position:absolute;left: 50%;top: 50%;width:715px;height: 654px;margin: -327px 0 0 -357px}
@@ -267,7 +267,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 /* countdown */
 .count{width:100%;height:580px;position: absolute;left: 0;top: 50%;margin: -300px 0 0 0;line-height: 36px}
-.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
+.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0; color: black;} 
 .conut_tit p{font-size: 76px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
 
@@ -414,23 +414,22 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 .popup_post textarea {resize:none;width:100%;height:100%; background:none;border:none;color:#fff; font-size: 14px;}
 .ie8 .popup_post textarea {background:url(about:blank)\9;}
-.popup_post_with_photo textarea {width:470px;}
+.popup_post_with_photo textarea {width:310px;}
 .popup_post .popup_dialog_msg {display: block;text-align:left;font-size:20px;padding:10px 20px;}
-.popup_post .popup_post_photo {float:left;margin:0 20px 0 0;width: 180px;height: 180px;}
-.popup_post .popup_post_photo  img{max-width: 100%;width: 100%;}
+.popup_post .popup_post_photo {float:left;margin:0 20px 0 0;width: 180px;height: 180px;overflow: hidden;}
 
-.popup_fuel {background: #000;width: 900px;padding: 30px 0 0;color: white;}
-.popup_fuel .popup_close {cursor: pointer; background: url('../images/fuel_close.png') no-repeat;width:50px;height:50px;position:absolute;right:20px;top:20px;}
-.popup_fuel h4 {font-size:30px;line-height: 30px;text-align: center;margin:0 0 30px 0;}
-.popup_fuel .popup_fuel_video {text-align: center;}
-.popup_fuel .popup_image_wrap{overflow: hidden;}
-.popup_fuel .popup_image_wrap img{width: 100%;}
+.popup_fuel {background: #000;width: 900px;padding: 30px 0 0;color: white;overflow: hidden;}
+.popup_fuel .popup_close {cursor: pointer; position:absolute;right:20px;top:20px;}
+.popup_fuel h4 {font-size:24px;line-height: 30px;text-align: center;margin:0 0 20px 0;}
+.popup_fuel .popup_fuel_video {text-align: center;padding: 0 50px;}
+.popup_fuel .popup_image_wrap{overflow: hidden;width: 250px;height: 250px;}
 .popup_fuel .popup_fuel_btns {text-align: center;margin:30px 0 40px 0;}
-.popup_fuel .popup_fuel_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:38px;line-height:38px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_fuel .popup_fuel_btns a {display: inline-block;background:#ff0000;color:#fff;font-size:14px;width:120px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_fuel .popup_fuel_btns a:hover {opacity:0.7;}
-.popup_fuel .popup_fuel_btns a.repost {background:#ff0000 url('../images/icon_repost.png') no-repeat 19px 7px;text-indent:35px;}
-.popup_fuel .popup_fuel_photo_left {float:left;width:380px;margin:20px 50px 50px 50px;}
-.popup_fuel .popup_fuel_photo_right {float:left;width:340px;margin-top:45px;font-size:16px;line-height:140%;}
+.popup_fuel .popup_fuel_btns a.repost {background:#ff0000 url('../images/icon_repost.png') no-repeat 19px 5px;text-indent:35px;}
+.popup_fuel .popup_fuel_photo_left {float: left;width: 250px;margin: 20px 30px 50px 30px;}
+
+.popup_fuel .popup_fuel_photo_right {float:left;width:300px;padding-right:20px;word-wrap: break-word;margin-top:45px;font-size:16px;line-height:140%;}
 .popup_fuel .popup_fuel_photo_description {text-align: justify;}
 /* video */
 .popup_fuel .vjs-default-skin.vjs-has-started .vjs-control-bar{background: #000;visibility: visible;opacity: 1;bottom: -36px;}
@@ -529,7 +528,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .member_speed{margin-left:40px;}
     .member_add {width:200px;}
     .stand_tweetitem{padding:0 50px;}
-    .stand_add{right:0px;left:auto;}
 }
 @media screen and (max-width:1300px), screen and (max-height: 900px){
     #team-score {left:317px;}
@@ -553,14 +551,14 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_tit {height:60px;}
     .stand_achivments {padding:20px 0 20px 0;font-size:28px;}
     .stand_tweet h2 {font-size:28px;}
-    .stand_posts {width:650px!important;margin-left:70px!important;}
     .stand_achivmentsbox {width:281px!important;margin-right:45px!important;}
 
     body .stand_tweet .conut_down_wrap{top: 35%;}
 }
 @media screen and (max-width:1200px), screen and (max-height: 800px){
     #team-score {left:279px;}
-    .nav p {padding-left:43px;}
+    .nav p,.race_nav>div {padding-left:43px;}
+
     .stand{width: 980px;left: 220px;margin-left:0;}
     .member_item {width: 220px;height:65px;}
     .member_item img {width:65px;}
@@ -579,7 +577,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_achivments {padding:15px 0;font-size:24px;}
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
-    .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 
     body .stand_tweet .conut_down_wrap{top: 35%;}
@@ -587,6 +584,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 @media screen and (max-width:1000px), screen and (max-height: 700px){
     #team-score {left:225px;}
     .nav{left:0px;top:100px;}
+    .race_nav{left: 0;}
     .navicon {margin-left:21px;}
     .stand{width: 800px;left: 158px;margin-left:0;}
     .member_item {width: 180px;height:57px;}
@@ -606,7 +604,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_achivments {padding:0;font-size:24px;}
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
-    .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 }
 
@@ -621,7 +618,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 .stand_tit .stand_chart_tip{left: 0;margin-left: 0;}
 .stand_achivments h2, .stand_tweet h2{width: 300px;}
 .stand_count_down{margin-left: 300px;}
-.stand_add_p1{margin-left: 50px;}
 @media screen and (max-width:2400px){
     .stand{width: 1950px;left: 250px; margin-left:0;}
     .stand_chart{width: 550px;height: 550px;}
@@ -671,7 +667,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_useritem {margin-bottom: 25px;}
     .stand {top:50px;}
     .stand_tweetitem{padding:0 20px;}
-    .stand_add{right:20px;top:60px;left:auto;}
     .stand_del {left:170px!important;top:60px!important;}
     .stand_chart_score {font-size:32px;}
     .team_name,.stand_tit {font-size:32px;}
@@ -679,7 +674,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_tit {height:55px;}
     .stand_achivments {padding:10px 0 ;font-size:28px;}
     .stand_tweet h2 {font-size:28px;}
-    .stand_posts {width:650px!important;margin-left:70px!important;padding: 20px 0;}
     .stand_achivmentsbox {width:281px!important;margin-right:45px!important;}
 }
 @media screen and (max-width:1200px){
@@ -699,7 +693,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_useritem {margin-bottom: 25px;}
     .stand {top:50px;}
     .stand_tweetitem{padding:0 20px;}
-    .stand_add{right:20px;top:0;left:auto;}
     .stand_del {left:170px!important;top:0px!important;}
     .stand_chart_score {font-size:28px;}
     .team_name,.stand_tit {font-size:28px;}
@@ -707,7 +700,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_achivments {padding:15px 0;font-size:24px;}
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
-    .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 }
 @media screen and (max-width: 1000px){
@@ -724,7 +716,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_useritem {margin-bottom: 17px;}
     .stand {top:27px;}
     .stand_tweetitem{padding:0 20px;}
-    .stand_add{right:20px;top:0;left:auto;}
     .stand_del {left:170px!important;top:0px!important;}
     .stand_chart{width: 310px;height:310px;background-size: cover}
     .stand_chart_score {font-size:28px;}
@@ -733,7 +724,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_achivments {padding:0;font-size:24px;}
     .stand_tweet {padding-top:0;}
     .stand_tweet h2 {font-size:24px;}
-    .stand_posts {width:458px!important;margin-left:0!important;}
     .stand_achivmentsbox {width:238px!important;margin-right:45px!important;}
 }
 
@@ -785,6 +775,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .winners-prizes-wrap {height:450px!important;margin-top:-228px!important;}
     .winners-icon {width:34%!important;}
     .winners-prizes-con {font-size:16px!important;margin-top:10px!important;}
+    .race_nav{bottom: 60px;}
 }
 
 
@@ -950,7 +941,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .stand_tweet  .stand_count_down{margin-left: 0px; width: 400px; }
     .stand_tweet h2{width: 200px;}
     .stand_tweetitem{padding: 0 40px 0 0 }
-    .stand_add{top:1400px;}
     .stand_chart_score{font-size: 40px;}
     .stand_posts_p1 .stand_posts_item{width: 185px;}
     /*fuel*/
@@ -971,7 +961,11 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
     .nav{background: black;top: 80px;margin-top: 0;bottom: 0;padding-top: 60px;width:250px; }
     .nav p{height: 61px;font-size:29px;padding-left:42px;}
+    .race_nav>div{padding-left: 42px;font-size:29px;}
+
     .lang-cn .nav p{height: 61px;font-size:28px;padding-left:45px;}
+    .lang-cn .race_nav>div{padding-left: 45px;font-size:28px;}
+
     .mobile_nav {display: block;}
     .mobile_nav p {display: block;font-size:22px;}
     .lang-cn .mobile_nav p {display: block;font-size:24px;}
@@ -1063,7 +1057,6 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     body .tutr-step-skip{top: 100px;font-size:18px;}
     body #legal-notice h2 {padding:40px 30px 40px 30px;}
 
-    .stand_posts {width: 340px!important;}
 }
 
 
@@ -1095,8 +1088,18 @@ body .stand_tweet .conut_down_wrap{left: 30%; margin-left: 9px !important; heigh
 .stand_tweet h2{margin-top: 0 !important; padding: 0!important;}
 
 div.stand_postsbox {
+    font-size: 11px;
     float: left;
     margin-right: 20px;
     line-height: 1.5em;
+    word-wrap: break-word;
+    zoom : 1;
 }
+.lang-en div.stand_postsbox{font-size: 12px;}
 .stand_tweet h2{width: 30% !important;margin-right: 10px;}
+.vjs-big-play-button{display: none !important;opacity: 0;filter:alpha(opacity=0);}
+.index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;}
+
+
+
+

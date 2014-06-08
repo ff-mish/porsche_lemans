@@ -1,139 +1,3 @@
-/**********************************************************
-IEWebGL support routines
-You can copy, use, modify, distribute this file.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT 
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-**********************************************************/
-
-var WebGLHelper = {
-
-    'GetGLContext': function (cnv, attributes) {
-        var ctxNames = ["webgl", "experimental-webgl"];
-        var glCtx = null;
-        try {
-            for (var i = 0; i < ctxNames.length && glCtx == null; ++i)
-                glCtx = cnv.getContext(ctxNames[i], attributes);
-        }
-        catch (e) { }
-        return glCtx;
-    },
-
-    'CreateNativeCanvas': function (element, id, replace) {
-        var cnv = document.createElement("canvas");
-        if (replace) {
-            if (element.attributes.width) cnv.width = element.attributes.width.value;
-            if (element.attributes.height) cnv.height = element.attributes.height.value;
-            if (element.attributes.style) cnv.style.cssText = element.attributes.style.value;
-            element.parentNode.replaceChild(cnv, element);
-        }
-        else {
-            element.appendChild(cnv);
-        }
-
-        cnv.innerHTML = "Your browser does not support &lt;canvas&gt; tag.";
-        cnv.id = id;
-        return cnv;
-    },
-
-    'CreatePluginCanvas': function (element, id, replace) {
-        var obj = document.createElement("object");
-
-        if (replace) {
-            if (element.attributes.width) obj.width = element.attributes.width.value;
-            if (element.attributes.height) obj.height = element.attributes.height.value;
-            if (element.attributes.style) obj.style.cssText = element.attributes.style.value;
-            element.parentNode.replaceChild(obj, element);
-        }
-        else {
-            element.appendChild(obj);
-        }
-
-        var altMessage = 'To get WebGL support, please <a href="http://iewebgl.com/download/latest/">download</a> and install IEWebGL plugin and refresh the page.';
-        if (obj.innerHTML) {
-            obj.innerHTML = altMessage;
-        }
-        else { /* IE8 workaround */
-            obj.altHtml = altMessage;
-        }
-        
-        obj.id = id;
-        obj.type = "application/x-webgl";
-        return obj;
-    },
-
-    'CreateGLCanvas': function (el, id, replace) {
-        if (navigator.userAgent.indexOf("MSIE") >= 0) {
-            var usePlugin;
-            try {
-                usePlugin = WebGLRenderingContext.hasOwnProperty('iewebgl');
-            } catch (e) {
-                usePlugin = true;
-            }
-
-            if (usePlugin) {
-                return WebGLHelper.CreatePluginCanvas(el, id, replace);
-            }
-            else {
-                return WebGLHelper.CreateNativeCanvas(el, id, replace);
-            }
-        }
-        else {
-            return WebGLHelper.CreateNativeCanvas(el, id, replace);
-        }
-    },
-
-    'CreateGLContext': function (element, id, replace, attributes) {
-
-        var cnv = WebGLHelper.CreateGLCanvas(element, id, replace);
-        var gl = WebGLHelper.GetGLContext(cnv, attributes);
-
-        return gl;
-    },
-
-    'CreateGLCanvasInline': function (id) {
-        var placeHolder = document.getElementById("WebGLCanvasCreationScript");
-        WebGLHelper.CreateGLCanvas(placeHolder, id, true);
-    }
-
-}
-
-//
-function is_support_webgl() {
-  var ctx;
-  try {
-    var cvs = document.createElement('canvas');
-    var contextNames = ['webgl','experimental-webgl','moz-webgl','webkit-3d'];
-    if(navigator.userAgent.indexOf('MSIE') >= 0) {
-      try{
-        ctx = WebGLHelper.CreateGLContext(cvs, 'canvas');
-       }catch(e){
-
-       }
-    }
-    else{
-      for(var i = 0; i < contextNames.length; i++){
-        try{
-          ctx = cvs.getContext(contextNames[i]);
-          if(ctx){
-            addLine('tab','Context Name', contextNames[i]);
-            break;
-          }
-        }catch(e){
-
-        }
-      }
-    }
-  }
-  catch (e) {
-    return false;
-  }
-  return ctx ? true: false;
-}
-
 /*
  * page base action
  */
@@ -311,96 +175,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     // widgets and common functions here
     // ======================================================================
-    var rotateAnimateMgr = (function( $dom , cb ){
-        var width , height , r , stockWidth = 8 , stockColor = COLOR , lastValue = 0;
-        return {
-            initAnimate: function( $dom , cb ){
-                if( $dom.data('init') ){
-                    cb && cb();
-                    return false;
-                }
-                $dom.data('init' , true);
-                LP.use('raphaeljs' , function( Raphael ){
-                    // Creates canvas 320 × 200 at 10, 50
-                    width = $dom.width();
-                    height = $dom.height();
-                    var memberHeight = $('.member_item').outerHeight() - 8;
-                    r = memberHeight / 2 - 5 ;
-
-                    var paper = Raphael( $dom.get(0) , width , height );
-
-                    var circleBg = paper.circle( width / 2 , height / 2, r )
-                            .attr("stroke" , '#000' )
-                            .attr("stroke-width" , 0 )
-                            .animate({'stroke-width': stockWidth} , 700);
-
-                    var redPath = paper.path( "" )
-                            .attr("stroke" , stockColor )
-                            .attr("stroke-width" ,stockWidth );
-                    // var blackPath = paper.path( "" )
-                    //         .attr("stroke", "#000")
-                    //         .attr("stroke-width" , stockWidth);
-
-                    var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                        .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
-
-                    $dom.data('raphael' , {redPath:redPath , text: text });
-                    cb && cb();
-                });
-            },
-            runAnimate: function( $dom , current , noMoveNum ){
-                current = current || 0;
-                var percent = Math.min( current , 1 ) ;
-                var startAngle = 45;
-                startAngle = startAngle / 180 * Math.PI || 0;
-                var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
-                var now ;
-                var duration = 700;
-                var raphaelObj = $dom.data('raphael');
-                var ani = function(){
-                    var p = Math.min( 1 ,  ( new Date() - now ) / duration );
-                    var end = [ width / 2 + Math.cos( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + ( lastValue + ( percent - lastValue ) * p ) * 2 * Math.PI ) * r  ]
-                    var path = [
-                        'M' , start[0] , ' ' , start[1] ,
-                        'A' , r , ' ' , r , ' 0 ' , ( lastValue + ( percent - lastValue ) * p ) > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
-                        ].join("");
-                    // var otherPath = [
-                    //     'M' , start[0] , ' ' , start[1] ,
-                    //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
-                    // ].join("");
-
-
-                    if( percent * p < 1 ){
-                        raphaelObj.redPath.attr( 'path' , path );
-                        //blackPath.attr( 'path' , otherPath );
-                    }
-                    // if( percent * p == 1 ){
-                    //     paper.circle( width / 2 , height / 2, r )
-                    //         .attr("stroke" , stockColor )
-                    //         .attr("stroke-width" ,stockWidth );
-                    //     redPath.remove();
-                    //     blackPath.remove();
-                    // }
-
-                    // render numbers
-                    if( !noMoveNum )
-                        raphaelObj.text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
-
-                    if( p != 1 ){
-                        setTimeout(ani , 60/1000);
-                    } else {
-                        lastValue = current;
-                    }
-                }
-                if( percent ){
-                    setTimeout( function(){
-                        now = new Date();
-                        ani();
-                    } , 700 );
-                }
-            }
-        }
-    })();
     var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
         current = current || 0;
         var percent = Math.min( current / total , 1 ) ;
@@ -410,7 +184,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var width = $dom.width();
             var height = $dom.height();
             var memberHeight = $('.member_item').outerHeight() - 8;
+            if($('body').hasClass('ie8')) {
+                memberHeight = $('.member_item').outerHeight() + 8;
+            }
             var r = memberHeight / 2 - 5 , stockWidth = 8 , stockColor = COLOR;
+
+            var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
 
             var paper = Raphael( $dom.get(0) , width , height );
 
@@ -429,7 +208,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
                 .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
-            var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
+
             var now ;
             var duration = 700;
             var ani = function(){
@@ -502,89 +281,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         return $input.val() == $input.attr('placeholder') ? "" : $input.val();
     }
 
-    var initTeamName = function(){
-        var lastTname = null;
-        var hideTimer = null;
-        $('.team_name').blur(function(){
-            $(this).removeClass('focus');
-            var txt = $(this).text();
-            if( lastTname === txt ) return;
-            // match
-            
-            var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length > 12 ){
-                $('.team_name_error_tip').fadeIn();
-                clearTimeout( hideTimer );
-                hideTimer = setTimeout(function(){
-                    $('.team_name_error_tip').fadeOut();
-                } , 3000);
-                $(this).focus();
-                return false;
-            }
-            if(txt.length != 0) {
-                lastTname = txt;
-                api.post("/api/user/updateteam" , {name: txt}, function(){
-                    $('.team_name').data('team', txt);
-                });
-            }
-            else {
-                $('.team_name').text($('.team_name').data('team'));
-            }
-        }).keydown(function( ev ){ 
-            if( ev.shiftKey && ( ev.which == 57
-                || ev.which == 48 || ev.which == 49 || ev.which == 50 )
-                ) return false;
-            switch( ev.which ){
-                case 221:
-                case 219:
-                    return false;
-                case 13:
-                    $(this).trigger('blur');
-                    return false;
-                    break;
-            }
-
-            var txt = $(this).text();
-            var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
-                $('.team_name_error_tip').fadeIn();
-                clearTimeout( hideTimer );
-                hideTimer = setTimeout(function(){
-                    $('.team_name_error_tip').fadeOut();
-                } , 3000);
-                return false;
-            }
-            $('.team_name_error_tip').fadeOut();
-        })
-        .keyup(function(){
-            var w = $(this).width() + 20;
-            var cw = $('.stand_chart_tip').width();
-            var tw = $('.member_item').width();
-
-            if( w + cw < tw ){
-                $('.stand_chart_tip').css({
-                    left: w,
-                    top: 4,
-                    bottom: 'auto'
-                }).find('span').css({
-                    left: 4,
-                    top: 3
-                });
-            } else {
-                $('.stand_chart_tip').css({
-                    left: ( w - cw - 30 ) / 2,
-                    top: '',
-                    bottom: ''
-                }).find('span').css({
-                    left: '',
-                    top: ''
-                });
-            }
-        })
-        .focus(function(){
-            $(this).addClass('focus');
-        });
-    }
 
     var questionTimerInitTimer = null;
     var questionTimerInit = function( $dom  , duration , cb ){
@@ -648,13 +344,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     }
     // left { max: xx , tip : '' , text: yyy }
     var coordinate = (function(){
-        var object = {} , isInit = false;
+        var object = {};
         function init( $dom , cb ){
-            if( isInit ){
-                cb && cb();
-                return false;
-            }
-            isInit = true;
+            
             //var left = [ 120 , xstart[1] ] , right = [ 340 , xstart[1] ] , top = [ ystart[0] , 100 ] , bottom = [ ystart[0] , 300 ];
 
             var pathAttr = {
@@ -760,12 +452,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var target = [];
 
-        function runAnimate( left , top , right , bottom , noAnimate ){
+        function runAnimate( left , top, right , bottom , noAnimate ){
             // left = 0.5;
             // right = 0.7;
             // top = 0.9;
             // bottom = 0.3;
             target = [left , right , top , bottom];
+            
 
             var center = object.center;
             var xwidth = object.xwidth;
@@ -780,7 +473,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var duration = 1000;
             var now = new Date;
-            var renderPath = function( left , right , top , bottom  ){
+            var renderPath = function( left , right , top , bottom ){
                 left = [ center[0] - xwidth / 2 * left , xstart[1] ];
                 right = [ center[0] + xwidth / 2 * right , xstart[1] ];
                 top = [ ystart[0] , center[1] - yheight / 2 * top ];
@@ -788,7 +481,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 var rpath = [];
                 $.each([ left, top , right , bottom] , function( i , dot){
-                    rpath.push( ( i == 0 ? 'M' : 'L' ) + ~~dot[0] + ' ' + ~~dot[1] );
+                    rpath.push( ( i == 0 ? 'M' : 'L' ) + dot[0] + ' ' + dot[1] );
                 });
                 rpath.push('Z');
 
@@ -796,7 +489,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
 
             if( noAnimate ){
-                renderPath( left , right , top , bottom );
+                renderPath( left , right , top , bottom  );
                 object.lastLeft = left;
                 object.lastRight = right;
                 object.lastTop = top;
@@ -845,10 +538,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         $(document.body).delegate('.read_tutr .tutr-step-skip,.read_tutr .tutr-step-top,.read_tutr .tutr-step-left,.read_tutr .tutr-step-right,.read_tutr .tutr-step-bottom',
             'click' , function(){
-                $('.tutr-step').fadeOut();
+                $('.tutr-step,.tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4').fadeOut();
 				if( isNoAchivmentsbox ){
 					$('.stand_achivments .stand_achivmentsbox .full-star').removeClass('full-star').html('');
 				}
+                if( isCoordinateEmpty ){
+                    coordinate.run( 0,0,0,0 );
+                }
             })
         // if( $('.read_tutr').length ){
         //     $('.tutr-step-skip,.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom').click(function(){
@@ -924,15 +620,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() - $('.stand_chart_score').width() , isMobile ? h + 25 : h );
+                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() - $('.stand_chart_score').width() + 40, isMobile ? h + 25 : h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: isMobile ? off.left + $('.stand_tit').width() + 60 : off.left + $('.stand_tit').width() - $('.stand_chart_score').width(), top: off.top , height: h - 80 })
+                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: isMobile ? off.left + $('.stand_tit').width() + 60 : off.left + $('.stand_tit').width() - $('.stand_chart_score').width() + 40, top: off.top , height: h - 80 })
                             .fadeIn();
                         break;
                     case 3:
                         var off = $('.stand_chart').offset();
                         $('.tutr-step-tip2').fadeOut();
+                        $('html,body,.page').animate({scrollTop:off.top},500);
                         renderTure( off.top , off.left - 20 , isMobile ? $('.stand_chart').width() + 50 : $('.stand_chart').width() + 20 , $('.stand_chart').height() );
                         $('.tutr-step').find('.tutr-step-tip3')
                             .delay( 700 )
@@ -959,14 +656,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
-                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
+                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 20);
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 160 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 220 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
 						if(isMobile) {
 							setTimeout(function(){
-								$('.tutr-step-bottom').stop().animate({height:90});
+								$('.tutr-step-bottom').stop().animate({height:120});
 							}, 500);
 						}
                         break;
@@ -1231,7 +928,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var id = 'my_video_' + ( vid++ );
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
-            var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false } , "needMyAutoPlay": true };
+            var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false}};
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
             LP.use('video-js' , function(){
                 videojs.options.flash.swf = "/js/video-js/video-js.swf";
@@ -1272,11 +969,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     //     player.play();
                     // });
                     // console.log( this.buffered().end() );
-                    if( cfg.needMyAutoPlay ){
-                        setTimeout( function(){
-                            player.play();
-                        } , 6000 );
-                    }
+                    setTimeout( function(){
+                        player.play();
+                    } , 6000 );
                     // this.dine = function(){
                     //     clearInterval( timer );
                     // }
@@ -1314,54 +1009,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             });
         }
     })();
-
-
-    var renderImage = ( function(){
-
-        var wraps = [];
-        var resizeImage = function( $wrap , src ){
-            wraps.push( $wrap );
-
-            var imageWrapWidth = $wrap.width();
-            var imageWrapHeight = $wrap.height();
-            $('<img/>').load(function(){
-                var width = this.width;
-                var height = this.height;
-                var marginTop = 0 , marginLeft = 0 , imgWidth , imgHeight;
-                if( width / height > imageWrapWidth / imageWrapHeight ){
-                    imgHeight = imageWrapHeight;
-                    imgWidth = width / height * imgHeight;
-                    marginLeft = ( imageWrapWidth - imgWidth ) / 2;
-                } else {
-                    imgWidth = imageWrapWidth;
-                    imgHeight =  height / width * imgWidth;
-                    marginTop = ( imageWrapHeight - imgHeight ) / 2;
-                }
-                var css = {
-                    marginTop: marginTop,
-                    marginLeft: marginLeft,
-                    width: imgWidth,
-                    height: imgHeight
-                }
-                if( $wrap.find('img').length ){
-                    $wrap.find('img')
-                        .css( css )
-                } else {
-                    $(this).css( css )
-                        .appendTo( $wrap );
-                }
-            })
-            .attr('src' , src || $wrap.find('img').attr('src') );
-        }
-
-        $(window).resize(function(){
-            $.each( wraps , function( i , $dom ){
-                resizeImage( $dom );
-            } );
-        });
-
-        return resizeImage;
-    } )();
 
     // count down function 
     var countDownMgr = (function(  ){
@@ -1500,31 +1147,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         }
     })();
 
-    var animateTo = function( arrSrarts , arrEnds , duration , step ){
-        var now = new Date();
-        var ani = function(){
-            var dur = new Date() - now;
-            var per = dur / duration;
-            if( per > 1 ){
-                per = 1;
-            }
-            var nums = [];
-            $.each( arrSrarts , function( i , num ){
-                nums.push( num + ( arrEnds[ i ] - num ) * per );
-            } );
-            step( nums );
-            per < 1 && setTimeout( ani , 1000 / 60 );
-        }
-        ani();
-    }
 
     var bigVideoInit = function(){ 
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
-
-        if( videoname == 'teamrace' ){
-            videoname = 'race';
-        }
 
         renderVideo( $('<div></div>').css({
             "position": "fixed",
@@ -1567,97 +1193,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         //     }).trigger('resize');
 
         // });
-    }
-
-    var animateStandData = function( data ){
-        var team = data.team;
-
-        // spped
-        $.each( team.users || [] , function( i , user ){
-            var speed = user.score ? user.score.speed : 0;
-
-            rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
-                rotateAnimateMgr.runAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , true );
-            } )  
-            //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
-        } );
-        // space
-        var spaces = [1000000 , 1000 , 1];
-        var spacesUnit = ['M' , 'K' , ''];
-        $('.teambuild_members')
-            .find('.memeber_space span')
-            .each( function( i ){
-                var $this = $(this);
-                setTimeout(function(){
-                    var user = team.users[ i ];
-                    var space = '';
-                    var unit = '';
-                    if( user.friends > 1000 ){
-                        $.each( spaces , function( k , sp ){
-                            space =  Math.round((user.friends / sp)*10) / 10;
-                            if( space >= 1 ){
-                                unit = spacesUnit[k];
-                                return false;
-                            }
-                            unit = spacesUnit[k];
-                        } );
-                    } else {
-                        space = user.friends;
-                    }
-                    var lastNum = parseFloat( $this.data('last-num') ) || 0;
-                    animateTo( [ lastNum ] , [ space ] , 600 , function( num ){
-                        $this.html( parseFloat(num[0].toFixed(1)) + unit );
-                    } );
-                    $this.data('last-num' , space);
-                } , 1000);
-            } );
-
-        // render stars
-        var $stars = $('.stand_achivmentsbox p');
-        var addIndex = 0;
-        for( var i = 0 ; i < data.team_star ; i ++ ){
-            if( $stars.eq(i).children().length ) continue;
-            $('<img src="/images/full-star.png" />')
-                .css({
-                    width: 100,
-                    marginTop: -45,
-                    marginLeft: -40,
-                    opacity: 0
-                })
-                .appendTo( $stars.eq(i) )
-                .delay(1000 * ( ++addIndex ) )
-                .animate({
-                    width: 30,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    opacity: 1
-                } , 500);
-        }
-
-        var tsc = [ data.team_position , data.team_total ];
-        var $tsc = $('#team-score');
-        var last_tsc = $tsc.data('last-num') || [0 , 0];
-        animateTo( last_tsc , tsc , 600 , function( nums ){
-            nums[0] = ~~nums[0];
-            nums[1] = ~~nums[1];
-            $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
-        } );
-        $tsc.data('last-num' , tsc);
-
-
-        // render stand_chart
-        var score = team.score || {};
-        // animate
-        var $score = $('.stand_chart_score');
-        animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
-            $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
-        } );
-        $score.data('last-num' , score.average );
-
-
-        coordinate.init( $('.stand_chart') , function(){
-            coordinate.run( parseFloat( score.impact ) || 0 , parseFloat( score.quality )|| 0 , parseFloat( score.speed ) || 0 , parseFloat( score.assiduity )|| 0 );
-        } );
     }
 
 
@@ -1960,10 +1495,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 //		if(lang == 'zh_cn') {
 //			html_buttons = '<a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a> <a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a>';
 //		}
-        LP.panel({
+        LP.panel({//p1
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace @Porsche' ) + '</textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + '</textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\
@@ -2057,7 +1592,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     <div class="popup_close"></div>\
                     <div class="popup_fuel_video">\
                         <h4>#[title]</h4>\
-                        <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
+                        <div class="popup_image_wrap"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
                         <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
@@ -2092,7 +1627,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // init panel width and height
         // var $img = $('<img/>')
-        console.log( media );
+
         var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
         LP.panel({
             content: content,
@@ -2101,10 +1636,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             height: 'auto',
             width: 'auto',
             onShow: function(){
-                var panel = this;
-                var $wrap = panel.$panel.find('.popup_image_wrap');
-                renderImage( $wrap );
-
                 this.$panel.find('.lpn_panel')
                     .css({
                         'margin-top': '-50%',
@@ -2114,18 +1645,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         marginTop: 0,
                         opacity: 1
                     } , 500 , 'easeOutQuart' , function(){
-                        var imgH = $('.popup_image_wrap').height();
-                        var imgW = $('.popup_image_wrap').width();
+                        var imgH = $('.popup_image_wrap img').height();
+                        var imgW = $('.popup_image_wrap img').width();
                         if( video ){ // play the video
                             $('.popup_image_wrap img').hide();
-                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
+                            renderVideo( $('.popup_image_wrap').css({width: imgW , height: imgH + 30}) , video.replace(/\.\w+$/ , '') , $img.attr('src') ,  {
                                 controls: true,
-                                resize: false,
-                                loop: false,
-                                needMyAutoPlay: false
-                            } , function(){
-                                this.play();
-                                this.dimensions( '100%' , '90%' );
+                                resize: false
                             } );
                         }
 
@@ -2148,13 +1674,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 var panel = this;
 
-                panel.$panel.find('.repost')
-                    .click(function(){
-                        panel.close();
-                    });
-
                 this.$panel.find('.popup_close')
                     .click(function(){
+                      console.log(panel);
                         panel.close();
                     });
             },
@@ -2178,8 +1700,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
 //		}
-        var tpl = '<div class="popup_dialog popup_post popup_post_with_photo" style="width:auto;">\
-                    <div class="popup_dialog_msg" style="width:auto;">\
+        var tpl = '<div class="popup_dialog popup_post popup_post_with_photo">\
+                    <div class="popup_dialog_msg">\
                         <div class="popup_post_photo"><img src="#[imgsrc]" /></div>\
                         <textarea>' + _e(share_text) + '</textarea>\
                     </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">'+share_text.length+'</span>/<span class="s2">' + max_length + '</span></div></div>\
@@ -2189,13 +1711,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: LP.format( tpl , {imgsrc: $(this).data('img')}),
             title: "",
-            width: 600,
             onload: function(){
                 var panel = this;
                 var loading = panel.$panel.find(".loading");
-                var $wrap = panel.$panel.find('.popup_post_photo');
-                renderImage( $wrap );
-
+                
                 var $textarea = panel.$panel.find('textarea');
                 $textarea.bind("keydown", function (event) {
                   var self = $(this);
@@ -2255,49 +1774,28 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             $('.fuel .loading').hide();
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
-                if (data["type"] == "video") {
-                    data["video"] = 1;
-                }
+              if (data["type"] == "video") {
+                data["video"] = 1;
+              }
                 LP.compile('fuel-tpl' , data , function( html ){
-                    $( html ).appendTo( $('.fuellist') )
-                        .data( 'media' , data )
-                        .css('opacity' , 0);
+                    $( html ).appendTo( $('.fuellist') ).data( 'media' , data );
                     if (i >= e.data.length - 1) {
                       callback();
                     }
                 });
                 
             } );
-            function turnImage(){
-                var $img = $('.fuellist').find('.fuelitem:not(.visible) img').eq(0);
-                // turn each images
-                if( !$img.length ) return;
-                $('<img />').load(function(){
-                    $img.closest('.fuelitem').animate({
-                        opacity: 1
-                    } , 500 , '' , function(){
-                        $(this).addClass('visible');
-                        turnImage( );
-                    } );
-                })
-                .attr('src' , $img.attr('src'));
-            }
+            
             function callback(){
-                turnImage();
-                $(this).removeAttr('disabled');
-                var width = $('.fuellist').width();
-                var minWidth = 180;
-                var itemWidth = ~~( width / ~~ ( width / minWidth ) );
-                $('.fuellist').children().width( itemWidth );
-                LP.use('isotope' , function(){
-                    // first init isotope , render no animate effect
-                    $('.fuellist')
-                        .isotope({
-                            resizable: false
-                        });
-                    // fix image effect
+              $(this).removeAttr('disabled');
 
-                });
+              LP.use('isotope' , function(){
+                 // first init isotope , render no animate effect
+                 $('.fuellist')
+                     .isotope({
+                         resizable: false
+                     });
+              });
             }
         });
         return false;
@@ -2533,9 +2031,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // page init here
     // =======================================================================
 	var isComplete = false;
-    var loadingFiles = {
-        'stand': ['raphaeljs' , 'jquery']
-    }
 	var initComplete = function(){
 		if(isComplete) return;
         isComplete = true;
@@ -2592,6 +2087,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 				}
 			});
 	}
+
     // page load event
     $(document.body).queryLoader2({
         onLoading : function( percentage ){
@@ -2599,12 +2095,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             $('.loading-percentage').html(per+'%');
             $('.loading-bar').css({'width':per+'%'});
             if(per == 100) {
-                var page = $(document.body).data('page');
-                if( loadingFiles[ page ] ){
-                    LP.use( loadingFiles[ page ] , initComplete );
-                } else {
-                    initComplete();
-                }
+				initComplete();
 //                var timer = setInterval(function(){
 //                    if( globalVideos.length == 0 ) return ;
 //                    var total = 0;
@@ -2623,12 +2114,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         },
         onComplete : function(){
-			var page = $(document.body).data('page');
-            if( loadingFiles[ page ] ){
-                LP.use( loadingFiles[ page ] , initComplete );
-            } else {
-                initComplete();
-            }
+			initComplete();
 
             // load all the video
 //            var timer = setInterval(function(){
@@ -2727,53 +2213,54 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 		});
 
         // swip to load menu
-        if(isMobile) {
-            LP.use('hammer' , function(){
-                var $nav = $('.nav');
-                $('body').hammer({
-                    behavior: {
-                        userSelect: true
-                    }
-                })
-                    .on("release dragleft dragright swipeleft swiperight", function(ev) {
-                        if( $nav.data('disabled') ) return false;
-                        $nav.data('disabled' , 'disabled');
-                        switch(ev.type) {
-                            case 'swipeleft':
-                                break;
-                            case 'dragleft':
-                                LP.triggerAction('show-menu' , {d: 'left'});
-                                // $nav.stop( true , true )
-                                //     .animate({left: -250} , 300);
-                                //$('body').bind('touchmove', function(e){e.preventDefault()});
-                                break;
-                            case 'swiperight':
-                                break;
-                            case 'dragright':
-								if(ev.gesture.center.pageX > 320) {
-                                    $nav.removeData('disabled');
-									return false;
-								}
-                                LP.triggerAction('show-menu' , {d: 'right'});
-                                //LP.triggerAction('show-menu');
-                                // $nav.stop( true , true )
-                                //     .animate({left: 0} , 300);
-                                //$('body').bind('touchmove', function(e){e.preventDefault()});
-                                break;
-                            case 'release':
-								// if($nav.is(':visible')) {
-								// 	LP.triggerAction('show-menu' , {d: 'left'});
-								// }
-                                //$('body').unbind('touchmove');
-                                break;
-                        }
-                        setTimeout(function(){
-                            $nav.removeData('disabled');
-                        } , 300);
-                        return false;
-                    });
-            });
-        }
+//        if(isMobile) {
+//            LP.use('hammer' , function(){
+//                var $nav = $('.nav');
+//
+//                $('body').hammer({
+//                    behavior: {
+//                        userSelect: true
+//                    }
+//                })
+//                    .on("release dragleft dragright swipeleft swiperight", function(ev) {
+//                        if( $nav.data('disabled') ) return false;
+//                        $nav.data('disabled' , 'disabled');
+//                        switch(ev.type) {
+//                            case 'swipeleft':
+//                                break;
+//                            case 'dragleft':
+//                                LP.triggerAction('show-menu' , {d: 'left'});
+//                                // $nav.stop( true , true )
+//                                //     .animate({left: -250} , 300);
+//                                //$('body').bind('touchmove', function(e){e.preventDefault()});
+//                                break;
+//                            case 'swiperight':
+//                                break;
+//                            case 'dragright':
+//								if(ev.gesture.center.pageX > 320) {
+//                                    $nav.removeData('disabled');
+//									return false;
+//								}
+//                                LP.triggerAction('show-menu' , {d: 'right'});
+//                                //LP.triggerAction('show-menu');
+//                                // $nav.stop( true , true )
+//                                //     .animate({left: 0} , 300);
+//                                //$('body').bind('touchmove', function(e){e.preventDefault()});
+//                                break;
+//                            case 'release':
+//								// if($nav.is(':visible')) {
+//								// 	LP.triggerAction('show-menu' , {d: 'left'});
+//								// }
+//                                //$('body').unbind('touchmove');
+//                                break;
+//                        }
+//                        setTimeout(function(){
+//                            $nav.removeData('disabled');
+//                        } , 300);
+//                        return false;
+//                    });
+//            });
+//        }
 
 
         // tracking events
@@ -2840,6 +2327,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // fix Q & A
         !!(function(){
             // ban qa
+            return false;
             var now  = new Date();
 
             var cookieTimes = [];
@@ -2940,6 +2428,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                  <source src="/videos/intro_1.mp4" type="video/mp4" />\
             </video>').click(function(){
                 $(this).find('video').get(0).play();
+                $(this).find('video').get(0).webkitEnterFullscreen();
             });
             // checkOrientation
 //            var orientation = window.orientation;
@@ -2968,13 +2457,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             $('.nav p').eq(3).hide();
         }
 
-        
-        if( $(document.body).data('page') == 'index' ){
-            renderImage( $('.index-p2-bg') );
-        } else {
-            bigVideoInit();
-        }
-
+        bigVideoInit();
 
 
         var needTriggerTutr = false;
@@ -2990,15 +2473,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         $intro.fadeOut();
                     } , 2000);
                 })
-                // // show the big video
-                // if( !isMobile ){
-                //     renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
-                //         $('#' + this.Q).css('z-index' , 0);
-                //         this.on('ended' , function(){
-                //             LP.triggerAction('skip-intro');
-                //         });
-                //     } );
-                // }
+                // show the big video
+                if( !isMobile ){
+                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+                        $('#' + this.Q).css('z-index' , 0);
+                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading.gif) no-repeat center center;"></div>').show();
+                        this.on('ended' , function(){
+                            LP.triggerAction('skip-intro');
+                        });
+                    } );
+                }
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){
@@ -3044,39 +2528,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 //fuel
                 $('.fuelitem').live({
                     'mouseenter':function(){
-                        $(this).children('.fuelshade').show().stop().animate({
-                            opacity: 0.7
-                        } , 600);
-                        $(this).children('.fuelbtnbox').show().stop().animate({
-                            opacity: 0.7
-                        } , 600);
+                        $(this).children('.fuelshade').stop().fadeIn()
+                        $(this).children('.fuelbtnbox').stop().fadeIn()
                     },
                     'mouseleave':function(){
-                        $(this).children('.fuelshade').show().stop().animate({
-                            opacity: 0
-                        } , 600);
-                        $(this).children('.fuelbtnbox').show().stop().animate({
-                            opacity: 0
-                        } , 600);
+                        $(this).children('.fuelshade').stop().fadeOut()
+                        $(this).children('.fuelbtnbox').stop().fadeOut()
                     }
                 });
 
                 // page loaded
                 LP.triggerAction('fuel-load');
-                var reloadTimer = null;
-                $(window).resize(function(){
-                    var width = $('.fuellist').width();
-                    var minWidth = 180;
-                    var itemWidth = ~~( width / ~~ ( width / minWidth ) );
-                    $('.fuellist').children().width( itemWidth );
-
-                    if( $('.fuellist').children('.isotope-item').length ){
-                        clearTimeout( reloadTimer );
-                        reloadTimer = setTimeout(function(){
-                            $('.fuellist').isotope('reLayout');
-                        } , 300 );
-                    }
-                });
                 
                 break;
                 
@@ -3131,28 +2593,92 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     }
                 });
 
-
-                // var animateTo = function(  $dom , num , unit ){
-                //     var dur = new Date() - now;
-                //     var per = dur / duration;
-                //     if( per > 1 ){
-                //         per = 1;
-                //     }
-                //     if(( num + '' ).indexOf('.') < 0 )
-                //         var fixNum = 0;
-                //     else 
-                //         var fixNum = 1;
-                //     $dom.html( parseFloat((num * per).toFixed(fixNum)) + unit );
-                //     if( per < 1 ){
-                //         setTimeout( function(){
-                //             animateTo( $dom , num , unit );
-                //         } , 1000 / 60);
-                //     }
-                // }
-
                 // init team name
-                initTeamName();
-                //countDownMgr.initCountDown();
+                var lastTname = null;
+                var hideTimer = null;
+                $('.team_name').blur(function(){
+                    $('.stand_chart_tip').fadeOut();
+                    $(this).removeClass('focus');
+                    var txt = $(this).text();
+                    if( lastTname === txt ) return;
+                    // match
+                    
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length > 15 ){
+                        $('.team_name_error_tip').fadeIn();
+                        clearTimeout( hideTimer );
+                        hideTimer = setTimeout(function(){
+                            $('.team_name_error_tip').fadeOut();
+                        } , 3000);
+                        $(this).focus();
+                        return false;
+                    }
+					if(txt.length != 0) {
+						lastTname = txt;
+						api.post("/api/user/updateteam" , {name: txt}, function(){
+							$('.team_name').data('team', txt);
+						});
+					}
+					else {
+						$('.team_name').text($('.team_name').data('team'));
+					}
+                }).keydown(function( ev ){ 
+                    if( ev.shiftKey && ( ev.which == 57
+                        || ev.which == 48 || ev.which == 49 || ev.which == 50 )
+                        ) return false;
+                    switch( ev.which ){
+                        case 221:
+                        case 219:
+                            return false;
+                        case 13:
+                            $(this).trigger('blur');
+                            return false;
+                            break;
+                    }
+
+                    var txt = $(this).text();
+                    var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
+                    if( tmp.length >= 15 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
+                        $('.team_name_error_tip').fadeIn();
+                        clearTimeout( hideTimer );
+                        hideTimer = setTimeout(function(){
+                            $('.team_name_error_tip').fadeOut();
+                        } , 3000);
+                        return false;
+                    }
+                    $('.team_name_error_tip').fadeOut();
+                })
+                .keyup(function(){
+                    var w = $(this).width() + 20;
+                    var cw = $('.stand_chart_tip').width();
+                    var tw = $('.member_item').width();
+
+                    if( w + cw < tw ){
+                        $('.stand_chart_tip').css({
+                            left: w,
+                            top: 4,
+                            bottom: 'auto'
+                        }).find('span').css({
+                            left: 4,
+                            top: 3
+                        });
+                    } else {
+                        $('.stand_chart_tip').css({
+                            left: ( w - cw - 30 ) / 2,
+                            top: '',
+                            bottom: ''
+                        }).find('span').css({
+                            left: '',
+                            top: ''
+                        });
+                    }
+                })
+                .focus(function(){
+                    $(this).addClass('focus');
+                });
+
+               countDownMgr.initCountDown();
+
 
                 api.get('/api/user' , function( e ){
                     var data = e.data;
@@ -3175,7 +2701,27 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var team = data.team;
                     
                     // TODO:: 如果发现team 是空， 则需要返回到team building 页面
+                    
+//                    var team = data.team || {
+//                        score: {average: 100,impact:0.5 , quality:0.8 ,speed:0.3 , assiduite:0.2},
+//                        name:'xxxx',
+//                        users:[{
+//                            "uid":"101648",
+//                            "name":"\u8299\u7f8e\u513f",
+//                            "from":"weibo",
+//                            "cdate":"2014-05-16 10:39:25",
+//                            "udate":"2014-05-16 10:39:25",
+//                            "uuid":"5072167230",
+//                            "lat":null,
+//                            "lng":null,
+//                            "speed": 0.9,
+//                            "impact": 3452,
+//                            "invited_by":"0","profile_msg":"","avatar":"http:\/\/tp3.sinaimg.cn\/5072167230\/180\/40049599975\/0","status":"1","friends":"81","location":"","score":null
+//                    }]};
+
+                    // 
                     $('.team_name').html( team.name).data('team', team.name);
+                    $('#team-score').html( _e('P') + (data.team_position < 10 && data.team_position > 0 ? '0' + data.team_position : data.team_position ) + ' / ' + (data.team_total < 10 && data.team_total > 0 ? '0' + data.team_total : data.team_total ) );
 
                     // render users
                     var utpl_crtuser = '<div class="teambuild_member stand_useritem cs-clear">\
@@ -3184,14 +2730,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <p class="member_name"><span class="member_name_span">@#[name]<br/></span><span class="member-leave" data-a="leaveteam">' + _e('Leave Team') + '</span></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span>0</span> ' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_teammem = '<div class="teambuild_member stand_useritem cs-clear">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
                             <p class="member_name">@#[name]<br/></p>\
                         </div>\
                         <div class="member_speed"></div>\
-                        <div class="memeber_space"><span>0</span> ' + _e('fans_unit') + '</div></div>';
+                        <div class="memeber_space"><span data-num="#[num]" data-unit="#[unit]">0</span> ' + _e('fans_unit') + '</div></div>';
                     var utpl_inviting = '<div class="teambuild_member stand_useritem cs-clear stand_inviting">\
                         <div class="member_item ">\
                             <img src="#[avatar]" />\
@@ -3199,14 +2745,54 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         </div></div>';
                     var html = [];
                     var speeds = [];
-                    
+                    var spaces = [1000000 , 1000 , 1];
+                    var spacesUnit = ['M' , 'K' , ''];
+
+                    var duration = 600;
+                    var now = (+new Date()) + 1000;
+                    var animateTo = function(  $dom , num , unit ){
+                        var dur = new Date() - now;
+                        var per = dur / duration;
+                        if( per > 1 ){
+                            per = 1;
+                        }
+                        if(( num + '' ).indexOf('.') < 0 )
+                            var fixNum = 0;
+                        else 
+                            var fixNum = 1;
+                        $dom.html( parseFloat((num * per).toFixed(fixNum)) + unit );
+                        if( per < 1 ){
+                            setTimeout( function(){
+                                animateTo( $dom , num , unit );
+                            } , 1000 / 60);
+                        }
+                    } 
 
                     // render invited user
                     $.each( team.users || [] , function( i , user ){
+                        var space = '';
+                        var unit = '';
+
+                        if( user.friends > 1000 ){
+                            $.each( spaces , function( k , sp ){
+                                space =  Math.round((user.friends / sp)*10) / 10;
+                                if( space >= 1 ){
+                                    unit = spacesUnit[k];
+                                    return false;
+                                }
+                                unit = spacesUnit[k];
+                            } );
+                        } else {
+                            space = user.friends;
+                        }
 
                         html.push( LP.format( user.uid == crtuser["uid"] ? utpl_crtuser : utpl_teammem ,{
                             avatar:     user.avatar,
-                            name:       user.name}));
+                            name:       user.name,
+                            num:        space,
+                            unit:       unit,
+                            space:      space + unit}));
+                        speeds.push( user.score ? user.score.speed : 0 );
                     } );
                     // render inviting user
                     $.each( data.inviting || [] , function( i , user ){
@@ -3225,13 +2811,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             </div>' );
                     }
                     $('.teambuild_members').html( html.join("") )
-                        // .find('.memeber_space span')
-                        // .each( function(){
-                        //     var $this = $(this);
-                        //     setTimeout(function(){
-                        //         animateTo( $this , $this.data('num') , $this.data('unit') );
-                        //     } , 1000);
-                        // } );
+                        .find('.memeber_space span')
+                        .each( function(){
+                            var $this = $(this);
+                            setTimeout(function(){
+                                animateTo( $this , $this.data('num') , $this.data('unit') );
+                            } , 1000);
+                            
+                        } );
 					// init member effect
 					$('.teambuild_member:not(.stand_inviting)').css({opacity:0}).each(function( i ){
 						$(this).delay( i * 200 )
@@ -3239,94 +2826,75 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 								opacity: 1
 							} , 500);
 					});
-                    // $.each( speeds , function( i , speed ){
-                    //     rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
-                    // } );
+                    $.each( speeds , function( i , speed ){
+                        rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
+                    } );
 
                     // render achive
                     var ahtml = [];
 
                     for( var i = 0 ; i < 5 ; i++ ){
-                        ahtml.push('<p></p>');
+                        if( i < data.team_star ){
+                            ahtml.push('<p class="full-star">' + ( i + 1 ) + '</p>');
+                        } else {
+                            ahtml.push('<p></p>');
+                        }
                     }
 
                     $('.stand_achivmentsbox').html( ahtml.join("") );
-                    $('.stand_achivments').fadeIn();
+                    $('.stand_achivments').fadeIn(function(){
+                        // animation
+                        $('.stand_achivmentsbox p').each(function(index,obj){
+                            $(obj).delay(index*200).fadeIn();
+                        });
+                    });
+
+
                     //data.last_post || 
                     var posts =  data.last_post || [];
                     // render post
                     var aHtml = [];
                     $.each( posts , function( i , post ){
-                        aHtml.push("<div class=\"stand_postsbox\">" + post["content"] + "</div>");
+                        aHtml.push("<div class=\"stand_achivmentsbox\">" + post["content"] + "</div>");
                     } );
-                    // add first to  to last dom
-                    if( posts.length < 3 ){
-                        $('.stand_add').addClass('disabled');
-                        for( var i = 0 ; i < 2 - posts.length ; i ++ ){
-                            aHtml.push("<div class=\"stand_postsbox\" style=\"text-align:center;\">- -</div>");
-                        }
 
-                    } else {
-                        $.each( posts , function( i , post ){
-                            aHtml.push("<div class=\"stand_postsbox\">" + post["content"] + "</div>");
-                        } );
-                    }
-                    $('.stand_tweet').show().css('opacity' , 0)
-                        .animate({
-                            opacity: 1
-                        } , 600);
-                    var postWidth = $('.stand_posts').width() / 2;
-
-                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , $('.stand_posts_inner').children().length * postWidth )
-                        .data('index' , 0 )
-                        .children()
-                        .css('width' , postWidth - 20);
+                    var postWidth = $('.stand_posts').width() / 2 + 21;
+                    $('.stand_posts_inner').append( aHtml.join("") ).css('width' , posts.length * postWidth)
+                        .data('index' , 0 );
+                    $('.stand_tweet').fadeIn();
                     
-
-                    $(window).resize(function(){
-                        postWidth = $('.stand_posts').width() / 2;
-                        $('.stand_posts_inner').css({
-                            'marginLeft': 0,
-                            width: $('.stand_posts_inner').children().length * postWidth
-                        }).children()
-                            .css('width' , postWidth - 20);
-                    });
-
                     // redner next page
                     $('.stand_add').click(function(){
                         if($(this).hasClass('disabled') ) return;
-                        var mleft = Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') ));
-                        var iwidth = $('.stand_posts_inner').width();
-                        if( mleft >= iwidth / 2 ){
-                            $('.stand_posts_inner').css('marginLeft' , - mleft + iwidth / 2 );
-                        }
+                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
+                        >= $('.stand_posts_inner').width()) return;
 
                         $(this).addClass('disabled');
                         $('.stand_posts_inner').animate({
                             marginLeft: '-=' + ( postWidth * 2 )
                         } , 500 , '' , function(){
-                            // if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
-                            //     >= $('.stand_posts_inner').width()){
-                            //     $('.stand_add').adddlass('disabled');
-                            // }
-                            $('.stand_add').removeClass('disabled');
+                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) + $('.stand_posts').width()
+                                >= $('.stand_posts_inner').width()){
+                                $('.stand_add').adddlass('disabled');
+                            }
+                            $('.stand_del').removeClass('disabled');
                         });
                     });
 
-                    // $('.stand_del').click(function(){
-                    //     if($(this).hasClass('disabled') ) return;
-                    //     if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ) return;
+                    $('.stand_del').click(function(){
+                        if($(this).hasClass('disabled') ) return;
+                        if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ) return;
 
-                    //     $(this).addClass('disabled');
-                    //     $('.stand_posts_inner').animate({
-                    //         marginLeft: '+=' + ( postWidth * 2 )
-                    //     } , 500 , '' , function(){
-                    //         if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ){
-                    //             $('.stand_del').addClass('disabled');
-                    //         }
-                    //         $('.stand_add').removeClass('disabled');
-                    //     });
-                    // });
+                        $(this).addClass('disabled');
+                        $('.stand_posts_inner').animate({
+                            marginLeft: '+=' + ( postWidth * 2 )
+                        } , 500 , '' , function(){
+                            if( Math.abs(parseInt( $('.stand_posts_inner').css('marginLeft') )) == 0 ){
+                                $('.stand_del').addClass('disabled');
+                            }
+                            $('.stand_add').removeClass('disabled');
+                        });
+                    });
 
 
                     // hover to show the leave team
@@ -3351,14 +2919,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         $(this).animate({opacity: 0.5});
                     });
 
-                    animateStandData( data );
-                    setInterval(function(){
-                        api.get('/api/user' , function( e ){
-                            var data = e.data;
-                            animateStandData( data );
-                        });
-                    } , 60000);
+                    // render stand_chart
+                    var score = team.score || {};
+                    $('.stand_chart_score').html( (score.average || 0) + ' km/h' );
+                    coordinate.init( $('.stand_chart') , function(){
+                        coordinate.run( score.impact || 0 , score.quality || 0 , score.speed || 0 , score.assiduity || 0 );
+                    } );
+                        
                 });
+
                 break;
                 
             case "monitoring":
@@ -3398,15 +2967,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               break;
               
           case "teamrace":
-                if(document.createElement("canvas").getContext) {
-                    // get server time
+                if(document.createElement("canvas").getContext){
+                    // get server time 
                     var getServerTime = function () {
-                        api.get('/api/web/time?v2=1' , function( e ) {
+                        api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
-                            var times = e.data.time_now.split(/[- :]/);
-                            var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
-                            var times = e.data.time_start.split(/[- :]/);
-                            var start = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
+                            var now = +new Date( e.data.time_now ) / 1000;
+                            var start = +new Date( e.data.time_start ) / 1000;
                             
 
                             interval = setInterval( function(){
@@ -3422,30 +2989,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                  ( seconds > 9 ? seconds : '0' + seconds ) );
                             } , 1000 );
                         });
-                        var $speed = $('.race_speed');
-                        api.get('/api/user' , function( e ){
-                            var speed = e.data.team.score ? e.data.team.score.average : 0;
-                            var last = parseFloat( $speed.html() ) || 0 ;
-                            animateTo( [ last ] , [ speed ] , 600 , function( nums ){
-                                $speed.html( ~~ ( nums[0] * 1000 ) / 1000 + 'Km/h' );
-                            });
-                        });
                     };
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
                     getServerTime();
-                    $('.race_nav').children()
-                        .css({marginLeft: -20 , opacity: 0})
-                        .each(function( i ){
-                            $(this)
-                                .delay( 1000 + (i + 1) * 200 )
-                                .animate({
-                                    marginLeft: 0,
-                                    opacity: 1
-                                } , 400)
-                            
-                        });
+                    
+                    api.get('/api/user' , function( e ){
+                        var speed = e.data.team.score ? e.data.team.score.average : 0;
+                        $('.race_speed').html( speed + 'Kp/h' );
+                    });
                 } else {
+                    // render flash
                     // render flash
                     $('.race_nav,.nav').hide();
                     $('#container').html(
@@ -3461,16 +3015,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             break;
 
             case "race":
-                if(is_support_webgl()){
+                if(document.createElement("canvas").getContext){
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
-                            // var now = +new Date( e.data.time_now ) / 1000;
-                            // var start = +new Date( e.data.time_start ) / 1000;
-                            var times = e.data.time_now.split(/[- :]/);
-                            var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
-                            var times = e.data.time_start.split(/[- :]/);
-                            var start = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
+                            var now = +new Date( e.data.time_now ) / 1000;
+                            var start = +new Date( e.data.time_start ) / 1000;
 
                             interval = setInterval( function(){
                                 now += 1;
@@ -3489,17 +3039,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
                     getServerTime();
-
-                    $('.race_nav').children()
-                        .css({marginLeft: -20 , opacity: 0})
-                        .each(function( i ){
-                            $(this)
-                                .delay( 1000 + (i + 1) * 200 )
-                                .animate({
-                                    marginLeft: 0,
-                                    opacity: 1
-                                } , 400);
-                        });
                 } else {
                     // render flash
                     $('.race_nav,.nav').hide();
