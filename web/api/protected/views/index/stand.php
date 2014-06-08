@@ -73,8 +73,8 @@
 				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
 				<div class="stand_posts">
 					<div class="stand_posts_inner clearfix"></div>
-					<div class="stand_add"></div>
 				</div>
+				<div class="stand_add"></div>
 			</div>
 			<!--  -->
 			<div class="stand_chart">

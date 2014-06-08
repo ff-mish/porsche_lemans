@@ -1375,6 +1375,96 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // });
     }
 
+    var animateStandData = function( data ){
+        var team = data.team;
+
+        // spped
+        $.each( team.users || [] , function( i , user ){
+            var speed = user.score ? user.score.speed : 0;
+
+            rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
+                rotateAnimateMgr.runAnimate( parseFloat( speed ) || 0.7 , true );
+            } )  
+            //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
+        } );
+        // space
+        var spaces = [1000000 , 1000 , 1];
+        var spacesUnit = ['M' , 'K' , ''];
+        $('.teambuild_members')
+            .find('.memeber_space span')
+            .each( function( i ){
+                var $this = $(this);
+                setTimeout(function(){
+                    var user = team.users[ i ];
+                    var space = '';
+                    var unit = '';
+                    if( user.friends > 1000 ){
+                        $.each( spaces , function( k , sp ){
+                            space =  Math.round((user.friends / sp)*10) / 10;
+                            if( space >= 1 ){
+                                unit = spacesUnit[k];
+                                return false;
+                            }
+                            unit = spacesUnit[k];
+                        } );
+                    } else {
+                        space = user.friends;
+                    }
+                    var lastNum = parseFloat( $this.data('last-num') ) || 0;
+                    animateTo( [ lastNum ] , [ space ] , 600 , function( num ){
+                        $this.html( parseFloat(num[0].toFixed(1)) + unit );
+                    } );
+                    $this.data('last-num' , space);
+                } , 1000);
+            } );
+
+        // render stars
+        var $stars = $('.stand_achivmentsbox p');
+        var addIndex = 0;
+        for( var i = 0 ; i < data.team_star ; i ++ ){
+            if( $stars.eq(i).children().length ) continue;
+            $('<img src="/images/full-star.png" />')
+                .css({
+                    width: 100,
+                    marginTop: -45,
+                    marginLeft: -40,
+                    opacity: 0
+                })
+                .appendTo( $stars.eq(i) )
+                .delay(1000 * ( ++addIndex ) )
+                .animate({
+                    width: 30,
+                    marginTop: 0,
+                    marginLeft: 0,
+                    opacity: 1
+                } , 500);
+        }
+
+        var tsc = [ data.team_position , data.team_total ];
+        var $tsc = $('#team-score');
+        var last_tsc = $tsc.data('last-num') || [0 , 0];
+        animateTo( last_tsc , tsc , 600 , function( nums ){
+            nums[0] = ~~nums[0];
+            nums[1] = ~~nums[1];
+            $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
+        } );
+
+
+        // render stand_chart
+        var score = team.score || {};
+        // animate
+        var $score = $('.stand_chart_score');
+        animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
+            $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
+        } );
+        $score.data('last-num' , score.average );
+
+
+        coordinate.init( $('.stand_chart') , function(){
+            coordinate.run( parseFloat( score.impact ) || 0 , parseFloat( score.quality )|| 0 , parseFloat( score.speed ) || 0 , parseFloat( score.assiduity )|| 0 );
+        } );
+    }
+
 
 
     // page actions here
@@ -2522,7 +2612,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // fix Q & A
         !!(function(){
             // ban qa
-            return false;
             var now  = new Date();
 
             var cookieTimes = [];
@@ -2732,6 +2821,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 // page loaded
                 LP.triggerAction('fuel-load');
+                $(window).resize(function(){
+                    var width = $('.fuellist').width();
+                    var maxWidth = 280;
+                    var itemWidth = width / ~~ ( width / maxWidth );
+                    $('.fuellist').children().width( itemWidth );
+                });
                 
                 break;
                 
@@ -2804,96 +2899,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 //         } , 1000 / 60);
                 //     }
                 // }
-
-                var animateData = function( data ){
-                    var team = data.team;
-
-                    // spped
-                    $.each( team.users || [] , function( i , user ){
-                        var speed = user.score ? user.score.speed : 0;
-
-                        rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
-                            rotateAnimateMgr.runAnimate( parseFloat( speed ) || 0.7 , true );
-                        } )  
-                        //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
-                    } );
-                    // space
-                    var spaces = [1000000 , 1000 , 1];
-                    var spacesUnit = ['M' , 'K' , ''];
-                    $('.teambuild_members')
-                        .find('.memeber_space span')
-                        .each( function( i ){
-                            var $this = $(this);
-                            setTimeout(function(){
-                                var user = team.users[ i ];
-                                var space = '';
-                                var unit = '';
-                                if( user.friends > 1000 ){
-                                    $.each( spaces , function( k , sp ){
-                                        space =  Math.round((user.friends / sp)*10) / 10;
-                                        if( space >= 1 ){
-                                            unit = spacesUnit[k];
-                                            return false;
-                                        }
-                                        unit = spacesUnit[k];
-                                    } );
-                                } else {
-                                    space = user.friends;
-                                }
-                                var lastNum = parseFloat( $this.data('last-num') ) || 0;
-                                animateTo( [ lastNum ] , [ space ] , 600 , function( num ){
-                                    $this.html( parseFloat(num[0].toFixed(1)) + unit );
-                                } );
-                                $this.data('last-num' , space);
-                            } , 1000);
-                        } );
-
-                    // render stars
-                    var $stars = $('.stand_achivmentsbox p');
-                    var addIndex = 0;
-                    for( var i = 0 ; i < data.team_star ; i ++ ){
-                        if( $stars.eq(i).children().length ) continue;
-                        $('<img src="/images/full-star.png" />')
-                            .css({
-                                width: 100,
-                                marginTop: -45,
-                                marginLeft: -40,
-                                opacity: 0
-                            })
-                            .appendTo( $stars.eq(i) )
-                            .delay(1000 * ( ++addIndex ) )
-                            .animate({
-                                width: 30,
-                                marginTop: 0,
-                                marginLeft: 0,
-                                opacity: 1
-                            } , 500);
-                    }
-
-                    var tsc = [ data.team_position , data.team_total ];
-                    var $tsc = $('#team-score');
-                    var last_tsc = $tsc.data('last-num') || [0 , 0];
-                    animateTo( last_tsc , tsc , 600 , function( nums ){
-                        nums[0] = ~~nums[0];
-                        nums[1] = ~~nums[1];
-                        $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
-                    } );
-
-
-                    // render stand_chart
-                    var score = team.score || {};
-                    // animate
-                    var $score = $('.stand_chart_score');
-                    animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
-                        $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
-                    } );
-                    $score.data('last-num' , score.average );
-
-
-                    coordinate.init( $('.stand_chart') , function(){
-                        coordinate.run( parseFloat( score.impact ) || 0 , parseFloat( score.quality )|| 0 , parseFloat( score.speed ) || 0 , parseFloat( score.assiduity )|| 0 );
-                    } );
-                }
 
                 // init team name
                 initTeamName();
@@ -3027,7 +3032,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     $(window).resize(function(){
                         postWidth = $('.stand_posts').width() / 2;
-                        $('.stand_posts_inner').children()
+                        $('.stand_posts_inner').css({
+                            'marginLeft': 0,
+                            width: $('.stand_posts_inner').children().length * postWidth
+                        }).children()
                             .css('width' , postWidth - 20);
                     });
 
@@ -3090,14 +3098,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         $(this).animate({opacity: 0.5});
                     });
 
-
-                    animateData( data );
-
-
+                    animateStandData( data );
                     setInterval(function(){
                         api.get('/api/user' , function( e ){
                             var data = e.data;
-                            animateData( data );
+                            animateStandData( data );
                         });
                     } , 60000);
                 });
