@@ -215,7 +215,6 @@ class WebController extends Controller {
     $time_start = strtotime(Yii::app()->params["startTime"]);
     $hour = ($time_now - $time_start) / 3600;
     
-    
     $lenght_of_race = 13.6;
     // weibo 
     // 第一步，把所有的Team 的数据拿出来
@@ -237,7 +236,6 @@ class WebController extends Controller {
     // 速度单位是 KM / Hours
     // 分数是30秒计算一次, 所以总共是30秒
     // 可能还要加上2秒误差
-    $total_seconds = $total * (30 + 2);
     $distance = $speed * $hour;
     
     // 圈数

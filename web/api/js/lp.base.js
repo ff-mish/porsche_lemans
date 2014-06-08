@@ -2316,7 +2316,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // fix Q & A
         !!(function(){
             // ban qa
-            return false;
             var now  = new Date();
 
             var cookieTimes = [];

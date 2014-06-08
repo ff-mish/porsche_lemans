@@ -54,7 +54,8 @@ class UserQAAR extends CActiveRecord {
           $query->addCondition("is_right = 1");
           $query->params[":uid"] = implode(",", $uids);
           $count = self::model()->count($query);
-          $new_achivement = round($new_achivement / 3, 0, PHP_ROUND_HALF_DOWN);
+          
+          $new_achivement = round($count / 3, 0, PHP_ROUND_HALF_DOWN);
           // 这里说明 有新的盾牌
           if ($old_achivement < $new_achivement ) {
             $this->has_new_achivement = TRUE;

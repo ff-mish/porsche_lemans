@@ -6,6 +6,8 @@
  * Time: 上午3:22
  */
 return array (
+    "Networks" => "网络",
+    "Teams" => "团队",
     "latest post" => "最新微博",
     "Speed" => "速度",
     "Quality" => "内容",

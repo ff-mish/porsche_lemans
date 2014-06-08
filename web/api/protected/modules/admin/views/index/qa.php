@@ -32,7 +32,7 @@
   </table>
   <div class="row">
     <div class="offset8 span2">
-      <a href="javascript:void(0)" ng-click="openQaFormPopup()">添加Q&A</a>
+      <a href="javascript:void(0)" ng-click="openQaFormPopup($event)">添加Q&A</a>
     </div>
   </div>
   
