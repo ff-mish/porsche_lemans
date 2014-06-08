@@ -27,11 +27,8 @@ class TwitterCommand extends CConsoleCommand {
   
   public function actionOfficeweibo() {
     $timelines = Yii::app()->twitter->user_timeline_by_name(Yii::app()->params["porsche_twitter_name"]);
-    if (!isset($timelines["statuses"])) {
-      return print_r($timelines);
-    }
     
-    $statuses = $timelines["statuses"];
+    $statuses = $timelines;
     foreach ($statuses as $status) {
       $user = $status["user"];
       $id_str = $user["id_str"];

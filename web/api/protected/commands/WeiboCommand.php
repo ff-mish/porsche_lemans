@@ -40,7 +40,7 @@ class WeiboCommand extends CConsoleCommand {
     }
   }
   
-  public function actionOfficeweibo() {
+  public function actionOfficeweibo($args) {
     $weibo_api = $this->weibo_api;
     
     $ret = $weibo_api->user_timeline_by_name(Yii::app()->params["porsche_weibo_name"], 1);
@@ -48,25 +48,29 @@ class WeiboCommand extends CConsoleCommand {
       return print_r($ret);
     }
     
-    print Yii::app()->params["porsche_weibo_name"];
-    
-    $service_url = Yii::app()->params["service_url"];
-    $url = $service_url."/api/web/cronnewtwitte";
-    
-    $ch = curl_init($url);
-    
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
-    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
-    curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
-    $response = curl_exec($ch);
-    
-    print_r($response);
-    
-    // 直接返回
-    return ;
+    $self = array_shift($args);
+    if ($self == "self") {
+      $this->saveStatuses($ret["statuses"]);
+    }
+    else {
+      $service_url = Yii::app()->params["service_url"];
+      $url = $service_url."/api/web/cronnewtwitte";
+
+      $ch = curl_init($url);
+
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "self" => "self", "data" => (json_encode($ret["statuses"]))));
+      //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+      curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+      $response = curl_exec($ch);
+
+      print_r($response);
+
+      // 直接返回
+      return ;
+    }
   }
   
   public function actionSearchtag() {
@@ -93,10 +97,13 @@ class WeiboCommand extends CConsoleCommand {
     $response = curl_exec($ch);
     
     print_r($response);
-    
-    // 直接返回
-    return ;
-    
+
+  }
+  
+  /**
+   * 保存状态
+   */
+  private function saveStatuses($statuses) {
     // 我们这里要2件事情，
     // 第一，判断发微博的人是否已经存在我们系统，如果不存在，则自动保存在我们系统
     $isExist = FALSE;
@@ -165,7 +172,7 @@ class WeiboCommand extends CConsoleCommand {
           $twitteAr->content = $content;
           $twitteAr->uuid = $uuid;
           $twitteAr->type = $type;
-          $twitteAr->is_from_thirdpart = 1;
+          $twitteAr->is_from_thirdpart = 0;
           
           // entities media
           if (isset($status["original_pic"])) {
@@ -185,6 +192,5 @@ class WeiboCommand extends CConsoleCommand {
         print "time: ". date("Y-m-d H:m:s"). "unknow error\r\n";
       }
     }
-
   }
 }

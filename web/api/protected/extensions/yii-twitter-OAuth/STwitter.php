@@ -250,7 +250,7 @@ class STwitter extends CApplicationComponent {
 
   /**
    * 查询用户资料
-   * @param type $uid or $screen_name
+   * @param type $uid
    */
   public function user_show($uid) {
     $this->user_token = $_SESSION['access_token']['oauth_token'];

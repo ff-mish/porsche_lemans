@@ -282,14 +282,14 @@ class TwitteAR extends CActiveRecord {
     else if ($level == self::LEVEL_WEB) {
       if ($from == UserAR::FROM_TWITTER) {
         $userAr = new UserAR();
-        $porsche_user = $userAr->load_user_by_screen_name(Yii::app()->params["porsche_twitter_name"]);
+        $porsche_user = $userAr->load_user_by_uuid(Yii::app()->params["twitter_uid"]);
         if ($porsche_user) {
           $uids[] = $porsche_user->uid;
         }
       }
       else {
         $userAr = new UserAR();
-        $porsche_user = $userAr->load_user_by_screen_name(Yii::app()->params["porsche_weibo_name"]);
+        $porsche_user = $userAr->load_user_by_uuid(Yii::app()->params["weibo_uid"]);
         if ($porsche_user) {
           $uids[] = $porsche_user->uid;
         }
