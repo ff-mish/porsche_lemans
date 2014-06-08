@@ -7,10 +7,10 @@
         </div>
 
     <div class="count">
-      <div class="conut_tit" data-fadein><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace")?></div>
+      <div class="conut_tit" data-fadein><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace<br/><br/>The better you tweet , the faster you go!")?></div>
       
       <!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
-      <div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div>
+      <!-- <div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div> -->
       <div class="home_v btn" id="mobile_home_v"></div>
       <div class="home_share">
         <!--   -->
@@ -19,9 +19,9 @@
       </div>
       <div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
     </div>
-        <div id="home_video">
+        <!-- <div id="home_video">
             <a class="skipintro" href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a>
-        </div>
+        </div> -->
     <div id="winners-prizes">
             <div class="popup_close btn"></div>
             <div class="winners-prizes-wrap">
@@ -32,6 +32,6 @@
                 </div>
             </div>
     </div>
-
+    <div class="index-p2-bg"><img src="/videos/index_p2.jpg"></div>
   </div>
   <!--  -->

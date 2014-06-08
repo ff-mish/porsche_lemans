@@ -93,13 +93,13 @@
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
+						<?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_quality" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
+						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
 						<span>◆</span>
 					</div>
 				</div>

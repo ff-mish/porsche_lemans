@@ -267,7 +267,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 /* countdown */
 .count{width:100%;height:580px;position: absolute;left: 0;top: 50%;margin: -300px 0 0 0;line-height: 36px}
-.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
+.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0; color: black;} 
 .conut_tit p{font-size: 76px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
 
@@ -1088,10 +1088,18 @@ body .stand_tweet .conut_down_wrap{left: 30%; margin-left: 9px !important; heigh
 .stand_tweet h2{margin-top: 0 !important; padding: 0!important;}
 
 div.stand_postsbox {
+    font-size: 11px;
     float: left;
     margin-right: 20px;
     line-height: 1.5em;
     word-wrap: break-word;
     zoom : 1;
 }
+.lang-en div.stand_postsbox{font-size: 12px;}
 .stand_tweet h2{width: 30% !important;margin-right: 10px;}
+.vjs-big-play-button{display: none !important;opacity: 0;filter:alpha(opacity=0);}
+.index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;}
+
+
+
+
