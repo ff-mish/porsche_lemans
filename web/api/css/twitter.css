@@ -54,6 +54,9 @@ a:hover{color:#065be0;}
   color: #065be0;
 }
 
+
+.race_navitemon{background: url('../images/race_nav_t.png') no-repeat 0 -138px;}
+
 @media screen and (max-width:640px){
     .nav .on {background: none;color:#065be0;}
 }

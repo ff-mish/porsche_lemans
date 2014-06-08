@@ -620,7 +620,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var target = [];
 
-        function runAnimate( left , right , top , bottom  ){
+        function runAnimate( left , right , top , bottom , noAnimate ){
             // left = 0.5;
             // right = 0.7;
             // top = 0.9;
@@ -640,7 +640,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var duration = 1000;
             var now = new Date;
-            var renderPath = function( left , right , top , bottom ){
+            var renderPath = function( left , right , top , bottom  ){
                 left = [ center[0] - xwidth / 2 * left , xstart[1] ];
                 right = [ center[0] + xwidth / 2 * right , xstart[1] ];
                 top = [ ystart[0] , center[1] - yheight / 2 * top ];
@@ -655,14 +655,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 object.path.attr( 'path' , rpath.join("") );
             }
 
-            // if( noAnimate ){
-            //     renderPath( left , right , top , bottom );
-            //     object.lastLeft = left;
-            //     object.lastRight = right;
-            //     object.lastTop = top;
-            //     object.lastBottom = bottom;
-            //     return;
-            // }
+            if( noAnimate ){
+                renderPath( left , right , top , bottom );
+                object.lastLeft = left;
+                object.lastRight = right;
+                object.lastTop = top;
+                object.lastBottom = bottom;
+                return;
+            }
             var ani = function(){
                 var dur = new Date - now;
                 var per = dur / duration;
@@ -1310,6 +1310,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         }
     })();
 
+    var animateTo = function( arrSrarts , arrEnds , duration , step ){
+        var now = new Date();
+        var ani = function(){
+            var dur = new Date() - now;
+            var per = dur / duration;
+            if( per > 1 ){
+                per = 1;
+            }
+            var nums = [];
+            $.each( arrSrarts , function( i , num ){
+                nums.push( num + ( arrEnds[ i ] - num ) * per );
+            } );
+            step( nums );
+            per < 1 && setTimeout( ani , 1000 / 60 );
+        }
+        ani();
+    }
 
     var bigVideoInit = function(){ 
         var ratio = 516 / 893;
@@ -1936,28 +1953,45 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             $('.fuel .loading').hide();
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
-              if (data["type"] == "video") {
-                data["video"] = 1;
-              }
+                if (data["type"] == "video") {
+                    data["video"] = 1;
+                }
                 LP.compile('fuel-tpl' , data , function( html ){
-                    $( html ).appendTo( $('.fuellist') ).data( 'media' , data );
+                    $( html ).appendTo( $('.fuellist') )
+                        .data( 'media' , data )
+                        .css('opacity' , 0);
                     if (i >= e.data.length - 1) {
                       callback();
                     }
                 });
                 
             } );
-            
+            function turnImage(){
+                var $img = $('.fuellist').find('.fuelitem:not(.visible) img').eq(0);
+                // turn each images
+                if( !$img.length ) return;
+                $('<img />').load(function(){
+                    $img.closest('.fuelitem').animate({
+                        opacity: 1
+                    } , 500 , '' , function(){
+                        $(this).addClass('visible');
+                        turnImage( );
+                    } );
+                })
+                .attr('src' , $img.attr('src'));
+            }
             function callback(){
-              $(this).removeAttr('disabled');
+                turnImage();
+                $(this).removeAttr('disabled');
+                LP.use('isotope' , function(){
+                    // first init isotope , render no animate effect
+                    $('.fuellist')
+                        .isotope({
+                            resizable: false
+                        });
+                    // fix image effect
 
-              LP.use('isotope' , function(){
-                 // first init isotope , render no animate effect
-                 $('.fuellist')
-                     .isotope({
-                         resizable: false
-                     });
-              });
+                });
             }
         });
         return false;
@@ -2378,8 +2412,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         if(isMobile) {
             LP.use('hammer' , function(){
                 var $nav = $('.nav');
-
-                $('body').hammer()
+                $('body').hammer({
+                    behavior: {
+                        userSelect: true
+                    }
+                })
                     .on("release dragleft dragright swipeleft swiperight", function(ev) {
                         if( $nav.data('disabled') ) return false;
                         $nav.data('disabled' , 'disabled');
@@ -2748,24 +2785,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     }
                 });
 
-                var animateTo = function( arrSrarts , arrEnds , duration , step ){
-                    var now = new Date();
-                    var ani = function(){
-                        var dur = new Date() - now;
-                        var per = dur / duration;
-                        if( per > 1 ){
-                            per = 1;
-                        }
-                        var nums = [];
-                        $.each( arrSrarts , function( i , num ){
-                            nums.push( num + ( arrEnds[ i ] - num ) * per );
-                        } );
-                        step( nums );
-                        per < 1 && setTimeout( ani , 1000 / 60 );
-                    }
-                    ani();
-                }
-
 
                 // var animateTo = function(  $dom , num , unit ){
                 //     var dur = new Date() - now;
@@ -2877,9 +2896,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 // init team name
                 initTeamName();
-                countDownMgr.initCountDown();
-
-
+                //countDownMgr.initCountDown();
 
                 api.get('/api/user' , function( e ){
                     var data = e.data;
@@ -3144,15 +3161,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                  ( seconds > 9 ? seconds : '0' + seconds ) );
                             } , 1000 );
                         });
+                        var $speed = $('.race_speed');
+                        api.get('/api/user' , function( e ){
+                            var speed = e.data.team.score ? e.data.team.score.average : 0;
+                            var last = parseFloat( $speed.html() ) || 0 ;
+                            animateTo( [ last ] , [ speed ] , 600 , function( nums ){
+                                $speed.html( ~~ ( nums[0] * 1000 ) / 1000 + 'Km/h' );
+                            });
+                        });
                     };
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
                     getServerTime();
-                    
-                    api.get('/api/user' , function( e ){
-                        var speed = e.data.team.score ? e.data.team.score.average : 0;
-                        $('.race_speed').html( speed + 'Kp/h' );
-                    });
+                    $('.race_nav').children()
+                        .css({marginLeft: -20 , opacity: 0})
+                        .each(function( i ){
+                            $(this)
+                                .delay( 1000 + (i + 1) * 200 )
+                                .animate({
+                                    marginLeft: 0,
+                                    opacity: 1
+                                } , 400)
+                            
+                        });
                 } else {
                     // render flash
                     // render flash
@@ -3194,6 +3225,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
                     getServerTime();
+
+                    $('.race_nav').children()
+                        .css({marginLeft: -20 , opacity: 0})
+                        .each(function( i ){
+                            $(this)
+                                .delay( 1000 + (i + 1) * 200 )
+                                .animate({
+                                    marginLeft: 0,
+                                    opacity: 1
+                                } , 400)
+                            
+                        });
                 } else {
                     // render flash
                     $('.race_nav,.nav').hide();

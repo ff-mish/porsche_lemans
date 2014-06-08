@@ -10,17 +10,17 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Tweet')?>
+					<?=Yii::t('lemans','Make a tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
 			<p class="on"><?=Yii::t('lemans','Stand')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Race')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Fuel')?></p>
-			<p class="disabled"><?=Yii::t('lemans','Monitoring')?></p>
+			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
+			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
-				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
 				<p class="language">
 					<?php if (Yii::app()->language == "zh_cn"): ?>
 						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
@@ -29,7 +29,7 @@
 					<?php endif;?>
 				</p>
 			</div>
-			<p class="m"><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 			<div class="mobile_menu btn" data-a="show-menu">
 				<p></p>
 				<p></p>
@@ -80,13 +80,13 @@
 					</div>
 			    </div>
 			</div>
-<!--			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
 				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
 				<div class="stand_posts">
 					<div class="stand_posts_inner clearfix"></div>
 					<div class="stand_add"></div>
 				</div>
-			</div>-->
+			</div>
 			<!--  -->
 			<div class="stand_chart">
 				<div class="stand_chart_score">
