@@ -74,9 +74,15 @@ class TwitteAR extends CActiveRecord {
    $cond_twitte = array(
        "condition" => "uid in (:uid)",
        "params" => array(":uid" => implode(",", $uids)),
+       "order" => "cdate",
        "limit" => TeamAR::LAST_POST_NUM
    );
-   return $this->findAll($cond_twitte);
+   $query = new CDbCriteria();
+   $query->addCondition("uid in (:uid)");
+   $query->limit = TeamAR::LAST_POST_NUM;
+   $query->params[":uid"] = implode(",", $uids);
+   $query->order = "cdate DESC";
+   return $this->findAll($query);
    
  }
 
