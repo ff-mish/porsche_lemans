@@ -112,6 +112,29 @@ class UserAR extends CActiveRecord {
     }
   }
   
+  public function load_user_by_screen_name($screen_name, $from = "") {
+    if (!$from) {
+      $user = UserAR::crtuser();
+      if (!$user) {
+        $from = $user->from;
+      }
+      else {
+        $from = "";
+      }
+    }
+    $conds = array(
+        "condition" => 'name=:name AND `from`=:from',
+        "params" => array(":name" => $screen_name, ":from" => $from)
+    );
+    $users = $this->findAll($conds);
+    if ($users) {
+      return $users[0];
+    }
+    else {
+      return FALSE;
+    }
+  }
+  
   /**
    * 加密邀请数据
    * @param type $uid 邀请人

@@ -115,7 +115,7 @@ class WebController extends Controller {
     if (!$data) {
       return $this->responseError("error", 500);
     }
-      
+    
     $statuses = json_decode($data, TRUE);
     
     $from = $request->getPost("from");

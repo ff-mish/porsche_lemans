@@ -22,6 +22,53 @@ class WeiboCommand extends CConsoleCommand {
     }
   }
   
+  public function actionUpdateaccount() {
+    $weibo_api = $this->weibo_api;
+    $query = new CDbCriteria();
+    $query->addCondition(UserAR::model()->getTableAlias().".from=:from");
+    $from = UserAR::FROM_WEIBO;
+    $query->params[":from"] = $from;
+    
+    $users = UserAR::model()->findAll($query);
+    foreach ($users as $user) {
+      $ret = $weibo_api->show_user_by_id($user->uuid);
+      $friends = $ret["followers_count"];
+      $user->friends = $friends;
+      $user->save();
+      
+      print "User: [".$user->name."] has updated. \r\n";
+    }
+  }
+  
+  public function actionOfficeweibo() {
+    $weibo_api = $this->weibo_api;
+    
+    $ret = $weibo_api->user_timeline_by_name(Yii::app()->params["porsche_weibo_name"], 1);
+    if (!isset($ret["statuses"])) {
+      return print_r($ret);
+    }
+    
+    print Yii::app()->params["porsche_weibo_name"];
+    
+    $service_url = Yii::app()->params["service_url"];
+    $url = $service_url."/api/web/cronnewtwitte";
+    
+    $ch = curl_init($url);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
+    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+    curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+    $response = curl_exec($ch);
+    
+    print_r($response);
+    
+    // 直接返回
+    return ;
+  }
+  
   public function actionSearchtag() {
     $weibo_api = $this->weibo_api;
     

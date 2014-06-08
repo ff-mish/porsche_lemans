@@ -3375,8 +3375,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                 .animate({
                                     marginLeft: 0,
                                     opacity: 1
-                                } , 400)
-                            
+                                } , 400);
                         });
                 } else {
                     // render flash

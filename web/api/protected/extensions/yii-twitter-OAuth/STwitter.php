@@ -401,5 +401,22 @@ class STwitter extends CApplicationComponent {
       throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
     }
   }
+  
+  public function user_timeline_by_name($name, $count = 50) {
+    $this->user_token = $_SESSION['access_token']['oauth_token'];
+    $this->user_secret = $_SESSION['access_token']['oauth_token_secret'];
+    $this->_getTwitter()->config['user_token'] = $_SESSION['access_token']['oauth_token'];
+    $this->_getTwitter()->config['user_secret'] = $_SESSION['access_token']['oauth_token_secret'];
+    
+    $twitter = $this->_getTwitter();
+
+    $code = $twitter->request("get", $twitter->url("1.1/statuses/user_timeline"), array("name" => $name, "count" => $count));
+    if ($code == 200) {
+      return json_decode($twitter->response["response"], TRUE);
+    }
+    else {
+      throw new CException('Twitter api - Code ' . $code . ' ' . $this->outputError($this->_getTwitter()));
+    }
+  }
 
 }
