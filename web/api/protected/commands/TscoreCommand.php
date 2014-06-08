@@ -28,6 +28,7 @@ class TscoreCommand extends CConsoleCommand
         if (!count($users)) {
           continue;
         }
+        $team_speeds = array();
         foreach ($users as $user) {
           // 分别计算出每个用户的speed
           // 开始时间
@@ -41,24 +42,25 @@ class TscoreCommand extends CConsoleCommand
           // 每个小时 我分别计算出来速度，然后再平均
           $speeds = array();
           $s_date = $start_date;
-          for ($i = 0; $i < $time_step; $i++) {
+          for ($i = 0; $i < $time_step+1; $i++) {
             // 构造查询条件
             $t = strtotime($s_date.":00:00") + 60 * 60;
-            $n_date = date("Y-m-d H", $t);
+            $n_date = date("Y-m-d H:00:00", $t);
             $query = new CDbCriteria();
             $query->addCondition("cdate >= :s_date AND cdate < :n_date");
-            $query->params[":s_date"] = $s_date;
+            $query->params[":s_date"] = $s_date.":00:00";
             $query->params[":n_date"] = $n_date;
 
             $query->addCondition("uid=:uid");
             $query->params[":uid"] = $user->uid;
-
+            
+            
             $count = TwitteAR::model()->count($query);
             $s_speed = $count > $max_twitte_per_hour  ? "1" : round($count / $max_twitte_per_hour, 3);
             $speeds[] = $s_speed;
 
             // 时间轮回
-            $s_date = $n_date;
+            $s_date = date("Y-m-d H", strtotime($n_date));
           }
 
           // 到这里就得到整个用户的
@@ -71,7 +73,7 @@ class TscoreCommand extends CConsoleCommand
         // 最后对组里面的速度进行平均值计算
         $team_speed = round(array_sum($team_speeds) / count($users), 3);
 
-        // Quality: 转发数 积分
+        // Quality: 转发数积分
         // 只需要查询出所有的转发数目即可
         $uids = array();
         foreach ($users as $user) {

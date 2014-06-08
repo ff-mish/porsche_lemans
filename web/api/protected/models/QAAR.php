@@ -39,6 +39,7 @@ class QAAR extends CActiveRecord {
       if (!$last_time) {
         $last_time = time();
       }
+      
       // Step2, 判断用户是否已经满足弹出条件
       // TODO:: 客户端应该判断这个条件
       

@@ -70,6 +70,17 @@
 			</div>
 			<!--  -->
 			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
+				<h2 class="fl"><?php echo Yii::t("lemans", "Race Starts In")?></h2>
+				<div class="conut_down_wrap stand_count_down">
+			      	<div class="conut_down cs-clear" data-fadein>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "d")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "h")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo"><?php echo Yii::t("lemans", "min")?></span>
+						<div class="conut_downitem">00</div><span class="conut_downinfo" style="margin-right:0;"><?php echo Yii::t("lemans", "sec")?></span>
+					</div>
+			    </div>
+			</div>
+			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
 				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
 				<div class="stand_posts">
 					<div class="stand_posts_inner clearfix"></div>

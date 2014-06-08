@@ -265,7 +265,7 @@ class UserController extends Controller{
         if (in_array($sns_user["uuid"], $invited_uuids)) {
           unset($ret[$key]);
         }
-      } 
+      }
     }
     
     $this->responseJSON($ret, "success", array("next_cursor" => $next_next_cursor));

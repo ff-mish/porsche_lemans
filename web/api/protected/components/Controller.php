@@ -92,11 +92,16 @@ class Controller extends CController {
     }
     else {
       $ip = Yii::app()->request->userHostAddress;
-      $content = file_get_contents("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=".$ip);
-      $ip_info = json_decode($content, TRUE);
-      if (isset($ip_info["country"]) && $ip_info["country"] == "中国") {
-        setcookie("lang", "zh_cn", time() + 3600 * 24, "/");
-        Yii::app()->language = "zh_cn";
+      try {
+        $content = file_get_contents("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json&ip=".$ip);
+        $ip_info = json_decode($content, TRUE);
+        if (isset($ip_info["country"]) && $ip_info["country"] == "中国") {
+          setcookie("lang", "zh_cn", time() + 3600 * 24, "/");
+          Yii::app()->language = "zh_cn";
+        }
+      }
+      catch (Exception $e){
+        Yii::app()->language = "en_us";
       }
     }
 

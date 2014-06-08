@@ -92,13 +92,43 @@
 
   // Fuel Controller
   AdminApp.controller("FuelController", ["$scope", "$http", function ($scope, $http) {
+      $scope.form_class = "";
       // 初始化
       angular.element(document).ready(function () {
         angular.element("#fuel-table").dataTable();
       });
       
-      $scope.openFuelFormPopup = function () {
+      // 打开Fuel 表单
+      $scope.openFuelFormPopup = function (event) {
+        var el = angular.element(event.target);
+        if (el.attr("data-id")) {
+          var mid = el.attr("data-id");
+          $http.get("/api/");
+        }
         
-      }
+        
+        // 显示隐藏表单
+        if ($scope.form_class == "") {
+          $scope.form_class = "showme";
+        }
+        else {
+          $scope.form_class = "";
+        }
+      };
+      
+      // 关闭Fuel表单
+      $scope.closeFuelFormPopup = function () {
+        $scope.form_class = "";
+      };
+      
+      // 添加Fuel
+      $scope.addFuelFormSubmit = function () {
+        var form = angular.element("form[name='addfuel']");
+        form.ajaxSubmit({
+          success: function (data) {
+            window.location.reload();
+          }
+        });
+      };
   }]);
 })();

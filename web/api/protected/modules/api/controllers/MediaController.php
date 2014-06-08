@@ -98,5 +98,13 @@ class MediaController extends Controller {
     
     $this->responseJSON($ret, "success");
   }
+  
+  public function actionIndex() {
+    $request = Yii::app()->getRequest();
+    $mid = $request->getParam("mid", false);
+    
+    $mediaAr = MediaAR::model()->findByPk($mid);
+    
+  }
 }
 
