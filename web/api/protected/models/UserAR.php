@@ -169,7 +169,6 @@ class UserAR extends CActiveRecord {
     return $base_host. '?d='. base64_encode($encrpted_str);
   }
   
-  
   /**
    * 解密请求数据
    * @param type $str

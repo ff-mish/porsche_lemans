@@ -2,10 +2,10 @@
   <div class="form-box-bg hideme {{form_class}}" ng-click="closeFuelFormPopup($event)"></div>
   <table class="table table-bordered table-hover" id="fuel-table">
     <thead>
-      <th>标题</th>
-      <th>说明</th>
-      <th>创建时间</th>
-      <th>操作</th>
+      <th><?php echo Yii::t("lemans","Title")?></th>
+      <th><?php echo Yii::t("lemans","Description")?></th>
+      <th><?php echo Yii::t("lemans","Create Date")?></th>
+      <th><?php echo Yii::t("lemans","Operator")?></th>
     </thead>
     <tbody>
       <?php foreach ($medias as $media):?>
@@ -14,9 +14,9 @@
         <td><?php echo $media["description"]?></td>
         <td><?php echo $media["cdate"]?></td>
         <td>
-          <a href="#/edit" data-id="<?php echo $media["mid"]?>" ng-click="openFuelFormPopup($event)">编辑</a>
-          <a href="#/view" data-id="<?php echo $media["mid"]?>">查看</a>
-          <a href="#/delete" data-id="<?php echo $media["mid"]?>">删除</a>
+          <a href="#/edit" data-id="<?php echo $media["mid"]?>" ng-click="openFuelFormPopup($event)"><?php echo Yii::t("lemans","Edit")?></a>
+          <a href="#/view" data-id="<?php echo $media["mid"]?>"><?php echo Yii::t("lemans","View")?></a>
+          <a href="#/delete" data-id="<?php echo $media["mid"]?>"><?php echo Yii::t("lemans","Delete")?></a>
         </td>
       </tr>
       <?php endforeach;?>
@@ -25,7 +25,7 @@
   
   <div class="row">
     <div class="offset8 span2">
-      <a href="javascript:void(0)" ng-click="openFuelFormPopup($event)">添加Fuel</a>
+      <a href="javascript:void(0)" ng-click="openFuelFormPopup($event)"><?php echo Yii::t("lemans","Add Fuel")?></a>
     </div>
   </div>
 
@@ -38,19 +38,19 @@
         <img src="{{fuel.uri}}" alt="" />
       </div>
       <div class="field-item">
-        <label for="teaser_image">预览图片</label>
+        <label for="teaser_image"><?php echo Yii::t("lemans","Image Of Preview")?></label>
         <input type="file" name="teaser_image" />
       </div>
       <div class="field-item">
-        <label for="title">标题</label>
+        <label for="title"><?php echo Yii::t("lemans","Title")?></label>
         <input type="input" name="title" ng-model="fuel.title"/>
       </div>
       <div class="field-item">
-        <label for="description">描述</label>
-        <textarea name="description" cols="30" rows="10" placeholder="说明" ng-model="fuel.description"></textarea>
+        <label for="description"><?php echo Yii::t("lemans","Title")?></label>
+        <textarea name="description" cols="30" rows="10" placeholder="" ng-model="fuel.description"></textarea>
       </div>
       <div class="field-item">
-        <input type="button" value="保存" ng-click="addFuelFormSubmit()"/>
+        <input type="button" value="<?php echo Yii::t("lemans","Save")?>" ng-click="addFuelFormSubmit()"/>
       </div>
       <input type="hidden" name="mid" value="" ng-model="fuel.mid"/>
     </form>

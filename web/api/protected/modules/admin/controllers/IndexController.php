@@ -243,4 +243,9 @@ class IndexController extends Controller {
   public function getTeamQuestionCount($tid) {
     return "100";
   }
+  
+  public function actionLogout() {
+    unset(Yii::app()->session["admin_login"]);
+    $this->redirect("/admin/index");
+  }
 }

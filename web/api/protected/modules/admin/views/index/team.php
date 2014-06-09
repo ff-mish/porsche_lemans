@@ -2,17 +2,17 @@
   <div class="form-box-bg hideme {{form_class}}" ng-click="closeQaFormPopup('')"></div>
     <table class="table table-bordered table-hover " id="team-table">
       <thead>
-        <th>排名</th>
-        <th>组名</th>
-        <th>成员</th>
-        <th>创建时间</th>
-        <th>速度</th>
-        <th>影响力</th>
-        <th>质量</th>
+        <th><?php echo Yii::t("lemans","Ranking")?></th>
+        <th><?php echo Yii::t("lemans","Team")?></th>
+        <th><?php echo Yii::t("lemans","Members")?></th>
+        <th><?php echo Yii::t("lemans","Create Time")?></th>
+        <th><?php echo Yii::t("lemans","Speed")?></th>
+        <th><?php echo Yii::t("lemans","Imspact")?></th>
+        <th><?php echo Yii::t("lemans","Quality")?></th>
         <th>Q&A</th>
-        <th>总成绩</th>
-        <th>地区</th>
-        <th>平台</th>
+        <th><?php echo Yii::t("lemans","Score")?></th>
+        <th><?php echo Yii::t("lemans","Distinct")?></th>
+        <th><?php echo Yii::t("lemans","Platform")?></th>
       </thead>
       <tbody>
         <?php foreach ($teams as $key => $team): ?>
