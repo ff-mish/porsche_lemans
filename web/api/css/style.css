@@ -144,13 +144,15 @@ body[data-page="stand"] .footer-icon{display: block;}
 .kv_share{background: url('../images/kv_share.png') no-repeat;width: 300px;height: 130px;margin: 318px auto 0;}
 
 /*monitor*/
-.monitor{position: absolute;top: 70px;left:250px;right: 20px;}
+.monitor{position: absolute;top: 70px;left:250px;right: 20px;bottom: 40px;overflow: hidden;}
 .monitor_tit{font-size: 25px;color:#ddd;line-height: 30px;height: 55px;}
-.monitor_com{padding: 0 0 50px;}
-.monitor_item{float: left;width: 22%;background: #000;margin:0 3% 15px 0;
+.monitor_com{position: absolute;top: 55px;bottom: 0;padding: 0;overflow: auto; width: 100%; }
+.monitor_item{position: relative; float: left;width: 22%;background: #000;margin:0 3% 0 0;
     border-radius: 8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;-o-border-radius: 8px;-ms-border-radius: 8px; }
 .monitor_item h2{font-size: 20px;text-align: center;line-height: 70px;}
-.monitor_list{margin: 0 15px 15px;}
+.monitor_com .jspContainer{margin-top: 0 !important;}
+.monitor_list{margin: 0 15px 15px; position: absolute;top: 70px; left: 0; bottom: 0;right: 0px; }
+.monitor_list .jspVerticalBar{right: 0;}
 .monitor_list li{list-style: none;}
 .monitor_list .avatar{width: 27%;float: left;}
 .monitor_list .avatar img{width: 100%;}
@@ -374,7 +376,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .popup_dialog_btns a {display: inline-block;margin:0 5px;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
 .popup_email .popup_dialog_btns a {width:150px;}
-.popup_dialog_btns .loading {background: url(../images/loading.gif) no-repeat;width:37px;height:37px;display: block;position: absolute;right:5px;bottom:5px;display: none;}
+.popup_dialog_btns .loading {background: url(../images/loading.gif) no-repeat center 40%;width:37px;height:37px;display: block;position: absolute;right:5px;bottom:5px;display: none;}
 .popup_dialog_status {color:#ff0000;text-align:center;font-size:20px;margin:40px 0 40px 0;display:none;}
 .popup_dialog_options {text-align:center;margin:20px 0 40px 0;}
 .popup_dialog_options label {cursor:pointer;display:inline-block;font-size:15px;color:#f00000;background:url(../images/qa_option.gif) no-repeat;height:22px;padding:0 0 0 30px;margin:0 20px 0 0;}
