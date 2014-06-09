@@ -46,7 +46,7 @@
         <input type="input" name="title" ng-model="fuel.title"/>
       </div>
       <div class="field-item">
-        <label for="description"><?php echo Yii::t("lemans","Title")?></label>
+        <label for="description"><?php echo Yii::t("lemans","Description")?></label>
         <textarea name="description" cols="30" rows="10" placeholder="" ng-model="fuel.description"></textarea>
       </div>
       <div class="field-item">
