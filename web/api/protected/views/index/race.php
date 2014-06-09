@@ -62,4 +62,12 @@
 </div>
 
 <script type="application/javascript" src="/js/track.js"></script>
+    <script type="application/javascript">
+        $(function($){
+            $('div.loading').show();
+            trackCreate(function(){
+                $('div.loading').hide();
+            })
+        });
+    </script>
   
