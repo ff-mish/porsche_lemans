@@ -15,8 +15,8 @@
         <td><?php echo $media["cdate"]?></td>
         <td>
           <a href="#/edit" data-id="<?php echo $media["mid"]?>" ng-click="openFuelFormPopup($event)"><?php echo Yii::t("lemans","Edit")?></a>
-          <a href="#/view" data-id="<?php echo $media["mid"]?>"><?php echo Yii::t("lemans","View")?></a>
-          <a href="#/delete" data-id="<?php echo $media["mid"]?>"><?php echo Yii::t("lemans","Delete")?></a>
+          <a href="#/view" data-id="<?php echo $media["mid"]?>" ><?php echo Yii::t("lemans","View")?></a>
+          <a href="#/delete" data-id="<?php echo $media["mid"]?>" ng-click="deleteFuelConfirm($event)"><?php echo Yii::t("lemans","Delete")?></a>
         </td>
       </tr>
       <?php endforeach;?>
@@ -35,7 +35,7 @@
       <div class="field-item">
         <label for="media">File</label>
         <input type="file" name="media" />
-        <img src="{{fuel.uri}}" alt="" />
+        <img src="{{fuel.uri}}" alt="" style="width:30%"/>
       </div>
       <div class="field-item">
         <label for="teaser_image"><?php echo Yii::t("lemans","Image Of Preview")?></label>
@@ -55,5 +55,5 @@
       <input type="hidden" name="mid" value="" ng-model="fuel.mid"/>
     </form>
   </div>
-
+  
 </div>

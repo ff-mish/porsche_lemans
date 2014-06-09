@@ -3501,8 +3501,41 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
+
+                LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true}).bind(
+                        'jsp-scroll-y',
+                        function(event, scrollPositionY, isAtTop, isAtBottom){
+                        }
+                    );
+                });
               });
-              
+            
+              // init .monitor_item height and width
+              $(window).resize(function(){
+                var $wrap = $('.monitor_com');
+                var wrapHeight = $wrap.height();
+                var wrapWidth = $wrap.width();
+                var minWidth = 240;
+                var $children = $wrap.find('.monitor_item').height( wrapHeight );
+
+                var length = Math.min( wrapWidth / minWidth , 4 );
+
+                if( wrapWidth / minWidth >= 4 ){
+                    $children.css({width: '22%' , marginRight: '3%' , marginTop: 0});
+                } else if( wrapWidth / minWidth >= 3 ){
+                    $children.css({width: '30%' , marginRight: '3%' , marginTop: 0})
+                        .last()
+                        .css({marginTop: wrapWidth * 0.03})
+                } else if( wrapWidth / minWidth >= 2 ){
+                    $children.css({width: '46%' , marginRight: '4%' , marginTop: 0})
+                        .last()
+                        .css({marginTop: wrapWidth * 0.04})
+                        .prev()
+                        .css({marginTop: wrapWidth * 0.04});
+                }
+              }).trigger('resize');
+            
               break;
               
           case "teamrace":

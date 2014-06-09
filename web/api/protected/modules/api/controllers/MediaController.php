@@ -107,5 +107,26 @@ class MediaController extends Controller {
     
     $this->responseJSON($mediaAr, "success");
   }
+  
+  public function actionDelete() {
+    $request = Yii::app()->getRequest();
+    // 后台登录后才能删除
+    if (!Yii::app()->session["admin_login"]) {
+      $this->responseJSON("not login", "success");
+    }
+    if (!$request->isPostRequest) {
+      return $this->responseError("http verb error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+    }
+    $mid = $request->getParam("mid", false);
+    $mediaAr = MediaAR::model()->findByPk($mid);
+    
+    if (!$mediaAr) {
+      $this->responseJSON("not exist", "success");
+    }
+    else {
+      $mediaAr->delete();
+      $this->responseJSON("delete", "success");
+    }
+  }
 }
 

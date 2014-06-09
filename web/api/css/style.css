@@ -146,11 +146,13 @@ body[data-page="stand"] .footer-icon{display: block;}
 /*monitor*/
 .monitor{position: absolute;top: 70px;left:250px;right: 20px;bottom: 40px;overflow: hidden;}
 .monitor_tit{font-size: 25px;color:#ddd;line-height: 30px;height: 55px;}
-.monitor_com{position: absolute;top: 55px;bottom: 0;padding: 0;overflow: auto;}
-.monitor_item{float: left;width: 22%;background: #000;margin:0 3% 15px 0;
+.monitor_com{position: absolute;top: 55px;bottom: 0;padding: 0;overflow: auto; width: 100%; }
+.monitor_item{position: relative; float: left;width: 22%;background: #000;margin:0 3% 0 0;
     border-radius: 8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;-o-border-radius: 8px;-ms-border-radius: 8px; }
 .monitor_item h2{font-size: 20px;text-align: center;line-height: 70px;}
-.monitor_list{margin: 0 15px 15px;}
+.monitor_com .jspContainer{margin-top: 0 !important;}
+.monitor_list{margin: 0 15px 15px; position: absolute;top: 70px; left: 0; bottom: 0;right: 0px; }
+.monitor_list .jspVerticalBar{right: 0;}
 .monitor_list li{list-style: none;}
 .monitor_list .avatar{width: 27%;float: left;}
 .monitor_list .avatar img{width: 100%;}

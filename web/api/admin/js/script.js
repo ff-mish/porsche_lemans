@@ -59,7 +59,7 @@
     $scope.deleteQa = function (event) {
       var el = angular.element(event.target);
       var qaid = el.attr("data-id");
-      var ret = confirm("确认要删除这条数据？");
+      var ret = confirm("Are you sure to delete this data？");
       if (ret) {
         var response = $http.post("/api/question/delete", {qaid: qaid});
         response.success(function (data, status) {
@@ -92,6 +92,14 @@
 
   // Fuel Controller
   AdminApp.controller("FuelController", ["$scope", "$http", function ($scope, $http) {
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+    $http.defaults.transformRequest = function(data){
+        if (data === undefined) {
+            return data;
+        }
+        return $.param(data);
+    };
+    
       $scope.form_class = "";
       // 初始化
       angular.element(document).ready(function () {
@@ -159,5 +167,27 @@
           }
         });
       };
+      
+      // 删除Fuel
+      $scope.deleteFuelConfirm  = function (event) {
+        var mid = angular.element(event.target).attr("data-id");
+        var ret = confirm("Are you sure to delete this data?");
+        if (ret) {
+          var response = $http.post("/api/media/delete", {mid: mid});
+          response.success(function (data) {
+            window.location.reload();
+          });
+          response.error(function () {
+            window.location.reload();
+          });
+        }
+        else {
+          
+        }
+        
+        return false;
+      };
+      
+      
   }]);
 })();
