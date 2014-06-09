@@ -249,7 +249,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       });
         return false;
     }
-    
+
+
     function commentMonitoring( data ) {
       var self = $(this);
       var max_length = 100;
@@ -401,6 +402,50 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         }
     })();
+
+
+    var totalPageLoading = (function(){
+        var $wrap = $('<div><div class="bg"></div><div class="loading"></div></div>').css({
+            position: 'fixed',
+            top: 0 ,
+            zIndex: 1000,
+            left: 0 ,
+            width: '100%',
+            height: '100%'
+        }).appendTo( document.body )
+        .hide()
+        .find( '.bg' )
+        .css({
+            background: '#000',
+            opacity: 0.7,
+            width: '100%',
+            height: '100%'
+        })
+        .end()
+
+        .find('.loading')
+        .css({
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'url(/images/loading.gif) no-repeat center center',
+            zIndex: 1
+        })
+        .end();
+
+        return {
+            show: function(){
+                $wrap.fadeIn();
+            },
+            hide: function(){
+                $wrap.fadeOut();
+            }
+        }
+    })();
+    
+
     var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
         current = current || 0;
         var percent = Math.min( current / total , 1 ) ;
@@ -1319,9 +1364,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     var renderImage = ( function(){
 
         var wraps = [];
-        var resizeImage = function( $wrap , src ){
-            wraps.push( $wrap );
-
+        var index = 0;
+        var resizeImage = function( $wrap , src , isPushed ){
+            !isPushed && wraps.push( $wrap );
             var imageWrapWidth = $wrap.width();
             var imageWrapHeight = $wrap.height();
             $('<img/>').load(function(){
@@ -1354,10 +1399,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             .attr('src' , src || $wrap.find('img').attr('src') );
         }
 
+        var timer = null;
         $(window).resize(function(){
-            $.each( wraps , function( i , $dom ){
-                resizeImage( $dom );
-            } );
+            clearTimeout( timer );
+            timer = setTimeout(function(){
+                $.each( wraps , function( i , $dom ){
+                    resizeImage( $dom , '' , true );
+                } );
+            } , 100);
         });
 
         return resizeImage;
@@ -2092,7 +2141,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // init panel width and height
         // var $img = $('<img/>')
-        console.log( media );
         var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
         LP.panel({
             content: content,
@@ -2245,14 +2293,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     var fuelPage = 0;
     LP.action('fuel-load' , function( data ){
+
         $(this).attr('disabled' , 'disabled');
+        $('.fuelmore').fadeOut();
         var page = ++fuelPage;
 
-        $('.fuel .loading').show();
+        // $('.fuel .loading').show();
         $(this).data( 'page' , fuelPage );
+        !data.noNeedLoading && totalPageLoading.show();
 
         api.get('/api/media/list' , { page:page } , function( e ){
-            $('.fuel .loading').hide();
+            //$('.fuel .loading').hide();
+            totalPageLoading.hide();
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
                 if (data["type"] == "video") {
@@ -2268,14 +2320,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 });
                 
             } );
+
             function turnImage(){
                 var $img = $('.fuellist').find('.fuelitem:not(.visible) img').eq(0);
                 // turn each images
-                if( !$img.length ) return;
+                if( !$img.length ){
+                    if( e.data.length >= 10 ){
+                        $('.fuelmore').fadeIn();
+                    }
+                    return
+                };
                 $('<img />').load(function(){
                     $img.closest('.fuelitem').animate({
                         opacity: 1
-                    } , 500 , '' , function(){
+                    } , 400 , '' , function(){
                         $(this).addClass('visible');
                         turnImage( );
                     } );
@@ -2930,6 +2988,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
             var qtimes = 0;
             setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+
+            if( LP.parseUrl().params.__qa ){
+                showQa();
+            }
         })();
 
 
@@ -3062,7 +3124,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 });
 
                 // page loaded
-                LP.triggerAction('fuel-load');
+                LP.triggerAction('fuel-load' , {noNeedLoading: true} );
                 var reloadTimer = null;
                 $(window).resize(function(){
                     var width = $('.fuellist').width();
