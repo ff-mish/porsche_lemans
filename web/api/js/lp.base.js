@@ -237,16 +237,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .click(function(){
                     if( isDisabled ) return;
                     isDisabled = true;
-                    panel.$panel.find('.loading').show();
-                    var textarea = panel.$panel.find('textarea');
+                    var textarea = this.$panel.find('textarea');
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.$panel.find('.loading').hide();
-                        // show success
-                        panel.$panel.find('.popup_dialog_btns').hide()
-                            .next().show();
-                        setTimeout(function(){
-                            panel.close();
-                        } , 2000);
+                        panel.close();
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -303,16 +296,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .click(function(){
                     if( isDisabled ) return;
                     isDisabled = true;
-                    panel.$panel.find('.loading').show();
-                    var textarea = panel.$panel.find('textarea');
+
+                    var textarea = this.$panel.find('textarea');
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.$panel.find('.loading').hide();
-                        // show success
-                        panel.$panel.find('.popup_dialog_btns').hide()
-                            .next().show();
-                        setTimeout(function(){
-                            panel.close();
-                        } , 2000);
+                        panel.close();
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -2618,16 +2605,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     var loadingFiles = {
         'stand': ['raphaeljs' , 'jquery']
     }
-	var initComplete = function( type ){
-
-        // race page and team race need to wait for race svg or flash ready
-        if( page == 'race' || page == 'teamrace' ){
-            completeTypes[type] = 1;
-            if( !completeTypes[ PAGE_COMPLETE ] || !completeTypes[ RACE_COMPLETE ] ){
-                return false;
-            }
-        }
-        
+	var initComplete = function(){
 		if(isComplete) return;
         isComplete = true;
 		$('.loading-wrap').fadeOut(function(){
@@ -2692,11 +2670,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if(per == 100) {
                 var page = $(document.body).data('page');
                 if( loadingFiles[ page ] ){
-                    LP.use( loadingFiles[ page ] , function(){
-                        initComplete( PAGE_COMPLETE );
-                    });
+                    LP.use( loadingFiles[ page ] , initComplete );
                 } else {
-                    initComplete( PAGE_COMPLETE );
+                    initComplete();
                 }
 //                var timer = setInterval(function(){
 //                    if( globalVideos.length == 0 ) return ;
@@ -2718,11 +2694,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         onComplete : function(){
 			var page = $(document.body).data('page');
             if( loadingFiles[ page ] ){
-                LP.use( loadingFiles[ page ] , function(){
-                    initComplete( PAGE_COMPLETE );
-                });
+                LP.use( loadingFiles[ page ] , initComplete );
             } else {
-                initComplete( PAGE_COMPLETE );
+                initComplete();
             }
 
             // load all the video
@@ -3501,14 +3475,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
-
-                LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true}).bind(
-                        'jsp-scroll-y',
-                        function(event, scrollPositionY, isAtTop, isAtBottom){
-                        }
-                    );
-                });
               });
             
               // init .monitor_item height and width
@@ -3536,7 +3502,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 //         .css({marginTop: wrapWidth * 0.04});
                 // }
               }).trigger('resize');
-            
               break;
               
           case "teamrace":
@@ -3603,8 +3568,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             break;
 
             case "race":
-                trackCreate(function(){
-                });
                 if(is_support_webgl()){
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
