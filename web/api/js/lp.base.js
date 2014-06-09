@@ -2611,7 +2611,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // page init here
     // =======================================================================
 	var isComplete = false;
-    var completeTypes = {"2":1};
+    var completeTypes = {};
     var PAGE_COMPLETE = 1;
     var RACE_COMPLETE = 2;
     var page = $(document.body).data('page');
@@ -3515,25 +3515,26 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               $(window).resize(function(){
                 var $wrap = $('.monitor_com');
                 var wrapHeight = $wrap.height();
-                var wrapWidth = $wrap.width();
-                var minWidth = 240;
+                // var wrapWidth = $wrap.width();
+                // var minWidth = 250;
+                // var marginRight = 30;
                 var $children = $wrap.find('.monitor_item').height( wrapHeight );
 
-                var length = Math.min( wrapWidth / minWidth , 4 );
+                // var length = Math.min( wrapWidth / minWidth , 4 );
 
-                if( wrapWidth / minWidth >= 4 ){
-                    $children.css({width: '22%' , marginRight: '3%' , marginTop: 0});
-                } else if( wrapWidth / minWidth >= 3 ){
-                    $children.css({width: '30%' , marginRight: '3%' , marginTop: 0})
-                        .last()
-                        .css({marginTop: wrapWidth * 0.03})
-                } else if( wrapWidth / minWidth >= 2 ){
-                    $children.css({width: '46%' , marginRight: '4%' , marginTop: 0})
-                        .last()
-                        .css({marginTop: wrapWidth * 0.04})
-                        .prev()
-                        .css({marginTop: wrapWidth * 0.04});
-                }
+                // if( wrapWidth minWidth >= 4 ){
+                //     $children.css({width: '22%' , marginRight: '3%' , marginTop: 0});
+                // } else if( wrapWidth / minWidth >= 3 ){
+                //     $children.css({width: '30%' , marginRight: '3%' , marginTop: 0})
+                //         .last()
+                //         .css({marginTop: wrapWidth * 0.03})
+                // } else if( wrapWidth / minWidth >= 2 ){
+                //     $children.css({width: '46%' , marginRight: '4%' , marginTop: 0})
+                //         .last()
+                //         .css({marginTop: wrapWidth * 0.04})
+                //         .prev()
+                //         .css({marginTop: wrapWidth * 0.04});
+                // }
               }).trigger('resize');
             
               break;

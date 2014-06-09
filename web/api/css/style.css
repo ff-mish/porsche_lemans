@@ -96,14 +96,16 @@ a.logo:hover{opacity: 1;}
 
 /*FOOTER*/
 .footer{font-size: 14px;font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;}
+body[data-page="index"] .footer{color:#000;}
 .footer_link{position: fixed;z-index: 101; bottom: 15px;left:25px;background: url('../images/footer_link.png') no-repeat;padding:2px 0 2px 0px;}
 .footer_link p{float: left;padding:0 6px;font-weight: bold;}
 .footer_link #share {font-weight:bold;}
 .footer_language{position: fixed;bottom: 15px;right: 25px;font-weight: bold;z-index: 4;}
 .footer_language a,.footer_language span {padding: 0 5px}
 .footer_language span {color:#fff;}
+body[data-page="index"] .footer_language span {color:#000;}
 .footer_language a {color:#777;}
-.footer_language a:hover {color:#fff;opacity:1;}
+.footer_language a:hover {color:#000;opacity:1;}
 .footer_logout {position:fixed;bottom:15px;right:130px;font-weight: bold;z-index: 4;}
 
 
@@ -147,12 +149,13 @@ body[data-page="stand"] .footer-icon{display: block;}
 .monitor{position: absolute;top: 70px;left:250px;right: 20px;bottom: 40px;overflow: hidden;}
 .monitor_tit{font-size: 25px;color:#ddd;line-height: 30px;height: 55px;}
 .monitor_com{position: absolute;top: 55px;bottom: 0;padding: 0;overflow: auto; width: 100%; }
-.monitor_item{position: relative; float: left;width: 22%;background: #000;margin:0 3% 0 0;
+.monitor_item{position: relative; float: left;width: 250px;background: #000;margin:0 30px 0 0; margin-bottom: 30px;
     border-radius: 8px;-webkit-border-radius: 8px;-moz-border-radius: 8px;-o-border-radius: 8px;-ms-border-radius: 8px; }
 .monitor_item h2{font-size: 20px;text-align: center;line-height: 70px;}
 .monitor_com .jspContainer{margin-top: 0 !important;}
+.monitor_com .jspDrag{width: 5px;}
 .monitor_list{margin: 0 15px 15px; position: absolute;top: 70px; left: 0; bottom: 0;right: 0px; }
-.monitor_list .jspVerticalBar{right: 0;}
+.monitor_list .jspVerticalBar{right: -5px;}
 .monitor_list li{list-style: none;}
 .monitor_list .avatar{width: 27%;float: left;}
 .monitor_list .avatar img{width: 100%;}
@@ -272,8 +275,8 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 
 /* countdown */
-.count{width:100%;height:580px;position: absolute;left: 0;top: 50%;margin: -300px 0 0 0;line-height: 36px}
-.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;}
+.count{width: 100%;bottom: 0;position: absolute;left: 0;top: 50%;margin: -300px 0 0 0;line-height: 36px;min-height: 500px;}
+.conut_tit{font-size: 24px;text-align: center;margin: 50px 0 0;color: #000;}
 .conut_tit p{font-size: 76px;line-height: 90px;}
 .conut_watch{font-size: 24px;text-align: center;font-weight: bold;text-transform: uppercase;background: url('../images/count_play.png') no-repeat top center;padding: 110px 0 0}
 
@@ -285,7 +288,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .lang-en .conut_tips{font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;font-weight:bold;}
 .lang-cn .conut_tips {font-size:16px;line-height:150%;margin-top:173px;}
 .count .home_share{margin-top: 178px;}
-.count .home_winners{margin-top: 237px;font-weight: bold;}
+.count .home_winners{margin-top: 237px;font-weight: bold;color: #000;}
 .stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
 .stand_count_down .conut_downinfo {opacity: 0.1;filter:alpha(opacity=10);}
 .stand_tweet .stand_count_down{margin-top: 30px;}
@@ -1121,7 +1124,7 @@ div.stand_postsbox {
 .lang-en div.stand_postsbox{font-size: 12px;}
 .stand_tweet h2{width: 30% !important;margin-right: 10px;}
 .vjs-big-play-button{display: none !important;opacity: 0;filter:alpha(opacity=0);}
-.index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;}
+.index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;overflow: hidden;}
 
 
 
