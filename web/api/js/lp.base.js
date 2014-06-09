@@ -3460,7 +3460,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               break;
               
           case "teamrace":
-                if(document.createElement("canvas").getContext) {
+                if(is_support_webgl()) {
                     // get server time
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ) {
