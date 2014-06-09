@@ -41,9 +41,8 @@
 		<div class="fuel">
 			<div class="fuellist cs-clear">
 			</div>
-			<div class="loading"></div>
 			<!-- fuellist -->
-			<div class="fuelmore">
+			<div class="fuelmore" style="display:none;">
 				<a href="#" data-a="fuel-load"><?php echo Yii::t("lemans", "LOAD MORE")?></a>
 			</div>
 		</div>
