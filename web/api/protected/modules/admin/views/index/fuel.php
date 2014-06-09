@@ -1,4 +1,9 @@
 <div class="fuel-container" ng-controller="FuelController">
+  <div class="row bar-link">
+    <div class="offset8 span2">
+      <a href="javascript:void(0)" ng-click="openFuelFormPopup($event)"><?php echo Yii::t("lemans","Add Fuel")?></a>
+    </div>
+  </div>
   <div class="form-box-bg hideme {{form_class}}" ng-click="closeFuelFormPopup($event)"></div>
   <table class="table table-bordered table-hover" id="fuel-table">
     <thead>
@@ -23,11 +28,7 @@
     </tbody>
   </table>
   
-  <div class="row">
-    <div class="offset8 span2">
-      <a href="javascript:void(0)" ng-click="openFuelFormPopup($event)"><?php echo Yii::t("lemans","Add Fuel")?></a>
-    </div>
-  </div>
+
 
   <div class="row form-row-con">
     <form action="/admin/index/fuel" enctype="multipart/form-data" name="addfuel" class="form-horizontal hideme span10 {{form_class}}" method="post">
@@ -38,7 +39,7 @@
         <img src="{{fuel.uri}}" alt="" style="width:30%"/>
       </div>
       <div class="field-item">
-        <label for="teaser_image"><?php echo Yii::t("lemans","Image Of Preview")?></label>
+        <label for="teaser_image"><?php echo Yii::t("lemans","Thumbnail")?></label>
         <input type="file" name="teaser_image" />
       </div>
       <div class="field-item">

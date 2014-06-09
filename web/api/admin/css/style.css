@@ -49,3 +49,8 @@ opacity: 0.3;
 form .ng-invalid {
   border: 1px solid #f00;
 }
+
+.bar-link {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

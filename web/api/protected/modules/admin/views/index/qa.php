@@ -1,5 +1,10 @@
 
 <div class="qa-container" ng-controller="QAController">
+  <div class="row bar-link">
+    <div class="offset8 span2">
+      <a href="javascript:void(0)" ng-click="openQaFormPopup($event)"><?php echo Yii::t("lemans","Add Q&A")?></a>
+    </div>
+  </div>
   <div class="form-box-bg hideme {{form_class}}" ng-click="closeQaFormPopup('')"></div>
   <table class="table table-hover table-bordered" id='qa-table'>
     <thead>
@@ -30,11 +35,7 @@
       <?php endforeach;?>
     </tbody>
   </table>
-  <div class="row">
-    <div class="offset8 span2">
-      <a href="javascript:void(0)" ng-click="openQaFormPopup($event)"><?php echo Yii::t("lemans","Add Q&A")?></a>
-    </div>
-  </div>
+
   
   <div class="row form-row-con">
   <form action="/admin/index/qa" enctype="multipart/form-data" name="qaform" method="post" class="form-horizontal hideme span10 {{form_class}}">
