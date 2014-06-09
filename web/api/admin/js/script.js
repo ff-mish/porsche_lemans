@@ -103,7 +103,21 @@
         var el = angular.element(event.target);
         if (el.attr("data-id")) {
           var mid = el.attr("data-id");
-          $http.get("/api/");
+          var response = $http.get("/api/media?mid="+mid);
+          response.success(function (data) {
+            if (data["status"] == 0 ) {
+              $scope.fuel = data["data"];
+            }
+            else {
+              alert("Error happened");
+              window.location.reload();
+            }
+          });
+          
+          response.error(function () {
+            alert("Error happened");
+            window.location.reload();
+          });
         }
         
         
@@ -124,9 +138,24 @@
       // 添加Fuel
       $scope.addFuelFormSubmit = function () {
         var form = angular.element("form[name='addfuel']");
+        var button = angular.element("input[type='button']", form);
+        
         form.ajaxSubmit({
+          beforeSubmit: function () {
+            button.attr("disabled", "disabled");
+          },
           success: function (data) {
-            window.location.reload();
+            if (data["status"] == 0) {
+              window.location.reload();
+            }
+            else {
+              var msg = "";
+              for (var k in data["ext"]) {
+                msg += data["ext"][k] + " ";
+              }
+              button.removeAttr("disabled");
+              alert(msg);
+            }
           }
         });
       };

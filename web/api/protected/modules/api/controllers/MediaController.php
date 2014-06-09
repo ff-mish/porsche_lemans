@@ -105,6 +105,7 @@ class MediaController extends Controller {
     
     $mediaAr = MediaAR::model()->findByPk($mid);
     
+    $this->responseJSON($mediaAr, "success");
   }
 }
 

@@ -35,6 +35,7 @@
       <div class="field-item">
         <label for="media">File</label>
         <input type="file" name="media" />
+        <img src="{{fuel.uri}}" alt="" />
       </div>
       <div class="field-item">
         <label for="teaser_image">预览图片</label>

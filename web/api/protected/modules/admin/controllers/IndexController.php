@@ -131,6 +131,9 @@ class IndexController extends Controller {
     if ($request->isPostRequest) {
       // media 文件
       $media_file = CUploadedFile::getInstanceByName("media");
+      if (!$media_file) {
+        return $this->responseError("file error", 500, array("media" => "文件不符合要求"));
+      }
       $media_type = $media_file->getType();
       if (in_array($media_type, $this->allow_videos) && in_array($media_type, $this->allow_images)) {
         return $this->responseError("file error", 500, array("media" => "文件不符合要求"));
@@ -140,6 +143,7 @@ class IndexController extends Controller {
       if (in_array($media_type, $this->allow_videos)) {
         $is_image = FALSE;
       }
+      $mid = $request->getPost("mid");
       
       // 还有Teaser Image
       if (!$is_image) {
@@ -168,9 +172,18 @@ class IndexController extends Controller {
       $media_file->saveAs($save_to);
 
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
-
-      $media_ar = new MediaAR();
-      $media_ar->saveNew($uri, $type, "", "", $title, $description);
+      
+      if ($mid) {
+        $media_ar = MediaAR::model()->findByPk($mid);
+        $media_ar->title = $title;
+        $media_ar->description = $description;
+        $media_ar->uri = $uri;
+        $media_ar->save();
+      }
+      else {
+        $media_ar = new MediaAR();
+        $media_ar->saveNew($uri, $type, "", "", $title, $description);
+      }
 
       // 视频上传后 需要保存视频的 预览图
       if ($type == MediaAR::MEDIA_VIDEO) {
