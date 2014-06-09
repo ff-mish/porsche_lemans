@@ -112,7 +112,7 @@ class IndexController extends Controller {
     $total_sql = "select count(*) as count from (select user_team.*, teams.name as name, teams.cdate as cdate, teams.owner_uid as owner_uid, teams.achivements_total as achivements_total from (select max(cdate) as max_date, score_team.tid as tid, score_team.speed as speed, score_team.assiduity as assiduity, score_team.impact as impact, score_team.average as average, score_team.quality as quality from score_team group by tid ) as user_team left join teams on teams.tid=user_team.tid) as team_data  where team_data.name is not NULL";
     $sql = "select * from (select user_team.*, teams.name as name, teams.cdate as cdate, teams.owner_uid as owner_uid, teams.achivements_total as achivements_total from (select max(cdate) as max_date, score_team.tid as tid, score_team.speed as speed, score_team.assiduity as assiduity, score_team.impact as impact, score_team.average as average, score_team.quality as quality from score_team group by tid ) as user_team left join teams on teams.tid=user_team.tid) as team_data  where team_data.name is not NULL";
     
-    $sql .= " limit $offset, $limit";
+    //$sql .= " limit $offset, $limit";
     $total_command = Yii::app()->db->createCommand($total_sql);
     $total = $total_command->queryAll();
     $total = $total[0]["count"];
@@ -210,7 +210,7 @@ class IndexController extends Controller {
     $page_total = $total % $limit == 0 ? intval($total / $limit) : intval($total / $limit) + 1;
     
     // 查询列表
-    $sql .= " limit $offset, $limit";
+    //$sql .= " limit $offset, $limit";
     $results = Yii::app()->db->createCommand($sql)->queryAll();
     
     $this->render("email", array("emails" => $results));

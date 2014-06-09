@@ -80,11 +80,13 @@ class WebController extends Controller {
     $token = SystemAR::get("weibo_token");
     $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, $token);
     
-    $ret = $weibo_api->search_topic(Yii::app()->params["search_topic"], 50);
+    $ret = $weibo_api->search_topic(Yii::app()->params["search_weibo_topic"], 50);
     
     if (!isset($ret["statuses"])) {
       return print_r($ret);
     }
+    
+    print_r($ret);
     
     $service_url = Yii::app()->params["service_url"];
     $url = $service_url."/api/web/cronnewtwitte";
@@ -115,7 +117,7 @@ class WebController extends Controller {
     if (!$data) {
       return $this->responseError("error", 500);
     }
-      
+    
     $statuses = json_decode($data, TRUE);
     
     $from = $request->getPost("from");
