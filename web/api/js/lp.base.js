@@ -237,9 +237,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .click(function(){
                     if( isDisabled ) return;
                     isDisabled = true;
-                    var textarea = this.$panel.find('textarea');
+                    panel.$panel.find('.loading').show();
+                    var textarea = panel.$panel.find('textarea');
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.close();
+                        panel.$panel.find('.loading').hide();
+                        // show success
+                        panel.$panel.find('.popup_dialog_btns').hide()
+                            .next().show();
+                        setTimeout(function(){
+                            panel.close();
+                        } , 2000);
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -296,10 +303,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .click(function(){
                     if( isDisabled ) return;
                     isDisabled = true;
-
-                    var textarea = this.$panel.find('textarea');
+                    panel.$panel.find('.loading').show();
+                    var textarea = panel.$panel.find('textarea');
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.close();
+                        panel.$panel.find('.loading').hide();
+                        // show success
+                        panel.$panel.find('.popup_dialog_btns').hide()
+                            .next().show();
+                        setTimeout(function(){
+                            panel.close();
+                        } , 2000);
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -2598,10 +2611,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // page init here
     // =======================================================================
 	var isComplete = false;
+    var completeTypes = {"2":1};
+    var PAGE_COMPLETE = 1;
+    var RACE_COMPLETE = 2;
+    var page = $(document.body).data('page');
     var loadingFiles = {
         'stand': ['raphaeljs' , 'jquery']
     }
-	var initComplete = function(){
+	var initComplete = function( type ){
+
+        // race page and team race need to wait for race svg or flash ready
+        if( page == 'race' || page == 'teamrace' ){
+            completeTypes[type] = 1;
+            if( !completeTypes[ PAGE_COMPLETE ] || !completeTypes[ RACE_COMPLETE ] ){
+                return false;
+            }
+        }
+        
 		if(isComplete) return;
         isComplete = true;
 		$('.loading-wrap').fadeOut(function(){
@@ -2666,9 +2692,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if(per == 100) {
                 var page = $(document.body).data('page');
                 if( loadingFiles[ page ] ){
-                    LP.use( loadingFiles[ page ] , initComplete );
+                    LP.use( loadingFiles[ page ] , function(){
+                        initComplete( PAGE_COMPLETE );
+                    });
                 } else {
-                    initComplete();
+                    initComplete( PAGE_COMPLETE );
                 }
 //                var timer = setInterval(function(){
 //                    if( globalVideos.length == 0 ) return ;
@@ -2690,9 +2718,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         onComplete : function(){
 			var page = $(document.body).data('page');
             if( loadingFiles[ page ] ){
-                LP.use( loadingFiles[ page ] , initComplete );
+                LP.use( loadingFiles[ page ] , function(){
+                    initComplete( PAGE_COMPLETE );
+                });
             } else {
-                initComplete();
+                initComplete( PAGE_COMPLETE );
             }
 
             // load all the video
@@ -3539,6 +3569,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             break;
 
             case "race":
+                trackCreate(function(){
+                });
                 if(is_support_webgl()){
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
