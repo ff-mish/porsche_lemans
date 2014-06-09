@@ -10,7 +10,7 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a tweet')?>
+					<?=Yii::t('lemans','Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
-				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
 				<p class="language">
 					<?php if (Yii::app()->language == "zh_cn"): ?>
 						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
@@ -29,7 +29,7 @@
 					<?php endif;?>
 				</p>
 			</div>
-			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
+			<p class="m"><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 			<div class="mobile_menu btn" data-a="show-menu">
 				<p></p>
 				<p></p>
@@ -52,6 +52,7 @@
           <span id="team-score"></span>
           <div class="team_name_error_tip" >
 			 <?=Yii::t('lemans','Team name is limited within 12 characters')?>
+              <span>◆</span>
 		  </div>
           <span class="team_name" style="-webkit-user-select: auto;" spellcheck="false" contenteditable="true"></span>
           <div class="stand_chart_tip">
@@ -93,19 +94,19 @@
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
+                        <?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_quality" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
+                        <?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_assiduite" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "Answer right to Porsche challenges to improve your assiduity")?>
+						<?php echo Yii::t("lemans", "Answer right to Porsche challenges to improve your knowledge")?>
 						<span>◆</span>
 					</div>
 				</div>

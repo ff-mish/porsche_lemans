@@ -326,6 +326,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     width = $dom.width();
                     height = $dom.height();
                     var memberHeight = $('.member_item').outerHeight() - 8;
+                    if($('body').hasClass('ie8')) {
+                        memberHeight = $('.member_item').outerHeight() + 8;
+                    }
                     r = memberHeight / 2 - 5 ;
 
                     var paper = Raphael( $dom.get(0) , width , height );
@@ -805,7 +808,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var target = [];
 
-        function runAnimate( left , top , right , bottom , noAnimate ){
+        function runAnimate( left , top, right , bottom , noAnimate ){
             // left = 0.5;
             // right = 0.7;
             // top = 0.9;
@@ -825,7 +828,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var duration = 1000;
             var now = new Date;
-            var renderPath = function( left , right , top , bottom  ){
+            var renderPath = function( left , right , top , bottom ){
                 left = [ center[0] - xwidth / 2 * left , xstart[1] ];
                 right = [ center[0] + xwidth / 2 * right , xstart[1] ];
                 top = [ ystart[0] , center[1] - yheight / 2 * top ];
@@ -890,10 +893,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         $(document.body).delegate('.read_tutr .tutr-step-skip,.read_tutr .tutr-step-top,.read_tutr .tutr-step-left,.read_tutr .tutr-step-right,.read_tutr .tutr-step-bottom',
             'click' , function(){
-                $('.tutr-step').fadeOut();
+                $('.tutr-step,.tutr-step-tip1,.tutr-step-tip2,.tutr-step-tip3,.tutr-step-tip4').fadeOut();
 				if( isNoAchivmentsbox ){
 					$('.stand_achivments .stand_achivmentsbox .full-star').removeClass('full-star').html('');
 				}
+                if( isCoordinateEmpty ){
+                    coordinate.run( 0,0,0,0 );
+                }
             })
         // if( $('.read_tutr').length ){
         //     $('.tutr-step-skip,.tutr-step-top,.tutr-step-left,.tutr-step-right,.tutr-step-bottom').click(function(){
@@ -969,15 +975,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         var off = $('.stand_tit').offset();
                         $('.tutr-step-tip1').fadeOut();
                         var h = $('.stand_tit').height() + $('.teambuild_members').height();
-                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() - $('.stand_chart_score').width() , isMobile ? h + 25 : h );
+                        renderTure( isMobile ? off.top - 15 : off.top , off.left - 20 , isMobile ? $('.stand_tit').width() + 145 : $('.stand_tit').width() - $('.stand_chart_score').width() + 40, isMobile ? h + 25 : h );
                         $('.tutr-step').find('.tutr-step-tip2')
                             .delay( 700 )
-                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: isMobile ? off.left + $('.stand_tit').width() + 60 : off.left + $('.stand_tit').width() - $('.stand_chart_score').width(), top: off.top , height: h - 80 })
+                            .css( isMobile ? {left: off.left-20 , top: off.top + h + 10 } :  {left: isMobile ? off.left + $('.stand_tit').width() + 60 : off.left + $('.stand_tit').width() - $('.stand_chart_score').width() + 40, top: off.top , height: h - 80 })
                             .fadeIn();
                         break;
                     case 3:
                         var off = $('.stand_chart').offset();
                         $('.tutr-step-tip2').fadeOut();
+                        $('html,body,.page').animate({scrollTop:off.top},500);
                         renderTure( off.top , off.left - 20 , isMobile ? $('.stand_chart').width() + 50 : $('.stand_chart').width() + 20 , $('.stand_chart').height() );
                         $('.tutr-step').find('.tutr-step-tip3')
                             .delay( 700 )
@@ -1004,14 +1011,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         }
                         var off = $('.stand_achivments').offset();
                         $('.tutr-step-tip3').fadeOut();
-                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 80 );
+                        renderTure( off.top , off.left - 20 , isMobile ? $('.stand_tweet').width() + 20 : $('.stand_tweet').width(), $('.stand_achivments').height() + $('.stand_tweet').height() + 20);
                         $('.tutr-step').find('.tutr-step-tip4')
                             .delay( 700 )
-                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 160 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
+                            .css({left: off.left - 20 , top: isMobile ? off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 220 : off.top - $('.tutr-step').find('.tutr-step-tip4').height() - 80 , width: $('.stand_achivments').width() - 80 })
                             .fadeIn();
 						if(isMobile) {
 							setTimeout(function(){
-								$('.tutr-step-bottom').stop().animate({height:90});
+								$('.tutr-step-bottom').stop().animate({height:120});
 							}, 500);
 						}
                         break;
@@ -1942,7 +1949,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: users.join("")} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go!' ) + users.join("")} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
@@ -2012,7 +2019,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace @Porsche' ) + '</textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + '</textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\
@@ -2785,53 +2792,54 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 		});
 
         // swip to load menu
-        if(isMobile) {
-            LP.use('hammer' , function(){
-                var $nav = $('.nav');
-                $('body').hammer({
-                    behavior: {
-                        userSelect: true
-                    }
-                })
-                    .on("release dragleft dragright swipeleft swiperight", function(ev) {
-                        if( $nav.data('disabled') ) return false;
-                        $nav.data('disabled' , 'disabled');
-                        switch(ev.type) {
-                            case 'swipeleft':
-                                break;
-                            case 'dragleft':
-                                LP.triggerAction('show-menu' , {d: 'left'});
-                                // $nav.stop( true , true )
-                                //     .animate({left: -250} , 300);
-                                //$('body').bind('touchmove', function(e){e.preventDefault()});
-                                break;
-                            case 'swiperight':
-                                break;
-                            case 'dragright':
-								if(ev.gesture.center.pageX > 320) {
-                                    $nav.removeData('disabled');
-									return false;
-								}
-                                LP.triggerAction('show-menu' , {d: 'right'});
-                                //LP.triggerAction('show-menu');
-                                // $nav.stop( true , true )
-                                //     .animate({left: 0} , 300);
-                                //$('body').bind('touchmove', function(e){e.preventDefault()});
-                                break;
-                            case 'release':
-								// if($nav.is(':visible')) {
-								// 	LP.triggerAction('show-menu' , {d: 'left'});
-								// }
-                                //$('body').unbind('touchmove');
-                                break;
-                        }
-                        setTimeout(function(){
-                            $nav.removeData('disabled');
-                        } , 300);
-                        return false;
-                    });
-            });
-        }
+//        if(isMobile) {
+//            LP.use('hammer' , function(){
+//                var $nav = $('.nav');
+//
+//                $('body').hammer({
+//                    behavior: {
+//                        userSelect: true
+//                    }
+//                })
+//                    .on("release dragleft dragright swipeleft swiperight", function(ev) {
+//                        if( $nav.data('disabled') ) return false;
+//                        $nav.data('disabled' , 'disabled');
+//                        switch(ev.type) {
+//                            case 'swipeleft':
+//                                break;
+//                            case 'dragleft':
+//                                LP.triggerAction('show-menu' , {d: 'left'});
+//                                // $nav.stop( true , true )
+//                                //     .animate({left: -250} , 300);
+//                                //$('body').bind('touchmove', function(e){e.preventDefault()});
+//                                break;
+//                            case 'swiperight':
+//                                break;
+//                            case 'dragright':
+//								if(ev.gesture.center.pageX > 320) {
+//                                    $nav.removeData('disabled');
+//									return false;
+//								}
+//                                LP.triggerAction('show-menu' , {d: 'right'});
+//                                //LP.triggerAction('show-menu');
+//                                // $nav.stop( true , true )
+//                                //     .animate({left: 0} , 300);
+//                                //$('body').bind('touchmove', function(e){e.preventDefault()});
+//                                break;
+//                            case 'release':
+//								// if($nav.is(':visible')) {
+//								// 	LP.triggerAction('show-menu' , {d: 'left'});
+//								// }
+//                                //$('body').unbind('touchmove');
+//                                break;
+//                        }
+//                        setTimeout(function(){
+//                            $nav.removeData('disabled');
+//                        } , 300);
+//                        return false;
+//                    });
+//            });
+//        }
 
 
         // tracking events
@@ -3002,6 +3010,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                  <source src="/videos/intro_1.mp4" type="video/mp4" />\
             </video>').click(function(){
                 $(this).find('video').get(0).play();
+                $(this).find('video').get(0).webkitEnterFullscreen();
             });
             // checkOrientation
 //            var orientation = window.orientation;
@@ -3313,7 +3322,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     }
 
                     $('.stand_achivmentsbox').html( ahtml.join("") );
-                    $('.stand_achivments').fadeIn();
+                    $('.stand_achivments').fadeIn(function(){
+                        // animation
+                        $('.stand_achivmentsbox p').each(function(index,obj){
+                            $(obj).delay(index*200).fadeIn();
+                        });
+                    });
+
+
                     //data.last_post || 
                     var posts =  data.last_post || [];
                     // render post

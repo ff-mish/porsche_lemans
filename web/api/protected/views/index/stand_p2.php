@@ -81,7 +81,7 @@
 			    </div>
 			</div>-->
 			<div class="stand_tweet" data-style="opacity:0;" data-animate="opacity:1;" data-delay="1600" data-time="500" data-easing="easeOutQuart">
-				<h2 class="fl"><?php echo Yii::t("lemans", "Lastest Posts")?></h2>
+				<h2 class="fl"><?php echo Yii::t("lemans", "Latest Post")?></h2>
 				<div class="stand_posts">
 					<div class="stand_posts_inner clearfix"></div>
 				</div>
@@ -93,19 +93,19 @@
 				</div>
 				<div class="stand_chart_speed" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
+                        <?php echo Yii::t("lemans" ,"Tweet content from Fuel section to increase your quality")?>
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_quality" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
+                        <?php echo Yii::t("lemans", "This display the number of tweets per hour. 40 tweets per hour allow to reach full speed.") ?>
 						<span>◆</span>
 					</div>
 				</div>
 				<div class="stand_chart_assiduite" >
 					<div class="stand_chart_tip">
-						<?php echo Yii::t("lemans", "Answer right to Porsche challenges to improve your assiduity")?>
+						<?php echo Yii::t("lemans", "Answer right to Porsche challenges to improve your knowledge")?>
 						<span>◆</span>
 					</div>
 				</div>

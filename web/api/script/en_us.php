@@ -14,6 +14,7 @@
   'Ok' => '',
   'Send Invitation' => '',
   ' You can\\\'t invite too many people ' => '',
+  'join_us' => 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go!',
   'Cancel Invitation' => '',
   'Confirm' => '',
   'They’re watching you! A NEW psychological thriller from @kevwilliamson starring @DylanMcDermott &amp; @MaggieQ Wed 10/9c pic.twitter.com/o5v4b7M2is' => '',
