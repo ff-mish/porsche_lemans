@@ -1,0 +1,19 @@
+div.loading {
+    position: absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+    margin:0px;
+    padding:0px;
+    background-color:rgba(0,0,0,0.8);
+    font:16pt 'Porsche News Gothic','黑体','sans-serif';
+    color:white;
+    text-align:center;
+    display:none;
+}
+
+div.loading span {
+    position: absolute;
+    top:50%;
+}

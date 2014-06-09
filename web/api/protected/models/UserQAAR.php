@@ -43,6 +43,7 @@ class UserQAAR extends CActiveRecord {
       if ($user) {
         $userTeamAr = new UserTeamAR();
         if ($team = $userTeamAr->loadUserTeam($user)) {
+          $team = $team->team;
           $old_achivement = $team->achivements_total;
           $members = $team->loadMembers();
           $query = new CDbCriteria();
@@ -65,6 +66,27 @@ class UserQAAR extends CActiveRecord {
         }
       }
     }
+    // 用户加分后 还要完成对回答问题次数的统计工作
+    $questionAr = QAAR::model()->findByPk($this->qaid);
+    
+    if ($questionAr) {
+      $right_times = $questionAr->right_answered;
+      $times = $questionAr->answered;
+      if ($this->is_right == self::ANSWER_RIGHT) {
+        $right_times += 1;
+      }
+      $times += 1;
+      $questionAr->right_answered = $right_times;
+      $questionAr->answered = $times;
+      $questionAr->save();
+    }
+    
+    // 最后保存  Q&A 回答的时间
+    $uid = $this->uid;
+    $name = "uid_". $uid.'_question_lasttime';
+    
+    SystemAR::set($name, time());
+    
     return parent::afterSave();
   }
   

@@ -50,13 +50,12 @@ class QAAR extends CActiveRecord {
       foreach ($answered_questions as $row) {
         $ids[] = $row->qaid;
       }
-      $cond = array(
-          "condition" => "qaid not in (:ids)",
-          "params" => array(":ids" => implode(",", $ids)),
-          "order" => "RAND()"
-      );
       
-      $row = $this->find($cond);
+      $query = new CDbCriteria();
+      $query->addNotInCondition("qaid", $ids);
+      $query->order = "RAND()";
+      
+      $row = $this->find($query);
       if ($row) {
         return $row;
       }

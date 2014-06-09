@@ -568,6 +568,17 @@ class UserAR extends CActiveRecord {
 
     if ($matches && count($matches) > 1) {
         $screenNames = $matches[1];
+
+        // 去掉 保时捷 / Porsche
+        $t_screenNames = array();
+        foreach ($screenNames as $screen_name) {
+          if ($screen_name == "保时捷" || strtolower($screen_name) == "Porsche") {
+            continue;
+          }
+          $t_screenNames[] = $screen_name;
+        }
+        $screenNames = $t_screenNames;
+        
         if ($user->from == self::FROM_WEIBO) {
             $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
             // 获取用户高级接口后 开启这个方法

@@ -1,5 +1,5 @@
-(function() {
-    var stickHeight = 400, stickWidth = 3, stickPadding = 0.4, fillAniFinished = false;
+function sticksCreate(readyCallback) {
+    var stickMaxHeight = 400, stickWidth = 3, stickPadding = 0.4, fillAniFinished = false;
     var container;
     var camera, scene, projector, renderer;
 
@@ -56,25 +56,19 @@
         }
     }
 
-    $(function ($) {
+    (function () {
         $.ajax({ url: 'shader/vertex.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (vertexShader) {
             $.ajax({ url: 'shader/fragment.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (fragmentShader) {
-                init();
-                animate();
-
                 function init() {
                     container = document.getElementById('container');
                     projector = new THREE.Projector();
                     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
                     renderer.setClearColor(0x000000, 0);
-                    var width = window.innerWidth;
-                    var height = window.innerHeight - $('.header').height();
-
-                    renderer.setSize(width, height);
+                    renderer.setSize(window.innerWidth, window.innerHeight);
                     container.appendChild(renderer.domElement);
 
                     scene = new THREE.Scene();
-                    camera = new THREE.PerspectiveCamera(55, width / height, 0.5, 3000000);
+                    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
                     createInfoSprite({ imageUrl:'image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
                         finishCallback:function(sprite) {
@@ -127,13 +121,12 @@
                         if (teamData.status!=0) {
                             console.error('Data status invalid: '+teamData.message, teamData);
                         } else {
-                            var stickCount = teamData.data.teams.length, heightScale;
+                            var stickCount = teamData.data.teams.length, perDistance=stickMaxHeight/stickCount;
                             var teamSizes=[teamData.data.weibo_total, teamData.data.twitter_total];
                             for (var i = 0; i < stickCount; i++) {
                                 var stickData = teamData.data.teams[i];
                                 stickData.teamSize=teamSizes[stickData.typeIndex];
-                                if (i == 0) heightScale = stickHeight / stickData.distance;
-                                var h = stickData.distance * heightScale;
+                                var h=i==0?stickMaxHeight:Math.round((perDistance*(stickCount-i+(Math.random()-0.5)*0.9))*100)/100;
                                 var geometry = new THREE.PlaneGeometry(stickWidth, h, 2, Math.ceil(50 / 400 * h));
                                 geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
                                 geometry.applyMatrix(new THREE.Matrix4().makeTranslation((stickWidth + stickPadding) * i, 0, -h / 2));
@@ -198,28 +191,30 @@
                             }
                         }
 
-                        camera.position.set(0, 35, 45);
+                        camera.position.set(0, 35, 43.8);
                         camera.lookAt(new THREE.Vector3(0, 0, -400 / 3));
                         camera.position.setX(stickWidth * 5);
 
                         window.addEventListener('resize', onWindowResize, false);
                         document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+                        animate();
+
+                        if (readyCallback) readyCallback();
                     });
                 }
+
+                init();
             }});
         }});
 
         function onWindowResize() {
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
-
-            var width = window.innerWidth;
-            var height = window.innerHeight - $('.header').height();
-            
-            camera.aspect = width / height;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
 
-            renderer.setSize(width, height);
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
         function focus(event) {
@@ -249,7 +244,7 @@
             mouseX = ( event.clientX - windowHalfX );
             mouseY = -( event.clientY - windowHalfY );
 
-            focus(event);
+            if (fillAniFinished) focus(event);
         }
 
         function sign(val) {
@@ -305,5 +300,5 @@
         function render() {
             renderer.render(scene, camera);
         }
-    });
-})();
+    })();
+}

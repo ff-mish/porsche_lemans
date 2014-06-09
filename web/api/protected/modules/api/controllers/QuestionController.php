@@ -12,7 +12,12 @@ class QuestionController extends Controller {
       $this->responseError("user not login", ErrorAR::ERROR_NOT_LOGIN);
     }
     $question = $qa_ar->randomQuestion($user);
-    $this->responseJSON($question, "success");
+    if ($question) {
+      $this->responseJSON($question, "success");
+    }
+    else {
+      $this->responseError("no question", ErrorAR::ERROR_UNKNOWN);
+    }
   }
   
   /**
@@ -122,11 +127,15 @@ class QuestionController extends Controller {
     $request = Yii::app()->getRequest();
     
     if (!$request->isPostRequest) {
-      return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
+      //return $this->responseError("http error", ErrorAR::ERROR_HTTP_VERB_ERROR);
     }
     
     $qaid = $request->getParam("qaid");
     $answer_id = $request->getParam("answer");
+    
+    if (!$qaid || !$answer_id) {
+      return $this->responseError("param error", ErrorAR::ERROR_MISSED_REQUIRED_PARAMS);
+    }
     
     $user_qa_ar = new UserQAAR();
     $user_qa_ar->answer($qaid, $answer_id);
