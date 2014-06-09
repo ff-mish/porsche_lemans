@@ -4,6 +4,10 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+    <meta property="og:title" content="<?php echo Yii::t("lemans", "Porsche #24SocialRace")?>" />
+    <meta property="og:url" content="http://porsche.com/24socialrace" />
+    <meta property="og:description" content="Join my team! @Porsche introduces #24SocialRace; the better you'll tweet, the faster you'll go! " />
+    <meta property="og:site_name" content="<?php echo Yii::t("lemans", "Porsche #24SocialRace")?>" />
 	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no,minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon"/>
@@ -66,16 +70,16 @@
             <div class="btn <?php echo Yii::app()->language;?>" id="share"> <span class="label"> <?php echo Yii::t("lemans", "Share")?></span>
             	<div class="share-btns">
 	            <?php if (Yii::app()->language == "zh_cn"): ?>
-			            <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82&url=http://24socialrace.porsche.com" class="i-sina"></a>
-			            <a target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-qz"></a>
-			            <a target="_blank" href="http://v.t.qq.com/share/share.php?title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-qq"></a>
-			            <a target="_blank" href="http://www.douban.com/recommend/?url=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-db"></a>
-			            <a target="_blank" href="http://share.renren.com/share/buttonshare.do?link=http://24socialrace.porsche.com&title=%e5%92%8c%e6%88%91%e4%bb%ac%e4%b8%80%e5%90%8c%e5%9b%9e%e5%bd%92%e5%8b%92%e8%8a%92%ef%bc%8c%e4%bd%a0%e5%87%86%e5%a4%87%e5%a5%bd%e4%ba%86%e5%90%97%ef%bc%9f%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82" class="i-rr"></a>
+			            <a target="_blank" href="http://v.t.sina.com.cn/share/share.php?title=%e5%8a%a0%e5%85%a5%e6%88%91%e7%9a%84%e9%98%9f%e4%bc%8d%e5%90%a7%ef%bc%81%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82%e4%bb%a5%e5%be%ae%e5%8d%9a%e4%b9%8b%e5%90%8d%ef%bc%8c%e5%8a%a9%e5%8a%9b%e5%8b%92%e8%8a%92%e7%ab%9e%e8%b5%9b%e3%80%82&url=http://porsche.com/24socialrace" class="i-sina"></a>
+			            <a target="_blank" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://porsche.com/24socialrace&title=%e5%8a%a0%e5%85%a5%e6%88%91%e7%9a%84%e9%98%9f%e4%bc%8d%e5%90%a7%ef%bc%81%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82%e4%bb%a5%e5%be%ae%e5%8d%9a%e4%b9%8b%e5%90%8d%ef%bc%8c%e5%8a%a9%e5%8a%9b%e5%8b%92%e8%8a%92%e7%ab%9e%e8%b5%9b%e3%80%82" class="i-qz"></a>
+			            <a target="_blank" href="http://v.t.qq.com/share/share.php?title=%e5%8a%a0%e5%85%a5%e6%88%91%e7%9a%84%e9%98%9f%e4%bc%8d%e5%90%a7%ef%bc%81%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82%e4%bb%a5%e5%be%ae%e5%8d%9a%e4%b9%8b%e5%90%8d%ef%bc%8c%e5%8a%a9%e5%8a%9b%e5%8b%92%e8%8a%92%e7%ab%9e%e8%b5%9b%e3%80%82http://porsche.com/24socialrace" class="i-qq"></a>
+			            <a target="_blank" href="http://www.douban.com/recommend/?url=http://porsche.com/24socialrace&title=%e5%8a%a0%e5%85%a5%e6%88%91%e7%9a%84%e9%98%9f%e4%bc%8d%e5%90%a7%ef%bc%81%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82%e4%bb%a5%e5%be%ae%e5%8d%9a%e4%b9%8b%e5%90%8d%ef%bc%8c%e5%8a%a9%e5%8a%9b%e5%8b%92%e8%8a%92%e7%ab%9e%e8%b5%9b%e3%80%82http://porsche.com/24socialrace" class="i-db"></a>
+			            <a target="_blank" href="http://share.renren.com/share/buttonshare.do?link=http://porsche.com/24socialrace&title=%e5%8a%a0%e5%85%a5%e6%88%91%e7%9a%84%e9%98%9f%e4%bc%8d%e5%90%a7%ef%bc%81%40%e4%bf%9d%e6%97%b6%e6%8d%b7+%e9%82%80%e4%bd%a0%e5%8f%82%e5%8a%a0%23%e5%8b%92%e8%8a%92%e7%a4%be%e4%ba%a4%e8%80%90%e5%8a%9b%e8%b5%9b%23%e3%80%82%e4%bb%a5%e5%be%ae%e5%8d%9a%e4%b9%8b%e5%90%8d%ef%bc%8c%e5%8a%a9%e5%8a%9b%e5%8b%92%e8%8a%92%e7%ab%9e%e8%b5%9b%e3%80%82" class="i-rr"></a>
 	            <?php else:?>
-			            <a target="_blank" href="https://www.facebook.com/share.php?u=http://24socialrace.porsche.com&t=24&pic=" class="i-fb"></a>
-			            <a target="_blank" href="https://twitter.com/intent/tweet?text=http://24socialrace.porsche.com&pic=" class="i-tw"></a>
-			            <a target="_blank" href="https://plus.google.com/share?url=http://24socialrace.porsche.com&t=24" class="i-g"></a>
-			            <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=http://24socialrace.porsche.com&title=24&ro=false&summary=&source=" class="i-in"></a>
+			            <a target="_blank" href="https://www.facebook.com/share.php?u=http://24socialrace.porsche.com&t=Join+my+team!+%40Porsche+introduces+%2324SocialRace%3b+the+better+you%26%2339%3bll+tweet%2c+the+faster+you%26%2339%3bll+go!+24&pic=" class="i-fb"></a>
+			            <a target="_blank" href="https://twitter.com/intent/tweet?text=Join+my+team!+@Porsche+introduces+#24SocialRace;+the+better+you'll+tweet,+the+faster+you'll+go!+http://porsche.com/24socialrace&pic=" class="i-tw"></a>
+			            <a target="_blank" href="https://plus.google.com/share?url=http://porsche.com/24socialrace&t=Join+my+team!+%40Porsche+introduces+%2324SocialRace%3b+the+better+you%26%2339%3bll+tweet%2c+the+faster+you%26%2339%3bll+go!+" class="i-g"></a>
+			            <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=http://porsche.com/24socialrace&title=Join+my+team!+%40Porsche+introduces+%2324SocialRace%3b+the+better+you%26%2339%3bll+tweet%2c+the+faster+you%26%2339%3bll+go!+&ro=false&summary=&source=" class="i-in"></a>
 			            <a target="_blank" href="http://pinterest.com/pin/create/button/?url=http://24socialrace.porsche.com" class="i-p"></a>
 	            <?php endif;?>
 	            	<div class="popup_close" data-a="close-share"></div>
@@ -113,6 +117,11 @@
 		        <div class="intro"><?php echo Yii::t("lemans", "Legal_Notice_Content")?></div>
 		</div>
       </div>
+    </div>
+
+    <div style="display:none;">
+        <img src="./images/bg_winner_prizes.jpg" />
+        <img src="./images/bg_legal.jpg" />
     </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>

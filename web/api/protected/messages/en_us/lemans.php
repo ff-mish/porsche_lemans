@@ -6,14 +6,14 @@
  * Time: 上午3:22
  */
 return array (
-	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. The better you'll tweet, the faster you'll go!<br/>The first team will win an exclusive trip to attend a LMP race and have the chance to see the legendary 919 Hybrid.",
+	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. <br/>The better you'll tweet, the faster you'll go!<br/>The first team will win an exclusive trip <br/>to attend a LMP race and have the chance to see the legendary 919 Hybrid.",
 	"PORSCHE_LINK" => "http://www.porsche.com/international/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
     "1/5" => "Step 1 of 5",
 	"2/5" => "Step 2 of 5",
 	"3/5" => "Step 3 of 5",
 	"4/5" => "Step 4 of 5",
 	"5/5" => "Step 5 of 5",
-	"tutorial_step_4" => "“Achievements” will be unlocked each time you answer three Porsche challenges correctly. “Latest posts” will allow you to look at your team’s most recent tweets. Your training is almost complete!",//Lastests posts will allow you to have a quick look at your team tweets. Your training is now almost completed.
+	"tutorial_step_4" => "“Achievements” will be unlocked each time you answer three Porsche challenges correctly. ",//“Latest posts” will allow you to look at your team’s most recent tweets. Your training is almost complete!
     "tutorial_step_3" => 'The Porsche graph is the most important part of the Stand. It allows you to see which stats to improve to go faster in the race. There are four different parameters.
 <br><br>
 <span class="step-con-tit">Speed:</span> This is the number of tweets from your team per hour.
@@ -33,7 +33,7 @@ The four factors combined allow you to obtain an average speed per hour. The hig
     "tutorial_step_2" => "This part is an overview of your team: name, tweets per hour and number of followers.
 <br><br>
 You can also invite other pilots to join your crew and increase your chance  to win the race.",
-    "race_description" => "The first team will win a very exclusive VIP package to attend an LMP race (in Austin or Shanghai) and will have the chance to approach the legendary 919 Hybrid. This experience will include flight tickets, VIP passes, access to Porsche hospitality, a meeting with one of the Porsche works driver and a visit to the Porsche LMP1 garage.",
+    "race_description" => "The first team will win a very exclusive VIP package to attend an LMP race (in Austin or Shanghai) and will have the chance to approach the legendary 919 Hybrid. This experience will include economy flight tickets, VIP passes, access to Porsche hospitality, a meeting with one of the Porsche works driver and a visit to the Porsche LMP1 garage.<br />Learn about <a href='javascript:;' data-a='legal-mentions'>terms and conditions</a>",
 	"Legal_Notice_Content" => "<p><strong>Terms and Conditions of Use of this Website.  </strong></p>
 <p>PLEASE READ THIS DOCUMENT CAREFULLY BECAUSE IT SETS OUT YOUR OBLIGATIONS, RESPONSIBILITIES AND TERMS OF USE OF THE WEBSITE. IN CONSIDERATION OF YOUR ACCESS TO AND USE OF THIS WEBSITE AND THE MUTUAL PROMISES YOU AGREE AND ACKNOWLEDGE THE FOLLOWING: </p>
 <p>1. This website is owned by Dr. Ing. h.c. F. Porsche Aktiengesellschaft (&ldquo;<strong>Porsche</strong>&rdquo;) and maintained by Fred &amp; Farid (&ldquo;<strong>FF</strong>&rdquo;).  The access and use of this website is subject to the following terms and conditions (&ldquo;<strong>Terms</strong>&rdquo;) which you should read carefully and be sure you fully understand and comply with.  You must be at least 18 years of age to enter the competition.  You must not be connected to Porsche whether as its employee, consultant or provider of services (whether directly or indirectly) or be an immediate family member of such a person to be eligible to win a prize.  By using this website you acknowledge that you understand and agree to be legally bound by these Terms and are eligible to enter the competition under these Terms.  If you do not accept any of these Terms or do not satisfy the age condition you are not authorized to use this website.  The word &ldquo;<strong>use</strong>&rdquo; is understood to include, but is not limited to, any direct or indirect access or interaction or exchange of data with this website, including participating in the competition. </p>
