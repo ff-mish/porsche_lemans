@@ -19,12 +19,7 @@
 		</div>-->
     <div id="container"></div>
     <div id="map"></div>
-    <div class="race_nav">
-      <div class="race_time"></div>
-      <div class="race_speed"></div>
-      <div class="race_navitem race_navitemon"><a href="/race/index"><?=Yii::t('lemans','Networks')?></a></div>
-      <div class="race_navitem "><a href="/race/index/team"><?=Yii::t('lemans','Teams')?></a></div>
-    </div>
+
 		<!-- race end -->
 	</div>
 </div>

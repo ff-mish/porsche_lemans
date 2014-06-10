@@ -203,7 +203,7 @@ class IndexController extends Controller {
       $type = $request->getParam("type", NULL);
       
       $mediaAr = new MediaAR();
-      $medias = $mediaAr->getMedias($type, $page);
+      $medias = $mediaAr->getMedias($type, FALSE);
       $this->render("fuel", array("medias" => $medias));
     }
   }

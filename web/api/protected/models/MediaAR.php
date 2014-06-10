@@ -141,8 +141,10 @@ class MediaAR extends CActiveRecord {
       $query->addCondition("type=:type");
       $query->params = array(":type" => $type);
     }
-    $query->offset = ($page - 1) * self::PAGE_ITEMS;
-    $query->limit = self::PAGE_ITEMS;
+    if ($page !== FALSE) {
+      $query->offset = ($page - 1) * self::PAGE_ITEMS;
+      $query->limit = self::PAGE_ITEMS;
+    }
     
     $rows = $this->findAll($query);
     
