@@ -353,6 +353,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 });
             },
             runAnimate: function( $dom , current , noMoveNum ){
+                noMoveNum = false;
                 current = current || 0;
                 var percent = Math.min( current , 1 ) ;
                 var startAngle = 45;
@@ -449,86 +450,86 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     })();
     
 
-    var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
-        current = current || 0;
-        var percent = Math.min( current / total , 1 ) ;
-        startAngle = startAngle / 180 * Math.PI || 0;
-        LP.use('raphaeljs' , function( Raphael ){
-            // Creates canvas 320 × 200 at 10, 50
-            var width = $dom.width();
-            var height = $dom.height();
-            var memberHeight = $('.member_item').outerHeight() - 8;
-            var r = memberHeight / 2 - 5 , stockWidth = 8 , stockColor = COLOR;
+    // var rotateAnimate = function( $dom , current , total ,  startAngle , noMoveNum ){
+    //     current = current || 0;
+    //     var percent = Math.min( current / total , 1 ) ;
+    //     startAngle = startAngle / 180 * Math.PI || 0;
+    //     LP.use('raphaeljs' , function( Raphael ){
+    //         // Creates canvas 320 × 200 at 10, 50
+    //         var width = $dom.width();
+    //         var height = $dom.height();
+    //         var memberHeight = $('.member_item').outerHeight() - 8;
+    //         var r = memberHeight / 2 - 5 , stockWidth = 8 , stockColor = COLOR;
 
-            var paper = Raphael( $dom.get(0) , width , height );
+    //         var paper = Raphael( $dom.get(0) , width , height );
 
-            var circleBg = paper.circle( width / 2 , height / 2, r )
-                    .attr("stroke" , '#000' )
-                    .attr("stroke-width" , 0 )
-                    .animate({'stroke-width': stockWidth} , 700);
+    //         var circleBg = paper.circle( width / 2 , height / 2, r )
+    //                 .attr("stroke" , '#000' )
+    //                 .attr("stroke-width" , 0 )
+    //                 .animate({'stroke-width': stockWidth} , 700);
 
-            var redPath = paper.path( "" )
-                    .attr("stroke" , stockColor )
-                    .attr("stroke-width" ,stockWidth );
-            // var blackPath = paper.path( "" )
-            //         .attr("stroke", "#000")
-            //         .attr("stroke-width" , stockWidth);
+    //         var redPath = paper.path( "" )
+    //                 .attr("stroke" , stockColor )
+    //                 .attr("stroke-width" ,stockWidth );
+    //         // var blackPath = paper.path( "" )
+    //         //         .attr("stroke", "#000")
+    //         //         .attr("stroke-width" , stockWidth);
 
-            var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
-                .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
+    //         var text = paper.text( width / 2 , height / 2 , "0 " + _e("T/H") )
+    //             .attr({fill: "#fff",'font-size': isMobile ? '11px' : lang == 'zh_cn' ? '11px' : '13px'});
 
-            var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
-            var now ;
-            var duration = 700;
-            var ani = function(){
-                var p = Math.min( 1 ,  ( new Date() - now ) / duration );
-                var end = [ width / 2 + Math.cos( startAngle + percent * p * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * p * 2 * Math.PI ) * r  ]
-                var path = [
-                    'M' , start[0] , ' ' , start[1] ,
-                    'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
-                    ].join("");
-                // var otherPath = [
-                //     'M' , start[0] , ' ' , start[1] ,
-                //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
-                // ].join("");
+    //         var start = [ width / 2 + Math.cos( startAngle )  * r , height / 2 + Math.sin( startAngle ) * r ];
+    //         var now ;
+    //         var duration = 700;
+    //         var ani = function(){
+    //             var p = Math.min( 1 ,  ( new Date() - now ) / duration );
+    //             var end = [ width / 2 + Math.cos( startAngle + percent * p * 2 * Math.PI ) * r , height / 2 + Math.sin( startAngle + percent * p * 2 * Math.PI ) * r  ]
+    //             var path = [
+    //                 'M' , start[0] , ' ' , start[1] ,
+    //                 'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '1' : '0' , ' 1 ' ,  end[0] , ' ' , end[1]
+    //                 ].join("");
+    //             // var otherPath = [
+    //             //     'M' , start[0] , ' ' , start[1] ,
+    //             //     'A' , r , ' ' , r , ' 0 ' , percent * p > 0.5 ? '0' : '1' , ' 0 ' ,  end[0] , ' ' , end[1]
+    //             // ].join("");
 
-                if( percent * p < 1 ){
-                    redPath.attr( 'path' , path );
-                    //blackPath.attr( 'path' , otherPath );
-                }
-                if( percent * p == 1 ){
-                    paper.circle( width / 2 , height / 2, r )
-                        .attr("stroke" , stockColor )
-                        .attr("stroke-width" ,stockWidth );
-                    redPath.remove();
-                    blackPath.remove();
-                }
+    //             if( percent * p < 1 ){
+    //                 redPath.attr( 'path' , path );
+    //                 //blackPath.attr( 'path' , otherPath );
+    //             }
+    //             if( percent * p == 1 ){
+    //                 paper.circle( width / 2 , height / 2, r )
+    //                     .attr("stroke" , stockColor )
+    //                     .attr("stroke-width" ,stockWidth );
+    //                 redPath.remove();
+    //                 blackPath.remove();
+    //             }
 
-                // render numbers
-                if( !noMoveNum )
-                    text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
+    //             // render numbers
+    //             if( !noMoveNum )
+    //                 text.attr('text' , ~~( p * 100 * percent * 100 ) / 100 + ' ' + _e("T/H") );
 
-                if( p != 1 ){
-                    setTimeout(ani , 60/1000);
-                }
-            }
-            if( percent ){
-                setTimeout( function(){
-                    now = new Date();
-                    ani();
-                } , 700 );
-            }
-            //if( !percent ){
-                // redPath.remove();
-                // blackPath.remove();
-                // paper.circle( width / 2 , height / 2, r )
-                //     .attr("stroke" , '#000' )
-                //     .attr("stroke-width" ,stockWidth );
-            // } else {
-            //     ani();
-            // }
-        });
-    }
+    //             if( p != 1 ){
+    //                 setTimeout(ani , 60/1000);
+    //             }
+    //         }
+    //         if( percent ){
+    //             setTimeout( function(){
+    //                 now = new Date();
+    //                 ani();
+    //             } , 700 );
+    //         }
+    //         //if( !percent ){
+    //             // redPath.remove();
+    //             // blackPath.remove();
+    //             // paper.circle( width / 2 , height / 2, r )
+    //             //     .attr("stroke" , '#000' )
+    //             //     .attr("stroke-width" ,stockWidth );
+    //         // } else {
+    //         //     ani();
+    //         // }
+    //     });
+    // }
 
     var initPlaceHoler = function( $input ){
         if( $('<input/>').get(0).placeholder === undefined ){
@@ -799,6 +800,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         }
 
         function easeOutElastic( x, t, b, c, d ) {
+            if( c == 0 ) return b;
             var s=1.70158;var p=0;var a=c;
             if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
             if (a < Math.abs(c)) { a=c; var s=p/4; }
@@ -857,7 +859,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( per > 1 ){
                     per = 1;
                 }
-                var l = easeOutElastic('' , dur , lastLeft , left - lastLeft , duration ) ;// per * ( left - lastLeft );
+                var l = easeOutElastic('' , dur , lastLeft , left - lastLeft , duration ) ;// per * ( left - lastLeft 
                 var r = easeOutElastic('' , dur , lastRight , right - lastRight , duration ) ;// per * ( right - lastRight );
                 var t = easeOutElastic('' , dur , lastTop , top - lastTop , duration ) ;//per * ( top - lastTop );
                 var b = easeOutElastic('' , dur , lastBottom , bottom - lastBottom , duration ) ;//per * ( bottom - lastBottom );
@@ -1323,7 +1325,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // player.on('loadeddata' , function(){
                     //     player.play();
                     // });
-                    // console.log( this.buffered().end() );
                     if( cfg.needMyAutoPlay ){
                         setTimeout( function(){
                             player.play();
@@ -1633,7 +1634,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var speed = user.score ? user.score.speed : 0;
 
             rotateAnimateMgr.initAnimate( $('.member_speed').eq(i) , function(){
-                rotateAnimateMgr.runAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , true );
+                rotateAnimateMgr.runAnimate( $('.member_speed').eq(i) , parseFloat( speed ) , true );
             } )  
             //rotateAnimate( $('.member_speed').eq(i) , parseFloat( speed ) || 0.7 , 1 , 45 , true );
         } );
@@ -2598,6 +2599,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     // page init here
     // =======================================================================
 	var isComplete = false;
+    var completeTypes = {};
+    var PAGE_COMPLETE = 1;
+    var RACE_COMPLETE = 2;
+    var page = $(document.body).data('page');
     var loadingFiles = {
         'stand': ['raphaeljs' , 'jquery']
     }
@@ -3472,7 +3477,32 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
               });
-              
+            
+              // init .monitor_item height and width
+              $(window).resize(function(){
+                var $wrap = $('.monitor_com');
+                var wrapHeight = $wrap.height();
+                // var wrapWidth = $wrap.width();
+                // var minWidth = 250;
+                // var marginRight = 30;
+                var $children = $wrap.find('.monitor_item').height( wrapHeight );
+
+                // var length = Math.min( wrapWidth / minWidth , 4 );
+
+                // if( wrapWidth minWidth >= 4 ){
+                //     $children.css({width: '22%' , marginRight: '3%' , marginTop: 0});
+                // } else if( wrapWidth / minWidth >= 3 ){
+                //     $children.css({width: '30%' , marginRight: '3%' , marginTop: 0})
+                //         .last()
+                //         .css({marginTop: wrapWidth * 0.03})
+                // } else if( wrapWidth / minWidth >= 2 ){
+                //     $children.css({width: '46%' , marginRight: '4%' , marginTop: 0})
+                //         .last()
+                //         .css({marginTop: wrapWidth * 0.04})
+                //         .prev()
+                //         .css({marginTop: wrapWidth * 0.04});
+                // }
+              }).trigger('resize');
               break;
               
           case "teamrace":
