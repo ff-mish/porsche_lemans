@@ -115,13 +115,13 @@
 	      	<div>
 	            <h2><?php echo Yii::t("lemans", "Legal Notice")?></h2>
 		        <div class="intro"><?php echo Yii::t("lemans", "Legal_Notice_Content")?></div>
-		</div>
-      </div>
+		    </div>
+           </div>
+       </div>
     </div>
-
     <div style="display:none;">
-        <img src="./images/bg_winner_prizes.jpg" />
-        <img src="./images/bg_legal.jpg" />
+        <img src="./videos/winner.jpg" />
+        <img src="./videos/<?php echo $this->page_name?>.jpg" />
     </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>

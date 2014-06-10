@@ -7,7 +7,7 @@
         </div>
 
     <div class="count">
-      <div class="conut_tit" data-fadein><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace<br/><br/>The better you tweet , the faster you go!")?></div>
+      <div class="conut_tit" data-animate="opacity:1;margin-top:50px;" data-delay="200" data-style="opacity:0;margin-top:-50px;"><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace<br/><br/>The better you tweet , the faster you go!")?></div>
       
       <!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
       <!-- <div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div> -->

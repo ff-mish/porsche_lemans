@@ -37,30 +37,34 @@
 		</div>
 		<!-- monitoring -->
 		<div class="monitor">
-			<h1 class="monitor_tit">Social Race Monitoring:  What’s happening right now?</h1>
+			<h1 class="monitor_tit" data-animate="opacity:1;margin-top:0;" data-delay="500" data-style="opacity:0;margin-top:-50px;"><?php echo Yii::t("lemans", "Social Race Monitoring:  What’s happening right now?")?></h1>
 			<div class="monitor_com tweet-con cs-clear">
 				<!--  -->
-				<div class="monitor_item">
-					<h2>Porsche</h2>
+				<div class="monitor_item" data-animate="opacity:1;margin-top:0;" data-delay="800" data-style="opacity:0;margin-top:-50px;">
+					<h2><?php echo Yii::t("lemans", "Porsche")?></a></h2>
 					<div class="monitor_list">
+						<div class="loading"></div>
 					</div>
 				</div>
 				<!--  -->
-				<div class="monitor_item">
-					<h2>Profile</h2>
+				<div class="monitor_item" data-animate="opacity:1;margin-top:0;" data-delay="1000" data-style="opacity:0;margin-top:-50px;">
+					<h2><?php echo Yii::t("lemans", "Profile")?></h2>
 					<div class="monitor_list">
+						<div class="loading"></div>
 					</div>
 				</div>
 				<!--  -->
-				<div class="monitor_item tweet-con">
-					<h2>Team</h2>
+				<div class="monitor_item tweet-con" data-animate="opacity:1;margin-top:0;" data-delay="1200" data-style="opacity:0;margin-top:-50px;">
+					<h2><?php echo Yii::t("lemans", "Team")?></h2>
 					<div class="monitor_list">
+						<div class="loading"></div>
 					</div>
 				</div>
 				<!--  -->
-				<div class="monitor_item tweet-con">
-					<h2>#24SocialRace</h2>
+				<div class="monitor_item tweet-con" data-animate="opacity:1;margin-top:0;" data-delay="1400" data-style="opacity:0;margin-top:-50px;">
+					<h2><?php echo Yii::t("lemans", "#24SocialRace")?></h2>
 					<div class="monitor_list">
+						<div class="loading"></div>
 					</div>
 				</div>
 				<!--  -->
