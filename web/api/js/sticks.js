@@ -57,8 +57,8 @@ function sticksCreate(readyCallback) {
     }
 
     (function () {
-        $.ajax({ url: 'shader/vertex.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (vertexShader) {
-            $.ajax({ url: 'shader/fragment.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (fragmentShader) {
+        $.ajax({ url: '/shader/vertex.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (vertexShader) {
+            $.ajax({ url: '/shader/fragment.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (fragmentShader) {
                 function init() {
                     container = document.getElementById('container');
                     projector = new THREE.Projector();
@@ -70,7 +70,7 @@ function sticksCreate(readyCallback) {
                     scene = new THREE.Scene();
                     camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
-                    createInfoSprite({ imageUrl:'image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
+                    createInfoSprite({ imageUrl:'/image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
                         finishCallback:function(sprite) {
                             infoSprite=sprite;
                             scene.add(infoSprite);
