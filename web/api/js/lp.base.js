@@ -3476,6 +3476,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
                 var group4 = e["data"]["topic"];
                 callbackRender(3, group4);
+
+                LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true})
+                });
               });
             
               // init .monitor_item height and width

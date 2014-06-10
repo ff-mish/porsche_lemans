@@ -63,9 +63,7 @@
 <script type="application/javascript" src="/js/sticks.js"></script>
 <script type="application/javascript">
     $(function($){
-        $('div.loading').show();
-        trackCreate(function(){
-            $('div.loading').hide();
+        sticksCreate(function(){
         })
     });
 </script>
