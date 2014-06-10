@@ -5,7 +5,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta property="og:title" content="<?php echo Yii::t("lemans", "Porsche #24SocialRace")?>" />
-    <meta property="og:url" content="http://porsche.com/24socialrace" />
+    <meta property="og:url" content="http://24socialrace.porsche.com" />
     <meta property="og:description" content="Join my team! @Porsche introduces #24SocialRace; the better you'll tweet, the faster you'll go! " />
     <meta property="og:site_name" content="<?php echo Yii::t("lemans", "Porsche #24SocialRace")?>" />
 	<meta name="viewport" content="width=640, minimum-scale=0.5, maximum-scale=1, target-densityDpi=290,user-scalable = no,minimal-ui" />

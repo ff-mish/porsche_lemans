@@ -146,15 +146,13 @@ class IndexController extends Controller {
       $mid = $request->getPost("mid");
       
       // 还有Teaser Image
-      if (!$is_image) {
-        $teaser_image_file = CUploadedFile::getInstanceByName("teaser_image");
-        if (!$teaser_image_file) {
-          return $this->responseError("file error", 500, array("teaser_image" => "文件是必须的"));
-        }
-        $teaser_image_type = $teaser_image_file->getType();
-        if (!in_array($teaser_image_type, $this->allow_teaser_image)) {
-          return $this->responseError("file error", 500, array("teaser_image" => "文件不符合要求"));
-        }
+      $teaser_image_file = CUploadedFile::getInstanceByName("teaser_image");
+      if (!$teaser_image_file) {
+        return $this->responseError("file error", 500, array("teaser_image" => "文件是必须的"));
+      }
+      $teaser_image_type = $teaser_image_file->getType();
+      if (!in_array($teaser_image_type, $this->allow_teaser_image)) {
+        return $this->responseError("file error", 500, array("teaser_image" => "文件不符合要求"));
       }
         
       $title = $request->getPost("title");
@@ -186,7 +184,7 @@ class IndexController extends Controller {
       }
 
       // 视频上传后 需要保存视频的 预览图
-      if ($type == MediaAR::MEDIA_VIDEO) {
+      if ($teaser_image_file) {
         $new_name = MediaAR::new_uri($teaser_image_type, MediaAR::MEDIA_IMAGE);
         $save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
         $teaser_image_file->saveAs($save_to);

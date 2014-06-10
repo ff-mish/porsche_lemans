@@ -3590,7 +3590,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                 } else {
                     // render flash
-                    $('.race_nav,.nav').hide();
+                    //$('.race_nav,.nav').hide();
                     $('#container').html(
                         '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
                             <param name="movie" value="/js/raceflash/Sticks.swf"/>\
@@ -3645,7 +3645,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                 } else {
                     // render flash
-                    $('.race_nav,.nav').hide();
+                    //$('.race_nav,.nav').hide();
                     $('#container').html(
                         '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
                             <param name="movie" value="/js/raceflash/track.swf"/>\
