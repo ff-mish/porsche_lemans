@@ -364,6 +364,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             runAnimate: function( $dom , current , noMoveNum ){
                 noMoveNum = false;
                 current = current || 0;
+                current = current * 0.4;
                 var percent = Math.min( current , 1 ) ;
                 var startAngle = 45;
                 startAngle = startAngle / 180 * Math.PI || 0;
@@ -728,12 +729,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             LP.use('raphaeljs' , function( Raphael ){
 
+                var nw = $dom.width();
+                var nh = $dom.height();
                 // draw x 
-                var paper = Raphael( $dom.get(0) , $dom.width() , $dom.height() );
+                var paper = Raphael( $dom.get(0) , nw , nh );
 
                 var drawCoordinate = function( ){
-                    var width = $dom.width();
-                    var height = $dom.height();
+                    var width = nw;
+                    var height = nh;
                     var ch = ~~( height / 2 );
                     var cw = ~~( width / 2 );
                     
@@ -796,12 +799,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     } );
                 }
 
+                var timer = null;
                 $(window).resize(function(){
-                    paper.clear();
-                    paper.setSize( $dom.width() , $dom.height() );
-                    drawCoordinate();
-                    object.path.attr('path' , '');
-                    runAnimate.call( '' , target[0],target[1],target[2],target[3] , true );
+                    var _nw = $dom.width();
+                    var _nh = $dom.height();
+                    clearTimeout( timer );
+                    if( _nw == nw && _nh == nh ) return;
+                    nw = _nw ;
+                    nh = _nh ;
+                    timer = setTimeout(function(){
+                        paper.clear();
+                        paper.setSize( nw , nh );
+                        drawCoordinate();
+                        object.path.attr('path' , '');
+                        runAnimate.call( '' , target[0],target[1],target[2],target[3] , true );
+                    } , 100);
                 });
                 drawCoordinate();
                 cb && cb();
@@ -824,7 +836,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // right = 0.7;
             // top = 0.9;
             // bottom = 0.3;
-            target = [left , right , top , bottom];
+            target = [left , top, right , bottom];
 
             var center = object.center;
             var xwidth = object.xwidth;
@@ -1696,14 +1708,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 } , 500);
         }
 
-        var tsc = [ data.team_position , data.team_total ];
+        var tsc = [ parseInt(data.team_position) , parseInt(data.team_total) ];
         var $tsc = $('#team-score');
         var last_tsc = $tsc.data('last-num') || [0 , 0];
-        animateTo( last_tsc , tsc , 600 , function( nums ){
-            nums[0] = ~~nums[0];
-            nums[1] = ~~nums[1];
-            $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
-        } );
+        if( last_tsc[0] != tsc[0] || last_tsc[1] != tsc[1] ){
+            animateTo( last_tsc , tsc , 600 , function( nums ){
+                nums[0] = ~~nums[0];
+                nums[1] = ~~nums[1];
+                $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
+            } );
+        }
         $tsc.data('last-num' , tsc);
 
 
@@ -1955,7 +1969,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go! ' ) + users.join("")} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go! ' ) + users.join(" ")} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
@@ -2306,9 +2320,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     var fuelPage = 0;
     LP.action('fuel-load' , function( data ){
-
         $(this).attr('disabled' , 'disabled');
-        $('.fuelmore').fadeOut();
+        var $dom = $('.fuelmore').fadeOut();
         var page = ++fuelPage;
 
         // $('.fuel .loading').show();
@@ -2318,6 +2331,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         api.get('/api/media/list' , { page:page } , function( e ){
             //$('.fuel .loading').hide();
             totalPageLoading.hide();
+
+            if( $dom.hasClass('isotope') ){
+                $dom.isotope('destroy');
+            }
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
                 if (data["type"] == "video") {
@@ -2341,12 +2358,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( e.data.length >= 10 ){
                         $('.fuelmore').fadeIn();
                     }
+                    var $dom = $('.fuellist');
+                    LP.use('isotope' , function(){
+                        // first init isotope , render no animate effect
+                        $dom
+                            .isotope({
+                                resizable: false
+                            });
+                        // fix image effect
+
+                    }); 
                     return
                 };
                 $('<img />').load(function(){
                     $img.closest('.fuelitem').animate({
                         opacity: 1
-                    } , 400 , '' , function(){
+                    } , 200 , '' , function(){
                         $(this).addClass('visible');
                         turnImage( );
                     } );
@@ -2355,24 +2382,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
             function callback(){
                 turnImage();
-                $(this).removeAttr('disabled');
                 var $dom = $('.fuellist');
                 var width = $dom.width();
                 var minWidth = 180;
+                var minHeight = 100;
                 var itemWidth = ~~( width / ~~ ( width / minWidth ) );
-                $dom.children().width( itemWidth );
-                if( $dom.hasClass('isotope') ){
-                    $dom.isotope('destroy');
-                }
-                LP.use('isotope' , function(){
-                    // first init isotope , render no animate effect
-                    $dom
-                        .isotope({
-                            resizable: false
-                        });
-                    // fix image effect
-
-                }); 
+                var itemHeight = ~~(itemWidth * minHeight / minWidth);
+                $dom.children().css({
+                    width: itemWidth,
+                    height: itemHeight,
+                    overflow: 'hidden'
+                });
             }
         });
         return false;
@@ -3164,14 +3184,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 $(window).resize(function(){
                     var width = $('.fuellist').width();
                     var minWidth = 180;
+                    var minHeight = 100;
                     var itemWidth = ~~( width / ~~ ( width / minWidth ) );
-                    $('.fuellist').children().width( itemWidth );
+                    var itemHeight = ~~(itemWidth * minHeight / minWidth);
+                    $('.fuellist').children().css({
+                        width: itemWidth,
+                        height: itemHeight,
+                        overflow: 'hidden'
+                    });
 
                     if( $('.fuellist').children('.isotope-item').length ){
                         clearTimeout( reloadTimer );
                         reloadTimer = setTimeout(function(){
                             $('.fuellist').isotope('reLayout');
-                        } , 300 );
+                        } , 200 );
                     }
                 });
                 
