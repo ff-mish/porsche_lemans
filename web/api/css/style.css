@@ -374,7 +374,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 #home_video .video-js .vjs-poster {width:100%;height:100%;position:absolute;left:0;top:0;background: #000 url(../images/loading_b.gif) no-repeat center;}
 .popup_box {}
 .popup_dialog {width:742px;padding:20px 20px 0 20px;background:#000;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
-.popup_dialog_msg {font-size:18px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
+.popup_dialog_msg {font-size:18px;line-height:130%;display: table-cell;vertical-align: middle;width:680px;height:190px;padding:0 30px;text-align:center;border:1px solid #f00000;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;color: #fff;}
 .popup_dialog_btns {text-align: center;margin:30px 0 ;}
 .popup_dialog_btns a {display: inline-block;margin:0 5px;background:#ff0000;color:#fff;font-size:14px;width:100px;height:31px;line-height:31px;text-align: center;-webkit-border-radius: 5px 5px 5px 5px;border-radius: 5px 5px 5px 5px;}
 .popup_dialog_btns a:hover {opacity:0.7;}
