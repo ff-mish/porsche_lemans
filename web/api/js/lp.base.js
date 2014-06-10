@@ -1651,7 +1651,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     var unit = '';
                     if( user.friends > 1000 ){
                         $.each( spaces , function( k , sp ){
-                            space =  Math.round((user.friends / sp)*10) / 10;
+                            space =  ~~(user.friends / sp);
                             if( space >= 1 ){
                                 unit = spacesUnit[k];
                                 return false;
