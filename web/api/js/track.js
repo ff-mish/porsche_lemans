@@ -148,7 +148,7 @@ function trackCreate(readyCallback) {
     }
 
     (function() {
-        $.ajax({ url: 'data/track.json', type: "GET", async: true, cache: false, dataType: "json", success: function (track) {
+        $.ajax({ url: '/data/track.json', type: "GET", async: true, cache: false, dataType: "json", success: function (track) {
             var cameraFollowConf = track.cameraFollow, cameraFollowIndex = 0;
             sideShiftPercents = track.sideShiftPercents;
             var svgFile = track.svgFile;
@@ -279,7 +279,7 @@ function trackCreate(readyCallback) {
                             meshMapBlue.userData = blueCarData;
                             sceneMap.add(meshMapBlue);
 
-                            var trackTexture = THREE.ImageUtils.loadTexture('image/track.png?' + (new Date()).getTime());
+                            var trackTexture = THREE.ImageUtils.loadTexture('/image/track.png?' + (new Date()).getTime());
                             trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
                             trackTexture.repeat.set(1, 50);
 
@@ -319,7 +319,7 @@ function trackCreate(readyCallback) {
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
                             meshCarRed = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-red.png?' + (new Date()).getTime())}));
+                                map: THREE.ImageUtils.loadTexture('/image/car-red.png?' + (new Date()).getTime())}));
                             meshCarRed.frustumCulled = false;
                             meshCarRed.position.set(0, 1, 0);
                             meshCarRed.matrixAutoUpdate = false;
@@ -330,14 +330,14 @@ function trackCreate(readyCallback) {
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
                             meshCarBlue = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-blue.png?' + (new Date()).getTime())}));
+                                map: THREE.ImageUtils.loadTexture('/image/car-blue.png?' + (new Date()).getTime())}));
                             meshCarBlue.frustumCulled = false;
                             meshCarBlue.position.set(0, 1.2, 0);
                             meshCarBlue.userData = blueCarData;
                             setCarDistance(meshMapBlue, meshCarBlue, false);
                             carsGroup.add(meshCarBlue);
 
-                            createInfoSprite({ imageUrl: 'image/track-infobox.png?' + (new Date()).getTime(), opacity: 0.86, size: 15, fixedScaleFactor: 0.015,
+                            createInfoSprite({ imageUrl: '/image/track-infobox.png?' + (new Date()).getTime(), opacity: 0.86, size: 15, fixedScaleFactor: 0.015,
                                 finishCallback: function (sprite) {
                                     infoSprite = sprite;
                                     scene.add(infoSprite);
