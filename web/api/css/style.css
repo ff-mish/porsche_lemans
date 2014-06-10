@@ -154,8 +154,8 @@ body[data-page="stand"] .footer-icon{display: block;}
 .monitor_item h2{font-size: 20px;text-align: center;line-height: 70px;}
 .monitor_com .jspContainer{margin-top: 0 !important;}
 .monitor_com .jspDrag{width: 5px;}
+.monitor_com  .jspVerticalBar{right: -5px;}
 .monitor_list{margin: 0 15px 15px; position: absolute;top: 70px; left: 0; bottom: 0;right: 0px; }
-.monitor_list .jspVerticalBar{right: -5px;}
 .monitor_list li{list-style: none;}
 .monitor_list .avatar{width: 27%;float: left;}
 .monitor_list .avatar img{width: 100%;}

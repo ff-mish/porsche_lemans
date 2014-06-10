@@ -2319,7 +2319,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     });
 
     var fuelPage = 0;
+    var hasMore = true;
     LP.action('fuel-load' , function( data ){
+        if( !hasMore ) return;
         $(this).attr('disabled' , 'disabled');
         var $dom = $('.fuelmore').fadeOut();
         var page = ++fuelPage;
@@ -2332,9 +2334,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             //$('.fuel .loading').hide();
             totalPageLoading.hide();
 
-            if( $dom.hasClass('isotope') ){
-                $dom.isotope('destroy');
-            }
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
                 if (data["type"] == "video") {
@@ -2356,7 +2355,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 // turn each images
                 if( !$img.length ){
                     if( e.data.length >= 10 ){
+                        hasMore = true;
                         $('.fuelmore').fadeIn();
+                    } else {
+                        hasMore = false;
                     }
                     var $dom = $('.fuellist');
                     LP.use('isotope' , function(){
@@ -2381,8 +2383,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .attr('src' , $img.attr('src'));
             }
             function callback(){
+
                 turnImage();
                 var $dom = $('.fuellist');
+
                 var width = $dom.width();
                 var minWidth = 180;
                 var minHeight = 100;
@@ -2393,6 +2397,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     height: itemHeight,
                     overflow: 'hidden'
                 });
+
+                if( $dom.hasClass('isotope') ){
+                    $dom.isotope('destroy');
+                }
+
+
+                // if the first page is not full , load more 
+                if( $('.page')[0].scrollHeight > $('.page').height() ){
+                    LP.triggerAction('fuel-load' , {noNeedLoading: 1})
+                }
             }
         });
         return false;
@@ -3548,6 +3562,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 } else {
                     $children.css('margin-right' , 30);
                 }
+
+                $wrap.find('.loading')
+                    .height( $wrap.find('.monitor_list').height() );
                 // var length = Math.min( wrapWidth / minWidth , 4 );
 
                 // if( wrapWidth minWidth >= 4 ){
