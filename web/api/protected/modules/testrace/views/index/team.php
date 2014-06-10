@@ -29,12 +29,13 @@
 	</div>
 </div>
 
-<script type="application/javascript" src="/js/track.js"></script>
+<script type="application/javascript" src="/js/sticks.js"></script>
 <script type="application/javascript">
-    $(function($){
-       $('div.loading').show();
-        trackCreate(function(){
-            $('div.loading').hide();
-        })
-   });
+        $(function($){
+            $('div.loading').show();
+            sticksCreate(function(){
+                $('div.loading').hide();
+            })
+        });
 </script>
+  

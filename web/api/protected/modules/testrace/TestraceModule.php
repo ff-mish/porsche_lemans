@@ -1,6 +1,6 @@
 <?php
 
-class RaceModule extends CWebModule {
+class TestraceModule extends CWebModule {
   public function init() {
     //TODO::
   }

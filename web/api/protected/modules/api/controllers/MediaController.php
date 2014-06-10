@@ -26,10 +26,6 @@ class MediaController extends Controller {
       // save to db
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_IMAGE;
-
-      $media_ar->saveNew($uri, $type, $media_url);
-      
-      $this->responseJSON($media_ar, "success");
     }
     else if ($request->getPost("type") == MediaAR::MEDIA_VIDEO) {
       $video = CUploadedFile::getInstanceByName("uri");
@@ -41,28 +37,27 @@ class MediaController extends Controller {
       $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_VIDEO);
       $save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
       $video->saveAs($save_to);
-      
-      
-      // Teaser image
-      $teaserImage = CUploadedFile::getInstanceByName("teaser_image");
-      $file_type = $teaserImage->getType();
-      // 图片格式应该和Fuel 的 图片格式一样
-      if (!MediaAR::isAllowed($file_type, MediaAR::MEDIA_IMAGE)) {
-        return $this->responseJSON("file type is not allowed", ErrorAR::ERROR_FILE_UPLOADED_ERROR);
-      }
-      $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_IMAGE);
-      $teaser_save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
-      $teaserImage->saveAs($teaser_save_to);
-      $teaserUri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $teaser_save_to);
+
       
       // save to db
       $uri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $save_to);
       $type = MediaAR::MEDIA_VIDEO;
-      
-      $media_ar->saveNew($uri, $type, $media_url, $teaserUri);
-      
-      $this->responseJSON($media_ar, "success");
     }
+      
+    // Teaser image
+    $teaserImage = CUploadedFile::getInstanceByName("teaser_image");
+    $file_type = $teaserImage->getType();
+    // 图片格式应该和Fuel 的 图片格式一样
+    if (!MediaAR::isAllowed($file_type, MediaAR::MEDIA_IMAGE)) {
+      return $this->responseJSON("file type is not allowed", ErrorAR::ERROR_FILE_UPLOADED_ERROR);
+    }
+    $new_name = MediaAR::new_uri($file_type, MediaAR::MEDIA_IMAGE);
+    $teaser_save_to = Yii::app()->params["uploadedPath"].'/'. $new_name;
+    $teaserImage->saveAs($teaser_save_to);
+    $teaserUri = str_replace(realpath(Yii::app()->basePath.'/../'), "", $teaser_save_to);
+      
+    $media_ar->saveNew($uri, $type, $media_url, $teaserUri);
+    $this->responseJSON($media_ar, "success");
   }
   
   public function actionList() {

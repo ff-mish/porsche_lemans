@@ -1,0 +1,11 @@
+attribute float percent;
+
+varying float h;
+varying float p;
+
+void main( void ) {
+    h=-position.z;
+    p=percent;
+
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}

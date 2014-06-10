@@ -1,5 +1,5 @@
 {
-    "svgFile":"/data/track.svg",
+    "svgFile":"track.svg",
     "startDistance":100,
     "slopeScale":1,
     "trackLengthKM":13.6,
@@ -23,7 +23,7 @@
         }
     ],
     "sideShiftPercents":[
-        5,15,25,35,45,55,65,75,85,95
+        15,25,35,45,55,65,75,85
     ],
     "particle": {
         "count":1000,

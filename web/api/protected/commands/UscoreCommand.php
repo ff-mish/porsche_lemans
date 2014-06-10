@@ -30,6 +30,7 @@ class UscoreCommand extends CConsoleCommand
 
         // 相差几个小时？ 
         $time_step = round( (strtotime($now_date.":00:00") - strtotime($start_date.":00:00")) / ( 60 * 60) );
+        
 
         // 每个小时 我分别计算出来速度，然后再平均
         $speeds = array();

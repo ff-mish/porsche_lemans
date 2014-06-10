@@ -42,7 +42,7 @@ class TscoreCommand extends CConsoleCommand
           // 每个小时 我分别计算出来速度，然后再平均
           $speeds = array();
           $s_date = $start_date;
-          for ($i = 0; $i < $time_step+1; $i++) {
+          for ($i = 0; $i <= $time_step; $i++) {
             // 构造查询条件
             $t = strtotime($s_date.":00:00") + 60 * 60;
             $n_date = date("Y-m-d H:00:00", $t);
@@ -64,6 +64,9 @@ class TscoreCommand extends CConsoleCommand
           }
 
           // 到这里就得到整个用户的
+          if ($time_step == 0) {
+            $time_step = 0.9999;
+          }
           $speed = round(array_sum($speeds) / $time_step, 3);
 
           // 然后放入到组里面去

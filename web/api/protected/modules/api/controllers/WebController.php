@@ -86,8 +86,6 @@ class WebController extends Controller {
       return print_r($ret);
     }
     
-    print_r($ret);
-    
     $service_url = Yii::app()->params["service_url"];
     $url = $service_url."/api/web/cronnewtwitte";
     
