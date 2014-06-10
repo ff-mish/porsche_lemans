@@ -572,7 +572,7 @@ class UserAR extends CActiveRecord {
         // 去掉 保时捷 / Porsche
         $t_screenNames = array();
         foreach ($screenNames as $screen_name) {
-          if ($screen_name == "保时捷" || strtolower($screen_name) == "Porsche") {
+          if ($screen_name == "保时捷" || strtolower($screen_name) == "porsche") {
             continue;
           }
           $t_screenNames[] = $screen_name;
