@@ -237,9 +237,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 .click(function(){
                     if( isDisabled ) return;
                     isDisabled = true;
-                    var textarea = this.$panel.find('textarea');
+
+                    var textarea = panel.$panel.find('textarea');
+                    panel.$panel.find('.loading').show();
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.close();
+                        panel.$panel.find('.popup_dialog_status').show().prev().hide();
+                        setTimeout( function(){
+                            panel.close();
+                        } , 2000 );
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -297,9 +302,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( isDisabled ) return;
                     isDisabled = true;
 
-                    var textarea = this.$panel.find('textarea');
+                    var textarea = panel.$panel.find('textarea');
+                    panel.$panel.find('.loading').show();
                     api.post("/api/twitte/post", {msg: textarea.val(), uuid: data.uuid}, function (e) {
-                        panel.close();
+                        panel.$panel.find('.popup_dialog_status').show().prev().hide();
+                        setTimeout( function(){
+                            panel.close();
+                        } , 2000 );
                     } , null , function(){
                         isDisabled = false;
                     });
@@ -1407,14 +1416,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             .attr('src' , src || $wrap.find('img').attr('src') );
         }
 
-        var timer = null;
         $(window).resize(function(){
-            clearTimeout( timer );
-            timer = setTimeout(function(){
-                $.each( wraps , function( i , $dom ){
-                    resizeImage( $dom , '' , true );
-                } );
-            } , 100);
+            $.each( wraps , function( i , $dom ){
+                resizeImage( $dom , '' , true );
+            } );
         });
 
         return resizeImage;
@@ -1673,7 +1678,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var $stars = $('.stand_achivmentsbox p');
         var addIndex = 0;
         for( var i = 0 ; i < data.team_star ; i ++ ){
-            if( $stars.eq(i).children().length ) continue;
+            if( $stars.eq(i).hasClass('full-star') ) continue;
             $('<img src="/images/full-star.png" />')
                 .css({
                     width: 100,
@@ -1681,7 +1686,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     marginLeft: -40,
                     opacity: 0
                 })
-                .appendTo( $stars.eq(i) )
+                .appendTo( $stars.eq(i).addClass('full-star').html('<span>' + ( i + 1 ) + '</span>') )
                 .delay(1000 * ( ++addIndex ) )
                 .animate({
                     width: 30,
@@ -1950,7 +1955,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go!' ) + users.join("")} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go! ' ) + users.join("")} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
@@ -2351,19 +2356,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             function callback(){
                 turnImage();
                 $(this).removeAttr('disabled');
-                var width = $('.fuellist').width();
+                var $dom = $('.fuellist');
+                var width = $dom.width();
                 var minWidth = 180;
                 var itemWidth = ~~( width / ~~ ( width / minWidth ) );
-                $('.fuellist').children().width( itemWidth );
+                $dom.children().width( itemWidth );
+                if( $dom.hasClass('isotope') ){
+                    $dom.isotope('destroy');
+                }
                 LP.use('isotope' , function(){
                     // first init isotope , render no animate effect
-                    $('.fuellist')
+                    $dom
                         .isotope({
                             resizable: false
                         });
                     // fix image effect
 
-                });
+                }); 
             }
         });
         return false;
@@ -2606,8 +2615,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     var loadingFiles = {
         'stand': ['raphaeljs' , 'jquery']
     }
+
+    var loadingCallBack = {
+        'teamrace' : function(){
+            sticksCreate();
+        },
+        'race' : function(){
+            trackCreate()
+        }
+    }
 	var initComplete = function(){
 		if(isComplete) return;
+
+        loadingCallBack[ page ] && loadingCallBack[ page ]();
         isComplete = true;
 		$('.loading-wrap').fadeOut(function(){
             $(this).remove();
@@ -2615,6 +2635,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 		/* for animation */
 		var isUglyIe = $.browser.msie && $.browser.version <= 8;
+
 		if(isUglyIe && $('#scheme').length > 0)
 			return;
 		var ANIMATE_NAME = "data-animate";
@@ -2624,7 +2645,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 				var tar = $dom.data('animate');
 				var browser = $dom.data('browser');
 				var style = $dom.data('style');
-				var time = parseInt( $dom.data('time') );
+				var time = parseInt( $dom.data('time') ) || 600;
 				var delay = $dom.data('delay') || 0;
 				var easing = $dom.data('easing');
 				var begin = $dom.data('begin');
@@ -3446,39 +3467,45 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 
             case "monitoring":
               var tweetGroup = $(".tweet-con .tweet-list");
-              var callbackRender = function(index, group) {
-                  for (var i = 0; i < group.length; i++) {
-                    var tweet = {
-                      media: group[i]['user']["avatar"],
-                      date: group[i]["date"],
-                      name: group[i]["user"]["name"],
-                      from: group[i]["from"],
-                      content: group[i]["content"],
-                      uuid: group[i]["uuid"]
-                    };
-                    LP.compile("tweet-item-tpl", tweet, function(html) {
-                      $(".monitor_item").eq(index).children(".monitor_list").append(html);
+              var callbackRender = function(index, groups) {
+                var $panel = $(".monitor_item").eq(index).find(".jspPane").html('');
+                    
+                    $.each(groups , function( i , group ){
+                        var tweet = {
+                          media: group['user']["avatar"],
+                          date: group["date"],
+                          name: group["user"]["name"],
+                          from: group["from"],
+                          content: group["content"],
+                          uuid: group["uuid"]
+                        };
+
+                        LP.compile("tweet-item-tpl", tweet, function(html) {
+                           $(html).appendTo( $panel )
+                                .hide()
+                                .delay( ( i + index ) * 150 )
+                                .slideDown();
+                        });
                     });
-                  }
-                  if (group.length <= 0) {
-                    $(".monitor_item").eq(index).children(".monitor_list").append("<li class='tweet-signle-item clearfix'>empty</li>");
+                  if (groups.length <= 0) {
+                    $panel.append("<li class='tweet-signle-item clearfix'>empty</li>");
                   }
                 }
               api.get("/api/twitte", function (e) {
-                var group1 = e["data"]["web"];
-                callbackRender(0, group1);
-                
-                var group2 = e["data"]["user"];
-                callbackRender(1, group2);
-                
-                var group3 = e["data"]["team"];
-                callbackRender(2, group3);
-                
-                var group4 = e["data"]["topic"];
-                callbackRender(3, group4);
 
                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true})
+                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true});
+                    var group1 = e["data"]["web"];
+                    callbackRender(0, group1);
+                    
+                    var group2 = e["data"]["user"];
+                    callbackRender(1, group2);
+                    
+                    var group3 = e["data"]["team"];
+                    callbackRender(2, group3);
+                    
+                    var group4 = e["data"]["topic"];
+                    callbackRender(3, group4);
                 });
               });
             
@@ -3486,11 +3513,15 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               $(window).resize(function(){
                 var $wrap = $('.monitor_com');
                 var wrapHeight = $wrap.height();
-                // var wrapWidth = $wrap.width();
+                var wrapWidth = $wrap.width();
                 // var minWidth = 250;
                 // var marginRight = 30;
                 var $children = $wrap.find('.monitor_item').height( wrapHeight );
-
+                if( wrapWidth >=  280 * 4 ){
+                    $children.css('margin-bottom' , 0);
+                } else {
+                    $children.css('margin-right' , 30);
+                }
                 // var length = Math.min( wrapWidth / minWidth , 4 );
 
                 // if( wrapWidth minWidth >= 4 ){

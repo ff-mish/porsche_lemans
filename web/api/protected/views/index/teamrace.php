@@ -61,10 +61,4 @@
 </div>
 
 <script type="application/javascript" src="/js/sticks.js"></script>
-<script type="application/javascript">
-    $(function($){
-        sticksCreate(function(){
-        })
-    });
-</script>
   
