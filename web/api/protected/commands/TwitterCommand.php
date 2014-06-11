@@ -92,7 +92,7 @@ class TwitterCommand extends CConsoleCommand {
           $twitteAr->content = $content;
           $twitteAr->uuid = $uuid;
           $twitteAr->type = $type;
-          $twitteAr->is_from_thirdpart = 1;
+          $twitteAr->is_from_thirdpart = 0;
           
           // entities media
           $entities = $status["entities"];
