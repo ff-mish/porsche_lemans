@@ -20,6 +20,9 @@ class IndexController extends Controller {
   }
   
   public function beforeAction($action) {
+    if ($action->id == "video") {
+      return parent::beforeAction($action);
+    }
     // 用户是否登录
     $user = UserAR::crtuser();
     if (!$user && $action->id != "index") {
@@ -192,6 +195,27 @@ class IndexController extends Controller {
     );
     $this->page_name = $params["page_name"];
     $this->render("teamrace", $params);
+  }
+  
+  public function actionVideo() {
+    $request = Yii::app()->getRequest();
+    preg_match("/\d+/i", $request->getUrl(), $matches);
+    $mid = array_shift($matches);
+    
+    $mediaAr = MediaAR::model()->findByPk($mid);
+    if (!$mediaAr) {
+      return $this->redirect("/");
+    }
+    if ($mediaAr->type != MediaAR::MEDIA_VIDEO) {
+      return $this->redirect("/");
+    }
+    
+    $params = array(
+        "page_name" => "fuel"
+    );
+    $this->page_name = $params["page_name"];
+    $params["mediaAr"] = $mediaAr;
+    $this->render("video", $params);
   }
 }
 

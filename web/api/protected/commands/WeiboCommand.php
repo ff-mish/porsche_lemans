@@ -76,28 +76,30 @@ class WeiboCommand extends CConsoleCommand {
   public function actionSearchtag() {
     $weibo_api = $this->weibo_api;
     
-    $ret = $weibo_api->search_topic(Yii::app()->params["search_weibo_topic"], 50);
-    
-    // 在这里我们不做保存工作了，直接发送到远程的接入服务器 (正式服务器)
-    if (!isset($ret["statuses"])) {
-      return print_r($ret);
-    }
-    
-    $service_url = Yii::app()->params["service_url"];
-    $url = $service_url."/api/web/cronnewtwitte";
-    
-    $ch = curl_init($url);
-    
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
-    //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
-    curl_setopt($ch, CURLOPT_HEADER, 0);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
-    curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
-    $response = curl_exec($ch);
-    
-    print_r($response);
+    $page = 4;
+    for ($i = 0; $i < $page; $i++) {
+      $ret = $weibo_api->search_topic(Yii::app()->params["search_weibo_topic"], 50);
 
+      // 在这里我们不做保存工作了，直接发送到远程的接入服务器 (正式服务器)
+      if (!isset($ret["statuses"])) {
+        return print_r($ret);
+      }
+
+      $service_url = Yii::app()->params["service_url"];
+      $url = $service_url."/api/web/cronnewtwitte";
+
+      $ch = curl_init($url);
+
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
+      //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+      curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+      $response = curl_exec($ch);
+
+      print_r($response);
+    }
   }
   
   /**
