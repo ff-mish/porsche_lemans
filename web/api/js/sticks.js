@@ -1,6 +1,6 @@
 function sticksCreate(readyCallback) {
-    var stickMaxHeight = 400, stickWidth = 3, stickPadding = 0.4, fillAniFinished = false;
-    var container;
+    var stickMaxHeight = 420, stickWidth = 3, stickPadding = 0.4, fillAniFinished = false;
+    var container, sidePadding;
     var camera, scene, projector, renderer;
 
     var mouseX = 0, mouseY = 0;
@@ -10,11 +10,11 @@ function sticksCreate(readyCallback) {
 
     var infoSprite;
     var fillPercentValue;
-    var sticksGroup, sticksWidth, selectedStick;
+    var sticksGroup, sticksWidth, focusedStick;
 
     function barHeightCal(distance) {
         var ret = 0;
-        if (distance / 5<=1) ret += Math.sin(distance / 5 * Math.PI) * 3;
+        if (distance / 5<=1) ret += Math.sin(distance / 5 * Math.PI) * 4;
         if ((distance / 5>=0.8))  ret += (distance - 4) * (distance - 4) / 5;
         return ret;
     }
@@ -49,32 +49,37 @@ function sticksCreate(readyCallback) {
 
     function updateInfoBox() {
         if (infoSprite) {
-            infoSprite.visible=selectedStick!=undefined;
-            if (selectedStick) {
-                infoSprite.updateInfo(selectedStick);
+            infoSprite.visible=focusedStick!=undefined;
+            if (focusedStick) {
+                infoSprite.updateInfo(focusedStick);
             }
         }
     }
 
+    function calSidePadding() {
+        var vector0 = new THREE.Vector3( 0, 0, 0.5);
+        projector.unprojectVector(vector0, camera);
+        var vector = new THREE.Vector3( 12, 0, 0.5);
+        projector.unprojectVector(vector, camera);
+
+        sidePadding=vector.x-vector0.x;
+    }
+
     (function () {
-        $.ajax({ url: '/shader/vertex.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (vertexShader) {
-            $.ajax({ url: '/shader/fragment.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (fragmentShader) {
+        $.ajax({ url: 'shader/vertex.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (vertexShader) {
+            $.ajax({ url: 'shader/fragment.glessl', type: "GET", async: true, cache: false, dataType: "text", success: function (fragmentShader) {
                 function init() {
                     container = document.getElementById('container');
                     projector = new THREE.Projector();
                     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
                     renderer.setClearColor(0x000000, 0);
-
-                    var width = window.innerWidth;
-                    var height = window.innerHeight - $('.header').height();
-
-                    renderer.setSize(width, height);
+                    renderer.setSize(window.innerWidth, window.innerHeight);
                     container.appendChild(renderer.domElement);
 
                     scene = new THREE.Scene();
-                    camera = new THREE.PerspectiveCamera(55, width / height, 0.5, 3000000);
+                    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
-                    createInfoSprite({ imageUrl:'/image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
+                    createInfoSprite({ imageUrl:'image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
                         finishCallback:function(sprite) {
                             infoSprite=sprite;
                             scene.add(infoSprite);
@@ -102,7 +107,7 @@ function sticksCreate(readyCallback) {
                         gradientLength: gradientLength,
                         gradientStartOpacity: gradientStartOpacity
                     };
-                    var selectedStickMaterialUniforms =[
+                    var focusedStickMaterialUniforms =[
                         {
                             fillPercent: fillPercentValue,
                             color: { type: "c", value: new THREE.Color(TYPES[0].color) },
@@ -164,9 +169,9 @@ function sticksCreate(readyCallback) {
                                     side: THREE.DoubleSide,
                                     transparent: true
                                 });
-                                var selectedStickMaterial = [
+                                var focusedStickMaterial = [
                                     new THREE.ShaderMaterial({
-                                        uniforms: selectedStickMaterialUniforms[0],
+                                        uniforms: focusedStickMaterialUniforms[0],
                                         attributes: attributes,
                                         vertexShader: vertexShader,
                                         fragmentShader: fragmentShader,
@@ -174,7 +179,7 @@ function sticksCreate(readyCallback) {
                                         transparent: true
                                     }),
                                     new THREE.ShaderMaterial({
-                                        uniforms: selectedStickMaterialUniforms[1],
+                                        uniforms: focusedStickMaterialUniforms[1],
                                         attributes: attributes,
                                         vertexShader: vertexShader,
                                         fragmentShader: fragmentShader,
@@ -189,7 +194,7 @@ function sticksCreate(readyCallback) {
                                 stick.updateMatrix();
                                 stick.userData = stickData;
                                 stick.normalMaterial = normalStickMaterial;
-                                stick.selectedMaterial = selectedStickMaterial[stickData.typeIndex];
+                                stick.selectedMaterial = focusedStickMaterial[stickData.typeIndex];
                                 sticksGroup.add(stick);
                                 sticksWidth = (stickWidth + stickPadding) * stickCount;
                             }
@@ -198,6 +203,7 @@ function sticksCreate(readyCallback) {
                         camera.position.set(0, 35, 43.8);
                         camera.lookAt(new THREE.Vector3(0, 0, -400 / 3));
                         camera.position.setX(stickWidth * 5);
+                        calSidePadding();
 
                         window.addEventListener('resize', onWindowResize, false);
                         document.addEventListener('mousemove', onDocumentMouseMove, false);
@@ -215,30 +221,24 @@ function sticksCreate(readyCallback) {
         function onWindowResize() {
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
-            var width = window.innerWidth;
-            var height = window.innerHeight - $('.header').height();
-            camera.aspect = width / height;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
 
-            renderer.setSize(width, height);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            calSidePadding();
         }
 
-        function focus(event) {
-            if (typeof event.offsetX === "undefined" || typeof event.offsetY === "undefined") {
-                var targetOffset = $(event.target).offset();
-                event.offsetX = event.pageX - targetOffset.left;
-                event.offsetY = event.pageY - targetOffset.top;
-            }
-            var vector = new THREE.Vector3(( event.offsetX / window.innerWidth ) * 2 - 1, -( event.offsetY / window.innerHeight ) * 2 + 1, 0.5);
+        function focus() {
+            var vector = new THREE.Vector3( mouseX / windowHalfX, mouseY / windowHalfY, 0.5);
             projector.unprojectVector(vector, camera);
             var ray = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
             var intersects = ray.intersectObjects(sticksGroup.children);
-            var selectedStick1;
-            if (intersects.length > 0) selectedStick1 = intersects[0].object;
-            if (selectedStick1 != selectedStick) {
-                if (selectedStick1) selectedStick1.material = selectedStick1.selectedMaterial;
-                if (selectedStick) selectedStick.material = selectedStick.normalMaterial;
-                selectedStick = selectedStick1;
+            var focusedStick1;
+            if (intersects.length > 0) focusedStick1 = intersects[0].object;
+            if (focusedStick1 != focusedStick) {
+                if (focusedStick1) focusedStick1.material = focusedStick1.selectedMaterial;
+                if (focusedStick) focusedStick.material = focusedStick.normalMaterial;
+                focusedStick = focusedStick1;
                 updateInfoBox();
 
                 render();
@@ -246,30 +246,21 @@ function sticksCreate(readyCallback) {
         }
 
         function onDocumentMouseMove(event) {
+            if (typeof event.offsetX === "undefined" || typeof event.offsetY === "undefined") {
+                var targetOffset = $(event.target).offset();
+                event.offsetX = event.pageX - targetOffset.left;
+                event.offsetY = event.pageY - targetOffset.top;
+            }
 
-            mouseX = ( event.clientX - windowHalfX );
-            mouseY = -( event.clientY - windowHalfY );
+            mouseX = ( event.offsetX - windowHalfX );
+            mouseY = -( event.offsetY - windowHalfY );
 
-            if (fillAniFinished) focus(event);
+            if (fillAniFinished) focus();
         }
 
         function sign(val) {
             if (val == 0) return 0;
             else return val > 0 ? 1 : -1;
-        }
-
-        function clampAbs(val, abs) {
-            abs = Math.abs(abs);
-            if (Math.abs(val) > abs) val = sign(val) * abs;
-            return val;
-        }
-
-        function calFittingWidth(viewWidth, camera, distance) {
-            /*
-            var fovHorizontal = Math.radToDeg(Math.atan(distance*Math.tan(Math.degToRad(camera.fov)/2)*camera.aspect/distance)*2);
-            return viewWidth+distance*Math.tan(Math.degToRad(fovHorizontal)/2)*2;
-            */
-            return viewWidth+distance*(Math.tan(Math.degToRad(camera.fov)/2)*camera.aspect)*2;
         }
 
         function animate() {
@@ -286,7 +277,8 @@ function sticksCreate(readyCallback) {
             if (Math.abs(mouseX) - windowHalfX * 0.1 > 0) {
                 var sgn=sign(mouseX);
                 var d=(Math.abs(mouseX) - windowHalfX * 0.1)/(windowHalfX*0.9);
-                scrollSpeedAcc = sgn*d*d*d*10;
+                scrollSpeedAcc = sgn*d*4;
+                if (sign(scrollSpeedAcc)!=sign(scrollSpeed)) scrollSpeed=0;
             } else {
                 scrollSpeedAcc = 0;
             }
@@ -296,8 +288,9 @@ function sticksCreate(readyCallback) {
             else if (Math.abs(scrollSpeed) > scrollSpeedMax) scrollSpeed = sign(scrollSpeed) * scrollSpeedMax;
 
             var cameraX = camera.position.x + scrollSpeed;
-            if (cameraX<0) cameraX=0;
-            else if (cameraX>sticksWidth) cameraX = sticksWidth;
+
+            if (cameraX<sidePadding) cameraX=sidePadding;
+            else if (cameraX>sticksWidth-sidePadding) cameraX = sticksWidth-sidePadding;
             camera.position.x += ( cameraX - camera.position.x ) * 0.1;
 
             render();

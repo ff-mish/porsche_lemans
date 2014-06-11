@@ -26,8 +26,3 @@ div#hud p {
     color: white;
     font-family: 'Porsche News Gothic', '黑体', 'sans-serif';
 }
-
-div#hud p.title {
-    font-size: xx-large;
-    margin-bottom:100px;
-}

@@ -1,25 +1,15 @@
 function trackCreate(readyCallback) {
     var container;
     var camera, scene, projector, renderer, clock;
-    var cameraMap, sceneMap, rendererMap;
-    var cameraLookAtPosition = new THREE.Vector3(0, 0, 0);
-    var cameraUpAdd = new THREE.Vector3(0, 0, 0);
-    var mouseX = 0, mouseY = 0, radius;
+    var trackWidth, trackHeight, trackPadding=100;
     var windowHalfX = window.innerWidth / 2;
     var windowHalfY = window.innerHeight / 2;
-
-    var mapPadding = 100;
-
-    var mapCarSize = 30;
-    var pathSegments = 1500;
+    var pathSegments = 1000;
     var trackPathSplineCurve3, trackOffset=new THREE.Vector3(0,0,0), trackLength, trackLengthRealM, trackLengthRatioToReal;
-    var meshMapRed, meshMapBlue;
     var meshTrack, meshCarRed, meshCarBlue;
     var carLength=50, carSegments=50, carLenSeg=carLength/carSegments;
     var carsGroup, selectedCar;
     var infoSprite;
-    var spriteMaterial;
-    var sideShiftPercents;
 
     function modPercent(percent) {
         while (percent > 1) percent--;
@@ -51,13 +41,8 @@ function trackCreate(readyCallback) {
         return getTangentByPercent(distance / trackLength);
     }
 
-    function setMapPosition(car) {
-        car.position.copy(getPositionByDistance(car.userData.distance));
-    }
-
 
     var carStepFactor = 0.1; //彩带平滑系数
-    var calShiftDelta = 10; //交叉长度系数
 
     function clamp(val, a, b) {
         if (val <= a) return a;
@@ -65,24 +50,14 @@ function trackCreate(readyCallback) {
         else return val;
     }
 
-    function calSideShift(percent) {
-        var shift = 1;
-        for (var i = 0; i < sideShiftPercents.length; i++) {
-            if (percent >= sideShiftPercents[i]) {
-                shift = (i % 2 == 0 ? 1 : -1) * Math.cos(clamp((percent - sideShiftPercents[i]) * calShiftDelta, 0, Math.PI));
-            }
-        }
-        return shift;
-    }
-
     function seTrackPosition(car, smooth) {
         if (smooth === undefined) smooth = true;
         for (var i = 0; i < car.geometry.vertices.length; i += 3) {
-            var d = car.userData.distance - carLenSeg*i/3*(1+car.userData.faster*0.2);
+            var d = car.userData.distance - carLenSeg*i/3*(5+car.userData.faster*0.2);
             var p = getPositionByDistance(d);
             var t = getTangentByDistance(d);
-            var side = t.cross(new THREE.Vector3(0, 1, 0));
-            var offset = side.clone().multiplyScalar(car.userData.sideOffset * calSideShift(modPercent(d / trackLength) * 50));
+            var side = t.cross(new THREE.Vector3(0, 10, 0));
+            var offset = side.clone().multiplyScalar(car.userData.sideOffset*1.6);
             var v = car.geometry.vertices[i + 2];
             var p1 = p.clone().add(offset).add(side.clone().multiplyScalar(2));
             if (smooth) v.add(p1.sub(v).multiplyScalar(carStepFactor));
@@ -103,8 +78,7 @@ function trackCreate(readyCallback) {
         updateInfoBox();
     }
 
-    function setCarDistance(map, car, smooth) {
-        setMapPosition(map);
+    function setCarDistance(car, smooth) {
         seTrackPosition(car, smooth);
     }
 
@@ -125,7 +99,7 @@ function trackCreate(readyCallback) {
                 context.drawImage(image,0,height*TYPES[car.userData.typeIndex].bgOffsetV,width,height/2,0,0,width,height/2);
                 if (params.drawCallback) params.drawCallback(context, car.userData);
                 texture.needsUpdate = true;
-                var v = car.localToWorld(car.geometry.vertices[1].clone());
+                var v = car.localToWorld(car.geometry.vertices[1].clone().setY(100));
                 this.position.copy(v);
                 this.scale.copy(infoSprite.scale0).multiplyScalar(camera.position.distanceTo(v)*params.fixedScaleFactor);
             };
@@ -148,9 +122,7 @@ function trackCreate(readyCallback) {
     }
 
     (function() {
-        $.ajax({ url: 'data/track.json', type: "GET", async: true, cache: false, dataType: "json", success: function (track) {
-            var cameraFollowConf = track.cameraFollow, cameraFollowIndex = 0;
-            sideShiftPercents = track.sideShiftPercents;
+        $.ajax({ url: 'data/mobile.json', type: "GET", async: true, cache: false, dataType: "json", success: function (track) {
             var svgFile = track.svgFile;
             if (svgFile[0] !== '/') svgFile = 'data/' + svgFile;
             $.ajax({ url: svgFile, type: "GET", async: true, cache: false, dataType: "xml", success: function (svgDoc) {
@@ -163,28 +135,20 @@ function trackCreate(readyCallback) {
                         function init() {
                             container = document.getElementById('container');
                             projector = new THREE.Projector();
-                            renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+                            renderer = new THREE.CanvasRenderer({alpha: true});
                             renderer.setClearColor(0x000000, 0);
                             renderer.setSize(window.innerWidth, window.innerHeight);
                             container.appendChild(renderer.domElement);
 
                             scene = new THREE.Scene();
-                            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
                             clock = new THREE.Clock();
 
                             var path = transformSVGPath(pathstr);
-                            var length = path.getLength();
-                            var slopesVertices = [];
-                            for (var i in track.slopes) {
-                                var slope = track.slopes[i];
-                                slopesVertices.push(new THREE.Vector3(slope.percent / 100 * length, slope.offset * track.slopeScale, 0));
-                            }
-                            slopePathSplineCurve3 = new THREE.ClosedSplineCurve3(slopesVertices);
                             var vectices2D = path.getSpacedPoints(pathSegments, true);
                             var vertices = [];
                             for (var i = 0; i < vectices2D.length; i++) {
-                                vertices.push(new THREE.Vector3(vectices2D[i].x, slopePathSplineCurve3.getPointAt(i / vectices2D.length).y/*?*/, vectices2D[i].y));
+                                vertices.push(new THREE.Vector3(vectices2D[i].x, 0, vectices2D[i].y));
                             }
 
                             trackPathSplineCurve3 = new THREE.ClosedSplineCurve3(vertices);
@@ -199,7 +163,7 @@ function trackCreate(readyCallback) {
                                 var d = trackLenSeg * i / 2;
                                 var p = getPositionByDistance(d);
                                 var t = getTangentByDistance(d);
-                                var side = t.cross(new THREE.Vector3(0, 1, 0));
+                                var side = t.cross(new THREE.Vector3(0, track.trackWidth, 0));
                                 var offset = side.clone().multiplyScalar(3);
                                 var v = trackGeometry.vertices[i + 1];
                                 v.addVectors(p, offset);
@@ -210,6 +174,7 @@ function trackCreate(readyCallback) {
                             trackGeometry.computeBoundingSphere();
                             trackGeometry.computeBoundingBox();
                             trackOffset = trackGeometry.boundingSphere.center.clone().negate();
+                            console.log(trackOffset)
 
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
@@ -224,113 +189,47 @@ function trackCreate(readyCallback) {
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
 
-                            sceneMap = new THREE.Scene();
-                            var mapGeometry = new THREE.PlaneGeometry(5 + 2, trackLength, 1, pathSegments);
-                            var trackLenSeg = trackLength / pathSegments;
-                            for (var i = 0; i < mapGeometry.vertices.length; i += 2) {
-                                var d = trackLenSeg * i / 2;
-                                var p = getPositionByDistance(d);
-                                var t = getTangentByDistance(d);
-                                var side = t.cross(new THREE.Vector3(0, 3, 0));
-                                var offset = side.clone().multiplyScalar(3);
-                                var v = mapGeometry.vertices[i + 1];
-                                v.addVectors(p, offset);
-                                var v = mapGeometry.vertices[i];
-                                v.addVectors(p, offset.negate());
-                            }
-                            mapGeometry.verticesNeedUpdate = true;
-                            mapGeometry.computeBoundingSphere();
-                            mapGeometry.computeBoundingBox();
-                            var mapOffset = mapGeometry.boundingSphere.center.clone().negate();
-                            meshMap = new THREE.Mesh(
-                                mapGeometry,
-                                new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide })
-                            );
-                            var bb = mapGeometry.boundingBox;
-                            var x0 = bb.max.x - bb.min.x + mapPadding * 2;
-                            var z0 = bb.max.z - bb.min.z + mapPadding * 2;
-                            var y0 = bb.max.y - bb.min.y + mapPadding * 2;
-                            var w = 200, h = z0 / x0 * w;
-                            meshMap.position.add(mapOffset);
-                            meshMap.matrixAutoUpdate = false;
-                            meshMap.updateMatrix();
-                            sceneMap.add(meshMap);
-                            map = document.getElementById('map');
-                            rendererMap = new THREE.WebGLRenderer({alpha: true, antialias: true});
-                            rendererMap.setClearColor(0x000000, 0);
-                            rendererMap.setSize(w, h);
-                            map.appendChild(rendererMap.domElement);
-                            cameraMap = new THREE.OrthographicCamera(x0 / -2, x0 / 2, z0 / 2, z0 / -2, -500, 2000);
-                            cameraMap.position.set(0, 1000, 0);
-                            cameraMap.up.set(0, 0, -1);
-                            cameraMap.lookAt(new THREE.Vector3(0, 0, 0));
-
-                            meshMapRed = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize), new THREE.MeshBasicMaterial({color: 0xff0000}));
-                            meshMapRed.position.set(0, 100, 0);
-                            meshMapRed.userData = redCarData;
-                            sceneMap.add(meshMapRed);
-
-                            meshMapBlue = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize), new THREE.MeshBasicMaterial({color: 0x0000ff}));
-                            meshMapBlue.position.set(0, 100, 0);
-                            meshMapBlue.userData = blueCarData;
-                            sceneMap.add(meshMapBlue);
-
-                            var trackTexture = THREE.ImageUtils.loadTexture('image/track.png?' + (new Date()).getTime());
-                            trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
-                            trackTexture.repeat.set(1, 50);
-
-                            meshTrack = new THREE.Mesh(
-                                trackGeometry,
-                                new THREE.MeshBasicMaterial({
-                                    transparent: true, opacity: 1, side: THREE.DoubleSide,
-                                    map: trackTexture
-                                })
-                            );
+                            meshTrack = new THREE.Mesh( trackGeometry, new THREE.MeshBasicMaterial({side: THREE.BackSide, overdraw:0.5}));
+                            meshTrack.geometry.computeBoundingBox();
                             meshTrack.geometry.computeBoundingSphere();
                             meshTrack.position.add(trackOffset);
+                            //meshTrack.rotation.y=track.rotate/180*Math.PI;//
                             meshTrack.matrixAutoUpdate = false;
                             meshTrack.updateMatrix();
                             scene.add(meshTrack);
 
-                            radius = meshTrack.geometry.boundingSphere.radius;
+                            var trackBoundingBox=meshTrack.geometry.boundingBox;
+                            trackWidth=trackBoundingBox.max.x-trackBoundingBox.min.x;
+                            trackHeight=trackBoundingBox.max.z-trackBoundingBox.min.z;
 
-                            var circleGeometry1 = new THREE.CircleGeometry(radius * 3, 50);
-                            circleGeometry1.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-                            circleGeometry1.vertices.shift();
-                            var meshCircle1 = new THREE.Line(circleGeometry1, new THREE.LineBasicMaterial({ color: 0x999999 }));
-                            meshCircle1.position.add(trackOffset);
-                            meshCircle1.matrixAutoUpdate = false;
-                            meshCircle1.updateMatrix();
-                            scene.add(meshCircle1);
-                            var circleGeometry2 = circleGeometry1.clone();
-                            circleGeometry2.applyMatrix(new THREE.Matrix4().makeTranslation(0, 20, 0));
-                            var meshCircle2 = new THREE.Line(circleGeometry2, new THREE.LineBasicMaterial({ color: 0xffffff }));
-                            meshCircle2.position.add(trackOffset);
-                            meshCircle2.matrixAutoUpdate = false;
-                            meshCircle2.updateMatrix();
-                            scene.add(meshCircle2);
+                            var w=window.innerWidth-trackPadding* 2, h=window.innerHeight-trackPadding*2;
+                            var d=Math.min(w/trackWidth, h/trackHeight);
+                            camera = new THREE.OrthographicCamera(w/d/-2-trackPadding/d, w/d/2+trackPadding/d, h/d/2+trackPadding/d, h/d/-2-trackPadding/d, -500, 2000);
+                            camera.position.set(0, 1000, 0);
+                            camera.up.set(0, 0, -1);
+                            camera.lookAt(new THREE.Vector3(0, 0, 0));
 
                             carsGroup = new THREE.Object3D;
                             scene.add(carsGroup);
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
                             meshCarRed = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-red.png?' + (new Date()).getTime())}));
+                                map: THREE.ImageUtils.loadTexture('image/car-red-mobile.png?' + (new Date()).getTime())}));
                             meshCarRed.frustumCulled = false;
                             meshCarRed.position.set(0, 1, 0);
                             meshCarRed.matrixAutoUpdate = false;
                             meshCarRed.updateMatrix();
                             meshCarRed.userData = redCarData;
-                            setCarDistance(meshMapRed, meshCarRed, false);
+                            setCarDistance(meshCarRed, false);
                             carsGroup.add(meshCarRed);
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
                             meshCarBlue = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-blue.png?' + (new Date()).getTime())}));
+                                map: THREE.ImageUtils.loadTexture('image/car-blue-mobile.png?' + (new Date()).getTime())}));
                             meshCarBlue.frustumCulled = false;
                             meshCarBlue.position.set(0, 1.2, 0);
                             meshCarBlue.userData = blueCarData;
-                            setCarDistance(meshMapBlue, meshCarBlue, false);
+                            setCarDistance(meshCarBlue, false);
                             carsGroup.add(meshCarBlue);
 
                             createInfoSprite({ imageUrl: 'image/track-infobox.png?' + (new Date()).getTime(), opacity: 0.86, size: 15, fixedScaleFactor: 0.015,
@@ -355,34 +254,6 @@ function trackCreate(readyCallback) {
                                 }
                             });
 
-                            var canvas = document.createElement("canvas");
-                            canvas.width = canvas.height = 20;
-                            var texture = new THREE.Texture(canvas);
-                            var context = canvas.getContext("2d");
-                            var s = 20, w = 1;
-                            context.lineWidth = w;
-                            context.lineJoin = "miter";
-                            context.strokeStyle = 'white';
-                            context.beginPath();
-                            context.moveTo(w, w);
-                            context.lineTo(s - w, w);
-                            context.lineTo(s - w, s - w);
-                            context.lineTo(w, s - w);
-                            context.closePath();
-                            context.stroke();
-                            texture.needsUpdate = true;
-
-                            spriteMaterial = new THREE.SpriteMaterial({ opacity: 0.6, map: texture });
-                            for (var i = 0; i < track.particle.count; i++) {
-                                var particle = new THREE.Sprite(spriteMaterial);
-                                particle.position.copy(getPositionByPercent(i / track.particle.count)).add(new THREE.Vector3((Math.random() - 0.5) * 100, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 100));
-                                particle.scale.multiplyScalar(0.5 + Math.random() * 0.3);
-                                scene.add(particle);
-                            }
-
-                            camera.position.set(cameraFollowConf.initPosition.x, cameraFollowConf.initPosition.y, cameraFollowConf.initPosition.z);
-                            camera.lookAt(getPositionByPercent(0));
-
                             window.addEventListener('resize', onWindowResize, false);
                             document.addEventListener('mousemove', onDocumentMouseMove, false);
                             document.addEventListener('click', onDocumentClick, false);
@@ -395,7 +266,13 @@ function trackCreate(readyCallback) {
                         function onWindowResize() {
                             windowHalfX = window.innerWidth / 2;
                             windowHalfY = window.innerHeight / 2;
-                            camera.aspect = window.innerWidth / window.innerHeight;
+
+                            var w=window.innerWidth-trackPadding* 2, h=window.innerHeight-trackPadding*2;
+                            var d=Math.min(w/trackWidth, h/trackHeight);
+                            camera.left=w/d/-2-trackPadding/d;
+                            camera.right=w/d/2+trackPadding/d;
+                            camera.top=h/d/2+trackPadding/d;
+                            camera.bottom=h/d/-2-trackPadding/d;
                             camera.updateProjectionMatrix();
 
                             renderer.setSize(window.innerWidth, window.innerHeight);
@@ -420,35 +297,18 @@ function trackCreate(readyCallback) {
 
                                 //render();
                             }
+                            var intersects = ray.intersectObject(meshTrack);
+                            if (intersects.length > 0) console.log('track');
+                            var intersects = ray.intersectObjects(scene.children,true);
+                            if (intersects.length > 0) console.log(intersects[0].object.name);
                         }
 
                         function onDocumentMouseMove(event) {
-
-                            mouseX = ( event.clientX - windowHalfX );
-                            mouseY = -( event.clientY - windowHalfY );
-
                             focus(event);
                         }
 
                         function onDocumentClick(event) {
-                            cameraFollowIndex = (cameraFollowIndex + 1) % cameraFollowConf.locations.length;
-                        }
-
-                        function cameraFollowPosition(targetDistance) {
-                            var cameraLocation = cameraFollowConf.locations[cameraFollowIndex];
-                            var cameraPosition = getPositionByDistance(targetDistance + cameraLocation.distance);
-                            if (cameraLocation.height) cameraPosition.y += cameraLocation.height;
-                            return cameraPosition;
-                        }
-
-                        function cameraFollow(distance) {
-                            var cameraLookTarget = getPositionByDistance(distance).add(cameraUpAdd);
-                            cameraLookAtPosition.add(cameraLookTarget.sub(cameraLookAtPosition).multiplyScalar(cameraFollowConf.lookAtFactor));
-                            var cameraPos = cameraFollowPosition(distance);
-                            camera.position.add(cameraPos.sub(camera.position).multiplyScalar(cameraFollowConf.followFactor));
-                            camera.lookAt(cameraLookAtPosition);
-                            var up = new THREE.Vector3(mouseX / windowHalfX, 1, 0);
-                            camera.up.add(up.sub(camera.up).multiplyScalar(0.05));
+                            //focus(event);
                         }
 
                         function animate() {
@@ -460,9 +320,8 @@ function trackCreate(readyCallback) {
                             meshCarBlue.userData.distance += delta * meshCarBlue.userData.speed;
                             meshCarBlue.userData.distance1 += delta * meshCarBlue.userData.speed;
                             meshCarBlue.userData.lap = meshCarBlue.userData.lap0 + Math.floor(meshCarBlue.userData.distance1 / trackLength);
-                            setCarDistance(meshMapRed, meshCarRed);
-                            setCarDistance(meshMapBlue, meshCarBlue);
-                            var followDistance;
+                            setCarDistance(meshCarRed);
+                            setCarDistance(meshCarBlue);
                             if (Math.max(meshCarRed.userData.distance > meshCarBlue.userData.distance)) {
                                 followDistance = meshCarRed.userData.distance;
                                 meshCarRed.userData.rankings = 1;
@@ -479,15 +338,12 @@ function trackCreate(readyCallback) {
                                 meshCarRed.userData.faster = 0;
                                 meshCarBlue.userData.faster = 1;
                             }
-                            cameraFollow(followDistance);
-                            spriteMaterial.rotation = (-clock.getElapsedTime() * Math.PI * 1.5);
 
                             render();
                         }
 
                         function render() {
                             renderer.render(scene, camera);
-                            rendererMap.render(sceneMap, cameraMap);
                         }
 
                         init();
