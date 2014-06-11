@@ -389,7 +389,7 @@ function trackCreate(readyCallback) {
 
                             window.addEventListener('resize', onWindowResize, false);
                             document.addEventListener('mousemove', onDocumentMouseMove, false);
-                            document.addEventListener('click', onDocumentClick, false);
+                            container.addEventListener('click', onDocumentClick, false);
 
                             animate();
 

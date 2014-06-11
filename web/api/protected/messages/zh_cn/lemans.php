@@ -45,7 +45,7 @@ return array (
     "Share" => "分享",
     "Legal Notice" => "法律公告",
 	"PORSCHE_LINK" => "http://www.porsche.com/china/zh/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
-	"JOIN_NOW" => "现在就注册参加 <span>24</span> 小时社交耐力赛。<br>以微博之名，助力勒芒竞赛！<br>冠军队伍将会获得 <span>LMP</span> 比赛独家之旅，<br>并一睹 <span>Porsche</span> 传奇赛车 <span>919 Hybrid</span> 风采的机会。",
+	"JOIN_NOW" => "现在就注册参加 <span>24</span> 小时社交耐力赛。<br>以微博之名，助力勒芒竞赛！<br>冠军队伍将会获得 <span>WEC</span> 赛事独家之旅，<br>并一睹 <span>Porsche</span> 传奇赛车 <span>919 Hybrid</span> 风采的机会。",
 	"Porsche #24SocialRace" => "Porsche #勒芒社交耐力赛#",
     "Leave Team" => "离开队伍",
     "Next" => "下一步",
@@ -61,7 +61,7 @@ return array (
     "tutorial_step_1" => "欢迎来到第一个在微博和推特之间进行的 24 小时社交网络竞赛。以微博之名，助力勒芒竞赛！<br/><br/>这里是比赛准备室，在这里你可以了解团队在比赛过程中的实时数据。<br/><br/>首先请为你的团队起一个名字。",
     "tutorial_step_2" => "这一部分是你的团队情况概览，包括：团队名称、每小时发送的微博（推特）数和粉丝数。<br><br>你亦可邀请其他车手加入你的团队，增加你的获胜机率。",
     "Join the race and create your team now" => "立刻参加比赛，打造你的团队！",
-    "race_description" => "冠军队伍将赢得 LMP 赛事（奥斯汀站或上海站）的专属 VIP 之旅，更有机会一睹 Porsche 传奇赛车 919 Hybrid 的风采。本次 VIP 之旅包含经济舱机票，VIP 通行证，Porsche 豪华款待，并获得与一位 Porsche 车手的会面以及参观 Porsche LMP1 车库的机会。<br />了解<a href='javascript:;' data-a='legal-mentions'>网站条款</a>",
+    "race_description" => "冠军队伍将赢得 WEC 赛事 LMP 组（奥斯汀站或上海站）的专属 VIP 之旅，更有机会一睹 Porsche 传奇赛车 919 Hybrid 的风采。本次 VIP 之旅包含经济舱机票，VIP 通行证，Porsche 豪华款待，并获得与一位 Porsche 车手的会面以及参观 Porsche LMP1 车库的机会。<br />了解<a href='javascript:;' data-a='legal-mentions'>网站条款</a>",
 	"Legal_Notice_Content" => "<p><strong>使用本网站的条款和条件。</strong><strong> </strong></p>
 <p>本文件列明您使用本网站的义务、责任和条款，请仔细阅读。作为您查阅和使用本网站以及相互的承诺为代价，您同意和确认以下条文： </p>
 <p><strong>1</strong> 本网站由保时捷股份公司(Dr. Ing. h.c. F. Porsche Aktiengesellschaft) （&ldquo;<strong>保时捷</strong>&rdquo;）拥有，并由Fred &amp; Farid (&ldquo;<strong>FF</strong>&rdquo;)维护。您在查阅和使用本网站时，受以下条款和条件（&ldquo;<strong>条款</strong>&rdquo;）规限，您应仔细阅读并确保完全理解和遵守条款。您必须年满18岁才可参加比赛。您必不可以与保时捷有任何联系（无论直接或间接）, 不论为其雇员、顾问或服务提供者的身份，，也必不可身为此等人士的直系亲属以符合获奖资格。在使用本网站時，您需确认您理解并同意在法律上受这些条款约束，且根据条款, 符合参赛资格。如果您不接受这些条款中的任何条款<u>或者</u>不符合年龄条件，您不获授权使用本网站。&ldquo;<strong>使用</strong>&rdquo;一词的涵义，包括但不限于任何直接或间接查阅本网站，或者与本网站互动，或者与本网站交换数据，包括参加比赛。 </p>

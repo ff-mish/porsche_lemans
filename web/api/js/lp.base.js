@@ -158,6 +158,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";  
         return  bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM;
     })();
+    var isIpad = navigator.userAgent.toLowerCase().match(/ipad/i);
     var isMobile = $(window).width() <= 640 || isMobileBrowser;
     if( isMobile ){
         $(window).load(function(){
@@ -696,7 +697,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 //     'A' , ~~r , ' ' , ~~r , ' 0 ' , per > 0.5 ? 0 : 1 , ' 1 ' ,  ~~(width/2) , ' ' , 0 
                 // ].join("");
 
-                // console.log( p );
                 // path.attr('path' , p);
                 
                 questionTimerInitTimer = setTimeout( drawCircle , 1000 / 60 );
@@ -1372,10 +1372,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 //                    globalVideos[index] = myVideo.bufferedPercent();
 //                } , 100 );
 
-//console.log( myVideo.bufferedPercent() );
                 // var timer = setInterval( function(){
 
-                //     console.log( myVideo.bufferedPercent() );
                 //     return;
                 //     if( myVideo.bufferedPercent() > 0.9 ){
                 //         myVideo.play();
@@ -1615,7 +1613,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         //     videojs.options.flash.swf = "./js/video-js.swf";
         //     var myVideo = videojs("bg_video_1", { "controls": false, "autoplay": true, "preload": "auto","loop": true, "children": {"loadingSpinner": false} } , function(){
         //       // Player (this) is initialized and ready.
-        //       console.log( this);
         //     });
 
         //     $(window).resize(function(){
@@ -1631,7 +1628,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         //             vw = w;
         //         }
 
-        //         console.log( myVideo );
         //         myVideo.dimensions( vw , vh );
 
         //         $('#bg_video_1').css({
@@ -2937,49 +2933,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 			}
 		});
 
+
         // fix Q & A
-        !!(function(){
+        if( $(document.body).data('page') != 'index' ){
+        setInterval(function(){
             // ban qa
             var now  = new Date();
 
+
             var cookieTimes = [];
             var qaCookie = LP.getCookie( "__QA__") ;
-            if( qaCookie ){
-                cookieTimes = qaCookie.split(",");
-                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
-            }
-
-            // deal current hour
-            var atimes = 0;
-            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
-                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
-                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
-                    atimes++;
-                }
-                break;
-            }
-
-
-            var minutes = 60 - now.getMinutes();
-            var maxtimes = 3;
-
-            var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
-            times = Math.min( times , maxtimes - atimes );
-            var sep = 10; // minutes
-            var eachRuntime = ( minutes - times * sep ) / times ;
-            var lastTime = 0;
-            var getNextTime = function( ){
-                if( qtimes < times ){
-                    return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
-                } else {
-                    return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
-                }
-            }
+            var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
             var showQa = function(){
                 cookieTimes.push( + new Date() );
                 LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+                LP.removeCookie( "__NQA__" );
 
-                qtimes++;
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
 
@@ -3026,15 +2995,101 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         }
                     });
                 });
-                setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+                //setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
             }
-            var qtimes = 0;
-            setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
+            if( qaCookie ){
+                cookieTimes = qaCookie.split(",");
+                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
+            }
+
+            // deal current hour
+            var atimes = 0;
+            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
+                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
+                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
+                    atimes++;
+                }
+                break;
+            }
+
+            var lastMinute = new Date( parseInt( cookieTimes[ cookieTimes.length - 1 ] ) ).getMinutes();
+            var currentMinute = now.getMinutes();
+
+            if( nextQa ){
+                if( now - nextQa < 3 * 60 * 1000 && now - nextQa > 0 ){ // show qa
+                    showQa();
+                }
+
+                if( now - nextQa > 10 * 60 * 1000 ){
+                    LP.removeCookie('__NQA__');
+                }
+            } else {
+                var t = 0;
+                switch( atimes ){
+                    case 0:
+                        if( currentMinute < 5 ){
+                            t = 5;
+                            t = (+now) + ~~(( Math.random() * t ) * 60 * 1000);
+                        } else if( currentMinute < 20 && currentMinute > 10 ){
+                            cookieTimes.push( + new Date() );
+                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+                            t = 10;
+                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+                        } else if( currentMinute > 30 && currentMinute < 45 ){
+                            cookieTimes.push( + new Date() );
+                            cookieTimes.push( + new Date() );
+                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+                            t = 15;
+                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+                        }
+                        break;
+                    case 1:
+                        if( currentMinute < 20 && currentMinute > 10 ){
+                            t = 10;
+                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+                        } else if( currentMinute > 30 && currentMinute < 45 ){
+                            cookieTimes.push( + new Date() );
+                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+                            t = 15;
+                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+                        }
+                        break;
+                    case 2:
+                        if( currentMinute > 30 && currentMinute < 45 ){
+                            t = 15;
+                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+                        }
+                        break;
+                }
+                if( t > 0 ){
+                    LP.setCookie( "__NQA__" , t , 30 * 60 , '/' );
+                }
+            }
+
+            // var minutes = 60 - now.getMinutes();
+            // var maxtimes = 3;
+
+            // var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
+            // times = Math.min( times , maxtimes - atimes );
+            // var sep = 10; // minutes
+            // var eachRuntime = ( minutes - times * sep ) / times ;
+            // var lastTime = 0;
+            // var getNextTime = function( ){
+            //     if( qtimes < times ){
+            //         return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
+            //     } else {
+            //         return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
+            //     }
+            // }
+            
+            // var qtimes = 0;
+            // setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
 
             if( LP.parseUrl().params.__qa ){
                 showQa();
             }
-        })();
+        } , 1000 * 30 );
+        }
 
 
         // render mobile video
@@ -3061,12 +3116,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
 			$(window).bind('orientationchange', function() {
 				var orientation = window.orientation;
-				if ( orientation != 0 && orientation !== undefined ) {
-					$('.turnphone').show();
-				} else {
-					$('.turnphone').hide();
-				}
+                if(isIpad) {
+                    if ( orientation != 0 && orientation != 180 && orientation !== undefined ) {
+                        $('.turnphone').hide();
+                    } else {
+                        $('.turnphone').show();
+                    }
+                }
+				else {
+                    if ( orientation != 0 && orientation != 180 && orientation !== undefined ) {
+                        $('.turnphone').show();
+                    } else {
+                        $('.turnphone').hide();
+                    }
+                }
 			});
+
+            $(window).trigger('orientationchange');
 
 
             // no Monitoring
@@ -3192,7 +3258,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 break;
                 
               case "stand":
-                if( isMobile ){
+                if( isMobile && !isIpad ){
                     setTimeout(function(){
                         if( parseInt($('.nav').css('left')) == 0 ){
                             LP.triggerAction('show-menu');
