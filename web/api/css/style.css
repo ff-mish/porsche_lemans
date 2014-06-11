@@ -146,7 +146,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .kv_share{background: url('../images/kv_share.png') no-repeat;width: 300px;height: 130px;margin: 318px auto 0;}
 
 /*monitor*/
-.monitor{position: absolute;top: 70px;left:250px;right: 20px;bottom: 40px;overflow: hidden;}
+.monitor{position: absolute;top: 70px;left:250px;right: 0px;bottom: 40px;overflow: hidden;}
 .monitor_tit{font-size: 25px;color:#ddd;line-height: 30px;height: 55px;}
 .monitor_com{position: absolute;top: 55px;bottom: 0;padding: 0;overflow: auto; width: 100%; }
 .monitor_item{position: relative; float: left;width: 250px;background: #000;margin:0 30px 0 0; margin-bottom: 30px;
