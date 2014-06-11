@@ -3087,9 +3087,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // var qtimes = 0;
             // setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
 
-            if( LP.parseUrl().params.__qa ){
-                showQa();
-            }
+            // if( LP.parseUrl().params.__qa ){
+            //     showQa();
+            // }
         } , 1000 * 30 );
         }
 
