@@ -57,15 +57,17 @@ class TwitteController extends Controller {
     // 自己系统发的一个微博
     $from = $request->getPost("from", "web");
     if ($from == "web") {
-      // Weibo 
+      // Weibo
       $host = parse_url(Yii::app()->getBaseUrl(TRUE), PHP_URL_HOST);
       if ($user->from == UserAR::FROM_WEIBO) {
         $weibo_api = new SinaWeibo_API(WB_AKEY, WB_SKEY, UserAR::token());
         $short_urls = $weibo_api->short_url_shorten("http://". $host);
-        $msg = Yii::app()->params["topic"]." ". $msg. " ". $short_urls["urls"][0]["url_short"];
+        $short_url = "http://por.sc/24";
+        $msg = Yii::app()->params["topic"]." ". $msg. " ". $short_url;
       }
       else {
-        $short_url = Yii::app()->shorturl->shorten("http://". $host);
+        //$short_url = Yii::app()->shorturl->shorten("http://". $host);
+        $short_url = "http://por.sc/24";
         $msg = Yii::app()->params["topic"]. " ". $msg .' '.$short_url;
       }
     }
