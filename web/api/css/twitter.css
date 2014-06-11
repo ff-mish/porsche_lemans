@@ -54,6 +54,9 @@ a:hover{color:#065be0;}
   color: #065be0;
 }
 
+.popup_dun{background: url(../images/dun_t.png) no-repeat;}
+.popup_dialog_options label {background:url(../images/qa_option_t.png) no-repeat;}
+
 
 .race_navitemon{background: url('../images/race_nav_t.png') no-repeat 10px -100px;}
 

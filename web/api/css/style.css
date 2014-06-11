@@ -255,6 +255,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .stand_tweetitem{font-size: 14px;float: left;width: 220px;padding:0 70px;}
 .stand_chart{width: 540px;height: 510px;position: absolute;right: 0;top: 0;padding-top:25px;}
 .stand_add{width: 40px;height: 40px;top:20px !important; left: 1032px;background:url('../images/stand_add.png') no-repeat;cursor: pointer;position: relative;float: left;left: 20px;z-index: 1;}
+.stand_add:hover{background:url('../images/stand_add2.png') no-repeat;}
 .stand_add.disabled{background:url('../images/stand_add2.png') no-repeat;}
 
 .stand_posts_p1 {margin-top:10px;}
@@ -1129,13 +1130,14 @@ body .stand_tweet .conut_down_wrap{left: 30%; margin-left: 9px !important; heigh
 div.stand_postsbox {
     font-size: 11px;
     float: left;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     line-height: 1.5em;
     word-wrap: break-word;
     zoom : 1;
 }
 .lang-en div.stand_postsbox{font-size: 12px;}
-.stand_tweet h2{width: 30% !important;margin-right: 10px;}
+.stand_tweet h2{width: 30% !important;margin-right: 5px;}
 .vjs-big-play-button{display: none !important;opacity: 0;filter:alpha(opacity=0);}
 .index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;overflow: hidden;}
 
