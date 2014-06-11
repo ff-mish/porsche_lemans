@@ -124,7 +124,12 @@ class TscoreCommand extends CConsoleCommand
         $command->bindParam(":uid", implode(",", $uids));
         
         $row = $command->query()->read();
-        $impact = round($row["sum"] / $max_friends, 3);
+        if ($row["sum"] > $max_friends) {
+          $impact = 1;
+        }
+        else {
+          $impact = round($row["sum"] / $max_friends, 3);
+        }
         
         // 总分
         // [Impact + 2 (Speed + Quality + Assiduity) ] / 7 * 246
@@ -142,7 +147,6 @@ class TscoreCommand extends CConsoleCommand
         
         print "run score cron job for team: [{$team->name}]"."\r\n";
         $scoreTeamAr->save();
-        
       }
       
       
