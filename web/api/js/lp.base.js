@@ -140,9 +140,6 @@ function is_support_webgl() {
 LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api ){
     'use strict'
 
-    LP.use('panel');
-
-
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
     }
@@ -251,7 +248,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                 });
         },
-        width: $(window).width() * 0.6
+        width: 600
       });
         return false;
     }
@@ -315,7 +312,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                 });
         },
-        width: $(window).width() * 0.6
+        width: 600
       });
       return false;
     }
@@ -1312,7 +1309,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 videojs.options.flash.swf = "/js/video-js/video-js.swf";
                 cfg = LP.mix(defaultConfig , cfg);
                 var ratio = cfg.ratio || ( 516 / 893 );
-                var myVideo = videojs( id , cfg , function(){
+                var myVideo = videojs( id , cfg , function(){ 
                     var v = this;
                     if( resize ){
                         $(window).bind( 'resize.video-' + id , function(){
@@ -1334,7 +1331,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                 "margin-top": ( h - vh ) / 2,
                                 "margin-left": ( w - vw ) / 2
                             });
-                        }).trigger('resize');
+                        })
+                        .trigger('resize');
 
                         if( $.browser.msie && $.browser.version <= 8 ){
                             setTimeout(function(){
@@ -1687,21 +1685,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var addIndex = 0;
         for( var i = 0 ; i < data.team_star ; i ++ ){
             if( $stars.eq(i).hasClass('full-star') ) continue;
-            $('<img src="/images/full-star.png" />')
-                .css({
-                    width: 100,
-                    marginTop: -45,
-                    marginLeft: -40,
-                    opacity: 0
-                })
-                .appendTo( $stars.eq(i).addClass('full-star').html('<span>' + ( i + 1 ) + '</span>') )
-                .delay(1000 * ( ++addIndex ) )
-                .animate({
-                    width: 30,
-                    marginTop: 0,
-                    marginLeft: 0,
-                    opacity: 1
-                } , 500);
+            // $('<img src="/images/full-star.png" />')
+            //     .css({
+            //         width: 100,
+            //         marginTop: -45,
+            //         marginLeft: -40,
+            //         opacity: 0
+            //     })
+            //     .appendTo( $stars.eq(i).addClass('full-star').html('<span>' + ( i + 1 ) + '</span>') )
+            //     .delay(1000 * ( ++addIndex ) )
+            //     .animate({
+            //         width: 30,
+            //         marginTop: 0,
+            //         marginLeft: 0,
+            //         opacity: 1
+            //     } , 500);
+
+            $stars.eq(i).addClass('full-star').html('<span>' + ( i + 1 ) + '</span>');
         }
 
         var tsc = [ parseInt(data.team_position) , parseInt(data.team_total) ];
@@ -2403,19 +2403,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 			"width": "100%",
 			"overflow": "hidden"
 		}).addClass('videobg').appendTo( $('#legal-notice') ) , "/videos/index" , "/videos/index.jpg" ,  {muted:1} , function(){
-
+            $('#legal-notice').fadeIn();
+            $(window).trigger('resize');
         });
-		setTimeout(function(){
-			$('#legal-notice').fadeIn();
 
-            if( !isMobile ){
-                // set js scroll bar
-                LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
-                });
-            }
-			$(window).trigger('resize');
-		} , 200);
+        if( !isMobile ){
+            // set js scroll bar
+            LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
+            });
+        }
     });
 
 	LP.action('winners-prizes' , function( data ){
@@ -2429,12 +2426,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 			"width": "100%",
 			"overflow": "hidden"
 		}).addClass('videobg').appendTo( $('#winners-prizes').css('background' , 'none') ) , "/videos/winner" , "/videos/winner.jpg" ,  {muted:1} , function(){
-
+            $('#winners-prizes').fadeIn();
+            $(window).trigger('resize');
         } );
-		setTimeout(function(){
-			$('#winners-prizes').fadeIn();
-			$(window).trigger('resize');
-		} , 200);
 	});
 
     LP.action('skip-intro' , function(data){
@@ -2687,6 +2681,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 				}
 			});
 	}
+    var loadFiles = ['panel' , 'video-js'];
     // page load event
     $(document.body).queryLoader2({
         onLoading : function( percentage ){
@@ -2696,10 +2691,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if(per == 100) {
                 var page = $(document.body).data('page');
                 if( loadingFiles[ page ] ){
-                    LP.use( loadingFiles[ page ] , initComplete );
-                } else {
-                    initComplete();
+                    loadFiles = loadFiles.concat( loadingFiles[ page ] );
                 }
+                LP.use( loadFiles , initComplete );
 //                var timer = setInterval(function(){
 //                    if( globalVideos.length == 0 ) return ;
 //                    var total = 0;
@@ -2718,12 +2712,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         },
         onComplete : function(){
-			var page = $(document.body).data('page');
+            var page = $(document.body).data('page');
             if( loadingFiles[ page ] ){
-                LP.use( loadingFiles[ page ] , initComplete );
-            } else {
-                initComplete();
+                loadFiles = loadFiles.concat( loadingFiles[ page ] );
             }
+            LP.use( loadFiles , initComplete );
 
             // load all the video
 //            var timer = setInterval(function(){
@@ -2933,7 +2926,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 			}
 		});
 
-
+        var data = {};
+                    
         // fix Q & A
         if( $(document.body).data('page') != 'index' ){
         setInterval(function(){
@@ -2954,11 +2948,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     var data = e.data || {};
                     var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
-                    content += data.question + '</div><div class="popup_dialog_options">';
+                    content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
                     $.each( [1,2,3,4] , function( i ){
                         content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
                     } );
-                    content += "</div></div>";
+                    content += "<div class=\"loading\" style=\"display:none;position: absolute;right: 0;top: 0;min-height: 30px;height: 30px;\"></div></div><div class=\"popup_dialog_status\">\
+                            <span>" + _e('Success!') + "</span>\
+                        </div></div>";
 
                     LP.panel({
                         title: '',
@@ -2980,8 +2976,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                                     clearTimeout( questionTimerInitTimer );
 
+                                    t.$panel.find('.loading').show();
+
                                     api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function(){
-                                        t.close();
+                                        t.$panel.find('.popup_dialog_options').hide()
+                                            .next().show();
+                                        setTimeout(function(){
+                                            t.close();
+                                        } , 2000);
                                     });
                                 });
 
@@ -3085,9 +3087,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // var qtimes = 0;
             // setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
 
-            if( LP.parseUrl().params.__qa ){
-                showQa();
-            }
+            // if( LP.parseUrl().params.__qa ){
+            //     showQa();
+            // }
         } , 1000 * 30 );
         }
 
@@ -3599,9 +3601,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var $children = $wrap.find('.monitor_item').height( wrapHeight );
                 if( wrapWidth >=  280 * 4 ){
                     $children.css('margin-bottom' , 0);
+                    $('.monitor').css( 'padding-left' , ( 120 + wrapWidth - 280 * 4 ) / 2 - 120 );
                 } else {
+                    $('.monitor').css( 'padding-left' , 0 );
                     $children.css('margin-bottom' , 30);
                 }
+
+
 
                 $wrap.find('.loading')
                     .height( $wrap.find('.monitor_list').height() );
