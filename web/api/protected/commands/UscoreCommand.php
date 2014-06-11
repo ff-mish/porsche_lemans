@@ -76,7 +76,6 @@ class UscoreCommand extends CConsoleCommand
         print "run score cron job for user: [{$user->name}]"."\r\n";
         $scoreUserAr->save();
       }
-      
     }
     
     /**
