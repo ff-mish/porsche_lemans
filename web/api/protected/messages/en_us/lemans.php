@@ -6,6 +6,7 @@
  * Time: 上午3:22
  */
 return array (
+  "Make a tweet" => "Tweet",
 	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. The better you'll tweet, the faster you'll go! <br/>The first team will win an exclusive trip to attend a WEC race and see the legendary 919 Hybrid.",
 	"PORSCHE_LINK" => "http://www.porsche.com/international/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
     "1/5" => "Step 1 of 5",

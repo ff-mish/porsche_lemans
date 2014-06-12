@@ -121,7 +121,7 @@
     </div>
     <div style="display:none;">
         <img src="./videos/winner.jpg" />
-        <img src="./videos/<?php echo $this->page_name?>.jpg" />
+        <img src="./videos/<?php echo $this->page_name == "teamrace" ? "race" : $this->page_name;?>.jpg" />
     </div>
 <!--  -->
 <script type="text/javascript" src="/js/sea/sea-debug.js" data-config="../config.js"></script>

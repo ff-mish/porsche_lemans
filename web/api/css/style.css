@@ -68,6 +68,7 @@ a.logo:hover{opacity: 1;}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 211px;height: 18px;position: absolute;right: 34px;top: 22px}
 .lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 147px;height: 16px;}
 .nav{font-size: 14px;position: fixed;top: 180px;left:22px;z-index:5;}
+.monitor{top: 120px;}
 .post_link {position: relative;width:190px;}
 .post_link span {position: absolute;left:62px;top:14px;font-size:11px;color:#999;display:none;}
 .post_tips {line-height: 2em;display: none; position: absolute;background: black;color:#666;border-radius: 4px;bottom:1px;padding: 10px;left:59px;font-size: 11px;}
@@ -78,8 +79,7 @@ a.logo:hover{opacity: 1;}
 .ie8 .navicon{background: url(../images/post_wb.png); width: 50px; height: 50px;border:none; }
 .navicon:hover {transform:rotate(90deg); -ms-transform:rotate(90deg); -webkit-transform:rotate(90deg);opacity: 1;}
 .nav p{padding-left:55px;height: 30px;color:#777;}
-.nav p a{color:#717171}
-.nav p a:hover {color:#fff;}
+.nav p a:hover {color:#717171;}
 .nav .on{background:url('../images/navicon2.png') no-repeat 0 -107px ;color:white;}
 .nav .on a{color:#fff}
 .nav p a.logout{color:#fff;text-decoration: underline;margin: 30px 0 0 0;cursor: pointer;display: none;}
@@ -105,7 +105,7 @@ body[data-page="index"] .footer{color:#000;}
 .footer_language span {color:#fff;}
 body[data-page="index"] .footer_language span {color:#000;}
 .footer_language a {color:#777;}
-.footer_language a:hover {color:#000;opacity:1;}
+.footer_language a:hover {color:red;opacity:1;}
 .footer_logout {position:fixed;bottom:15px;right:130px;font-weight: bold;z-index: 4;}
 
 
@@ -198,11 +198,12 @@ body[data-page="stand"] .footer-icon{display: block;}
 .race_track{width: 200px;height: 100px;right: 66px;top: 46px;position: absolute;}
 .race_bg{position:absolute;bottom: 0;left:0;right: 0; top: 0; width: 100%; overflow: hidden;}
 .race_nav{position: absolute;left: 22px;bottom: 100px;font-size: 14px;font-weight: bold;}
+
 .race_time{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px 0;height: 24px;}
 .race_speed{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px -35px;margin-bottom: 22px;margin-top: 10px;}
 .race_navitem{background: url('../images/race_nav.png') no-repeat 10px -76px;height: 24px;line-height: 24px;padding-left:55px;}
 .race_navitemon{background-position: 10px -100px;}
-
+.race_navitemon a{color: red; margin-left: -30px;padding-left: 30px;}
 /* teambuild */
 .teambuild{position:absolute;left: 50%;top: 50%;width:715px;height: 654px;margin: -327px 0 0 -357px}
 .teambuild_step{font-size: 24px;color:#fff;text-transform: uppercase;text-align: center;width: 400px;line-height: 30px}
@@ -550,6 +551,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 @media screen and (max-width:1300px), screen and (max-height: 900px){
     #team-score {left:317px;}
     .nav{top:150px;}
+    .monitor{top: 90px;}
     .post_tips {left:90px;}
     .stand{width: 1030px;left: 220px;margin-left:0;}
     .member_item {width: 220px;height:65px;}
@@ -600,6 +602,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 @media screen and (max-width:1000px), screen and (max-height: 700px){
     #team-score {left:225px;}
     .nav{left:0px;top:100px;}
+    .monitor{top: 40px;}
     .race_nav{left: 0;}
     .navicon {margin-left:21px;}
     .stand{width: 800px;left: 158px;margin-left:0;}
@@ -742,32 +745,39 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 @media screen and (max-height:2000px){
     .stand{top: 240px;}
     .nav{top: 270px;}
+    .monitor{top: 210px;}
     body .stand_tweet .conut_down_wrap{top: 35%;}
 }
 @media screen and (max-height:1800px){
     .stand{top: 210px;}
     .nav{top: 240px;}
+    .monitor{top: 180px;}
 }
 @media screen and (max-height:1600px){
     .stand{top: 180px;}
     .nav{top: 230px;}
+    .monitor{top: 170px;}
 }
 @media screen and (max-height:1400px){
     .stand{top: 150px;}
     .nav{top: 200px;}
+    .monitor{top: 140px;}
 }
 @media screen and (max-height:1200px){
     .stand{top: 120px;}
     .nav{top: 170px;}
+    .monitor{top: 110px;}
 }
 @media screen and (max-height:1100px){
     .stand{top: 100px;}
     .nav{top: 150px;}
+    .monitor{top: 90px;}
 }
 
 @media screen and (max-height:1000px){
     .stand{top: 80px;}
     .nav{top: 130px;}
+    .monitor{top: 70px;}
     .stand_tweet{margin: 40px 0 50px;}
 }
 @media screen and (max-height:990px){
@@ -775,6 +785,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 }
 @media screen and (max-height:800px){
     .nav{top: 100px;}
+    .monitor{top: 30px;}
     .stand{top: 50px;}
 }
 @media screen and (max-height:700px){
@@ -782,6 +793,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .navicon{margin-bottom: 30px;}
     .stand{top: 30px;}
     .nav{top: 80px;}
+    .monitor{top: 20px;}
 }
 @media screen and (max-height:600px){
     .winners-prizes-wrap {height:450px!important;margin-top:-228px!important;}
@@ -950,8 +962,8 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .lang-cn .count .conut_downinfo,.lang-cn .count .conut_downitem {font-size:46px;}
     .conut_downinfo:last-child {margin-right:0!important;}
     .conut_downitem{font-size: 48px}
-    .count .home_share{margin-top: 295px}
-    .count .home_winners{margin-top:490px;}
+    .count .home_share{margin-top: 160px;}
+    .count .home_winners{margin-top:350px;}
     body .winners-close {font-size:20px;}
 
     /*stand*/
@@ -993,9 +1005,9 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .popup_invite .popup_invite_search .close-search{left: 390px;}
 
     .nav{background: black;top: 80px;margin-top: 0;bottom: 0;padding-top: 60px;width:250px;z-index:100;/*p1*/ }
+    .monitor{top: 20px;}
     .nav p{height: 61px;font-size:29px;padding-left:42px;}
     .race_nav>div{padding-left: 42px;font-size:29px;}
-
     .lang-cn .nav p{height: 61px;font-size:28px;padding-left:45px;}
     .lang-cn .race_nav>div{padding-left: 45px;font-size:28px;}
 
@@ -1034,7 +1046,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .popup_invite .friend_item .avatar img {width:80px;height:80px;}
     .popup_invite .friend_item .send {font-size:16px;}
 
-    .popup_invite{height: auto;padding-top:72px;}
+    .popup_invite{height: auto;padding-top:72px;margin-left: 0;}
     .popup_invite .friend_item .btns{padding-left: 30px;}
     .popup_invite .popup_invite_friend_list, .popup_invite .popup_search_friend_list{height: 320px;}
 
@@ -1052,7 +1064,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     body .popup_email h4 {margin-top:25px;}
     body .tutr-step-tip1 .step-btn, body .tutr-step-tip2 .step-btn, body .tutr-step-tip3 .step-btn, body .tutr-step-tip4 .step-btn {bottom:20px;right:40px;}
 
-    body .share-btns{position: fixed;top: 80px;text-align:right;height: 100%;background-size:auto 100%;padding: 200px 125px;width: auto;}
+    body .share-btns{position: fixed;top: 80px;text-align:right;height: 100%;background-size:auto 100%;padding: 200px 125px;width: auto;background: rgba(0,0,0,.8);}
     body.lang-en .share-btns {padding-top:110px}
     body .share-btns a {width: 150px;height: 150px;background: url(../images/share_m_cn.png) no-repeat;margin: 20px 20px;}
     body .share-btns a:hover {background: url(../images/share_m_cn_hover.png) no-repeat;}
@@ -1097,7 +1109,28 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     /*p1*/
     body #winners-prizes .popup_close {top:20px;}
     body .winners-prizes-wrap {margin-top:-390px;}
+
+    .race_nav{bottom: auto; top: 200px;}
+    body[data-page="teamrace"] #container{top: 400px;position: absolute;height: auto;bottom: 0;bottom: 100px;}
+    .team-tip{position: absolute;
+        display: none;
+        background: url(/images/m-tip-weibo.png) no-repeat;
+        width: 259px;
+        height: 124px;
+        top: 200px;
+        right: 0;
+        padding: 85px 40px 80px 80px;
+        font-size: 24px;
+        line-height: 1.5em;}
+    .tw.team-tip{background: url(/images/m-tip-tw.png) no-repeat;}
+    .team-tip div>span:first-child{float: left;
+        width: 122px;
+        margin-right: 20px;
+        overflow: hidden;}
+
+    body[data-page="teamrace"] #container  .m-bar.active{background: red;}
 }
+
 
 
 
@@ -1140,7 +1173,10 @@ div.stand_postsbox {
 .stand_tweet h2{width: 30% !important;margin-right: 5px;}
 .vjs-big-play-button{display: none !important;opacity: 0;filter:alpha(opacity=0);}
 .index-p2-bg{position: absolute;width: 100%;height: 100%;top:0;left: 0;z-index: -1;overflow: hidden;}
-
+.index-p2-bg img{position: absolute;}
+.monitor>.jspContainer>.jspPane{bottom: 0;}
+.jspHorizontalBar .jspDrag{height: 5px;
+top: 11px;}
 
 
 

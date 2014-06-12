@@ -113,13 +113,13 @@ outline: none !important;
 .stand_del{position: absolute;left:227px;top: 43px;cursor: pointer;}
 .stand_del.disabled{display: none;}
 
-#legal-notice{position: fixed;z-index:100;top: 60px; bottom: 0; width: 100%; background-size:cover; display: none;}
+#legal-notice{position: fixed;z-index:1000;top: 60px; bottom: 0; width: 100%; background-size:cover; display: none;}
 #legal-notice h2{text-align: center;font-size: 30px;padding: 20px 30px 80px 30px;color:#fff;}
 #legal-notice .popup_close {right:20px;top:20px;z-index:10;}
 #legal-notice .jspDrag{background: white;}
-#legal-notice .jspVerticalBar{top: 160px;bottom: 0;height: auto;}
+#legal-notice .jspVerticalBar{right:0;bottom: 0;height: auto;}
 .legal-con{ padding: 20px 5%; position: absolute;width: 90%; top: 0px; bottom: 50px; overflow: auto; font-size: 16px;line-height: 150%;color:#ddd;-webkit-overflow-scrolling: touch;}
-.legal-con .intro {font-size:15px;}
+.legal-con .intro {font-size:15px;position: absolute;top: 130px;bottom: 10px;left: 0; right: 0;}
 .legal-con .intro p {margin:0 0 10px 0;}
 .legal-left{float: left; width: 35%;margin-right: 6%;margin-left: 12%;}
 .legal-right{float: left; width: 35%;}
@@ -324,4 +324,7 @@ outline: none !important;
 {
   margin: 0 -3px 0 0;
 }
+
+
+.m-bar{width: 40px;margin-right: 10px;background: white;float: left;position: relative;}
 
