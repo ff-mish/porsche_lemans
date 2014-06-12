@@ -11,7 +11,6 @@
       
       <!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
       <!-- <div class="conut_tips" ><?=Yii::t('lemans','Join the race and create your team now')?></div> -->
-      <div class="home_v btn" id="mobile_home_v"></div>
       <div class="home_share">
         <!--   -->
       <a href="<?php echo UserAR::weibo_login_url() ?>" data-time="0" data-style="opacity:1;margin-left:0px;" class="home_weibo"></a>

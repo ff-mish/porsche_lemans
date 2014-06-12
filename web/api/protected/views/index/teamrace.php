@@ -58,7 +58,12 @@
     </div>
 		<!-- race end -->
 	</div>
+
+	<div class="team-tip">
+	</div>
 </div>
+
+
 
 <script type="application/javascript" src="/js/sticks.js"></script>
   

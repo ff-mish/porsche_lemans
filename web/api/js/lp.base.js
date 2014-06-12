@@ -261,7 +261,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       LP.panel({
         content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + screen_name + " " + window.topic + '</textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + " " + screen_name + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">0</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
                 '<span class="loading"></span>\
@@ -448,6 +448,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         .end();
 
         return {
+            resize: function( $dom ){
+                var off = $dom.offset();
+                var w = $dom.width();
+                var h = $dom.height();
+                $wrap.css({
+                    top: off.top,
+                    left: off.left,
+                    width: w,
+                    height: h
+                });
+            },
             show: function(){
                 $wrap.fadeIn();
             },
@@ -1390,22 +1401,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var wraps = [];
         var index = 0;
-        var resizeImage = function( $wrap , src , isPushed ){
+        var resizeImage = function( $wrap , src , isPushed , border ){
+            border = border || 0;
+            $wrap.data('border' , border);
             !isPushed && wraps.push( $wrap );
-            var imageWrapWidth = $wrap.width();
-            var imageWrapHeight = $wrap.height();
+            var imageWrapWidth = $wrap.width()  + 2 * border;
+            var imageWrapHeight = $wrap.height() + 2 * border;
             $('<img/>').load(function(){
                 var width = this.width;
                 var height = this.height;
-                var marginTop = 0 , marginLeft = 0 , imgWidth , imgHeight;
+                var marginTop = -border , marginLeft = -border , imgWidth , imgHeight;
                 if( width / height > imageWrapWidth / imageWrapHeight ){
                     imgHeight = imageWrapHeight;
                     imgWidth = width / height * imgHeight;
-                    marginLeft = ( imageWrapWidth - imgWidth ) / 2;
+                    marginLeft = ( imageWrapWidth - imgWidth ) / 2 - border ;
                 } else {
                     imgWidth = imageWrapWidth;
                     imgHeight =  height / width * imgWidth;
-                    marginTop = ( imageWrapHeight - imgHeight ) / 2;
+                    marginTop = ( imageWrapHeight - imgHeight ) / 2 - border;
                 }
                 var css = {
                     marginTop: marginTop,
@@ -1426,7 +1439,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         $(window).resize(function(){
             $.each( wraps , function( i , $dom ){
-                resizeImage( $dom , '' , true );
+                resizeImage( $dom , '' , true , $dom.data('border') );
             } );
         });
 
@@ -2035,7 +2048,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + '</textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\
@@ -2215,6 +2228,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         });
     });
 
+
     LP.action('repost' , function( data ){
       var self = $(this);
       var max_length = 112;
@@ -2298,7 +2312,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // $('.fuel .loading').show();
         $(this).data( 'page' , fuelPage );
-        !data.noNeedLoading && totalPageLoading.show();
+        if ( !data.noNeedLoading ) {
+            totalPageLoading.resize( $('.fuellist') );
+            totalPageLoading.show();
+        }
 
         api.get('/api/media/list' , { page:page } , function( e ){
             //$('.fuel .loading').hide();
@@ -2410,7 +2427,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         if( !isMobile ){
             // set js scroll bar
             LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                $('#legal-notice .legal-con').jScrollPane({autoReinitialise:true});
+                $('#legal-notice .legal-con .intro').jScrollPane({autoReinitialise:true});
             });
         }
     });
@@ -2616,7 +2633,63 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     var loadingCallBack = {
         'teamrace' : function(){
-            sticksCreate();
+            if( isMobile ){
+                var teams = [];
+                api.get('/api/web/teammobiledata' , function( e ){
+                    teams = e.data.teams;
+
+                    teams = teams.concat([{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4}])
+                    // get max distance
+                    var max = 0;
+                    $.each( teams , function( i , team ){
+                        max = Math.max( max , team.distance );
+                    } );
+
+                    var height = $('#container').height();
+                    // render each team data
+                    var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
+                    $.each( teams , function( i , team ){
+                        aHtml.push( '<div data-index="' + i + '" class="m-bar" data-a="m-bar" style="height:' + (team.distance / max * height) + 'px;margin-top:' + ( (1 - team.distance / max) * height) + 'px;"></div>' );
+                    } );
+                    aHtml.push('</div>');
+
+
+                    setTimeout(function(){
+                        $('#container').html( aHtml.join('') )
+                            .css('overflow-y' , 'hidden')
+                            .find('.m-bar')
+                            .css('top' , 1000)
+                            .each(function( i ){
+                                if( i < 20 ){
+                                    $(this)
+                                        .delay( i * 100 )
+                                        .animate({
+                                            top: 0
+                                        } , 200);
+                                }
+                            });
+                    } , 2000);
+                });
+
+                LP.action('m-bar' , function(){
+                    $(this).addClass('active')
+                        .siblings('.active')
+                        .removeClass('active');
+                    var team = teams[ $(this).data('index') ];
+                    $('.team-tip').html( LP.format('<p>P#[rankings]/#[total]</p>\
+                        <div class="clearfix">\
+                            <span>#[team]</span>\
+                            <span>#[speed]km/h</span>\
+                        </div>\
+                        <div class="clearfix">\
+                            <span>Players:#[typeIndex]</span>\
+                            <span>Lap:#[lap]</span>\
+                        </div>' , team))
+                        .fadeIn();
+                });
+            } else {
+                sticksCreate();
+            }
         },
         'race' : function(){
             trackCreate()
@@ -2959,6 +3032,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     LP.panel({
                         title: '',
                         content: content,
+                        noClickClose: true,
                         width: 784,
                         height: 296,
                         onload: function(){
@@ -3143,7 +3217,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         
         if( $(document.body).data('page') == 'index' ){
-            renderImage( $('.index-p2-bg') );
+            renderImage( $('.index-p2-bg') , '' , false , 40 );
         } else {
             bigVideoInit();
         }
@@ -3178,7 +3252,24 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     api.post( "/api/web/decryptionURL" , {d: urlObj.params.d} );
                 }
 
-                countDownMgr.initCountDown();
+                // init mouse move event
+                if( !isMobile ){
+                    $(document.body).mousemove(function( ev ){
+                        var pagex = ev.pageX , pagey = ev.pageY;
+                        var winWidth = $(window).width();
+                        var winHeight = $(window).height();
+                        var wper = ~~(( pagex - winWidth / 2 ) / winWidth * 2 * 20);
+                        var hper = ~~(( pagey - winHeight / 2 ) / winHeight * 2 * 20);
+                        $('.index-p2-bg img')
+                            .stop()
+                            .animate({
+                                top: -hper,
+                                left: -wper
+                            });
+                    });
+                }
+
+                //countDownMgr.initCountDown();
                 break;
             case "teambuild":
                 api.get("/api/user" , function( e ){
@@ -3447,7 +3538,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     } );
                     // add first to  to last dom
                     if( posts.length < 3 ){
-                        $('.stand_add').addClass('disabled');
+                        $('.stand_add').hide();
                         for( var i = 0 ; i < 2 - posts.length ; i ++ ){
                             aHtml.push("<div class=\"stand_postsbox\" style=\"text-align:center;\">- -</div>");
                         }
@@ -3576,7 +3667,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               api.get("/api/twitte", function (e) {
 
                 LP.use(['jscrollpane' , 'mousewheel'] , function(){
-                    $('.monitor_list,.monitor_com').jScrollPane({autoReinitialise:true});
+                    $('.monitor_list,.monitor').jScrollPane({autoReinitialise:true});
                     var group1 = e["data"]["web"];
                     callbackRender(0, group1);
                     
@@ -3590,7 +3681,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     callbackRender(3, group4);
                 });
               });
-            
+                
+              $('.monitor_com').find('.monitor_item')
+                .css('margin-bottom' , 0).last().css({marginRight: 0});
               // init .monitor_item height and width
               $(window).resize(function(){
                 var $wrap = $('.monitor_com');
@@ -3599,12 +3692,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 // var minWidth = 250;
                 // var marginRight = 30;
                 var $children = $wrap.find('.monitor_item').height( wrapHeight );
-                if( wrapWidth >=  280 * 4 ){
-                    $children.css('margin-bottom' , 0);
+                if( wrapWidth >=  280 * 4 - 30 ){
+                    $('.monitor').css( 'left' , 250 );
                     $('.monitor').css( 'padding-left' , ( 120 + wrapWidth - 280 * 4 ) / 2 - 120 );
                 } else {
+                    $('.monitor').css( 'left' , 150 );
                     $('.monitor').css( 'padding-left' , 0 );
-                    $children.css('margin-bottom' , 30);
+                    $('.monitor_com').css({width: 280 * 4 - 30});
                 }
 
 
@@ -3654,14 +3748,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                  ( seconds > 9 ? seconds : '0' + seconds ) );
                             } , 1000 );
                         });
-                        var $speed = $('.race_speed');
-                        api.get('/api/user' , function( e ){
-                            var speed = e.data.team.score ? e.data.team.score.average : 0;
-                            var last = parseFloat( $speed.html() ) || 0 ;
-                            animateTo( [ last ] , [ speed ] , 600 , function( nums ){
-                                $speed.html( ~~ ( nums[0] * 1000 ) / 1000 + 'Km/h' );
-                            });
-                        });
+                        // var $speed = $('.race_speed');
+                        // api.get('/api/user' , function( e ){
+                        //     var speed = e.data.team.score ? e.data.team.score.average : 0;
+                        //     var last = parseFloat( $speed.html() ) || 0 ;
+                        //     animateTo( [ last ] , [ speed ] , 600 , function( nums ){
+                        //         $speed.html( ~~ ( nums[0] * 1000 ) / 1000 + ' km/h' );
+                        //     });
+                        // });
                     };
                     var interval;
                     setInterval(getServerTime , 30 * 1000);
