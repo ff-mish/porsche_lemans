@@ -120,7 +120,7 @@ class Controller extends CController {
       $event = func_get_arg(0);
       $exception = $event->exception;
       if ($exception->statusCode == "404") {
-        $this->render("/error/404");
+        return $this->render("/error/404");
       }
       else {
         if ($event instanceof CExceptionEvent) {
@@ -131,7 +131,11 @@ class Controller extends CController {
         }
       }
     }
-    $this->responseError($error);
+    return $this->responseError($error);
+  }
+  
+  public function missingAction($actionID) {
+      return $this->render("/error/404");
   }
 
 }
