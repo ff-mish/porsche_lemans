@@ -74,13 +74,12 @@ class TwitterCommand extends CConsoleCommand {
       
       // 第三，保存用户发的微博
       if ($userAr) {
-        $uuid = $id_str;
+        $uuid = $status["id_str"];
         $content = $status["text"];
-
         $cond = array("condition" => "uuid=:uuid", "params" => array(":uuid" => $uuid ));
         $found = TwitteAR::model()->find($cond);
         if ($found) {
-          print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] has existed already'."\r\n";
+          print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] has existed already uuid: ['.$uuid.']'."\r\n";
         }
         else {
           $content = $status["text"];
