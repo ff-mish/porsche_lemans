@@ -76,13 +76,19 @@ class TwitterCommand extends CConsoleCommand {
       if ($userAr) {
         $uuid = $status["id_str"];
         $content = $status["text"];
+        $thirdpart_date = date("Y-m-d H:m:s", strtotime($status["created_at"]));
         $cond = array("condition" => "uuid=:uuid", "params" => array(":uuid" => $uuid ));
         $found = TwitteAR::model()->find($cond);
+        $found->cdate = $thirdpart_date;
+        $found->cdate = $thirdpart_date;
+        $found->thirdpart_date  = $thirdpart_date;
+        $found->save();
         if ($found) {
           print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] has existed already uuid: ['.$uuid.']'."\r\n";
         }
         else {
           $content = $status["text"];
+          $thirdpart_date = date("Y-m-d H:m:s", strtotime($status["created_at"]));
           $uid = $userAr->uid;
           $type = $userAr->from;
 
@@ -92,6 +98,8 @@ class TwitterCommand extends CConsoleCommand {
           $twitteAr->uuid = $uuid;
           $twitteAr->type = $type;
           $twitteAr->is_from_thirdpart = 0;
+          $twitteAr->cdate = $thirdpart_date;
+          $twitteAr->thirdpart_date  = $thirdpart_date;
           
           // entities media
           $entities = $status["entities"];
