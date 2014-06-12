@@ -118,20 +118,18 @@ class Controller extends CController {
     $error = Yii::app()->errorHandler->error;
     if (!$error) {
       $event = func_get_arg(0);
-      $exception = $event->exception;
-      if ($exception->statusCode == "404") {
-        $this->render("/error/404");
+      if ($event instanceof CExceptionEvent) {
+        return $this->responseError($event);
       }
-      else {
-        if ($event instanceof CExceptionEvent) {
-          return $this->responseError($event);
-        }
-        else if ($event instanceof CErrorEvent) {
-          return $this->responseError($event);
-        }
+      else if ($event instanceof CErrorEvent) {
+        return $this->responseError($event);
       }
     }
-    $this->responseError($error);
+    return $this->responseError($error);
+  }
+  
+  public function missingAction($actionID) {
+      return $this->render("/error/404");
   }
 
 }

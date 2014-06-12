@@ -319,7 +319,7 @@ class STwitter extends CApplicationComponent {
     $twitter = $this->_getTwitter();
     $code = $twitter->request("POST", $twitter->url("1.1/statuses/update_with_media"), array(
         "status" => $content,
-        "media[]" => array_shift($medias)
+        "media[]" => "@". $medias
     ), TRUE, TRUE);
     
     if ($code == 200) {

@@ -294,6 +294,88 @@ class WebController extends Controller {
     $this->responseJSON(array("twitter" => $twitter, "weibo" => $weibo), "success");
   }
   
+  public function actionTeammobiledata() {
+    // 先把当前用户的组
+    $user = UserAR::crtuser(TRUE);
+    $team = $user->team;
+    
+    $lenght_of_race = 13.6;
+    $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
+    
+    // 再把所有的组拿出来
+    $teams = array();
+    $all_teams_score = array();
+    $crt_index = 0;
+    foreach ($fromes as $from) {
+      $teams_in = array();
+      // 先把每组速度汇总数据拿出来
+      $sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
+      $command = Yii::app()->db->createCommand($sql);
+      $results = $command->queryAll();
+      
+      foreach ($results as $index => $result) {
+        $total_average = $result["average_total"] + 0.1;
+        $total = $result["team_total"];
+        
+        // 速度
+        $speed = ceil($total_average / $total);
+        
+        // 距离
+        $total_seconds = $total * (30 + 2);
+        $hour = $total_seconds / 3600;
+        $distance = $speed * $hour;
+        
+        // Lap
+        $lap = ceil($distance / $lenght_of_race);
+        
+        // 排名
+        $ranking = $index + 1;
+        
+        // 组名
+        
+        // 当前位置
+        $team = $result["name"];
+        if ($team->tid == $team->tid) {
+          $crt_index = count($all_teams_score);
+        }
+        
+//        $teams_in[] = array(
+//            "distance" => $distance,
+//            "team" => $team,
+//            "id" => $result["tid"],
+//            "speed" => $speed,
+//            "lap" => $lap,
+//            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
+//        );
+        $all_teams_score[] = array(
+            "distance" => $distance,
+            "team" => $team,
+            "id" => $result["tid"],
+            "speed" => $speed,
+            "lap" => $lap,
+            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
+        );
+      }
+    }
+    
+    // 再依次拿出前50条 后50条
+    $first_index = $crt_index - 50;
+    if ($first_index < 0) {
+      $first_index = 0;
+    } 
+    $last_index = $crt_index + 50;
+    if ($last_index >= count($all_teams_score)) {
+      $last_index = count($all_teams_score) - 1;
+    }
+    
+    $before = array_splice($all_teams_score, $first_index, 50);
+    $after = array_splice($all_teams_score, $crt_index, 50);
+    
+    $this->responseJSON(array("before" => $before, "after" => $after), "success");
+    
+    
+  }
+  
   // 计算每组的数据
   public function actionTeamdata() {
     $lenght_of_race = 13.6;

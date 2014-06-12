@@ -136,7 +136,7 @@ class MediaAR extends CActiveRecord {
     return $ret;
   }
   
-  public function getMedias($type = NULL, $page = 1) {
+  public function getMedias($type = NULL, $page = 1, $mul_lang = TRUE) {
     $query = new CDbCriteria();
     if ($type) {
       $query->addCondition("type=:type");
@@ -155,9 +155,10 @@ class MediaAR extends CActiveRecord {
     else {
       $lang = "zh";
     }
-    
-    $query->addCondition("lang=:lang");
-    $query->params[":lang"] = $lang;
+    if ($mul_lang) {
+      $query->addCondition("lang=:lang");
+      $query->params[":lang"] = $lang;
+    }
     
     $rows = $this->findAll($query);
     
