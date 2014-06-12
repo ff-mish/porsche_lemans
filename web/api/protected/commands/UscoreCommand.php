@@ -47,6 +47,13 @@ class UscoreCommand extends CConsoleCommand
           $query->addCondition("uid=:uid");
           $query->params[":uid"] = $user->uid;
           
+          if ($user->from == UserAR::FROM_TWITTER) {
+            $query->addSearchCondition("content", Yii::app()->params["search_twitter_topic"]);
+          }
+          else {
+            $query->addSearchCondition("content", Yii::app()->params["search_weibo_topic"]);
+          }
+          
           $count = TwitteAR::model()->count($query);
           
           $s_speed = $count > $max_twitte_per_hour  ? "1" : round($count / $max_twitte_per_hour, 3);

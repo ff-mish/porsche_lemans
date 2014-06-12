@@ -52,6 +52,13 @@ class TscoreCommand extends CConsoleCommand
             $query->params[":n_date"] = $n_date;
 
             $query->addCondition("uid=:uid");
+            if ($user->from == UserAR::FROM_TWITTER) {
+              $query->addSearchCondition("content", Yii::app()->params["search_twitter_topic"]);
+            }
+            else {
+              $query->addSearchCondition("content", Yii::app()->params["search_weibo_topic"]);
+            }
+            
             $query->params[":uid"] = $user->uid;
             
             
