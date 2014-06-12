@@ -14,7 +14,7 @@ class QAAR extends CActiveRecord {
   
   public function rules() {
     return array(
-        array("question,answer1, answer2,answer3, answer4,right, answered, right_answered, cdate, udate, uid", "safe"),
+        array("question,answer1, answer2,answer3, answer4,right, answered, right_answered, cdate, udate, uid, lang", "safe"),
     );
   }
   
@@ -53,6 +53,15 @@ class QAAR extends CActiveRecord {
       
       $query = new CDbCriteria();
       $query->addNotInCondition("qaid", $ids);
+      $lang_code = Yii::app()->language;
+       if ($lang_code == "en_us") {
+         $lang = "en";
+       }
+       else {
+         $lang = "zh";
+       }
+       $query->addCondition("lang=:lang");
+       $query->params[":lang"] = $lang;
       $query->order = "RAND()";
       
       $row = $this->find($query);
@@ -68,12 +77,13 @@ class QAAR extends CActiveRecord {
    * @param type $anwsers
    * @param type $right
    */
-  public function addNewQuestion($question, $anwsers, $right) {
+  public function addNewQuestion($question, $anwsers, $right, $lang) {
     $this->question = $question;
     foreach ($anwsers as $key => $answer) {
       $this->{"answer". (intval($key) + 1)} = $answer;
     }
     $this->right = $right;
+    $this->lang = $lang;
     
     return $this->save();
   }
@@ -95,7 +105,7 @@ class QAAR extends CActiveRecord {
     return parent::deleteByPk($pk);
   }
   
-  public function updateQuestion($question, $anwsers, $right) {
+  public function updateQuestion($question, $anwsers, $right, $lang) {
     if ($question) {
       $this->question = $question;
     }
@@ -106,6 +116,9 @@ class QAAR extends CActiveRecord {
     }
     if ($right != -1) {
       $this->right = $right;
+    }
+    if ($lang) {
+      $this->lang = $lang;
     }
     
     return $this->update();

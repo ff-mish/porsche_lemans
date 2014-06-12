@@ -35,6 +35,7 @@ class QuestionController extends Controller {
     $anwser_3 = $request->getPost("answer3");
     $anwser_4 = $request->getPost("answer4");
     $right = $request->getPost("right");
+    $lang = $request->getPost("lang");
     
     $qaid = $request->getPost("qaid", false);
     if ($qaid) {
@@ -48,12 +49,13 @@ class QuestionController extends Controller {
       $qaAr->answer3 = $anwser_3;
       $qaAr->answer4 = $anwser_4;
       $qaAr->right = $right;
+      $qaAr->lang = $lang;
       
       $ret = $qaAr->save();
     }
     else {
       $qaAr = new QAAR();
-      $ret = $qaAr->addNewQuestion($question, array($anwser_1, $anwser_2, $anwser_3, $anwser_4), $right);
+      $ret = $qaAr->addNewQuestion($question, array($anwser_1, $anwser_2, $anwser_3, $anwser_4), $right, $lang);
     }
     
     if ($ret) {

@@ -61,7 +61,7 @@ class MediaAR extends CActiveRecord {
     return array(
         array("uri", "fileExit"),
         array("type, uri", "required"),
-        array("mid, cdate, udate, uid, media_link, teaser_image, title, description", "safe"),
+        array("mid, cdate, udate, uid, media_link, teaser_image, title, description, lang", "safe"),
     );
   }
   
@@ -123,13 +123,14 @@ class MediaAR extends CActiveRecord {
    * @param type $description
    * @return type
    */
-  public function saveNew($uri, $type, $media_url, $teaser_image = "", $title = "", $description="") {
+  public function saveNew($uri, $type, $media_url, $teaser_image = "", $title = "", $description="", $lang = "en") {
     $this->uri = $uri;
     $this->type = $type;
     $this->media_link = $media_url;
     $this->teaser_image = $teaser_image;
     $this->title = $title;
     $this->description = $description;
+    $this->lang = $lang;
     $ret = $this->save();
     $this->afterFind();
     return $ret;
@@ -147,6 +148,17 @@ class MediaAR extends CActiveRecord {
     }
     
     $query->order = "cdate DESC";
+    $lang_code = Yii::app()->language;
+    if ($lang_code == "en_us") {
+      $lang = "en";
+    }
+    else {
+      $lang = "zh";
+    }
+    
+    $query->addCondition("lang=:lang");
+    $query->params[":lang"] = $lang;
+    
     $rows = $this->findAll($query);
     
     $data = array();

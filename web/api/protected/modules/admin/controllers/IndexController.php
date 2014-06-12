@@ -66,6 +66,7 @@ class IndexController extends Controller {
       $anwsers = $request->getPost('q');
       $right = $request->getPost("right");
       $qaid = $request->getPost("qaid");
+      $lang = $request->getPost("lang");
       
       $start = 65;
       $code = ord($right);
@@ -79,12 +80,12 @@ class IndexController extends Controller {
       // 编辑
       if ($qaid) {
         $qaAr = QAAR::model()->findByPk($qaid);
-        $qaAr->updateQuestion($question, $anwsers, $right);
+        $qaAr->updateQuestion($question, $anwsers, $right, $lang);
         $this->responseJSON(array(), "success");
       }
       // 新增
       else {
-        $ret = $qaAr->addNewQuestion($question, $anwsers, $right);
+        $ret = $qaAr->addNewQuestion($question, $anwsers, $right, $lang);
         if ($ret) {
           $this->responseJSON(array(), "success");
         }
@@ -144,6 +145,7 @@ class IndexController extends Controller {
         $is_image = FALSE;
       }
       $mid = $request->getPost("mid");
+      $lang = $request->getPost("lang");
       
       // 还有Teaser Image
       $teaser_image_file = CUploadedFile::getInstanceByName("teaser_image");
@@ -176,11 +178,12 @@ class IndexController extends Controller {
         $media_ar->title = $title;
         $media_ar->description = $description;
         $media_ar->uri = $uri;
+        $media_ar->lang = $lang;
         $media_ar->save();
       }
       else {
         $media_ar = new MediaAR();
-        $media_ar->saveNew($uri, $type, "", "", $title, $description);
+        $media_ar->saveNew($uri, $type, "", "", $title, $description, $lang);
       }
 
       // 视频上传后 需要保存视频的 预览图

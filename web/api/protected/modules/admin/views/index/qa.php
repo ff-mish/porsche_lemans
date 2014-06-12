@@ -63,6 +63,11 @@
           <label for="a4">D</label>
           <input type="input" name="q[]" ng-model="question.answer4" required/>
         </div>
+        <div class="group-item-field">
+          <label for="a4">Language</label>
+          <input type="input" name="lang" ng-model="question.lang" required/>
+          <div class="desc">en | zh </div>
+        </div>
       </div>
     </div>
     <div class="field-item">

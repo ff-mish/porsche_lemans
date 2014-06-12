@@ -48,11 +48,17 @@
       </div>
       <div class="field-item">
         <label for="description"><?php echo Yii::t("lemans","Description")?></label>
-        <textarea name="description" cols="30" rows="10" placeholder="" ng-model="fuel.description"></textarea>
+        <textarea name="description" cols="30" rows="5" placeholder="" ng-model="fuel.description"></textarea>
+      </div>
+      <div class="field-item">
+        <label for="description"><?php echo Yii::t("lemans","Language")?></label>
+        <input type="select" name="lang" ng-model="fuel.lang"></input>
+        <div class="desc">en | zh</div>
       </div>
       <div class="field-item">
         <input type="button" value="<?php echo Yii::t("lemans","Save")?>" ng-click="addFuelFormSubmit()"/>
       </div>
+      
       <input type="hidden" name="mid" value="" ng-model="fuel.mid"/>
     </form>
   </div>
