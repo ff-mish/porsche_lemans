@@ -190,8 +190,8 @@ class TwitteAR extends CActiveRecord {
             if (!is_file($path)) {
               return FALSE;
             }
-            $file_data = (file_get_contents($path));
-            $ret = Yii::app()->twitter->status_update_with_media($content, array($file_data));
+            //$file_data = (file_get_contents($path));
+            $ret = Yii::app()->twitter->status_update_with_media($content, $path);
             
             $uuid = $ret->id_str;
 
