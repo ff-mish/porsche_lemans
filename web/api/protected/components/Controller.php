@@ -114,15 +114,21 @@ class Controller extends CController {
 //    Yii::app()->twitter->user_secret = Yii::app()->session["twitter_token"]["oauth_token_secret"];
   }
 
-  public function actionError() {
+  public function actionError($event) {
     $error = Yii::app()->errorHandler->error;
     if (!$error) {
       $event = func_get_arg(0);
-      if ($event instanceof CExceptionEvent) {
-        return $this->responseError($event);
+      $exception = $event->exception;
+      if ($exception->statusCode == "404") {
+        $this->render("/error/404");
       }
-      else if ($event instanceof CErrorEvent) {
-        return $this->responseError($event);
+      else {
+        if ($event instanceof CExceptionEvent) {
+          return $this->responseError($event);
+        }
+        else if ($event instanceof CErrorEvent) {
+          return $this->responseError($event);
+        }
       }
     }
     $this->responseError($error);

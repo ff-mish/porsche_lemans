@@ -271,8 +271,8 @@ class TwitteAR extends CActiveRecord {
       foreach ($members as $member) {
         $uids[] = $member->uid;
       }
-      $query->addCondition($this->tableAlias.".uid in (:uid)");
-      $params[":uid"] = implode(",", $uids);
+      $query->addInCondition($this->getTableAlias().".uid", $uids);
+      //$params[":uid"] = implode(",", $uids);
     }
     else if ($level == self::LEVEL_TOPIC) {
       // 这里我们不需要判断用户uid 我们获取任意几个从第三方抓取的内容
@@ -303,7 +303,7 @@ class TwitteAR extends CActiveRecord {
     
     $query->order = $this->tableAlias.".cdate DESC";
     $query->limit = $num;
-    $query->params = $params;
+    $query->params += $params;
     
     $rows = $this->with("user")->findAll($query);
     

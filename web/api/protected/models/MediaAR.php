@@ -146,6 +146,7 @@ class MediaAR extends CActiveRecord {
       $query->limit = self::PAGE_ITEMS;
     }
     
+    $query->order = "cdate DESC";
     $rows = $this->findAll($query);
     
     $data = array();
