@@ -6,7 +6,11 @@
  * Time: 上午3:22
  */
 return array (
+    "Social Race Monitoring:  What’s happening right now?" => "社交耐力赛直播：查看最新动态",
     "Networks" => "网络",
+    "Profile" => "个人",
+    "Porsche" => "保时捷",
+    "Team" => "团队",
     "Teams" => "团队",
     "Latest Post" => "最新微博",
     "Speed" => "速度",
@@ -51,7 +55,7 @@ return array (
     "Next" => "下一步",
     "Skip Tutorial" => "跳过教程",
 	"Race Starts In" => "离开赛只有",
-    "tutorial_step_4" => "每当你挑战成功三道来自 Porsche 的问题，就能成功获得一枚成就勋章。",//<br/><br/>在“最新微博”中你可以看到你团队最近所发内容。还有一步，你便可完成此教程！
+    "tutorial_step_4" => "每当你挑战成功三道来自 Porsche 的问题，就能成功获得一枚成就勋章。<br/><br/>在“最新微博”中你可以看到你团队最近所发内容。还有一步，你便可完成此教程！",//<br/><br/>
     "tutorial_step_3" => 'Porsche 图表是准备室里的关键信息。通过它，你可以知道你的团队需要哪些方面的改进以提高速度。它由以下 4 个参数组成。
     <br><br><span class="step-con-tit">速度：</span>你的队伍在每小时内平均发出的微博（推特）数。
     <br><br><span class="step-con-tit">影响力：</span>团队粉丝总数

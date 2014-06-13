@@ -7,7 +7,7 @@
   'Speed' => '',
   'Knowledge' => '',
   'Receive a reminder for the d-day' => 'Receive a reminder for the race start',
-  'Enter your email address' => 'Enter your email address',
+  'Enter your email address' => 'Enter your e-mail address',
   'Finish tutorial' => '',
   'Success!' => '',
   'wrong email' => 'Please enter validate email',
