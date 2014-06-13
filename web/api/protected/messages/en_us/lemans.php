@@ -14,7 +14,7 @@ return array (
 	"3/5" => "Step 3 of 5",
 	"4/5" => "Step 4 of 5",
 	"5/5" => "Step 5 of 5",
-	"tutorial_step_4" => "“Achievements” will be unlocked each time you answer three Porsche challenges correctly. ",//“Latest posts” will allow you to look at your team’s most recent tweets. Your training is almost complete!
+	"tutorial_step_4" => "“Achievements” will be unlocked each time you answer three Porsche challenges correctly. “Latest posts” will allow you to look at your team’s most recent tweets. Your training is almost complete!",//
     "tutorial_step_3" => 'The Porsche graph is the most important part of the Stand. It allows you to see which stats to improve to go faster in the race. There are four different parameters.
 <br><br>
 <span class="step-con-tit">Speed:</span> This is the number of tweets from your team per hour.

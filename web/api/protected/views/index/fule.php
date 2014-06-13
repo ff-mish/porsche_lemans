@@ -11,12 +11,12 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a tweet')?>
+					<?=Yii::t('lemans','Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
 			<p><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
-			<p><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p><a href="/teamrace"><?=Yii::t('lemans','Race')?></a></p>
 			<p class="on"><?=Yii::t('lemans','Fuel')?></p>
 			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 			<p> &nbsp; </p>

@@ -289,9 +289,9 @@ body[data-page="stand"] .footer-icon{display: block;}
 .conut_down{width: 900px;height: 168px;margin:0 auto;padding-left:20px;text-align: center; position: relative; top: 50%; margin-top: -109px;}
 .conut_downitem{font-size: 72px;float:left;height: 70px;margin-top: 45px;line-height: 70px;overflow: hidden;display:inline;opacity: 0.3;filter:alpha(opacity=30);}
 .conut_downinfo{font-size: 72px;float:left;margin-top: 45px;line-height: 70px;opacity: 0.3;filter:alpha(opacity=30);margin-right:52px;}
-.conut_tips{font-size: 19px;line-height:130%;color:#fff;text-align: center;margin-top:186px;}
+.conut_tips{font-size: 19px;line-height:130%;color:#000;text-align: center;margin-top:20px;}
 .lang-en .conut_tips{font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;font-weight:bold;}
-.lang-cn .conut_tips {font-size:16px;line-height:150%;margin-top:173px;}
+.lang-cn .conut_tips {font-size:16px;line-height:150%;margin-top:25px;}
 .count .home_share{margin-top: 178px;}
 .count .home_winners{margin-top: 237px;font-weight: bold;color: #000;}
 .stand_count_down .conut_downitem {opacity: 0.1;filter:alpha(opacity=10);}
@@ -847,7 +847,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 @media screen and (max-width:1300px){
     .conut_tips{font-size: 19px;}
-    .lang-cn .conut_tips {margin-top:163px;}
+    .lang-cn .conut_tips {margin-top:25px;}
     .conut_down_wrap {margin-left:-540px;}
     .stand_tweet .stand_count_down {margin-left: 240px;margin-top:18px;}
     .conut_down{width: 1080px;height: 189px;padding-left:20px;text-align: center;margin-top: -134px;}
@@ -860,7 +860,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 
 @media screen and (max-width:1200px){
-    .conut_tips{font-size: 19px;margin-top:167px;}
+    .conut_tips{font-size: 19px;margin-top:25px;}
     .conut_down_wrap {margin-left:-450px;}
     .stand_tweet .conut_down_wrap {margin-left: 240px;margin-top:47px;}
     .conut_down{width: 900px;height: 168px;padding-left:20px;text-align: center;margin-top: -101px;}
@@ -873,7 +873,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 
 @media screen and (max-width:1100px){
-    .conut_tips{font-size: 17px;margin:0 auto;margin-top:166px;width:939px;}
+    .conut_tips{font-size: 17px;margin:0 auto;margin-top:25px;width:939px;}
     /*.stand_tweet .conut_down_wrap {margin-left:-187px;margin-top:28px;}*/
 }
 
@@ -912,10 +912,10 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     #mobile_home_v_poster {position:absolute;top:0;left:0;cursor: pointer;}
     .count .conut_tit {margin:0;}
     .count .conut_down {margin-top:-201px;}
-    .count .conut_tips {margin-top:90px;}
+    .count .conut_tips {margin-top:25px;}
     .count .home_share {margin-top:200px;}
     .count .home_winners {margin-top:255px;}
-    .lang-en .count .conut_tips {margin-top:100px;}
+    .lang-en .count .conut_tips {margin-top:25px;}
 
 }
 
@@ -952,8 +952,8 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .count .conut_down_wrap {margin-left:-272px;}
     .count .conut_down {margin-top:-166px;width:526px;}
     .conut_tit {margin-top:20px;}
-    .conut_tips{font-size: 22px;color:#fff;width:600px;margin-top:110px;}
-    .lang-cn .conut_tips {font-size:22px;margin-top:110px;}
+    .conut_tips{font-size: 22px;color:#fff;width:600px;margin-top:25px;}
+    .lang-cn .conut_tips {font-size:22px;margin-top:25px;}
     .stand_tweet .conut_down {height: 110px;top:0px;left: 0px;width: 392px;}
     .stand_tweet .conut_down_wrap {margin-left:-287px;margin-top:-209px;}
     .stand_tweet .conut_downinfo {margin-right:15px;}

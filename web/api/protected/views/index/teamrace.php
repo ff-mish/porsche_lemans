@@ -11,7 +11,7 @@
 			<div class="post_link">
 				<a href="#" data-a="post_weibo" class="navicon"></a>
 				<div class="post_tips">
-					<?=Yii::t('lemans','Make a tweet')?>
+					<?=Yii::t('lemans','Tweet')?>
 					<span>◆</span>
 				</div>
 			</div>
