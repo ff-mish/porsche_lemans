@@ -147,7 +147,7 @@ class MediaAR extends CActiveRecord {
       $query->limit = self::PAGE_ITEMS;
     }
     
-    $query->order = "cdate DESC";
+    $query->order = "cdate mid";
     $lang_code = Yii::app()->language;
     if ($lang_code == "en_us") {
       $lang = "en";
