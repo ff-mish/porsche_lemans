@@ -3733,7 +3733,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               });
                 
               $('.monitor_com').find('.monitor_item')
-                .css('margin-bottom' , 0).last().css({marginRight: 0});
+                .css('margin-bottom' , 0);
               // init .monitor_item height and width
               $(window).resize(function(){
                 var $wrap = $('.monitor_com');
@@ -3746,11 +3746,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var navWidth = $nav.width();
                 var navLeft = parseInt( $nav.css('left') );
                 var winWidth = $(window).width();
-                var left = navWidth + navLeft + Math.max( 0 , ( winWidth - navWidth - navLeft - 280 * 4 - 30 ) / 2 );
+                var left = navWidth + navLeft + Math.max( 0 , ( winWidth - navWidth - navLeft - 280 * 4 ) / 2 ) - 20;
                 setTimeout(function(){
                     $('.monitor,.jspHorizontalBar').css('left' , left );
-                } , 200);
-                $('.monitor_com').css({width: 280 * 4 - 30});
+                } , 100);
+                $('.monitor_com').css({width: 280 * 4});
                 // if( wrapWidth >=  280 * 4 - 30 ){
                 //     $('.monitor').css( 'left' , 250 );
                 //     $('.monitor').css( 'margin-left' , ( 120 + wrapWidth - 280 * 4 ) / 2 - 120 );
