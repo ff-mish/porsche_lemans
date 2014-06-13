@@ -931,6 +931,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .m-videobg {background-size:auto 110%;background-repeat:no-repeat;}
     .page { -webkit-overflow-scrolling:touch;}
     .page_count {overflow:visible;}
+    #home_video{display: none;}
 
     body #winners-prizes{top: 80px;}
 
