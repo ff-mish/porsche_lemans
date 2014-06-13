@@ -14,7 +14,7 @@ class TscoreCommand extends CConsoleCommand
   
     public function actionScore() {
       $max_twitte_fuel = 100;
-      $max_friends = 20000;
+      $max_friends = 5000;
       $max_twitte_per_hour = 40;
       
       // 第一步: 先拿出所有的组

@@ -67,6 +67,21 @@ class WeiboCommand extends CConsoleCommand {
       $response = curl_exec($ch);
 
       print_r($response);
+      
+      $service_url = "http://www.letustestit.eu";
+      $url = $service_url."/api/web/cronnewtwitte";
+
+      $ch = curl_init($url);
+
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "self" => "self", "data" => (json_encode($ret["statuses"]))));
+      //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+      curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+      $response = curl_exec($ch);
+
+      print_r($response);
 
       // 直接返回
       return ;
@@ -92,6 +107,21 @@ class WeiboCommand extends CConsoleCommand {
 
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "data" => (json_encode($ret["statuses"]))));
+      //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+      curl_setopt($ch, CURLOPT_HEADER, 0);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+      curl_setopt($ch, CURLOPT_USERPWD, "lemans:porschelemans.");
+      $response = curl_exec($ch);
+
+      print_r($response);
+      
+      $service_url = "http://www.letustestit.eu";
+      $url = $service_url."/api/web/cronnewtwitte";
+
+      $ch = curl_init($url);
+
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, array("from" => UserAR::FROM_WEIBO, "self" => "self", "data" => (json_encode($ret["statuses"]))));
       //curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
       curl_setopt($ch, CURLOPT_HEADER, 0);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);

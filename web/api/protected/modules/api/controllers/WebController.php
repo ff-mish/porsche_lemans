@@ -173,9 +173,9 @@ class WebController extends Controller {
           $thirdpart_date = date("Y-m-d H:m:s", strtotime($status["created_at"]));
           $cond = array("condition" => "uuid=:uuid", "params" => array(":uuid" => $uuid ));
           $found = TwitteAR::model()->find($cond);
-          $found->cdate = $thirdpart_date;
-          $found->save();
           if ($found) {
+            $found->cdate = $thirdpart_date;
+            $found->save();
             print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] has existed already'."\r\n";
           }
           else {
