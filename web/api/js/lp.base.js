@@ -2636,9 +2636,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if( isMobile ){
                 var teams = [];
                 api.get('/api/web/teammobiledata' , function( e ){
-                    teams = e.data.teams;
+                    teams = teams.concat( e.data.before );
+                    teams = teams.concat( e.data.after );
 
-                    teams = teams.concat([{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4}])
                     // get max distance
                     var max = 0;
                     $.each( teams , function( i , team ){
@@ -3051,22 +3051,25 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                                     t.$panel.find('.loading').show();
 
-                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function(){
+                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
+                                        if( !e.data.is_right ){
+                                            t.$panel.find('.popup_dialog_options').hide()
+                                                .next()
+                                                .html( _e('failure') );
+                                        }
+
                                         t.$panel.find('.popup_dialog_options').hide()
                                             .next().show();
                                         setTimeout(function(){
                                             t.close();
                                         } , 2000);
+                                        
                                     });
                                 });
 
                             // init timer
                             questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
                                 t.close();
-                                // TODO..
-                                api.post("/api/question/answer" , { answer: '' , qaid: data.qaid} , function(){
-                                } , null , function(){
-                                });
                             } );
                         }
                     });

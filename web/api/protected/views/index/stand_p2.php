@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			<p class="on"><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
-			<p class="disabled"><a href="/race"><?=Yii::t('lemans','Race')?></a></p>
+			<p class="disabled"><a href="/teamrace"><?=Yii::t('lemans','Race')?></a></p>
 			<p class="disabled"><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
 			<p class="disabled"><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
 			<p> &nbsp; </p>
