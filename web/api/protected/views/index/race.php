@@ -61,4 +61,4 @@
 	</div>
 </div>
 
-<script type="application/javascript" src="/js/track.js"></script>
+<script type="text/javascript" src="/js/track.js"></script>

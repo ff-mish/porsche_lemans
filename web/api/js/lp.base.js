@@ -2729,14 +2729,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         },
         'race' : function(){
-            trackCreate()
+            trackCreate();
         }
     }
 	var initComplete = function(){
 		if(isComplete) return;
-
-        loadingCallBack[ page ] && loadingCallBack[ page ]();
         isComplete = true;
+        loadingCallBack[ page ] && loadingCallBack[ page ]();
 		$('.loading-wrap').fadeOut(function(){
             $(this).remove();
         });
