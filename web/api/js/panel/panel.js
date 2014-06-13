@@ -198,14 +198,16 @@ define(function( require , exports , model ){
 
         // =========== Creating
         // 创建Element
-        if( o.noClickClose ){
+        
         t.$panel = $('<div><span class="lpn_ghost"></span></div>').data('id', t.id)
             .click(function( ev ){
-                if( this == ev.target ){
-                    t.close();
+                if( !o.noClickClose ){
+                    if( this == ev.target ){
+                        t.close();
+                    }
                 }
             });
-        }
+        
         $(window).bind('keydown' , function( ev ){
             switch( ev.which ){
                 case 27:

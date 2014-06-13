@@ -1269,7 +1269,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     var globalVideos = [];
     var globalVideoInterval = [];
 
-    var renderVideo  = (function(){
+    window.renderVideo  = (function(){
         var tpl = '<video id="#[id]" style="width: 100%;height: 100%;" class="video-js vjs-default-skin"\
                 preload="auto"\
                   poster="#[poster]">\
