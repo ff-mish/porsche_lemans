@@ -170,14 +170,17 @@ class WebController extends Controller {
         if ($userAr) {
           $uuid = $status["idstr"];
           $content = $status["text"];
-
+          $thirdpart_date = date("Y-m-d H:m:s", strtotime($status["created_at"]));
           $cond = array("condition" => "uuid=:uuid", "params" => array(":uuid" => $uuid ));
           $found = TwitteAR::model()->find($cond);
+          $found->cdate = $thirdpart_date;
+          $found->save();
           if ($found) {
             print "time: ". date("Y-m-d H:m:s"). ": content [ ". $content . ' ] has existed already'."\r\n";
           }
           else {
             $content = $status["text"];
+            $uuid = $status["idstr"];
             $uid = $userAr->uid;
             $type = $userAr->from;
 
@@ -187,6 +190,7 @@ class WebController extends Controller {
             $twitteAr->uuid = $uuid;
             $twitteAr->type = $type;
             $twitteAr->is_from_thirdpart = 1;
+            $twitteAr->thirdpart_date  = $thirdpart_date;
 
             // entities media
             if (isset($status["original_pic"])) {
@@ -334,8 +338,8 @@ class WebController extends Controller {
         // 组名
         
         // 当前位置
-        $team = $result["name"];
-        if ($team->tid == $team->tid) {
+        $name = $result["name"];
+        if ($team->tid == $result["tid"]) {
           $crt_index = count($all_teams_score);
         }
         
@@ -349,7 +353,7 @@ class WebController extends Controller {
 //        );
         $all_teams_score[] = array(
             "distance" => $distance,
-            "team" => $team,
+            "team" => $name,
             "id" => $result["tid"],
             "speed" => $speed,
             "lap" => $lap,
