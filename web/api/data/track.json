@@ -48,11 +48,6 @@
                 "name":"高角度仰视",
                 "distance": -20,
                 "height":80
-            },
-            {
-                "name":"低角度仰视",
-                "distance": 50,
-                "height":10
             }
         ]
     }

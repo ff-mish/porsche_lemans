@@ -171,10 +171,9 @@ function trackCreate(readyCallback) {
                                 v.addVectors(p, offset.negate());
                             }
                             trackGeometry.verticesNeedUpdate = true;
+                            trackGeometry.applyMatrix(new THREE.Matrix4().makeRotationY(track.rotate/180*Math.PI));
                             trackGeometry.computeBoundingSphere();
                             trackGeometry.computeBoundingBox();
-                            trackOffset = trackGeometry.boundingSphere.center.clone().negate();
-                            console.log(trackOffset)
 
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
@@ -189,24 +188,26 @@ function trackCreate(readyCallback) {
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
 
+                            var trackBoundingBox=trackGeometry.boundingBox;
+                            trackWidth=trackBoundingBox.max.x-trackBoundingBox.min.x;
+                            trackHeight=trackBoundingBox.max.z-trackBoundingBox.min.z;
+
+                            trackGeometry.applyMatrix(new THREE.Matrix4().makeRotationY(-track.rotate/180*Math.PI));
                             meshTrack = new THREE.Mesh( trackGeometry, new THREE.MeshBasicMaterial({side: THREE.BackSide, overdraw:0.5}));
                             meshTrack.geometry.computeBoundingBox();
                             meshTrack.geometry.computeBoundingSphere();
+                            trackOffset = trackGeometry.boundingSphere.center.clone().negate();
                             meshTrack.position.add(trackOffset);
                             //meshTrack.rotation.y=track.rotate/180*Math.PI;//
                             meshTrack.matrixAutoUpdate = false;
                             meshTrack.updateMatrix();
                             scene.add(meshTrack);
 
-                            var trackBoundingBox=meshTrack.geometry.boundingBox;
-                            trackWidth=trackBoundingBox.max.x-trackBoundingBox.min.x;
-                            trackHeight=trackBoundingBox.max.z-trackBoundingBox.min.z;
-
                             var w=window.innerWidth-trackPadding* 2, h=window.innerHeight-trackPadding*2;
                             var d=Math.min(w/trackWidth, h/trackHeight);
                             camera = new THREE.OrthographicCamera(w/d/-2-trackPadding/d, w/d/2+trackPadding/d, h/d/2+trackPadding/d, h/d/-2-trackPadding/d, -500, 2000);
                             camera.position.set(0, 1000, 0);
-                            camera.up.set(0, 0, -1);
+                            camera.up.set(1.42,1,-1).normalize();
                             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
                             carsGroup = new THREE.Object3D;
@@ -255,7 +256,6 @@ function trackCreate(readyCallback) {
                             });
 
                             window.addEventListener('resize', onWindowResize, false);
-                            document.addEventListener('mousemove', onDocumentMouseMove, false);
                             document.addEventListener('click', onDocumentClick, false);
 
                             animate();
@@ -286,8 +286,7 @@ function trackCreate(readyCallback) {
                                 event.offsetY = event.pageY - targetOffset.top;
                             }
                             var vector = new THREE.Vector3(( event.offsetX / window.innerWidth ) * 2 - 1, -( event.offsetY / window.innerHeight ) * 2 + 1, 0.5);
-                            projector.unprojectVector(vector, camera);
-                            var ray = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+                            var ray=projector.pickingRay(vector, camera);
                             var intersects = ray.intersectObjects(carsGroup.children);
                             var selectedCar1;
                             if (intersects.length > 0) selectedCar1 = intersects[0].object;
@@ -297,18 +296,10 @@ function trackCreate(readyCallback) {
 
                                 //render();
                             }
-                            var intersects = ray.intersectObject(meshTrack);
-                            if (intersects.length > 0) console.log('track');
-                            var intersects = ray.intersectObjects(scene.children,true);
-                            if (intersects.length > 0) console.log(intersects[0].object.name);
-                        }
-
-                        function onDocumentMouseMove(event) {
-                            focus(event);
                         }
 
                         function onDocumentClick(event) {
-                            //focus(event);
+                            focus(event);
                         }
 
                         function animate() {

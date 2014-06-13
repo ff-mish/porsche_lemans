@@ -71,7 +71,7 @@ function sticksCreate(readyCallback) {
                 function init() {
                     container = document.getElementById('container');
                     projector = new THREE.Projector();
-                    renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+                    renderer = new THREE.WebGLRenderer({alpha: true, antialias: true/*, logarithmicDepthBuffer: true*/});
                     renderer.setClearColor(0x000000, 0);
                     renderer.setSize(window.innerWidth, window.innerHeight);
                     container.appendChild(renderer.domElement);
@@ -92,7 +92,7 @@ function sticksCreate(readyCallback) {
                             context.font="19.65px 'Porsche News Gothic','黑体','sans-serif'";
                             context.fillText(data.team, 23, 60);
                             context.fillText(''+Math.round(data.speed) + 'km/h', 132, 60);
-                            context.fillText("View Profi", 23, 87);
+                            context.fillText("Player", 23, 87);
                             context.fillText("Lap:" + data.lap, 132, 87);
                         }
                     });
