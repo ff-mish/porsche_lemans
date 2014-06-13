@@ -30,5 +30,7 @@
   'latest post' => '最新微博',
   'Invite a friend' => '邀请好友',
   '5/5' => '',
+  'Correct' => '回答正确',
+  'Incorrect' => '回答错误',
   'Assiduity' => '',
 );

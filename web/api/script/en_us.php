@@ -30,4 +30,6 @@
   'You can\\\'t invite too many people ' => '',
   'Maximum number of characters attained' => '',
   'Assiduity' => '',
+  'Correct' => '',
+  'Incorrect' => '',
 );
