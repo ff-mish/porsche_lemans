@@ -875,7 +875,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 
 @media screen and (max-width:1100px){
-    .conut_tips{font-size: 17px;margin:0 auto;margin-top:15px;width:939px;}
+    .conut_tips{font-size: 17px;margin:0 auto;margin-top:15px;}
     /*.stand_tweet .conut_down_wrap {margin-left:-187px;margin-top:28px;}*/
 }
 
@@ -921,6 +921,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 }
 
+
 @media screen and (max-width:640px) {
     .m {display:block;}
     .no-m {display: none;}
@@ -931,8 +932,16 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .page { -webkit-overflow-scrolling:touch;}
     .page_count {overflow:visible;}
 
-    body[data-page="index"] .page{overflow: visible;}
+    body #winners-prizes{top: 80px;}
 
+
+    body[data-page="index"] .count .conut_tit,body[data-page="index"] .count .conut_tips {color: white;}
+    body[data-page="index"] .count .conut_tips {font-size: 24px;margin-top: 60px;}
+    
+    body[data-page="index"] .mobile-bg{position: absolute; top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,.8);z-index: 1;}
+    body[data-page="index"] .page{overflow: visible;top: 80px;}
+    body[data-page="index"] .footer{color: white;}
+    body[data-page="index"] .footer_language span {color: white;}
     /*nav*/
     .loading-percentage {font-size:14px;}
     body #legal-notice {top:80px;}
@@ -944,7 +953,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .home_share a{background: url('../images/home_share2m.png') no-repeat;width: 289px;height: 72px;margin:0 0 6px}
     .home_share .home_twitter{background-position: bottom left}
     .home_winners{margin-top:490px;padding:0 0 80px;}
-    .home_v{width: 289px;height: 144px;position: absolute;left:50%;top:50%;margin: 136px 0 0 -144px;display: block;}
+    .home_v{width: 289px;height: 144px;position: absolute;left:50%;top:50%;margin: 0px 0 0 -144px;display: block;}
     /*ft*/
     .footer_link {bottom:60px;}
     body .footer-icon {background:none;padding:10px 0 0; width: 100px;position: absolute;font-size:26px;}
@@ -952,11 +961,11 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .footer_legal{background: url('../images/footer_linkm.png') no-repeat;width: 27px;height: 27px;overflow: hidden;line-height: 500em}
     .footer_share{position: absolute;right: 0}
     /*conutdown*/
-    .count{width: 580px;left:30px;margin:0;top:30px;}
+    .count{width: 580px;left:30px;margin:0;top:30px;position: absolute;z-index: 2;}
     .count .conut_down_wrap {margin-left:-272px;}
     .count .conut_down {margin-top:-166px;width:526px;}
     .conut_tit {margin-top:20px;}
-    .conut_tips{font-size: 22px;width:600px;margin-top:15px;}
+    .conut_tips{font-size: 22px;margin-top:15px;}
     .lang-cn .conut_tips {font-size:22px;margin-top:15px;}
     .stand_tweet .conut_down {height: 110px;top:0px;left: 0px;width: 392px;}
     .stand_tweet .conut_down_wrap {margin-left:-287px;margin-top:-209px;}
@@ -966,8 +975,10 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
     .lang-cn .count .conut_downinfo,.lang-cn .count .conut_downitem {font-size:46px;}
     .conut_downinfo:last-child {margin-right:0!important;}
     .conut_downitem{font-size: 48px}
-    .count .home_share{margin-top: 160px;}
-    .count .home_winners{margin-top:350px;}
+    .count .home_share{margin-top: 140px}
+    .count .home_winners{margin-top: 330px;
+padding-bottom: 0;
+font-size: 24px;color: white;}
     body .winners-close {font-size:20px;}
 
     /*stand*/
@@ -1123,20 +1134,26 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
         height: 124px;
         top: 200px;
         right: 0;
-        padding: 85px 40px 80px 80px;
+        padding: 85px 40px 80px 90px;
         font-size: 24px;
         line-height: 1.5em;}
+    .team-tip>p{font-size: 24px;}
+    .team-tip>div{font-size: 22px;}
     .tw.team-tip{background: url(/images/m-tip-tw.png) no-repeat;}
     .team-tip div>span:first-child{float: left;
         width: 122px;
         margin-right: 20px;
+        white-space: nowrap;
         overflow: hidden;}
 
     body[data-page="teamrace"] #container  .m-bar.active{background: red;}
     body[data-page="teamrace"] #container  .m-bar.tw.active{background: #065be0;}
 }
 
-
+@media screen and (max-width:640px) and (max-height: 1136 ){
+    .count .home_share{margin-top: 220px}
+    .count .home_winners{margin-top: 410px;}
+}
 
 
 

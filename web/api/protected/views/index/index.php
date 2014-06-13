@@ -11,6 +11,7 @@
       
       <!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
        <div class="conut_tips" ><?=Yii::t('lemans','JOIN_NOW')?></div>
+       <div class="home_v btn" id="mobile_home_v"></div>
       <div class="home_share">
         <!--   -->
       <a href="<?php echo UserAR::weibo_login_url() ?>" data-time="0" data-style="opacity:1;margin-left:0px;" class="home_weibo"></a>
@@ -18,9 +19,9 @@
       </div>
       <div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
     </div>
-        <!-- <div id="home_video">
-            <a class="skipintro" href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a>
-        </div> -->
+    <!-- <div id="home_video">
+      <a class="skipintro" href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a>
+    </div> -->
     <div id="winners-prizes">
             <div class="popup_close btn"></div>
             <div class="winners-prizes-wrap">
@@ -31,6 +32,7 @@
                 </div>
             </div>
     </div>
+    <div class="mobile-bg"></div>
     <div class="index-p2-bg"><img src="/videos/index_p2.jpg"></div>
   </div>
   <!--  -->

@@ -142,6 +142,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     if( $.browser.msie && $.browser.version <= 8 ){
         $(document.body).addClass('ie8');
+        var ie8 = true;
     }
     var isMobileBrowser = (function(){
         var sUserAgent = navigator.userAgent.toLowerCase();  
@@ -1281,32 +1282,36 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         return function( $wrap , videoFile , poster , cfg , cb , focus ){
 
             if( isMobile && !focus ){
-				$wrap.addClass('m-videobg');
-				$wrap.css({'background-image':'url('+poster+')'});
-//                var $img = $('<img/>')
-//                    .appendTo( $wrap )
-//                    .load(function(){
-//                        var $img = $(this);
-//                        var w = $img.width();
-//                        var h = $img.height();
-//                        $(window).resize(function(){
-//                            var ww = $wrap.width();
-//                            var hh = $wrap.height();
-//                            var tarw = w ,  tarh = h;
-//                            if( ww / hh > w / h ){
-//                                tarw = ww;
-//                                tarh = h / w * ww;
-//                            } else {
-//                                tarh = hh;
-//                                tarw = w / h * hh;
-//                            }
-//
-//                            $img.css({
-//                                'margin-top' : (hh - tarh) / 2,
-//                                'margin-left' : (ww - tarw) / 2});
-//                        }).trigger('resize');
-//                    })
-//                    .attr('src' , poster );
+				// $wrap.addClass('m-videobg');
+				// $wrap.css({'background-image':'url('+poster+')'});
+
+                var $img = $('<img/>')
+                   .appendTo( $wrap )
+                   .load(function(){
+                       var $img = $(this);
+                       var w = $img.width();
+                       var h = $img.height();
+                       $(window).resize(function(){
+                           var ww = $wrap.width();
+                           var hh = $wrap.height();
+                           var tarw = w ,  tarh = h;
+                           if( ww / hh > w / h ){
+                               tarw = ww;
+                               tarh = h / w * ww;
+                           } else {
+                               tarh = hh;
+                               tarw = w / h * hh;
+                           }
+
+                           $img.css({
+                                'min-height': '100%',
+                                'min-width' : '100%',
+                               'margin-top' : (hh - tarh) / 2,
+                               'margin-left' : (ww - tarw) / 2});
+                       }).trigger('resize');
+                   })
+                   .attr('src' , poster );
+                cb && cb();
                 return;
             }
 
@@ -1316,6 +1321,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false } , "needMyAutoPlay": true };
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
+
+            if( ie8 && $wrap.parent().is(':hidden') ){
+                $wrap.parent().show();
+            }
             LP.use('video-js' , function(){
                 videojs.options.flash.swf = "/js/video-js/video-js.swf";
                 cfg = LP.mix(defaultConfig , cfg);
@@ -2434,7 +2443,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         //     //     });
         //     // }
         // } );
-
 		renderVideo( $('<div></div>').css({
 			"position": "absolute",
 			"z-index": "-1",
@@ -2459,7 +2467,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 	LP.action('winners-prizes' , function( data ){
 		
 		renderVideo( $('<div></div>').css({
-			"position": "fixed",
+			"position": "absolute",
 			"z-index": "-1",
 			"top": "0",
 			"left": "0",
@@ -2659,9 +2667,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         'teamrace' : function(){
             if( isMobile ){
                 var teams = [];
+                var total = null;
                 api.get('/api/web/teammobiledata' , function( e ){
                     teams = e.data;
-
+                    total = e.ext;
                     // get max distance
                     var max = 0;
                     $.each( teams , function( i , team ){
@@ -2700,7 +2709,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .removeClass('active');
                     var team = teams[ $(this).data('index') ];
 
-                    $('.team-tip').html( LP.format('<p>P#[rankings]/#[total]</p>\
+                    team.total =  total.weibo_total + total.twitter_total;
+
+                    $('.team-tip').html( LP.format('<p>Rank:#[ranking]/#[total]</p>\
                         <div class="clearfix">\
                             <span>#[team]</span>\
                             <span>#[speed]km/h</span>\
