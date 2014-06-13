@@ -7,15 +7,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/panel/panel.js" afterPath="$PROJECT_DIR$/web/api/js/panel/panel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/views/index/video.php" afterPath="$PROJECT_DIR$/web/api/protected/views/index/video.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402646926358" ignored="false" />
+    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402665549813" ignored="false" />
     <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402040260474" ignored="false" />
-    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402057446037" ignored="false" />
+    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402666949378" ignored="false" />
     <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402061983411" ignored="false" />
     <file path="/jquery.queryloader22.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1400993218095" ignored="false" />
     <file path="$PROJECT_DIR$/../../../XAMPP/xamppfiles/htdocs/avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401077947462" ignored="false" />
@@ -108,7 +106,7 @@
     <file path="$PROJECT_DIR$/../rf/css/main.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401455054744" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/js/common/switchPage.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401798592287" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/js/common/helper.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402032185437" ignored="false" />
-    <file path="$PROJECT_DIR$/../lily_official/html/js/config.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401452755271" ignored="false" />
+    <file path="$PROJECT_DIR$/../lily_official/html/js/config.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402667997568" ignored="false" />
     <file path="$PROJECT_DIR$/../rf/flash/player/web/player6.htm" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401452914813" ignored="false" />
     <file path="/main.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401455054436" ignored="false" />
     <file path="/twitter.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401857572960" ignored="false" />
@@ -158,6 +156,8 @@
     <file path="/header.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402057956910" ignored="false" />
     <file path="/footer.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402057999511" ignored="false" />
     <file path="/httpd-vhosts.conf" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402642582702" ignored="false" />
+    <file path="/news_cn.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402667404032" ignored="false" />
+    <file path="$PROJECT_DIR$/../lily_official/html/news_cn.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402667404032" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,23 +177,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="track.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/css/track.css">
+      <file leaf-file-name="video.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="6" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
+            <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.6785714">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
+      <file leaf-file-name="teamrace.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/teamrace.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.30015552">
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="16" column="18" selection-start="513" selection-end="513" vertical-scroll-proportion="-8.821428">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fule.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="33" selection-start="584" selection-end="584" vertical-scroll-proportion="-9.678572">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="monitoring.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/monitoring.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="33" selection-start="561" selection-end="561" vertical-scroll-proportion="-10.857142">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="race.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/race.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="46" selection-start="598" selection-end="598" vertical-scroll-proportion="-12.214286">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="raceteam.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/raceteam.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stand.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="34" selection-start="456" selection-end="456" vertical-scroll-proportion="0.39967638">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tweet.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/tweet.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="282" column="18" selection-start="19047" selection-end="19047" vertical-scroll-proportion="-16.76923">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -220,7 +289,6 @@
         <option value="$PROJECT_DIR$/../../conf/apache/extra/httpd-vhosts.conf" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
         <option value="$PROJECT_DIR$/web/api/protected/config/main.php" />
-        <option value="$PROJECT_DIR$/web/api/css/style.css" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" />
         <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
         <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
@@ -232,14 +300,14 @@
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
         <option value="$PROJECT_DIR$/web/api/css/track.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/video.php" />
+        <option value="$PROJECT_DIR$/web/api/css/style.css" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
     <option name="y" value="22" />
-    <option name="width" value="1441" />
+    <option name="width" value="1440" />
     <option name="height" value="830" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -500,28 +568,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="porsche_lemans" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="porsche_lemans" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope">
@@ -535,8 +581,8 @@
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -580,14 +626,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="22" width="1441" height="830" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="830" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24986331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21505377" sideWeight="0.9949875" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21807748" sideWeight="0.67134833" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -596,7 +643,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32957748" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -663,37 +709,55 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/achieve.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="46" selection-start="261" selection-end="261" vertical-scroll-proportion="-6.107143">
+        <state line="3" column="17" selection-start="117" selection-end="117" vertical-scroll-proportion="-2.0357144" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="225" selection-start="827" selection-end="827" vertical-scroll-proportion="-0.6785714" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="252" selection-end="252" vertical-scroll-proportion="-2.0357144" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/winnerprices.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="27" selection-start="313" selection-end="313" vertical-scroll-proportion="0.11856474" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/track.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="6" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.6785714">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/teamrace.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="49" selection-start="472" selection-end="472" vertical-scroll-proportion="-8.821428">
+        <state line="16" column="18" selection-start="513" selection-end="513" vertical-scroll-proportion="-8.821428">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/achieve.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="17" selection-start="117" selection-end="117" vertical-scroll-proportion="-2.0357144">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="225" selection-start="827" selection-end="827" vertical-scroll-proportion="-0.6785714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="23" selection-start="252" selection-end="252" vertical-scroll-proportion="-2.0357144">
+        <state line="18" column="33" selection-start="584" selection-end="584" vertical-scroll-proportion="-9.678572">
           <folding />
         </state>
       </provider>
@@ -705,7 +769,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/winnerprices.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/monitoring.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="33" selection-start="561" selection-end="561" vertical-scroll-proportion="-10.857142">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/race.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="46" selection-start="598" selection-end="598" vertical-scroll-proportion="-12.214286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/raceteam.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
@@ -719,62 +797,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="282" column="18" selection-start="19047" selection-end="19047" vertical-scroll-proportion="-16.76923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="33" selection-start="553" selection-end="553" vertical-scroll-proportion="0.5039002">
+        <state line="13" column="34" selection-start="456" selection-end="456" vertical-scroll-proportion="0.39967638">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/raceteam.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/race.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="46" selection-start="598" selection-end="598" vertical-scroll-proportion="0.5335413">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/monitoring.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="33" selection-start="561" selection-end="561" vertical-scroll-proportion="0.47425896">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="27" selection-start="313" selection-end="313" vertical-scroll-proportion="0.11856474">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="33" selection-start="584" selection-end="584" vertical-scroll-proportion="0.14820592">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/css/track.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="6" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.30015552">
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
