@@ -17,7 +17,8 @@ function trackCreate(readyCallback) {
     var meshTrack, meshCarRed, meshCarBlue;
     var carLength=50, carSegments=50, carLenSeg=carLength/carSegments;
     var carsGroup, selectedCar;
-    var infoSprite;
+    var mapCars=[];
+    var infoSprite, infoSpriteMaterial;
     var spriteMaterial;
     var sideShiftPercents;
 
@@ -118,9 +119,10 @@ function trackCreate(readyCallback) {
             var texture = new THREE.Texture(canvas);
             var context=canvas.getContext("2d");
 
-            var sm=new THREE.SpriteMaterial({opacity: params.opacity, map:texture});
-            sm.depthTest=false;
-            var infoSprite = new THREE.Sprite(sm);
+            infoSpriteMaterial=new THREE.SpriteMaterial({opacity: params.opacity, map:texture});
+            infoSpriteMaterial.depthTest=false;
+            infoSpriteMaterial.opacity0=infoSpriteMaterial.opacity;
+            var infoSprite = new THREE.Sprite(infoSpriteMaterial);
             infoSprite.updateInfo = function (car) {
                 context.drawImage(image,0,height*TYPES[car.userData.typeIndex].bgOffsetV,width,height/2,0,0,width,height/2);
                 if (params.drawCallback) params.drawCallback(context, car.userData);
@@ -143,13 +145,16 @@ function trackCreate(readyCallback) {
             infoSprite.visible=selectedCar!=undefined;
             if (selectedCar) {
                 infoSprite.updateInfo(selectedCar);
-            }
+                infoSpriteMaterial.opacity+=0.03;
+                if (infoSpriteMaterial.opacity>infoSpriteMaterial.opacity0) infoSpriteMaterial.opacity=infoSpriteMaterial.opacity0;
+            } else
+                infoSpriteMaterial.opacity=0;
         }
     }
 
     (function() {
         $.ajax({ url: 'data/track.json', type: "GET", async: true, cache: false, dataType: "json", success: function (track) {
-            var cameraFollowConf = track.cameraFollow, cameraFollowIndex = 0;
+            var cameraFollowConf = track.cameraFollow, cameraFollowIndex = 0, focusedCar=0;
             sideShiftPercents = track.sideShiftPercents;
             var svgFile = track.svgFile;
             if (svgFile[0] !== '/') svgFile = 'data/' + svgFile;
@@ -163,7 +168,7 @@ function trackCreate(readyCallback) {
                         function init() {
                             container = document.getElementById('container');
                             projector = new THREE.Projector();
-                            renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+                            renderer = new THREE.WebGLRenderer({alpha: true, antialias: true/*, logarithmicDepthBuffer: true*/});
                             renderer.setClearColor(0x000000, 0);
                             renderer.setSize(window.innerWidth, window.innerHeight);
                             container.appendChild(renderer.domElement);
@@ -265,15 +270,29 @@ function trackCreate(readyCallback) {
                             cameraMap.up.set(0, 0, -1);
                             cameraMap.lookAt(new THREE.Vector3(0, 0, 0));
 
-                            meshMapRed = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize), new THREE.MeshBasicMaterial({color: 0xff0000}));
+                            meshMapRed = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize,20,1), new THREE.MeshBasicMaterial({color: 0xff0000}));
                             meshMapRed.position.set(0, 100, 0);
                             meshMapRed.userData = redCarData;
                             sceneMap.add(meshMapRed);
+                            mapCars.push(meshMapRed);
+                            var meshMapRedHilight=meshMapRed.clone();
+                            meshMapRedHilight.material=new THREE.MeshBasicMaterial({color: TYPES[0].color, transparent:true, opacity:0.5});
+                            meshMapRedHilight.scale.set(3,3,3);
+                            meshMapRedHilight.visible=false;
+                            meshMapRed.add(meshMapRedHilight);
+                            meshMapRed.hilight=meshMapRedHilight;
 
-                            meshMapBlue = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize), new THREE.MeshBasicMaterial({color: 0x0000ff}));
+                            meshMapBlue = new THREE.Mesh(new THREE.SphereGeometry(mapCarSize,20,1), new THREE.MeshBasicMaterial({color: 0x0000ff}));
                             meshMapBlue.position.set(0, 100, 0);
                             meshMapBlue.userData = blueCarData;
                             sceneMap.add(meshMapBlue);
+                            mapCars.push(meshMapBlue);
+                            var meshMapBlueHilight=meshMapBlue.clone();
+                            meshMapBlueHilight.material=new THREE.MeshBasicMaterial({color: TYPES[1].color, transparent:true, opacity:0.5});
+                            meshMapBlueHilight.scale.set(3,3,3);
+                            meshMapBlueHilight.visible=false;
+                            meshMapBlue.add(meshMapBlueHilight);
+                            meshMapBlue.hilight=meshMapBlueHilight;
 
                             var trackTexture = THREE.ImageUtils.loadTexture('image/track.png?' + (new Date()).getTime());
                             trackTexture.wrapS = trackTexture.wrapT = THREE.RepeatWrapping;
@@ -385,11 +404,40 @@ function trackCreate(readyCallback) {
 
                             window.addEventListener('resize', onWindowResize, false);
                             document.addEventListener('mousemove', onDocumentMouseMove, false);
-                            document.addEventListener('click', onDocumentClick, false);
+
+                            $(renderer.domElement).click(function(event){
+                                cameraFollowIndex++;
+                                if (cameraFollowIndex>cameraFollowConf.locations.length-1) {
+                                    changeFocus((focusedCar+1)%2);
+                                    cameraFollowIndex=0;
+                                }
+                            });
+                            $(rendererMap.domElement).click(function(event){
+                                if (typeof event.offsetX === "undefined" || typeof event.offsetY === "undefined") {
+                                    var targetOffset = $(event.target).offset();
+                                    event.offsetX = event.pageX - targetOffset.left;
+                                    event.offsetY = event.pageY - targetOffset.top;
+                                }
+                                var vector = new THREE.Vector3(( event.offsetX / $(this).width() ) * 2 - 1, -( event.offsetY / $(this).height() ) * 2 + 1, 0.5);
+                                var ray=projector.pickingRay(vector, cameraMap);
+                                var intersects = ray.intersectObjects(mapCars);
+                                if (intersects.length > 0) {
+                                    var selectedMapCar = intersects[0].object;
+                                    changeFocus(selectedMapCar==meshMapRed?0:1);
+                                }
+                            });
+
+                            changeFocus(0);
 
                             animate();
 
                             if (readyCallback) readyCallback();
+                        }
+
+                        function changeFocus(index) {
+                            focusedCar=index;
+                            meshMapRed.hilight.visible=focusedCar==0;
+                            meshMapBlue.hilight.visible=focusedCar==1;
                         }
 
                         function onWindowResize() {
@@ -430,10 +478,6 @@ function trackCreate(readyCallback) {
                             focus(event);
                         }
 
-                        function onDocumentClick(event) {
-                            cameraFollowIndex = (cameraFollowIndex + 1) % cameraFollowConf.locations.length;
-                        }
-
                         function cameraFollowPosition(targetDistance) {
                             var cameraLocation = cameraFollowConf.locations[cameraFollowIndex];
                             var cameraPosition = getPositionByDistance(targetDistance + cameraLocation.distance);
@@ -441,7 +485,8 @@ function trackCreate(readyCallback) {
                             return cameraPosition;
                         }
 
-                        function cameraFollow(distance) {
+                        function cameraFollow() {
+                            var distance=(focusedCar==0?meshCarRed:meshCarBlue).userData.distance;
                             var cameraLookTarget = getPositionByDistance(distance).add(cameraUpAdd);
                             cameraLookAtPosition.add(cameraLookTarget.sub(cameraLookAtPosition).multiplyScalar(cameraFollowConf.lookAtFactor));
                             var cameraPos = cameraFollowPosition(distance);
@@ -462,13 +507,10 @@ function trackCreate(readyCallback) {
                             meshCarBlue.userData.lap = meshCarBlue.userData.lap0 + Math.floor(meshCarBlue.userData.distance1 / trackLength);
                             setCarDistance(meshMapRed, meshCarRed);
                             setCarDistance(meshMapBlue, meshCarBlue);
-                            var followDistance;
                             if (Math.max(meshCarRed.userData.distance > meshCarBlue.userData.distance)) {
-                                followDistance = meshCarRed.userData.distance;
                                 meshCarRed.userData.rankings = 1;
                                 meshCarBlue.userData.rankings = 2;
                             } else {
-                                followDistance = meshCarBlue.userData.distance;
                                 meshCarBlue.userData.rankings = 1;
                                 meshCarRed.userData.rankings = 2;
                             }
@@ -479,7 +521,7 @@ function trackCreate(readyCallback) {
                                 meshCarRed.userData.faster = 0;
                                 meshCarBlue.userData.faster = 1;
                             }
-                            cameraFollow(followDistance);
+                            cameraFollow();
                             spriteMaterial.rotation = (-clock.getElapsedTime() * Math.PI * 1.5);
 
                             render();
