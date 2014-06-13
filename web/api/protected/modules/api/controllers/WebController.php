@@ -310,48 +310,59 @@ class WebController extends Controller {
     $teams = array();
     $all_teams_score = array();
     $crt_index = 0;
-    foreach ($fromes as $from) {
-      $teams_in = array();
-      // 先把每组速度汇总数据拿出来
-      $sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
-      $command = Yii::app()->db->createCommand($sql);
-      $results = $command->queryAll();
+    $total_weibo = 0;
+    $total_twitter = 0;
+    
+    $teams_in = array();
+    // 先把每组速度汇总数据拿出来
+    //$sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
+    $sql = "select teams.name as name, users.from as user_from, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid group by teams.tid ORDER BY average_total DESC";
+    $command = Yii::app()->db->createCommand($sql);
+    $results = $command->queryAll();
+
+    foreach ($results as $index => $result) {
       
-      foreach ($results as $index => $result) {
-        $total_average = $result["average_total"] + 0.1;
-        $total = $result["team_total"];
-        
-        // 速度
-        $speed = ceil($total_average / $total);
-        
-        // 距离
-        $total_seconds = $total * (30 + 2);
-        $hour = $total_seconds / 3600;
-        $distance = $speed * $hour;
-        
-        // Lap
-        $lap = ceil($distance / $lenght_of_race);
-        
-        // 排名
-        $ranking = $index + 1;
-        
-        // 组名
-        
-        // 当前位置
-        $name = $result["name"];
-        if ($team->tid == $result["tid"]) {
-          $crt_index = count($all_teams_score);
-        }
-        
-        $all_teams_score[] = array(
-            "distance" => $distance,
-            "team" => $name,
-            "id" => $result["tid"],
-            "speed" => $speed,
-            "lap" => $lap,
-            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
-        );
+      if ($result["user_from"] == UserAR::FROM_WEIBO) {
+        $total_weibo += 1;
       }
+      else {
+        $total_twitter += 1;
+      }
+      
+      $total_average = $result["average_total"] + 0.1;
+      $total = $result["team_total"];
+
+      // 速度
+      $speed = ceil($total_average / $total);
+
+      // 距离
+      $total_seconds = $total * (30 + 2);
+      $hour = $total_seconds / 3600;
+      $distance = $speed * $hour;
+
+      // Lap
+      $lap = ceil($distance / $lenght_of_race);
+
+      // 排名
+      $ranking = $index + 1;
+
+      // 组名
+
+      // 当前位置
+      $name = $result["name"];
+      if ($team->tid == $result["tid"]) {
+        $crt_index = count($all_teams_score);
+      }
+
+      $all_teams_score[] = array(
+          "distance" => $distance,
+          "ranking" => $ranking,
+          "team" => $name,
+          "id" => $result["tid"],
+          "speed" => $speed,
+          "lap" => $lap,
+          "typeIndex" => $result["user_from"] == UserAR::FROM_WEIBO ? 0 : 1
+      );
     }
     
     // 排序 team score
@@ -395,11 +406,11 @@ class WebController extends Controller {
      $after = array_splice($all_teams_score, $crt_index, $len);
      
      $ret = array_merge($before, $after);
-     $this->responseJSON($ret, "success");
+     $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
     else {
       $ret = array_splice($all_teams_score, 100);
-      $this->responseJSON($ret, "success");
+      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
   }
   
