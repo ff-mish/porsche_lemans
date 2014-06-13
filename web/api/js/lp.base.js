@@ -1401,7 +1401,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         var wraps = [];
         var index = 0;
-        var resizeImage = function( $wrap , src , isPushed , border ){
+        var resizeImage = function( $wrap , src , isPushed , border , notFullSize ){
             border = border || 0;
             $wrap.data('border' , border);
             !isPushed && wraps.push( $wrap );
@@ -1412,13 +1412,25 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var height = this.height;
                 var marginTop = -border , marginLeft = -border , imgWidth , imgHeight;
                 if( width / height > imageWrapWidth / imageWrapHeight ){
-                    imgHeight = imageWrapHeight;
-                    imgWidth = width / height * imgHeight;
-                    marginLeft = ( imageWrapWidth - imgWidth ) / 2 - border ;
+                    if( notFullSize ){
+                        imgWidth = imageWrapWidth;
+                        imgHeight = height / width * imgWidth;
+                        marginTop = ( imageWrapHeight - imgHeight ) / 2;
+                    } else {
+                        imgHeight = imageWrapHeight;
+                        imgWidth = width / height * imgHeight;
+                        marginLeft = ( imageWrapWidth - imgWidth ) / 2 - border ;
+                    }
                 } else {
-                    imgWidth = imageWrapWidth;
-                    imgHeight =  height / width * imgWidth;
-                    marginTop = ( imageWrapHeight - imgHeight ) / 2 - border;
+                    if( notFullSize ){
+                        imgHeight = imageWrapHeight;
+                        imgWidth = width / height * imgHeight;
+                        marginLeft = ( imageWrapWidth - imgWidth ) / 2;
+                    } else {
+                        imgWidth = imageWrapWidth;
+                        imgHeight =  height / width * imgWidth;
+                        marginTop = ( imageWrapHeight - imgHeight ) / 2 - border;
+                    }
                 }
                 var css = {
                     marginTop: marginTop,
@@ -2156,7 +2168,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 <div class="popup_fuel_photo_right">\
                     <h4>#[title]</h4>\
                     <div class="popup_fuel_photo_description">\
-                        #[description]\
+                        <div>#[description]</div>\
                     </div>\
                     <div class="popup_fuel_btns">\
                         <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
@@ -2187,7 +2199,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             onShow: function(){
                 var panel = this;
                 var $wrap = panel.$panel.find('.popup_image_wrap');
-                renderImage( $wrap );
 
                 var imgH = $('.popup_image_wrap').height();
                 var imgW = $('.popup_image_wrap').width();
@@ -2202,6 +2213,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         this.play();
                         this.dimensions( '100%' , '90%' );
                     } );
+                } else {
+                    renderImage( $wrap , null , true , 0 , true );
+                    LP.use(['jscrollpane' , 'mousewheel'] , function(){
+                        panel.$panel.find('.popup_fuel_photo_description').jScrollPane({autoReinitialise:true});
+                    });
                 }
 
                 var panel = this;
@@ -2307,8 +2323,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     LP.action('fuel-load' , function( data ){
         if( !hasMore ) return;
         $(this).attr('disabled' , 'disabled');
-        var $dom = $('.fuelmore').fadeOut();
+        var $dom = $('.fuelmore').animate({
+                            opacity: 0
+                        });
         var page = ++fuelPage;
+
+        $('.fuel').height('auto');
 
         // $('.fuel .loading').show();
         $(this).data( 'page' , fuelPage );
@@ -2343,11 +2363,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !$img.length ){
                     if( e.data.length >= 10 ){
                         hasMore = true;
-                        $('.fuelmore').fadeIn();
+                        $('.fuelmore').animate({
+                            opacity: 1
+                        });
                     } else {
                         hasMore = false;
                     }
                     var $dom = $('.fuellist');
+                    $('.fuel').height( $('.fuel').height() );
                     LP.use('isotope' , function(){
                         // first init isotope , render no animate effect
                         $dom
@@ -2636,8 +2659,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if( isMobile ){
                 var teams = [];
                 api.get('/api/web/teammobiledata' , function( e ){
-                    teams = teams.concat( e.data.before );
-                    teams = teams.concat( e.data.after );
+                    teams = e.data;
 
                     // get max distance
                     var max = 0;
@@ -2649,7 +2671,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // render each team data
                     var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
                     $.each( teams , function( i , team ){
-                        aHtml.push( '<div data-index="' + i + '" class="m-bar" data-a="m-bar" style="height:' + (team.distance / max * height) + 'px;margin-top:' + ( (1 - team.distance / max) * height) + 'px;"></div>' );
+                        aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + '" data-a="m-bar" style="height:' + (team.distance / max * height) + 'px;margin-top:' + ( (1 - team.distance / max) * height) + 'px;"></div>' );
                     } );
                     aHtml.push('</div>');
 
@@ -2658,10 +2680,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         $('#container').html( aHtml.join('') )
                             .css('overflow-y' , 'hidden')
                             .find('.m-bar')
-                            .css('top' , 1000)
                             .each(function( i ){
                                 if( i < 20 ){
                                     $(this)
+                                        .css('top' , 1000)
                                         .delay( i * 100 )
                                         .animate({
                                             top: 0
@@ -2676,15 +2698,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .siblings('.active')
                         .removeClass('active');
                     var team = teams[ $(this).data('index') ];
+
                     $('.team-tip').html( LP.format('<p>P#[rankings]/#[total]</p>\
                         <div class="clearfix">\
                             <span>#[team]</span>\
                             <span>#[speed]km/h</span>\
                         </div>\
                         <div class="clearfix">\
-                            <span>Players:#[typeIndex]</span>\
+                            <span>Players:#[plays]</span>\
                             <span>Lap:#[lap]</span>\
                         </div>' , team))
+                        .addClass( team.typeIndex == 0 ? '' : 'tw' )
+                        .removeClass( team.typeIndex == 0 ? 'tw' : '' )
                         .fadeIn();
                 });
             } else {
@@ -3004,6 +3029,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // fix Q & A
         if( $(document.body).data('page') != 'index' ){
         setInterval(function(){
+            if( window.NO_QA ) return false;
             // ban qa
             var now  = new Date();
 
@@ -3012,6 +3038,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var qaCookie = LP.getCookie( "__QA__") ;
             var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
             var showQa = function(){
+                if( window.NO_QA ) return false;
                 cookieTimes.push( + new Date() );
                 LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
                 LP.removeCookie( "__NQA__" );
@@ -3313,7 +3340,18 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 LP.triggerAction('fuel-load' , {noNeedLoading: true} );
                 var reloadTimer = null;
                 $(window).resize(function(){
-                    var width = $('.fuellist').width();
+                    var navWidth = $('.nav').width();
+                    var navLeft = parseInt( $('.nav').css('left') );
+                    var winWidth = $(window).width();
+                    if( winWidth <= 640 ){
+                        navLeft = 0;
+                        navWidth = 0;
+                    }
+                    $('.fuel').css({
+                        left: navLeft + navWidth - 20
+                    });
+
+                    var width = winWidth - ( navLeft + navWidth - 20 ) - 30;
                     var minWidth = 180;
                     var minHeight = 100;
                     var itemWidth = ~~( width / ~~ ( width / minWidth ) );
@@ -3324,13 +3362,42 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         overflow: 'hidden'
                     });
 
+
+
                     if( $('.fuellist').children('.isotope-item').length ){
                         clearTimeout( reloadTimer );
                         reloadTimer = setTimeout(function(){
                             $('.fuellist').isotope('reLayout');
                         } , 200 );
                     }
-                });
+                }).trigger('resize');
+
+
+                if( $('.video-page').length ){
+                    window.NO_QA = 1;
+                    LP.panel({
+                        content:'<div class="popup_fuel">\
+                            <div class="popup_fuel_video">\
+                                <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
+                            </div>\
+                        </div>',
+                        noClickClose: true,
+                        title: '',
+                        onShow: function(){
+                            var panel = this;
+                            var $wrap = panel.$panel.find('.popup_image_wrap');
+                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
+                                controls: true,
+                                resize: false,
+                                loop: false,
+                                needMyAutoPlay: false
+                            } , function(){
+                                this.play();
+                                this.dimensions( '100%' , '90%' );
+                            } );
+                        }
+                    });
+                }
                 
                 break;
                 

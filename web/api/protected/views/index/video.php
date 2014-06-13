@@ -1,4 +1,4 @@
-<div class="page_wrap " style="background: #000;opacity: 0.3">
+<div class="page_wrap video-page" style="background: #000;opacity: 0.3">
 	<div class="header">
 	    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
 		<a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
@@ -60,10 +60,26 @@
 </div>
 </script>
 
-<video id="example_video_1" class="video-js vjs-default-skin"
-  controls preload="auto" width="640" height="264"
-  poster="<?php echo $mediaAr->teaser_image?>"
-  data-setup='{"example_option":true}'>
- <source src="<?php echo $mediaAr->uri?>" type='video/mp4' />
- <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-</video>
+<script type="text/javascript">
+ var VIDEO = "<?php echo $mediaAr->uri?>";
+ var POSTER = "<?php echo $mediaAr->teaser_image?>";
+</script>
+
+               
+<!-- <div class="lpn_mask" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 10002;">
+	<span class="lpn_ghost"></span>
+	<div class="lpn_panel lpn_panel_panel lpn_panel_default" style="margin-top: 0px; opacity: 1;">
+		<div class="lpn_wrapper" id="2">
+			<div class="lpn_canvas">
+				<video id="example_video_1" class="video-js vjs-default-skin"
+				  controls preload="auto" width="640" height="264" autoplay
+				  poster="<?php echo $mediaAr->teaser_image?>"
+				  data-setup='{"example_option":true}'>
+				 <source src="<?php echo $mediaAr->uri?>" type='video/mp4' />
+				 <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+				</video>
+			</div>
+			<div class="lpn_ctrl_group"><a class="lpn_close " href="#" style="display: inline;">&nbsp;</a></div>
+		</div>
+	</div>
+</div> -->
