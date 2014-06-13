@@ -20,7 +20,7 @@ return array (
     "Repost" => "转发",
     "Cancel Invitation" => "取消邀请",
     "Assiduity" => "成就值",
-    "LOAD MORE" => "加载更多",
+    "Load More" => "加载更多",
 	"d" => "天",
 	"h" => "小时",
 	"min" => "分",

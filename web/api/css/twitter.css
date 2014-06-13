@@ -55,6 +55,7 @@ a:hover{color:#065be0;}
 }
 
 .fuelbtn{background: url('../images/fuelbtn_t.png') no-repeat;}
+.fuelbtn2{background-position: right top}
 .popup_dun{background: url(../images/dun_t.png) no-repeat;}
 .popup_dialog_options label {background:url(../images/qa_option_t.png) no-repeat;}
 

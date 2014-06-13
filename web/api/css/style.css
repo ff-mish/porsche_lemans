@@ -127,11 +127,11 @@ body[data-page="stand"] .footer-icon{display: block;}
 
 /* home */
 .home_txt{background: url('../images/home_txt2.png') no-repeat;width: 832px;height: 275px;left:50%;top:50%;margin: -262px 0 0 -416px;position: absolute;}
-.home_share{position: absolute;left:50%;top:50%;margin:100px 0 0 -166px}
+.home_share{position: absolute;left:50%;top:55%;margin:100px 0 0 -166px}
 .home_share a{width:159px;height: 38px;background: url('../images/home_share2.png') no-repeat; float: left;display: inline;margin: 0 10px 0 0}
 .lang-cn .home_share a {background-image: url('../images/home_share2_cn.png');}
 .home_share .home_twitter{background-position: top right}
-.home_winners{color:#fff;font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;font-size: 16px;text-align: center;text-decoration: underline;position: absolute;top: 50%;width: 200px;left:50%;margin: 175px 0 0 -100px} /*p1*/
+.home_winners{color:#fff;font-family:arial,"Microsoft YaHei",arial,SimHei,sans-serif;font-size: 16px;text-align: center;text-decoration: underline;position: absolute;top: 53%;width: 200px;left:50%;margin: 175px 0 0 -100px} /*p1*/
 
 /* login */
 .login{width: 286px;height: 168px;padding:150px 0 0;border:#f00 solid 1px;position: absolute;left:50%;top:50%;margin: -160px 0 0 -144px;background: url('../images/login_weibo.png') no-repeat center 38px;}
@@ -202,8 +202,9 @@ body[data-page="stand"] .footer-icon{display: block;}
 .race_time{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px 0;height: 24px;}
 .race_speed{padding: 0 0 0 55px;line-height: 24px;background: url('../images/race_nav.png') no-repeat 10px -35px;margin-bottom: 22px;margin-top: 10px;}
 .race_navitem{background: url('../images/race_nav.png') no-repeat 10px -76px;height: 24px;line-height: 24px;padding-left:55px;}
+.race_navitem a{ margin-left: -30px;padding-left: 30px;}
 .race_navitemon{background-position: 10px -100px;}
-.race_navitemon a{color: red; margin-left: -30px;padding-left: 30px;}
+.race_navitemon a{color: red;}
 /* teambuild */
 .teambuild{position:absolute;left: 50%;top: 50%;width:715px;height: 654px;margin: -327px 0 0 -357px}
 .teambuild_step{font-size: 24px;color:#fff;text-transform: uppercase;text-align: center;width: 400px;line-height: 30px}
@@ -449,7 +450,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .popup_fuel .popup_fuel_photo_left {float: left;width: 250px;margin: 20px 20px 50px 20px;}
 
 .popup_fuel .popup_fuel_photo_right {float:left;width:300px;padding-right:20px;word-wrap: break-word;margin-top:45px;font-size:16px;line-height:140%;}
-.popup_fuel .popup_fuel_photo_description {text-align: justify;height: 210px;}
+.popup_fuel .popup_fuel_photo_description {text-align: justify;height: 210px;font-size: 14px;}
 .popup_fuel .popup_fuel_photo_description .jspVerticalBar{right: -7px;}
 /* video */
 .popup_fuel .vjs-default-skin.vjs-has-started .vjs-control-bar{background: #000;visibility: visible;opacity: 1;bottom: -36px;}

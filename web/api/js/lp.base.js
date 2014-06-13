@@ -1736,7 +1736,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             animateTo( last_tsc , tsc , 600 , function( nums ){
                 nums[0] = ~~nums[0];
                 nums[1] = ~~nums[1];
-                $tsc.html( _e('P') + (nums[0] < 10 && nums[0] > 0 ? '0' + nums[0] : nums[0] ) + ' / ' + (nums[1] < 10 && nums[1] > 0 ? '0' + nums[1] : nums[1] ) );
+                $tsc.html( _e('P') + nums[0] + ' / ' +  nums[1] );
             } );
         }
         $tsc.data('last-num' , tsc);
@@ -2157,7 +2157,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -2171,7 +2171,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div>#[description]</div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]"  data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -2247,8 +2247,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     LP.action('repost' , function( data ){
       var self = $(this);
+      data.title = data.title || self.data('title');
       var max_length = 112;
-      var share_text = "They’re watching you! Share image for getting more fuel for your race ";
+      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : '#24SocialRace ' + data.title ;
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -2363,7 +2364,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !$img.length ){
                     if( e.data.length >= 10 ){
                         hasMore = true;
-                        $('.fuelmore').animate({
+                        $('.fuelmore').show().animate({
                             opacity: 1
                         });
                     } else {
@@ -3079,14 +3080,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                     t.$panel.find('.loading').show();
 
                                     api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
-                                        if( !e.data.is_right ){
-                                            t.$panel.find('.popup_dialog_options').hide()
-                                                .next()
-                                                .html( _e('failure') );
-                                        }
-
                                         t.$panel.find('.popup_dialog_options').hide()
-                                            .next().show();
+                                                .next()
+                                                .html( e.data.is_right ? _e('Correct') : _e('Incorrect') )
+                                                .show();
                                         setTimeout(function(){
                                             t.close();
                                         } , 2000);
@@ -3348,10 +3345,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         navWidth = 0;
                     }
                     $('.fuel').css({
-                        left: navLeft + navWidth - 20
+                        left: Math.max( 40 , navLeft + navWidth - 40 ),
+                        right: 40
+
                     });
 
-                    var width = winWidth - ( navLeft + navWidth - 20 ) - 30;
+                    var width = winWidth - Math.max( 40 , navLeft + navWidth - 40 ) - 40;
                     var minWidth = 180;
                     var minHeight = 100;
                     var itemWidth = ~~( width / ~~ ( width / minWidth ) );
