@@ -2703,58 +2703,114 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if( isMobile ){
                 var teams = [];
                 var ext = null;
-                api.get('/api/web/teammobiledata' , function( e ){
+                var loadData = function( type , cb ){
+                    var needRenderSelf = type == 'team';
+                    api.get( '/api/web/teammobiledata?type=' + type , function( e ){
+                        teams = e.data;
+                        ext = e.ext;
+                        // get max distance
+                        var max = 0;
+                        $.each( teams , function( i , team ){
+                            max = Math.max( max , team.distance + (teams.length - i) );
+                        } );
+                        var height = $('#container').height();
+                        $('#container').css({left: 20 , right: 20 , width: 'auto'});
 
-                    teams = e.data;
-                    ext = e.ext;
-                    // get max distance
-                    var max = 0;
-                    $.each( teams , function( i , team ){
-                        max = Math.max( max , team.distance + (teams.length - i) );
-                    } );
-
-
-                    var height = $('#container').height();
-                    $('#container').css({left: 20 , right: 20 , width: 'auto'});
-
-
-                    var selfIndex = -1;
-                    // render each team data
-                    var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
-                    $.each( teams , function( i , team ){
-                        if( team.id == ext.user_tid ){
-                            selfIndex = i;
-                        }
-                        aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + ' ' + 
-                            ( selfIndex == i ? 'm-self-bar' : '' ) + '" data-a="m-bar" style="height:' + 
-                            ((team.distance + (teams.length - i)) / max * height) + 'px;margin-top:' + 
-                            ( (1 - (team.distance + (teams.length - i)) / max) * height) + 'px;"></div>' );
-                    } );
-                    aHtml.push('</div>');
+                        var selfIndex = -1;
+                        // render each team data
+                        var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
+                        $.each( teams , function( i , team ){
+                            if( team.id == ext.user_tid ){
+                                selfIndex = i;
+                            }
+                            aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + ' ' + 
+                                ( selfIndex == i && needRenderSelf ? 'm-self-bar' : '' ) + '" data-a="m-bar" style="height:' + 
+                                ((team.distance + (teams.length - i)) / max * height) + 'px;margin-top:' + 
+                                ( (1 - (team.distance + (teams.length - i)) / max) * height) + 'px;"></div>' );
+                        } );
+                        aHtml.push('</div>');
 
 
-                    setTimeout(function(){
-                        $('#container').html( aHtml.join('') )
-                            .css('overflow-y' , 'hidden')
-                            .find('.m-bar')
-                            .each(function( i ){
-                                $(this)
-                                    .css('top' , 500)
-                                    .delay( i * 100 )
+                        setTimeout(function(){
+                            $('#container').scrollLeft(0).html( aHtml.join('') )
+                                .css('overflow-y' , 'hidden')
+                                .find('.m-bar')
+                                .each(function( i ){
+                                    $(this)
+                                        .css('top' , 500)
+                                        .delay( i * 100 )
+                                        .animate({
+                                            top: 0
+                                        } , 200);
+                                });
+
+                            // animate to self team
+                            if( needRenderSelf ){
+                                $('#container')
+                                    .delay( 400 )
                                     .animate({
-                                        top: 0
-                                    } , 200);
-                            });
-                        // animate to self team
-                        $('#container')
-                            .delay( 400 )
-                            .animate({
-                                scrollLeft: ( selfIndex - 4 ) * 50
-                            } , selfIndex * 150 , '' , function(){
-                                $('.m-self-bar').trigger('touchend');
-                            });
-                    } , 2000);
-                });
+                                        scrollLeft: ( selfIndex - 4 ) * 50
+                                    } , selfIndex * 150 , '' , function(){
+                                        $('.m-self-bar').trigger('touchend');
+                                    });
+                            }
+
+                            cb && cb();
+                        } , 2000);
+                    });
+                }
+                // api.get('/api/web/teammobiledata' , function( e ){
+
+                //     teams = e.data;
+                //     ext = e.ext;
+                //     // get max distance
+                //     var max = 0;
+                //     $.each( teams , function( i , team ){
+                //         max = Math.max( max , team.distance + (teams.length - i) );
+                //     } );
+
+
+                //     var height = $('#container').height();
+                //     $('#container').css({left: 20 , right: 20 , width: 'auto'});
+
+
+                //     var selfIndex = -1;
+                //     // render each team data
+                //     var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
+                //     $.each( teams , function( i , team ){
+                //         if( team.id == ext.user_tid ){
+                //             selfIndex = i;
+                //         }
+                //         aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + ' ' + 
+                //             ( selfIndex == i ? 'm-self-bar' : '' ) + '" data-a="m-bar" style="height:' + 
+                //             ((team.distance + (teams.length - i)) / max * height) + 'px;margin-top:' + 
+                //             ( (1 - (team.distance + (teams.length - i)) / max) * height) + 'px;"></div>' );
+                //     } );
+                //     aHtml.push('</div>');
+
+
+                //     setTimeout(function(){
+                //         $('#container').html( aHtml.join('') )
+                //             .css('overflow-y' , 'hidden')
+                //             .find('.m-bar')
+                //             .each(function( i ){
+                //                 $(this)
+                //                     .css('top' , 500)
+                //                     .delay( i * 100 )
+                //                     .animate({
+                //                         top: 0
+                //                     } , 200);
+                //             });
+                //         // animate to self team
+                //         $('#container')
+                //             .delay( 400 )
+                //             .animate({
+                //                 scrollLeft: ( selfIndex - 4 ) * 50
+                //             } , selfIndex * 150 , '' , function(){
+                //                 $('.m-self-bar').trigger('touchend');
+                //             });
+                //     } , 2000);
+                // });
                 
     
                 $(document.body).delegate('.m-bar' , 'touchend' , function(){
@@ -2780,6 +2836,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .fadeIn();
                 });
 
+                $('a.switchType').click(function(){
+                      $(this).addClass('on')
+                        .siblings()
+                        .removeClass('on');
+                      loadData($(this).attr('data-rank-type'));
+                  });
+    
 
             } else {
                 var updateTeamData;
