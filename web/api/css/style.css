@@ -1188,7 +1188,7 @@ body[data-page="teamrace"].mobile #container  .m-bar.m-self-bar{background-image
         margin-right: 20px;
         white-space: nowrap;
         overflow: hidden;}
-
+.mobile #switch a.on{background: url('../images/navicon2.png') no-repeat 120% -100px;}
 
 @media screen and (max-width:640px) and (max-height: 1136 ){
     .count .home_share{margin-top: 220px}

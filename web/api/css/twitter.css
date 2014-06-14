@@ -69,7 +69,7 @@ a:hover{color:#065be0;}
     .nav .on {background: none;color:#065be0;}
 }
 
-#switch a.on{background: url('../images/navicon2.png') no-repeat 130% -107px;}
-
+#switch a.on{background: url('../images/navicon2_t.png') no-repeat 130% -107px;}
+.mobile #switch a.on{background: url('../images/navicon2_t.png') no-repeat 120% -100px;}
 
 

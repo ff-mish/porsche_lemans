@@ -195,18 +195,26 @@ function trackCreate(readyCallback) {
 
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
-                                sideOffset: 2.5, infoBoxSide:1, typeIndex: raceData.data.weibo.typeIndex, faster: 0};
+                                sideOffset: 2.5, infoBoxSide:1, typeIndex: raceData.data.weibo.typeIndex};
                             redCarData.speed0=raceData.data.weibo.speed;
                             redCarData.speed=(raceData.data.weibo.speed<100?100:raceData.data.weibo.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             redCarData.distance1 = modDistance(redCarData.distance);
                             redCarData.lap0 = redCarData.lap;
                             var blueCarData = {name: raceData.data.twitter.name, distance: raceData.data.twitter.distance,
                                 rankings: raceData.data.twitter.rankings, lap: raceData.data.twitter.lap,
-                                sideOffset: -2.5, infoBoxSide:-1, typeIndex: raceData.data.twitter.typeIndex, faster: 0};
+                                sideOffset: -2.5, infoBoxSide:-1, typeIndex: raceData.data.twitter.typeIndex};
                             blueCarData.speed0=raceData.data.twitter.speed;
                             blueCarData.speed=(raceData.data.twitter.speed<100?100:raceData.data.twitter.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
+
+                            if (Math.max(redCarData.speed0 > blueCarData.speed0)) {
+                                redCarData.faster = 1;
+                                blueCarData.faster = 0;
+                            } else {
+                                redCarData.faster = 0;
+                                blueCarData.faster = 1;
+                            }
 
                             var trackBoundingBox=trackGeometry.boundingBox;
                             trackWidth=trackBoundingBox.max.x-trackBoundingBox.min.x;
@@ -341,13 +349,6 @@ function trackCreate(readyCallback) {
                                 followDistance = meshCarBlue.userData.distance;
                                 meshCarBlue.userData.rankings = 1;
                                 meshCarRed.userData.rankings = 2;
-                            }
-                            if (Math.max(meshCarRed.userData.speed > meshCarBlue.userData.speed)) {
-                                meshCarRed.userData.faster = 1;
-                                meshCarBlue.userData.faster = 0;
-                            } else {
-                                meshCarRed.userData.faster = 0;
-                                meshCarBlue.userData.faster = 1;
                             }
 
                             render();
