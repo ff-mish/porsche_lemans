@@ -3926,7 +3926,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     getServerTime();
 
                     $('.race_nav').children()
-                        .css({marginLeft: -20 , opacity: 0})
+                        .css({marginLeft: -20 , opacity: 1})
                         .each(function( i ){
                             $(this)
                                 .delay( 1000 + (i + 1) * 200 )
