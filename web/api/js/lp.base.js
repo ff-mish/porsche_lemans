@@ -2189,7 +2189,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -2203,7 +2203,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div>#[description]</div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]"  data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -3341,13 +3341,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 })
                 // // show the big video
                 if( !isMobile ){
-                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
-                        $('#' + this.Q).css('z-index' , 0);
-                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
-                        this.on('ended' , function(){
-                            LP.triggerAction('skip-intro');
-                        });
-                    } );
+//                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+//                        $('#' + this.Q).css('z-index' , 0);
+//                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
+//                        this.on('ended' , function(){
+//                            LP.triggerAction('skip-intro');
+//                        });
+//                    } );
                     // renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                     //     $('#' + this.Q).css('z-index' , 0);
                     //     this.on('ended' , function(){
@@ -3475,26 +3475,46 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 if( $('.video-page').length ){
                     window.NO_QA = 1;
-                    LP.panel({
-                        content:'<div class="popup_fuel">\
+                    var popuptpl = '<div class="popup_fuel">\
                             <div class="popup_fuel_video">\
                                 <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
                             </div>\
-                        </div>',
-                        noClickClose: true,
+                        </div>';
+                    var noClickClose = true;
+
+                    if(USER) {
+                        popuptpl = '<div class="popup_fuel">\
+                            <div class="popup_close"></div>\
+                            <div class="popup_fuel_video">\
+                                <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
+                            </div>\
+                        </div>';
+                        noClickClose = false;
+                    }
+
+
+                    LP.panel({
+                        content: popuptpl,
+                        noClickClose: noClickClose,
                         title: '',
                         onShow: function(){
                             var panel = this;
                             var $wrap = panel.$panel.find('.popup_image_wrap');
-                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
-                                controls: true,
-                                resize: false,
-                                loop: false,
-                                needMyAutoPlay: false
-                            } , function(){
-                                this.play();
-                                this.dimensions( '100%' , '90%' );
-                            } );
+                            if(TYPE == 'image') {
+                                $wrap.append('<img src="'+VIDEO+'" />');
+                            }
+                            else {
+                                renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
+                                    controls: true,
+                                    resize: false,
+                                    loop: false,
+                                    needMyAutoPlay: false
+                                } , function(){
+                                    this.play();
+                                    this.dimensions( '100%' , '90%' );
+                                } );
+                            }
+
                         }
                     });
                 }
