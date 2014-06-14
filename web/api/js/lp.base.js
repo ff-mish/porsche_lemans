@@ -3260,10 +3260,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !isMobile ){
                     renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                         $('#' + this.Q).css('z-index' , 0);
+                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
                         this.on('ended' , function(){
                             LP.triggerAction('skip-intro');
                         });
                     } );
+                    // renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+                    //     $('#' + this.Q).css('z-index' , 0);
+                    //     this.on('ended' , function(){
+                    //         LP.triggerAction('skip-intro');
+                    //     });
+                    // } );
                 }
                 // get parameter d
                 var urlObj = LP.parseUrl();
