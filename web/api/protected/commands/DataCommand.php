@@ -22,7 +22,7 @@ class DataCommand extends CConsoleCommand {
   }
 
   // 造数据,
-  public function run() {
+  public function ____run() {
     $users = UserAR::model()->findAll();
     foreach ($users as $user) {
       // 用户发微博
@@ -55,6 +55,31 @@ class DataCommand extends CConsoleCommand {
           $randomString .= $characters[rand(0, strlen($characters) - 1)];
       }
       return $randomString;
+  }
+  
+  /**
+   * 生成 media 的短链接
+   */
+  public function actionMediashorturl() {
+    $servers_params = array(
+        "REMOTE_ADDR" => "127.0.0.1",
+        "SERVER_NAME" => "localhost",
+    );
+    foreach ($servers_params as $key => $param) {
+      $_SERVER[$key] = $param;
+    }
+    $all = MediaAR::model()->findAll();
+    
+    foreach ($all as $media) {
+      $host = "http://24socialrace.porsche.com";
+      $ret = Yii::app()->shorturl->shorten($host."/video/". $media->mid);
+      $media->short_url = $ret;
+      $media->save();
+      
+      print "Media: ". $media->title." update short url\r\n";
+      
+      sleep(1);
+    }
   }
 }
 

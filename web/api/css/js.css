@@ -227,9 +227,9 @@ outline: none !important;
 .jspPane
 {
   position: absolute;
-    height:100%;
-}
 
+}
+.jspPane-empty {height:100%;}
 .jspVerticalBar
 {
   position: absolute;
