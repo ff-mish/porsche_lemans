@@ -70,5 +70,6 @@
 
 
 
+<!--[if !IE]><!-->
 <script type="text/javascript" src="/js/sticks.js"></script>
-  
+<!--<![endif]-->

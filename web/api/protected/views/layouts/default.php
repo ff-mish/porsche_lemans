@@ -31,17 +31,19 @@
         
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
-	<?php if ($this->page_name == 'race' || $this->page_name == 'teamrace' || $this->page_name == 'racemobile' ) : ?>
-    <link rel="stylesheet" type="text/css" href="/css/webFonts.css" />
-    <link rel="stylesheet" type="text/css" href="/css/track.css" />
-	
-    <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="/js/three.min.js"></script>
-    <script type="text/javascript" src="/js/stats.min.js"></script>
-    <script type="text/javascript" src="/js/svgTool.js"></script>
-    <script type="text/javascript" src="/js/common.js"></script>
-    <script type="text/javascript" src="/js/jquery.base64.js"></script>
-    <script type="text/javascript" src="/js/data.min.js"></script>
+    <?php if ($this->page_name == 'race' || $this->page_name == 'teamrace' || $this->page_name == 'racemobile' ) : ?>
+        <!--[if !IE]><!-->
+        <link rel="stylesheet" type="text/css" href="/css/webFonts.css" />
+        <link rel="stylesheet" type="text/css" href="/css/track.css" />
+
+        <script type="text/javascript" src="/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/js/three.min.js"></script>
+        <script type="text/javascript" src="/js/stats.min.js"></script>
+        <script type="text/javascript" src="/js/svgTool.js"></script>
+        <script type="text/javascript" src="/js/common.js"></script>
+        <script type="text/javascript" src="/js/jquery.base64.js"></script>
+        <script type="text/javascript" src="/js/data.min.js"></script>
+        <!--<![endif]-->
     <?php endif;?>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

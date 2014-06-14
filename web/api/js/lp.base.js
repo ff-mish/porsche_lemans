@@ -2258,6 +2258,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     LP.action('repost' , function( data ){
       var self = $(this);
       data.title = data.title || self.data('title');
+      data.url = self.data('url');
       var max_length = 112;
       var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : '#24SocialRace ' + data.title ;
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
@@ -2308,7 +2309,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     .end()
                     .find('.popup_dialog_btns .p-confirm')
                     .click(function(){
-                        var msg = panel.$panel.find('textarea').val();
+                        var msg = panel.$panel.find('textarea').val() + ' ' + data.url;
                         loading.css("display", "block");
                         api.post( '/api/media/share' , {share_text: msg , media_id: self.data("d")} , function(){
                             //LP.right('success');
@@ -2766,7 +2767,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     trackCreate();
                 });
             } else {
-                trackCreate();
+                if(is_support_webgl) {
+                    trackCreate();
+                }
             }
         },
         "racemobile": function () {
@@ -3319,21 +3322,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 }
 
                 // init mouse move event
-                if( !isMobile ){
-                    $(document.body).mousemove(function( ev ){
-                        var pagex = ev.pageX , pagey = ev.pageY;
-                        var winWidth = $(window).width();
-                        var winHeight = $(window).height();
-                        var wper = ~~(( pagex - winWidth / 2 ) / winWidth * 2 * 20);
-                        var hper = ~~(( pagey - winHeight / 2 ) / winHeight * 2 * 20);
-                        $('.index-p2-bg img')
-                            .stop()
-                            .animate({
-                                top: -hper,
-                                left: -wper
-                            });
-                    });
-                }
+//                if( !isMobile ){
+//                    $(document.body).mousemove(function( ev ){
+//                        var pagex = ev.pageX , pagey = ev.pageY;
+//                        var winWidth = $(window).width();
+//                        var winHeight = $(window).height();
+//                        var wper = ~~(( pagex - winWidth / 2 ) / winWidth * 2 * 20);
+//                        var hper = ~~(( pagey - winHeight / 2 ) / winHeight * 2 * 20);
+//                        $('.index-p2-bg img')
+//                            .stop()
+//                            .animate({
+//                                top: -hper,
+//                                left: -wper
+//                            });
+//                    });
+//                }
 
                 //countDownMgr.initCountDown();
                 break;
