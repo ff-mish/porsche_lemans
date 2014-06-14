@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml>
-  <data src="/api/web/teammobiledata?type=team&_=1402717955071"/>
+	
+	<data src="/api/web/teammobiledata?type=team&amp;_=1402717955071"/>
+	
 </xml>
