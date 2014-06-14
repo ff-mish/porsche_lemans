@@ -211,5 +211,17 @@ class TeamAR extends CActiveRecord {
       
       return $score->getScorePosition();
   }
+  
+  /**
+   * 
+   */
+  public function getMemberCount($tid) {
+    $query = new CDbCriteria();
+    $query->addCondition("tid=:tid");
+    $query->params[":tid"] = $tid;
+    
+    $userTeamAr = new UserTeamAR();
+    return $userTeamAr->count($query);
+  }
 }
 
