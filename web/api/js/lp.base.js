@@ -2792,6 +2792,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                       // Switch team race
                       $('a.switchType').click(function(){
+                          $(this).addClass('on')
+                            .siblings()
+                            .removeClass('on');
                           $('div.loading').show();
                           updateTeamData($(this).attr('data-rank-type'), function(){
                               $('div.loading').hide();
@@ -2802,38 +2805,41 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // 1 . get flash
                     var flash = $('#container').find('object,embed')[0];
                     $('a.switchType').click(function(){
+                        $(this).addClass('on')
+                            .siblings()
+                            .removeClass('on');
                        $('div.loading').show();
                        flash.loadJSON( '/api/web/teammobiledata?type=' + $(this).attr('data-rank-type') );
                     });
                     
                 }
-                else {
+//                 else {
                   
                   
-                    // Switch team race
-                    $('a.switchType').click(function(){
-                        var keytype = $(this).attr('data-rank-type');
+//                     // Switch team race
+//                     $('a.switchType').click(function(){
+//                         var keytype = $(this).attr('data-rank-type');
                         
-                        function getFlash(){
-                                var flash=document.getElementById("flash");
-                                if(flash.loadJSON){
-                                        return flash;
-                                }
-                                return document.getElementsByName("embed_name")[0];
-                        }
-                        var flash = getFlash();
-                        console.log(flash);
-                        //flash.loadJSON("/api/web/teammobiledata?type"+keytype);
-//                        function loadTopRank(){
-//                                //alert(getFlash().loadJSON);
-//                                getFlash().loadJSON("test/data1.txt");
-//                        }
-//                        function loadTeamRank(){
-//                                //alert(getFlash().loadJSON);
-//                                getFlash().loadJSON("test/data2.txt");
-//                        }
-                    });
-                }
+//                         function getFlash(){
+//                                 var flash=document.getElementById("flash");
+//                                 if(flash.loadJSON){
+//                                         return flash;
+//                                 }
+//                                 return document.getElementsByName("embed_name")[0];
+//                         }
+//                         var flash = getFlash();
+//                         console.log(flash);
+//                         //flash.loadJSON("/api/web/teammobiledata?type"+keytype);
+// //                        function loadTopRank(){
+// //                                //alert(getFlash().loadJSON);
+// //                                getFlash().loadJSON("test/data1.txt");
+// //                        }
+// //                        function loadTeamRank(){
+// //                                //alert(getFlash().loadJSON);
+// //                                getFlash().loadJSON("test/data2.txt");
+// //                        }
+//                     });
+//                 }
             }
         },
         'race' : function(){

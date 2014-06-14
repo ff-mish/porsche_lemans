@@ -58,8 +58,8 @@
     </div>
 
     <div id="switch">
-       <p class="on"><a href="javascript:void(0);" class="switchType" data-rank-type="top"><?php echo Yii::t("lemans", "Top Rank")?></a></p>
-       <p><a href="javascript:void(0);" class="switchType" data-rank-type="team"><?php echo Yii::t("lemans", "Team Rank")?></a></p>
+       <a href="javascript:void(0);" class="on switchType" data-rank-type="top"><?php echo Yii::t("lemans", "Top Rank")?></a>
+       <a href="javascript:void(0);" class="switchType" data-rank-type="team"><?php echo Yii::t("lemans", "Team Rank")?></a>
     </div>
 		<!-- race end -->
 	</div>
