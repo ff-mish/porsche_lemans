@@ -2722,7 +2722,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             max = Math.max( max , team.distance + (teams.length - i) );
                         } );
                         var height = $('#container').height();
-                        $('#container').css({left: 20 , right: 20 , width: 'auto'});
+                        $('#container').css({left: isIpad ? 150 : 20 , right: 20 , width: 'auto'});
 
                         var selfIndex = -1;
                         // render each team data
