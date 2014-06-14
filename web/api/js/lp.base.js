@@ -2798,6 +2798,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                           });
                       });
                     });
+                } else { // render flash refresh data
+                    // 1 . get flash
+                    var flash = $('#container').find('object,embed')[0];
+                    $('a.switchType').click(function(){
+                       $('div.loading').show();
+                       flash.loadJSON( '/api/web/teammobiledata?type=' + $(this).attr('data-rank-type') );
+                    });
+                    
                 }
             }
         },
@@ -3887,7 +3895,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // get server time
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ) {
-                            e = {"status":0,"message":"success","data":{"time_now":"2014-06-14 07:43:25","time_start":"2014-06-13 21:00:00"}};
                             clearInterval( interval );
                             var times = e.data.time_now.split(/[- :]/);
                             var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;

@@ -1215,3 +1215,5 @@ top: 11px;}
   right: 20px;
   top: 100px;
 }
+#switch>p>a{display: block;position: relative;padding-right: 20px;}
+#switch>p.on>a:after{content:'◆';position: absolute;right: 0; top: 0px;color: red;}
