@@ -2767,7 +2767,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     trackCreate();
                 });
             } else {
-                if(is_support_webgl) {
+                if(is_support_webgl()) {
                     trackCreate();
                 }
             }
