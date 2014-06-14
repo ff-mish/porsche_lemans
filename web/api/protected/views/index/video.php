@@ -61,8 +61,13 @@
 </script>
 
 <script type="text/javascript">
+ var TYPE = "<?php echo $mediaAr->type?>";
  var VIDEO = "<?php echo $mediaAr->uri?>";
  var POSTER = "<?php echo $mediaAr->teaser_image?>";
+ var USER = 0;
+    <?php if(UserAR::crtuser()): ?>
+        USER = 1;
+    <?php endif;?>
 </script>
 
                

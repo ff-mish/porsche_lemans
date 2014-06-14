@@ -1779,7 +1779,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // animate
         var $score = $('.stand_chart_score');
         animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
-            $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
+            $score.html( parseInt(num[0] * 10) / 10 + ' km/h' );
         } );
         $score.data('last-num' , score.average );
 
@@ -2189,7 +2189,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -2203,7 +2203,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div>#[description]</div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]"  data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -2221,7 +2221,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // init panel width and height
         // var $img = $('<img/>')
-        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
+        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description, short_url: media.short_url});
         LP.panel({
             content: content,
             //title: "share the content",
@@ -2807,6 +2807,33 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                     
                 }
+                else {
+                  
+                  
+                    // Switch team race
+                    $('a.switchType').click(function(){
+                        var keytype = $(this).attr('data-rank-type');
+                        
+                        function getFlash(){
+                                var flash=document.getElementById("flash");
+                                if(flash.loadJSON){
+                                        return flash;
+                                }
+                                return document.getElementsByName("embed_name")[0];
+                        }
+                        var flash = getFlash();
+                        console.log(flash);
+                        //flash.loadJSON("/api/web/teammobiledata?type"+keytype);
+//                        function loadTopRank(){
+//                                //alert(getFlash().loadJSON);
+//                                getFlash().loadJSON("test/data1.txt");
+//                        }
+//                        function loadTeamRank(){
+//                                //alert(getFlash().loadJSON);
+//                                getFlash().loadJSON("test/data2.txt");
+//                        }
+                    });
+                }
             }
         },
         'race' : function(){
@@ -3349,13 +3376,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 })
                 // // show the big video
                 if( !isMobile ){
-                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
-                        $('#' + this.Q).css('z-index' , 0);
-                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
-                        this.on('ended' , function(){
-                            LP.triggerAction('skip-intro');
-                        });
-                    } );
+//                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+//                        $('#' + this.Q).css('z-index' , 0);
+//                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
+//                        this.on('ended' , function(){
+//                            LP.triggerAction('skip-intro');
+//                        });
+//                    } );
                     // renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                     //     $('#' + this.Q).css('z-index' , 0);
                     //     this.on('ended' , function(){
@@ -3483,26 +3510,46 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 if( $('.video-page').length ){
                     window.NO_QA = 1;
-                    LP.panel({
-                        content:'<div class="popup_fuel">\
+                    var popuptpl = '<div class="popup_fuel">\
                             <div class="popup_fuel_video">\
                                 <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
                             </div>\
-                        </div>',
-                        noClickClose: true,
+                        </div>';
+                    var noClickClose = true;
+
+                    if(USER) {
+                        popuptpl = '<div class="popup_fuel">\
+                            <div class="popup_close"></div>\
+                            <div class="popup_fuel_video">\
+                                <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
+                            </div>\
+                        </div>';
+                        noClickClose = false;
+                    }
+
+
+                    LP.panel({
+                        content: popuptpl,
+                        noClickClose: noClickClose,
                         title: '',
                         onShow: function(){
                             var panel = this;
                             var $wrap = panel.$panel.find('.popup_image_wrap');
-                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
-                                controls: true,
-                                resize: false,
-                                loop: false,
-                                needMyAutoPlay: false
-                            } , function(){
-                                this.play();
-                                this.dimensions( '100%' , '90%' );
-                            } );
+                            if(TYPE == 'image') {
+                                $wrap.append('<img src="'+VIDEO+'" />');
+                            }
+                            else {
+                                renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
+                                    controls: true,
+                                    resize: false,
+                                    loop: false,
+                                    needMyAutoPlay: false
+                                } , function(){
+                                    this.play();
+                                    this.dimensions( '100%' , '90%' );
+                                } );
+                            }
+
                         }
                     });
                 }
