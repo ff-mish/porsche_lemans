@@ -283,7 +283,7 @@ function trackCreate(readyCallback) {
                             });
 
                             window.addEventListener('resize', onWindowResize, false);
-                            document.addEventListener('click', onDocumentClick, false);
+                            document.addEventListener('touchend', onDocumentClick, false);
 
                             animate();
 
