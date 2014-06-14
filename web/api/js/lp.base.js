@@ -2846,6 +2846,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     $(this).addClass('on')
                         .siblings()
                         .removeClass('on');
+
+                    $('#team-tip').hide();
                     $('#container').children()
                         .each(function( i ){
                             $(this).delay( i * 100 ).animate({top: 1000} , 300);
@@ -2853,6 +2855,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                       loadData($(this).attr('data-rank-type'));
                   });
+                loadData( 'team' );
     
 
             } else {
