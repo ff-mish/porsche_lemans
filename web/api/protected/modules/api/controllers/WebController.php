@@ -356,7 +356,6 @@ class WebController extends Controller {
 
       $all_teams_score[] = array(
           "distance" => $distance,
-          "ranking" => $ranking,
           "team" => $name,
           "id" => $result["tid"],
           "speed" => $speed,
@@ -365,8 +364,16 @@ class WebController extends Controller {
       );
     }
     
-    // 排序 team score
     usort($all_teams_score, "sort_team_data");
+    
+    foreach ($all_teams_score as $index => &$team_score) {
+      $team_score["ranking"] = $index + 1;
+    }
+    
+    
+    // 排序 team score
+    
+    
     
     $request = Yii::app()->getRequest();
     $type = $request->getParam("type", "team");
@@ -394,22 +401,36 @@ class WebController extends Controller {
      
      if ($least_num) {
        $len = $crt_index - $first_index;
-       $before = array_splice($all_teams_score, $first_index, $len);
+       $before = array_splice($all_teams_score, $first_index, $len + 1);
        $last_index = $last_index + $least_num;
      }
      else {
        $len = $crt_index - $first_index;
-       $before = array_splice($all_teams_score, $first_index, $len);
+       $before = array_splice($all_teams_score, $first_index, $len + 1);
      }
      
      $len = $last_index - $crt_index;
-     $after = array_splice($all_teams_score, $crt_index, $len);
+     $after = array_splice($all_teams_score, $crt_index, $len + 1);
      
      $ret = array_merge($before, $after);
+     $teamAr = new TeamAR();
+     // 获取每个队的 人数总数
+     foreach ($ret as &$team) {
+       $tid = $team["id"];
+       $team["player"] = $teamAr->getMemberCount($tid);
+     }
+     
      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
     else {
-      $ret = array_splice($all_teams_score, 0, 100);
+      $ret = array_splice($all_teams_score, 0, 101);
+     $ret = array_merge($before, $after);
+     $teamAr = new TeamAR();
+     // 获取每个队的 人数总数
+     foreach ($ret as &$team) {
+       $tid = $team["tid"];
+       $team["player"] = $teamAr->getMemberCount($tid);
+     }
       $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
   }
