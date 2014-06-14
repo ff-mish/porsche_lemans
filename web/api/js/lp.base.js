@@ -2357,6 +2357,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     opacity: 0
                 });
                 return false;
+            } else {
+                $('.fuelmore').show().animate({
+                    opacity: 1
+                });
             }
 
             //  render fuel item
