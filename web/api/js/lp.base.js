@@ -2749,6 +2749,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     updateTeamData('team', function(){
                       //
                     });
+
+                  // Switch team race
+                  $('a.switchType').click(function(){
+                      $('div.loading').show();
+                      updateTeamData($(this).attr('data-rank-type'), function(){
+                          $('div.loading').hide();
+                      });
+                  });
                 });
             }
         },

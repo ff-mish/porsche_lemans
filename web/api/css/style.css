@@ -1202,5 +1202,8 @@ div.stand_postsbox {
 .jspHorizontalBar .jspDrag{height: 5px;
 top: 11px;}
 
-
-
+#switch {
+  position: fixed;
+  right: 20px;
+  top: 100px;
+}

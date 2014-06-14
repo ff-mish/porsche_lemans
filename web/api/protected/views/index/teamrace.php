@@ -56,6 +56,11 @@
       <div class="race_navitem race_navitemon"><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
       <div class="race_navitem "><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
     </div>
+
+    <div id="switch">
+        <a href="javascript:void(0);" class="switchType" data-rank-type="top"><?php echo Yii::t("Top Rank")?></a>
+        <a href="javascript:void(0);" class="switchType" data-rank-type="team"><?php echo Yii::t("Team Rank")?></a>
+    </div>
 		<!-- race end -->
 	</div>
 
