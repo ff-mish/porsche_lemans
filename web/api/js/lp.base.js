@@ -2244,7 +2244,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     } , function(){
                         this.play();
                         this.dimensions( '100%' , '90%' );
-                    } );
+                    } , true );
                 } else {
                     renderImage( $wrap , null , true , 0 , true );
                     LP.use(['jscrollpane' , 'mousewheel'] , function(){
