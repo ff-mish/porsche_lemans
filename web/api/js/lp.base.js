@@ -273,6 +273,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         },
         width: 600
       });
+        ga('send', 'event', ga_device + '-' + lang + '-HTMl-Monitoring', data.uuid + 'Repost', lang);
         return false;
     }
 
@@ -2150,6 +2151,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 								}, 500);
 							});
                         } );
+
+                        ga('send', 'event', ga_device + '-' + lang + '-HTMl-Popup', 'Post', lang);
                     }) ;
             }
             // ,
@@ -2274,6 +2277,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               //
             }
         });
+        ga('send', 'event', ga_device + '-' + lang + '-HTMl-Fuel', data.mid, lang);
     });
 
 
@@ -2350,6 +2354,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
             }
         });
+
+        ga('send', 'event', ga_device + '-' + lang + '-HTMl-Fuel', self.data("d")+'-Repost', lang);
     });
 
     var fuelPage = 0;
@@ -3209,9 +3215,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 		});
 
 		$('.logout').click(function(){
-			ga('send', 'event', ga_device + '-' + lang + '-HTMl-Nav', 'LogOut ', lang);
+			ga('send', 'event', ga_device + '-' + lang + '-HTMl-Nav', 'LogOut', lang);
 		});
 
+        $('.fuelmore a').click(function(){
+            ga('send', 'event', ga_device + '-' + lang + '-HTMl-Fuel', 'LoadMore', lang);
+        });
 
 		$(window).resize(function(){
 			if( $.browser.msie && $.browser.version <= 8 ){

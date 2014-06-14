@@ -19,7 +19,7 @@
 			<p class="on"><?=Yii::t('lemans','Monitoring')?></p>
 			<p> &nbsp; </p>
 			<div class="mobile_nav">
-				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Mentions")?></p>
+				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
 				<p class="language">
 					<?php if (Yii::app()->language == "zh_cn"): ?>
 						<a class="f_lang_en" data-lang="en_us" href="#">En</a> | <span>中文</span>
@@ -62,7 +62,17 @@
 				</div>
 				<!--  -->
 				<div class="monitor_item tweet-con" data-animate="opacity:1;margin-top:0;" data-delay="1400" data-style="opacity:0;margin-top:-50px;">
-					<h2><?php echo Yii::t("lemans", "#24SocialRace")?></h2>
+					<h2>
+                        <?php
+                            $user = UserAR::crtuser();
+                            if($user->from == UserAR::FROM_WEIBO) {
+                                echo "#勒芒社交耐力赛#";
+                            }
+                            else {
+                                echo "#24SocialRace";
+                            }
+                        ?>
+                    </h2>
 					<div class="monitor_list">
 						<div class="loading"></div>
 					</div>
