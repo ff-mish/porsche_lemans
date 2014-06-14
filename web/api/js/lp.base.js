@@ -2760,6 +2760,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             } else {
                 trackCreate();
             }
+        },
+        "racemobile": function () {
+          trackCreate();
         }
     }
 	var initComplete = function(){
