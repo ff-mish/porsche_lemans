@@ -1,7 +1,7 @@
 <div class="page_wrap ">
 	<div class="header">
 	    <a href="/" class="logo"><?php echo Yii::t("lemans", "PORSCHE")?></a>
-	    <a target="_blank" href="http://www.porsche.com/microsite/mission2014-resettozero/" class="hd_info"></a>
+		<a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
 	</div>
 	<!--  -->
 	<div class="page pagebg5">
@@ -50,26 +50,15 @@
 			</div>
 		</div>-->
     <div id="container"></div>
+    <div id="map"></div>
     <div class="race_nav">
       <div class="race_time"></div>
       <div class="race_speed"></div>
-      <div class="race_navitem race_navitemon"><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
-      <div class="race_navitem "><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
-    </div>
-
-    <div id="switch">
-        <a href="javascript:void(0);" class="switchType" data-rank-type="top"><?php echo Yii::t("Top Rank")?></a>
-        <a href="javascript:void(0);" class="switchType" data-rank-type="team"><?php echo Yii::t("Team Rank")?></a>
+      <div class="race_navitem "><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
+      <div class="race_navitem race_navitemon"><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
     </div>
 		<!-- race end -->
 	</div>
-
-	<div class="team-tip">
-	</div>
 </div>
 
-
-
-<!--[if !IE]><!-->
-<script type="text/javascript" src="/js/sticks.js"></script>
-<!--<![endif]-->
+<script type="text/javascript" src="/js/mobile.js"></script>

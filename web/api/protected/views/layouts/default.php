@@ -31,7 +31,7 @@
         
       window.is_start = <?php echo $this->is_start ? 1 : 0?>
     </script>
-	<?php if ($this->page_name == 'race' || $this->page_name == 'teamrace' ) : ?>
+    <?php if ($this->page_name == 'race' || $this->page_name == 'teamrace' || $this->page_name == 'racemobile' ) : ?>
         <!--[if !IE]><!-->
         <link rel="stylesheet" type="text/css" href="/css/webFonts.css" />
         <link rel="stylesheet" type="text/css" href="/css/track.css" />
