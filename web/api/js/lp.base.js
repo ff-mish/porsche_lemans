@@ -1779,7 +1779,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         // animate
         var $score = $('.stand_chart_score');
         animateTo( [ parseFloat( $score.data('last-num') ) || 0 ] , [ parseFloat(score.average || 0) ] , 600 , function( num ){
-            $score.html( parseInt(num[0] * 1000) / 1000 + ' km/h' );
+            $score.html( parseInt(num[0] * 10) / 10 + ' km/h' );
         } );
         $score.data('last-num' , score.average );
 
