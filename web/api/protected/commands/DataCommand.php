@@ -78,9 +78,11 @@ class DataCommand extends CConsoleCommand {
         $media->save();
 
         print "Media: ". $media->title." update short url\r\n";
+        sleep(1);
       }
-      
-      sleep(1);
+      else {
+        print "Media ".$media->title." has short url\r\n";
+      }
     }
   }
 }

@@ -232,8 +232,8 @@ function trackCreate(readyCallback) {
                             scene.add(carsGroup);
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
-                            meshCarRed = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-red-mobile.png?' + (new Date()).getTime())}));
+                            meshCarRed = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5, overdraw:0.5,
+                                color:TYPES[0].color}));
                             meshCarRed.frustumCulled = false;
                             meshCarRed.position.set(0, 1, 0);
                             meshCarRed.matrixAutoUpdate = false;
@@ -243,8 +243,8 @@ function trackCreate(readyCallback) {
                             carsGroup.add(meshCarRed);
 
                             var geometry = new THREE.PlaneGeometry(5, carLength, 2, carSegments);
-                            meshCarBlue = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5,
-                                map: THREE.ImageUtils.loadTexture('image/car-blue-mobile.png?' + (new Date()).getTime())}));
+                            meshCarBlue = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({transparent: true, opacity: 1, side: THREE.DoubleSide, alphaTest: 0.5, overdraw:0.5,
+                                color:TYPES[1].color}));
                             meshCarBlue.frustumCulled = false;
                             meshCarBlue.position.set(0, 1.2, 0);
                             meshCarBlue.userData = blueCarData;
