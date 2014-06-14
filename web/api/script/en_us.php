@@ -6,7 +6,7 @@
   'Quality' => '',
   'Speed' => '',
   'Knowledge' => '',
-  'Receive a reminder for the d-day' => 'Receive a reminder for the race start',
+  'Receive a reminder for the d-day' => 'Enter your e-mail address',
   'Enter your email address' => 'Enter your e-mail address',
   'Finish tutorial' => '',
   'Success!' => '',

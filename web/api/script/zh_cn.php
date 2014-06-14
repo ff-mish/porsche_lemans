@@ -1,6 +1,6 @@
 <?php 
  return array (
-  'Receive a reminder for the d-day' => '接收开赛提醒',
+  'Receive a reminder for the d-day' => '输入邮箱地址',
   'Enter your email address' => '输入邮箱地址',
   'Finish tutorial' => '完成比赛教程',
   'Speed' => '速度',
