@@ -180,6 +180,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     })();
     var isIpad = navigator.userAgent.toLowerCase().match(/ipad/i);
     var isMobile = $(window).width() <= 640 || isMobileBrowser;
+
+    $(document.body).addClass('mobile');
     if( isMobile ){
         $(window).load(function(){
             setTimeout(window.scrollTo(0,0) , 0);
@@ -2706,7 +2708,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
     var loadingCallBack = {
         'teamrace' : function(){
-            if( isMobile ){
+            if( isMobile || isIpad ){
                 var teams = [];
                 var ext = null;
                 var loadData = function( type , cb ){
