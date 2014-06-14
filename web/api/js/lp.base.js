@@ -3902,6 +3902,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                     opacity: 1
                                 } , 400);
                         });
+
+                if( isMobile ){
+                    LP.use('/js/mobile.min.js' , function(){
+                        trackCreate();
+                    });
+                }
                 if( !is_support_webgl()){
                     // render flash
                     //$('.race_nav,.nav').hide();
