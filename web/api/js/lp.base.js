@@ -2636,9 +2636,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             if( isMobile ){
                 var teams = [];
                 api.get('/api/web/teammobiledata' , function( e ){
-                    teams = e.data.teams;
+                    teams = teams.concat( e.data.before );
+                    teams = teams.concat( e.data.after );
 
-                    teams = teams.concat([{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4},{distance: 0.4}])
                     // get max distance
                     var max = 0;
                     $.each( teams , function( i , team ){
@@ -3018,7 +3018,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
-
                     var data = e.data || {};
                     var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
@@ -3052,26 +3051,29 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                                     t.$panel.find('.loading').show();
 
-                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function(){
+                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
+                                        if( !e.data.is_right ){
+                                            t.$panel.find('.popup_dialog_options').hide()
+                                                .next()
+                                                .html( _e('failure') );
+                                        }
+
                                         t.$panel.find('.popup_dialog_options').hide()
                                             .next().show();
                                         setTimeout(function(){
                                             t.close();
                                         } , 2000);
+                                        
                                     });
                                 });
 
                             // init timer
                             questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
-                                // TODO..
-                                api.post("/api/question/answer" , { answer: '' , qaid: data.qaid} , function(){
-                                    t.close();
-                                });
+                                t.close();
                             } );
                         }
                     });
                 });
-                //setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
             }
             if( qaCookie ){
                 cookieTimes = qaCookie.split(",");
@@ -3142,28 +3144,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 }
             }
 
-            // var minutes = 60 - now.getMinutes();
-            // var maxtimes = 3;
 
-            // var times = minutes > 40 ? 3 : minutes > 24 ? 2 : minutes > 10 ? 1 : 0;
-            // times = Math.min( times , maxtimes - atimes );
-            // var sep = 10; // minutes
-            // var eachRuntime = ( minutes - times * sep ) / times ;
-            // var lastTime = 0;
-            // var getNextTime = function( ){
-            //     if( qtimes < times ){
-            //         return sep / 2 + qtimes * ( sep + eachRuntime ) + Math.random() * eachRuntime ;
-            //     } else {
-            //         return minutes + 5 + 10 * Math.random() + ( qtimes - times ) * 25 ;
-            //     }
-            // }
-            
-            // var qtimes = 0;
-            // setTimeout( showQa , ( getNextTime() - lastTime ) * 60 * 1000 );
-
-            // if( LP.parseUrl().params.__qa ){
-            //     showQa();
-            // }
+            if( LP.parseUrl().params.__qa ){
+                showQa();
+            }
         } , 1000 * 30 );
         }
 
@@ -3692,14 +3676,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 // var minWidth = 250;
                 // var marginRight = 30;
                 var $children = $wrap.find('.monitor_item').height( wrapHeight );
-                if( wrapWidth >=  280 * 4 - 30 ){
-                    $('.monitor').css( 'left' , 250 );
-                    $('.monitor').css( 'padding-left' , ( 120 + wrapWidth - 280 * 4 ) / 2 - 120 );
-                } else {
-                    $('.monitor').css( 'left' , 150 );
-                    $('.monitor').css( 'padding-left' , 0 );
-                    $('.monitor_com').css({width: 280 * 4 - 30});
-                }
+                var $nav = $('.nav');
+                var navWidth = $nav.width();
+                var navLeft = parseInt( $nav.css('left') );
+                var winWidth = $(window).width();
+                var left = navWidth + navLeft + Math.max( 0 , ( winWidth - navWidth - navLeft - 280 * 4 - 30 ) / 2 );
+                setTimeout(function(){
+                    $('.monitor,.jspHorizontalBar').css('left' , left );
+                } , 200);
+                $('.monitor_com').css({width: 280 * 4 - 30});
+                // if( wrapWidth >=  280 * 4 - 30 ){
+                //     $('.monitor').css( 'left' , 250 );
+                //     $('.monitor').css( 'margin-left' , ( 120 + wrapWidth - 280 * 4 ) / 2 - 120 );
+                // } else {
+                //     $('.monitor').css( 'left' , 150 );
+                //     $('.monitor').css( 'margin-left' , 0 );
+                // }
 
 
 
