@@ -1,47 +1,4 @@
-html, body {
-    width:100%;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    overflow: hidden;
-}
-
-body {
-    background-image:url('../image/background.jpg');
-    background-size:cover;
-}
-
 #container {
     width:100%;
     height:100%;
-}
-
-div#hud {
-    position:absolute;
-    left:60px;
-    top:60px;
-}
-
-div#hud p {
-    color: white;
-    font-family: 'Porsche News Gothic', '黑体', 'sans-serif';
-}
-
-div#hud p.title {
-    font-size: xx-large;
-    margin-bottom:100px;
-}
-
-div#switch {
-    position:absolute;
-    right:60px;
-    top:60px;
-}
-
-div#switch a.switchType:link, div#switch a.switchType:visited {
-    color:white;
-}
-
-div#switch a.switchType:hover {
-    color:yellow;
 }

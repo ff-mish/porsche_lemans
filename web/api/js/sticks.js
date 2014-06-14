@@ -90,12 +90,12 @@ function sticksCreate(readyCallback) {
                             context.fillStyle = TYPES[data.typeIndex].color;
                             context.textBaseline = 'top';
                             context.font="32px 'Porsche News Gothic','黑体','sans-serif'";
-                            context.fillText('Rank:'+data.ranking+'/'+Math.round(data.teamSize), 21, 16);
+                            context.fillText('Rank:'+data.ranking+'/'+Math.round(data.totalCount), 21, 16);
                             context.font="28px 'Porsche News Gothic','黑体','sans-serif'";
                             context.fillText(data.team, 23, 73);
-                            context.fillText(''+Math.round(data.speed) + 'km/h', 180, 73);
-                            context.fillText("Player", 23, 117);
-                            context.fillText("Lap:" + data.lap, 180, 117);
+                            context.fillText(''+Math.round(data.speed) + 'km/h', 185, 73);
+                            context.fillText("Player:"+Math.round(data.player), 23, 117);
+                            context.fillText("Lap:" + data.lap, 185, 117);
                         }
                     });
 
@@ -139,10 +139,10 @@ function sticksCreate(readyCallback) {
                                 fillPercentValue.value=0;
 
                                 var stickCount = teamData.data.length, perDistance = stickMaxHeight / stickCount;
-                                var teamSizes = [teamData.ext.weibo_total, teamData.ext.twitter_total];
+                                var totalCount=teamData.ext.weibo_total+teamData.ext.twitter_total;
                                 for (var i = 0; i < stickCount; i++) {
                                     var stickData = teamData.data[i];
-                                    stickData.teamSize = teamSizes[stickData.typeIndex];
+                                    stickData.totalCount = totalCount;
                                     var h = i == 0 ? stickMaxHeight : Math.round((perDistance * (stickCount - i + (Math.random() - 0.5) * 0.9)) * 100) / 100;
                                     var geometry = new THREE.PlaneGeometry(stickWidth, h, 2, Math.ceil(50 / 400 * h));
                                     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
@@ -196,12 +196,12 @@ function sticksCreate(readyCallback) {
                                         })
                                     ];
 
-                                    stick = new THREE.Mesh(geometry, normalStickMaterial);
+                                    stick = new THREE.Mesh(geometry, stickData.id==teamData.ext.user_tid?focusedStickMaterial[stickData.typeIndex]:normalStickMaterial);
                                     stick.frustumCulled = false;
                                     stick.matrixAutoUpdate = false;
                                     stick.updateMatrix();
                                     stick.userData = stickData;
-                                    stick.normalMaterial = normalStickMaterial;
+                                    stick.normalMaterial = stick.material;
                                     stick.selectedMaterial = focusedStickMaterial[stickData.typeIndex];
                                     sticksGroup.add(stick);
                                     sticksWidth = (stickWidth + stickPadding) * stickCount;

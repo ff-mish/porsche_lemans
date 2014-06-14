@@ -3944,7 +3944,8 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                 <embed name="flash" src="/js/raceflash/Sticks.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/sticks.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
                             </object>'
                             );
-                    } else {
+                    }
+                    if(version[0] > 0 && version[0] < 12) {
                         $('#container').html(
                             '<div class="oldflash">'+_e('Your Flash player version is too lower, please download latest version:')+' <a target="_blank" href="http://www.adobe.com/support/flashplayer/downloads.html">'+_e('Download now')+'</a>'+'</div>'
                         );
@@ -4010,7 +4011,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             </object>'
                         );
                     }
-                    else {
+                    if(version[0] > 0 && version[0] < 12) {
                         $('#container').html(
                             '<div class="oldflash">'+_e('Your Flash player version is too lower, please download latest version:')+' <a target="_blank" href="http://www.adobe.com/support/flashplayer/downloads.html">'+_e('Download now')+'</a>'+'</div>'
                         );
