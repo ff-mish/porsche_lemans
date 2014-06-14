@@ -170,14 +170,11 @@ function trackCreate(readyCallback) {
                             projector = new THREE.Projector();
                             renderer = new THREE.WebGLRenderer({alpha: true, antialias: true/*, logarithmicDepthBuffer: true*/});
                             renderer.setClearColor(0x000000, 0);
-                            var width = window.innerWidth;
-                            var height = window.innerHeight - 60;
-
-                            renderer.setSize(width, height);
+                            renderer.setSize(window.innerWidth, window.innerHeight);
                             container.appendChild(renderer.domElement);
 
                             scene = new THREE.Scene();
-                            camera = new THREE.PerspectiveCamera(55, width / height, 0.5, 3000000);
+                            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
                             clock = new THREE.Clock();
 
@@ -221,14 +218,16 @@ function trackCreate(readyCallback) {
 
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
-                                speed: raceData.data.weibo.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
                                 sideOffset: 2.5, typeIndex: raceData.data.weibo.typeIndex, faster: 0};
+                            redCarData.speed0=raceData.data.weibo.speed;
+                            redCarData.speed=(raceData.data.weibo.speed<100?100:raceData.data.weibo.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             redCarData.distance1 = modDistance(redCarData.distance);
                             redCarData.lap0 = redCarData.lap;
                             var blueCarData = {name: raceData.data.twitter.name, distance: raceData.data.twitter.distance,
                                 rankings: raceData.data.twitter.rankings, lap: raceData.data.twitter.lap,
-                                speed: raceData.data.twitter.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
                                 sideOffset: -2.5, typeIndex: raceData.data.twitter.typeIndex, faster: 0};
+                            blueCarData.speed0=raceData.data.twitter.speed;
+                            blueCarData.speed=(raceData.data.twitter.speed<100?100:raceData.data.twitter.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
 
@@ -371,7 +370,7 @@ function trackCreate(readyCallback) {
                                     context.font = "26pt 'Porsche News Gothic','黑体','sans-serif'";
                                     context.fillText(rankingsTitle(data.rankings), 72, 50);
                                     context.font = "15pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText('' + Math.round(data.speed * trackLengthRatioToReal * 60 * 60 / 1000) + 'km/h', 125, 58);
+                                    context.fillText('' + Math.round(data.speed0) + 'km/h', 125, 58);
                                     context.font = "14pt 'Porsche News Gothic','黑体','sans-serif'";
                                     context.fillText("Lap:" + Math.round(data.lap), 125, 84);
                                 }
@@ -446,14 +445,10 @@ function trackCreate(readyCallback) {
                         function onWindowResize() {
                             windowHalfX = window.innerWidth / 2;
                             windowHalfY = window.innerHeight / 2;
-
-                            var width = window.innerWidth;
-                            var height = window.innerHeight - 60;
-
-                            camera.aspect = width / height;
+                            camera.aspect = window.innerWidth / window.innerHeight;
                             camera.updateProjectionMatrix();
 
-                            renderer.setSize(width, height);
+                            renderer.setSize(window.innerWidth, window.innerHeight);
 
                         }
 

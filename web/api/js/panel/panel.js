@@ -207,23 +207,25 @@ define(function( require , exports , model ){
                     }
                 }
             });
+            
+        if( !o.noClickClose ){
+            $(window).bind('keydown' , function( ev ){
+                switch( ev.which ){
+                    case 27:
+                        t.close();
+                        break;
+                }
+            });
         
-        $(window).bind('keydown' , function( ev ){
-            switch( ev.which ){
-                case 27:
-                    t.close();
-                    break;
-            }
-        });
 
-        $(document).bind('keypress' , function( ev ){
-            switch( ev.which ){
-                case 27:
-                    t.close();
-                    break;
-            }
-        })
-
+            $(document).bind('keypress' , function( ev ){
+                switch( ev.which ){
+                    case 27:
+                        t.close();
+                        break;
+                }
+            })
+        }
         t.setMask( o.mask );
 
         // 创建Wrapper

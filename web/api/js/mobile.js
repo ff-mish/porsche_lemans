@@ -195,14 +195,16 @@ function trackCreate(readyCallback) {
 
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
-                                speed: raceData.data.weibo.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
                                 sideOffset: 2.5, infoBoxSide:1, typeIndex: raceData.data.weibo.typeIndex, faster: 0};
+                            redCarData.speed0=raceData.data.weibo.speed;
+                            redCarData.speed=(raceData.data.weibo.speed<100?100:raceData.data.weibo.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             redCarData.distance1 = modDistance(redCarData.distance);
                             redCarData.lap0 = redCarData.lap;
                             var blueCarData = {name: raceData.data.twitter.name, distance: raceData.data.twitter.distance,
                                 rankings: raceData.data.twitter.rankings, lap: raceData.data.twitter.lap,
-                                speed: raceData.data.twitter.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
                                 sideOffset: -2.5, infoBoxSide:-1, typeIndex: raceData.data.twitter.typeIndex, faster: 0};
+                            blueCarData.speed0=raceData.data.twitter.speed;
+                            blueCarData.speed=(raceData.data.twitter.speed<100?100:raceData.data.twitter.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
 
@@ -266,7 +268,7 @@ function trackCreate(readyCallback) {
                                     context.font = "26pt 'Porsche News Gothic','黑体','sans-serif'";
                                     context.fillText(rankingsTitle(data.rankings), offsetX+72, offsetY+50);
                                     context.font = "15pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText('' + Math.round(data.speed * trackLengthRatioToReal * 60 * 60 / 1000) + 'km/h', offsetX+125, offsetY+58);
+                                    context.fillText('' + Math.round(data.speed0) + 'km/h', offsetX+125, offsetY+58);
                                     context.font = "14pt 'Porsche News Gothic','黑体','sans-serif'";
                                     context.fillText("Lap:" + Math.round(data.lap), offsetX+125, offsetY+84);
                                 }
