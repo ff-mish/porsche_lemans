@@ -925,7 +925,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 }
 
 
-@media screen and (max-width:640px) {
+@media screen and (max-width:640px){
     .m {display:block;}
     .no-m {display: none;}
     .header {height:80px;}
