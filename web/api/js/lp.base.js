@@ -3541,6 +3541,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         </div>';
                         noClickClose = false;
                     }
+                    else {
+                        
+                    }
 
 
                     LP.panel({
@@ -3564,6 +3567,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                     this.dimensions( '100%' , '90%' );
                                 } );
                             }
+
+                            this.$panel.find('.popup_close')
+                                .click(function(){
+                                    panel.close();
+                                });
 
                         }
                     });
