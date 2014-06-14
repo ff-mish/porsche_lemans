@@ -155,7 +155,10 @@ function trackCreate(readyCallback) {
                             projector = new THREE.Projector();
                             renderer = new THREE.CanvasRenderer({alpha: true});
                             renderer.setClearColor(0x000000, 0);
-                            renderer.setSize(window.innerWidth, window.innerHeight);
+                            var width = window.innerWidth;
+                            var height = window.innerHeight - 60;
+
+                            renderer.setSize(width, height);
                             container.appendChild(renderer.domElement);
 
                             scene = new THREE.Scene();
@@ -284,7 +287,10 @@ function trackCreate(readyCallback) {
                             windowHalfX = window.innerWidth / 2;
                             windowHalfY = window.innerHeight / 2;
 
-                            var w=window.innerWidth-trackPadding* 2, h=window.innerHeight-trackPadding*2;
+                            var width = window.innerWidth;
+                            var height = window.innerHeight - 60;
+
+                            var w=width-trackPadding* 2, h=height-trackPadding*2;
                             var d=Math.min(w/trackWidth, h/trackHeight);
                             camera.left=w/d/-2-trackPadding/d;
                             camera.right=w/d/2+trackPadding/d;
@@ -292,7 +298,7 @@ function trackCreate(readyCallback) {
                             camera.bottom=h/d/-2-trackPadding/d;
                             camera.updateProjectionMatrix();
 
-                            renderer.setSize(window.innerWidth, window.innerHeight);
+                            renderer.setSize(width, height);
 
                         }
 
