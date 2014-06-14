@@ -6,6 +6,6 @@
 	        <a target="_blank" href="<?php echo Yii::t("lemans", "PORSCHE_LINK")?>" class="hd_info"></a>
         </div>
         
-        <img class="404_error" src="/images/404_txt.png" alt="" />
+        <img class="error_404" src="/images/404_txt.png" alt="" />
   </div>
   <!--  -->
