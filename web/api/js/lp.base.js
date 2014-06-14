@@ -2725,12 +2725,20 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .removeClass( team.typeIndex == 0 ? 'tw' : '' )
                         .fadeIn();
                 });
+
+
             } else {
                 sticksCreate();
             }
         },
         'race' : function(){
-            trackCreate();
+            if( isMobile ){
+                LP.use('/js/mobile.min.js' , function(){
+                    trackCreate();
+                });
+            } else {
+                trackCreate();
+            }
         }
     }
 	var initComplete = function(){
@@ -3903,11 +3911,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                 } , 400);
                         });
 
-                if( isMobile ){
-                    LP.use('/js/mobile.min.js' , function(){
-                        trackCreate();
-                    });
-                }
+                
                 if( !is_support_webgl()){
                     // render flash
                     //$('.race_nav,.nav').hide();
