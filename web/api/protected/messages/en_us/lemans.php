@@ -9,6 +9,7 @@ return array (
   "Make a tweet" => "Tweet",
 	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. The better you'll tweet, the faster you'll go! <br/>The first team will win an exclusive trip to attend a WEC race and see the legendary 919 Hybrid.",
 	"PORSCHE_LINK" => "http://www.porsche.com/international/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
+    "LOGIN_BAR" => "It seems you are not yet logged in the platform, do you want to join the race.",
     "1/5" => "Step 1 of 5",
 	"2/5" => "Step 2 of 5",
 	"3/5" => "Step 3 of 5",

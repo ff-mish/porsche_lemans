@@ -3615,7 +3615,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         noClickClose = false;
                     }
                     else {
-                        
+                        $()
                     }
 
 

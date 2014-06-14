@@ -38,4 +38,5 @@
   'Lap' => '',
   'Your Flash player version is too lower, please download latest version: ' => '',
   'Download now' => '',
+  'Your Flash player version is too lower, please download latest version:' => '',
 );

@@ -115,7 +115,8 @@ body[data-page="index"] .footer_language span {color:#000;}
 .footer_link{background: none;}
 body[data-page="stand"] .footer_link{}
 body[data-page="stand"] .footer-icon{display: block;}
-
+.login_bar {z-index:10001;width:100%;position: fixed;bottom:0;background:#000;color:#f00;height:45px;line-height:45px;text-align:center;}
+.login_bar a {color:#f00;}
 
 .pagebg404 {background:url('../images/404_bg.jpg') no-repeat center!important;background-size:cover;}
 .pagebg404 .error_404 {position: absolute;top:50%;left:50%;margin:-75px 0 0 -250px;}
