@@ -1649,7 +1649,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var ratio = 516 / 893;
 		var videoname = $('body').data('page');
 
-        if( videoname == 'teamrace' ){
+        if( videoname == 'teamrace' || videoname == 'racemobile' ){
             videoname = 'race';
         }
 
@@ -2189,7 +2189,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div class="popup_image_wrap" style="width:500px;height:280px;"><img src="#[imgsrc]"/></div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>',
             'image': '<div class="popup_fuel" >\
@@ -2203,7 +2203,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         <div>#[description]</div>\
                     </div>\
                     <div class="popup_fuel_btns">\
-                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]"  data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
+                        <a class="repost" data-img="#[imgsrc]" data-title="#[title]" data-url="#[short_url]" data-d="#[mid]" data-a="repost" href="#">' + _e('Repost') + '</a>\
                     </div>\
                 </div>\
                 <div class="cs-clear"></div>\
@@ -2221,7 +2221,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
         // init panel width and height
         // var $img = $('<img/>')
-        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description});
+        var content = LP.format(video ? tpls['video'] : tpls['image'] , {imgsrc: $img.attr('src') , mid: data.mid , title: media.title , description: media.description, short_url: media.short_url});
         LP.panel({
             content: content,
             //title: "share the content",
@@ -2702,12 +2702,11 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         'teamrace' : function(){
             if( isMobile ){
                 var teams = [];
-                var total = null;
+                var ext = null;
                 api.get('/api/web/teammobiledata' , function( e ){
 
-                    e = {"status":0,"message":"success","data":[{"distance":14.275555555556,"team":"6.14","id":"2290","speed":73,"lap":2,"typeIndex":0,"ranking":2,"player":"1"},{"distance":11.84,"team":"new team","id":"109","speed":36,"lap":1,"typeIndex":0,"ranking":3,"player":"1"},{"distance":11.84,"team":"New Team","id":"1409","speed":36,"lap":1,"typeIndex":1,"ranking":4,"player":"1"},{"distance":11.84,"team":"new team","id":"90","speed":36,"lap":1,"typeIndex":0,"ranking":5,"player":"1"},{"distance":11.84,"team":"FF","id":"93","speed":36,"lap":1,"typeIndex":0,"ranking":6,"player":"3"},{"distance":11.84,"team":"New Team","id":"2068","speed":36,"lap":1,"typeIndex":0,"ranking":7,"player":"1"},{"distance":11.84,"team":"\u52d2\u8292\u82f1\u96c4","id":"302","speed":36,"lap":1,"typeIndex":0,"ranking":8,"player":"1"},{"distance":11.84,"team":"porschedream","id":"2102","speed":36,"lap":1,"typeIndex":0,"ranking":9,"player":"3"},{"distance":11.84,"team":"New Team","id":"1767","speed":36,"lap":1,"typeIndex":1,"ranking":10,"player":"1"},{"distance":11.84,"team":"new team","id":"225","speed":36,"lap":1,"typeIndex":0,"ranking":11,"player":"1"},{"distance":11.84,"team":"new team","id":"260","speed":36,"lap":1,"typeIndex":0,"ranking":12,"player":"1"},{"distance":11.84,"team":"New Team","id":"1633","speed":36,"lap":1,"typeIndex":1,"ranking":13,"player":"1"},{"distance":11.84,"team":"new team","id":"511","speed":36,"lap":1,"typeIndex":1,"ranking":14,"player":"2"},{"distance":11.84,"team":"\u5348\u591c\u573a\u8f66\u961f","id":"312","speed":36,"lap":1,"typeIndex":0,"ranking":15,"player":"1"},{"distance":11.84,"team":"New Team","id":"1658","speed":36,"lap":1,"typeIndex":1,"ranking":16,"player":"1"},{"distance":11.84,"team":"new team","id":"265","speed":36,"lap":1,"typeIndex":0,"ranking":17,"player":"1"},{"distance":11.84,"team":"Legend","id":"275","speed":36,"lap":1,"typeIndex":0,"ranking":18,"player":"1"},{"distance":11.84,"team":"new team","id":"1810","speed":36,"lap":1,"typeIndex":0,"ranking":19,"player":"1"},{"distance":11.84,"team":"New Team","id":"2215","speed":36,"lap":1,"typeIndex":1,"ranking":20,"player":"1"},{"distance":11.84,"team":"new team","id":"1215","speed":36,"lap":1,"typeIndex":1,"ranking":21,"player":"1"},{"distance":11.84,"team":"New Team","id":"1626","speed":36,"lap":1,"typeIndex":1,"ranking":22,"player":"1"},{"distance":11.84,"team":"LeMans No.1","id":"215","speed":36,"lap":1,"typeIndex":0,"ranking":23,"player":"1"},{"distance":11.84,"team":"New Team","id":"2110","speed":36,"lap":1,"typeIndex":1,"ranking":24,"player":"1"},{"distance":11.84,"team":"New Team","id":"1775","speed":36,"lap":1,"typeIndex":1,"ranking":25,"player":"1"},{"distance":11.84,"team":"Paul Racing","id":"288","speed":36,"lap":1,"typeIndex":0,"ranking":26,"player":"1"},{"distance":11.84,"team":"New Team","id":"1593","speed":36,"lap":1,"typeIndex":1,"ranking":27,"player":"1"},{"distance":11.84,"team":"new team","id":"599","speed":36,"lap":1,"typeIndex":1,"ranking":28,"player":"1"},{"distance":11.84,"team":"New Team","id":"2124","speed":36,"lap":1,"typeIndex":1,"ranking":29,"player":"1"},{"distance":11.84,"team":"\u7ade\u6280\u4f20\u5947","id":"2091","speed":36,"lap":1,"typeIndex":0,"ranking":30,"player":"1"},{"distance":11.84,"team":"new team","id":"1742","speed":36,"lap":1,"typeIndex":1,"ranking":31,"player":"1"},{"distance":11.84,"team":"New Team","id":"2004","speed":36,"lap":1,"typeIndex":1,"ranking":32,"player":"1"},{"distance":11.52,"team":"new team","id":"884","speed":36,"lap":1,"typeIndex":1,"ranking":33,"player":"1"},{"distance":11.52,"team":"new team","id":"854","speed":36,"lap":1,"typeIndex":1,"ranking":34,"player":"1"},{"distance":11.52,"team":"Tsu Porsche","id":"979","speed":36,"lap":1,"typeIndex":1,"ranking":35,"player":"2"},{"distance":11.52,"team":"new team","id":"991","speed":36,"lap":1,"typeIndex":1,"ranking":36,"player":"1"},{"distance":11.182222222222,"team":"new team","id":"536","speed":34,"lap":1,"typeIndex":1,"ranking":37,"player":"1"},{"distance":10.853333333333,"team":"new team","id":"251","speed":33,"lap":1,"typeIndex":1,"ranking":38,"player":"2"},{"distance":10.56,"team":"New Team","id":"2226","speed":36,"lap":1,"typeIndex":1,"ranking":39,"player":"1"},{"distance":10.524444444444,"team":"Fa sol la","id":"2038","speed":32,"lap":1,"typeIndex":1,"ranking":40,"player":"1"},{"distance":10.195555555556,"team":"New Team","id":"1710","speed":31,"lap":1,"typeIndex":1,"ranking":41,"player":"1"},{"distance":9.8666666666667,"team":"New Team","id":"2036","speed":30,"lap":1,"typeIndex":1,"ranking":42,"player":"1"},{"distance":9.5377777777778,"team":"Team Speed team","id":"1708","speed":29,"lap":1,"typeIndex":1,"ranking":43,"player":"1"},{"distance":9.5377777777778,"team":"FLATSIXES","id":"401","speed":29,"lap":1,"typeIndex":1,"ranking":44,"player":"1"},{"distance":9.2088888888889,"team":"new team","id":"214","speed":28,"lap":1,"typeIndex":0,"ranking":45,"player":"1"},{"distance":8.88,"team":"kknew tefffam11","id":"62","speed":27,"lap":1,"typeIndex":0,"ranking":46,"player":"1"},{"distance":8.88,"team":"New Team","id":"1881","speed":27,"lap":1,"typeIndex":1,"ranking":47,"player":"1"},{"distance":7.8933333333333,"team":"new team","id":"219","speed":24,"lap":1,"typeIndex":0,"ranking":48,"player":"1"},{"distance":7.5644444444444,"team":"new team","id":"102","speed":23,"lap":1,"typeIndex":0,"ranking":49,"player":"2"},{"distance":7.5644444444444,"team":"New Team","id":"1586","speed":23,"lap":1,"typeIndex":1,"ranking":50,"player":"1"},{"distance":7.3333333333333,"team":"new team","id":"2384","speed":75,"lap":1,"typeIndex":1,"ranking":51,"player":"1"},{"distance":7.3333333333333,"team":"New Team","id":"2237","speed":25,"lap":1,"typeIndex":1,"ranking":52,"player":"1"},{"distance":3.5822222222222,"team":"New Team","id":"2342","speed":31,"lap":1,"typeIndex":0,"ranking":103,"player":"1"},{"distance":3.52,"team":"New Team","id":"2367","speed":36,"lap":1,"typeIndex":0,"ranking":104,"player":"1"},{"distance":3.52,"team":"New Team","id":"2370","speed":36,"lap":1,"typeIndex":0,"ranking":105,"player":"1"},{"distance":3.4666666666667,"team":"New Team","id":"2336","speed":30,"lap":1,"typeIndex":0,"ranking":106,"player":"1"},{"distance":3.2888888888889,"team":"new team","id":"429","speed":10,"lap":1,"typeIndex":1,"ranking":107,"player":"1"},{"distance":3.2888888888889,"team":"new team","id":"1924","speed":10,"lap":1,"typeIndex":1,"ranking":108,"player":"1"},{"distance":3.2888888888889,"team":"PorscheUAE","id":"555","speed":10,"lap":1,"typeIndex":1,"ranking":109,"player":"1"},{"distance":3.2888888888889,"team":"new team","id":"282","speed":10,"lap":1,"typeIndex":0,"ranking":110,"player":"1"},{"distance":3.2888888888889,"team":"New Team","id":"2041","speed":10,"lap":1,"typeIndex":1,"ranking":111,"player":"1"},{"distance":3.2,"team":"new team","id":"782","speed":10,"lap":1,"typeIndex":1,"ranking":112,"player":"1"},{"distance":3.2,"team":"steve mcqueen","id":"864","speed":10,"lap":1,"typeIndex":1,"ranking":113,"player":"1"},{"distance":3.1288888888889,"team":"New Team","id":"2244","speed":11,"lap":1,"typeIndex":1,"ranking":114,"player":"1"},{"distance":2.96,"team":"new team","id":"176","speed":9,"lap":1,"typeIndex":0,"ranking":115,"player":"1"},{"distance":2.96,"team":"teamturbo","id":"611","speed":9,"lap":1,"typeIndex":1,"ranking":116,"player":"1"},{"distance":2.96,"team":"New Team","id":"1468","speed":9,"lap":1,"typeIndex":1,"ranking":117,"player":"1"},{"distance":2.96,"team":"new team","id":"280","speed":9,"lap":1,"typeIndex":0,"ranking":118,"player":"1"},{"distance":2.96,"team":"New Team","id":"1887","speed":9,"lap":1,"typeIndex":1,"ranking":119,"player":"1"},{"distance":2.96,"team":"new team","id":"228","speed":9,"lap":1,"typeIndex":0,"ranking":120,"player":"1"},{"distance":2.96,"team":"new team","id":"309","speed":9,"lap":1,"typeIndex":0,"ranking":121,"player":"1"},{"distance":2.96,"team":"new team","id":"125","speed":9,"lap":1,"typeIndex":0,"ranking":122,"player":"1"},{"distance":2.9333333333333,"team":"New Team","id":"2319","speed":22,"lap":1,"typeIndex":0,"ranking":123,"player":"1"},{"distance":2.88,"team":"New Team","id":"2414","speed":36,"lap":1,"typeIndex":0,"ranking":124,"player":"1"},{"distance":2.88,"team":"New Team","id":"2394","speed":36,"lap":1,"typeIndex":0,"ranking":125,"player":"1"},{"distance":2.88,"team":"New Team","id":"2405","speed":36,"lap":1,"typeIndex":0,"ranking":126,"player":"1"},{"distance":2.88,"team":"New Team","id":"2404","speed":36,"lap":1,"typeIndex":0,"ranking":127,"player":"1"},{"distance":2.6311111111111,"team":"New Team","id":"1627","speed":8,"lap":1,"typeIndex":1,"ranking":128,"player":"1"},{"distance":2.6311111111111,"team":"New Team","id":"1695","speed":8,"lap":1,"typeIndex":1,"ranking":129,"player":"1"},{"distance":2.6311111111111,"team":"new team","id":"1280","speed":8,"lap":1,"typeIndex":1,"ranking":130,"player":"1"},{"distance":2.6311111111111,"team":"New Team","id":"1728","speed":8,"lap":1,"typeIndex":1,"ranking":131,"player":"1"},{"distance":2.6311111111111,"team":"New Team","id":"1527","speed":8,"lap":1,"typeIndex":1,"ranking":132,"player":"1"},{"distance":2.6311111111111,"team":"Rush","id":"145","speed":8,"lap":1,"typeIndex":0,"ranking":133,"player":"3"},{"distance":2.6311111111111,"team":"The Lords","id":"1616","speed":8,"lap":1,"typeIndex":1,"ranking":134,"player":"1"},{"distance":2.6311111111111,"team":"new team","id":"2163","speed":8,"lap":1,"typeIndex":0,"ranking":135,"player":"1"},{"distance":2.6311111111111,"team":"New Team","id":"1234","speed":8,"lap":1,"typeIndex":1,"ranking":136,"player":"2"},{"distance":2.6311111111111,"team":"new team","id":"575","speed":8,"lap":1,"typeIndex":1,"ranking":137,"player":"1"},{"distance":2.6311111111111,"team":"\u6c9f\u901a\u529b\u91cf","id":"243","speed":8,"lap":1,"typeIndex":0,"ranking":138,"player":"1"},{"distance":2.6311111111111,"team":"new team","id":"596","speed":8,"lap":1,"typeIndex":1,"ranking":139,"player":"1"},{"distance":2.6133333333333,"team":"New Team","id":"2291","speed":14,"lap":1,"typeIndex":0,"ranking":140,"player":"1"},{"distance":2.56,"team":"Scuderia Chai","id":"961","speed":8,"lap":1,"typeIndex":1,"ranking":141,"player":"1"},{"distance":2.56,"team":"New Team","id":"2421","speed":36,"lap":1,"typeIndex":0,"ranking":142,"player":"1"},{"distance":2.56,"team":"New Team","id":"2418","speed":36,"lap":1,"typeIndex":0,"ranking":143,"player":"1"},{"distance":2.56,"team":"New Team","id":"2420","speed":36,"lap":1,"typeIndex":0,"ranking":144,"player":"1"},{"distance":2.56,"team":"New Team","id":"2419","speed":36,"lap":1,"typeIndex":0,"ranking":145,"player":"1"},{"distance":2.4177777777778,"team":"New Team","id":"2301","speed":16,"lap":1,"typeIndex":0,"ranking":146,"player":"1"},{"distance":2.3466666666667,"team":"New Team","id":"2241","speed":8,"lap":1,"typeIndex":1,"ranking":147,"player":"1"},{"distance":2.32,"team":"New Team","id":"2261","speed":9,"lap":1,"typeIndex":1,"ranking":148,"player":"1"},{"distance":2.3022222222222,"team":"New Team","id":"1485","speed":7,"lap":1,"typeIndex":1,"ranking":149,"player":"1"},{"distance":2.3022222222222,"team":"New Team","id":"1871","speed":7,"lap":1,"typeIndex":1,"ranking":150,"player":"1"},{"distance":2.3022222222222,"team":"new team","id":"98","speed":7,"lap":1,"typeIndex":0,"ranking":151,"player":"1"},{"distance":2.3022222222222,"team":"New Team","id":"1696","speed":7,"lap":1,"typeIndex":1,"ranking":152,"player":"1"},{"distance":2.3022222222222,"team":"new team","id":"157","speed":7,"lap":1,"typeIndex":0,"ranking":153,"player":"3"}],"ext":{"twitter_total":636,"weibo_total":1779,"user_tid":"123"}};
                     teams = e.data;
-                    total = e.ext;
+                    ext = e.ext;
                     // get max distance
                     var max = 0;
                     $.each( teams , function( i , team ){
@@ -2719,10 +2718,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     $('#container').css({left: 20 , right: 20 , width: 'auto'});
 
 
-                    var selfIndex = 40;
+                    var selfIndex = -1;
                     // render each team data
                     var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
                     $.each( teams , function( i , team ){
+                        if( team.id == ext.user_tid ){
+                            selfIndex = i;
+                        }
                         aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + ' ' + 
                             ( selfIndex == i ? 'm-self-bar' : '' ) + '" data-a="m-bar" style="height:' + 
                             ((team.distance + (teams.length - i)) / max * height) + 'px;margin-top:' + 
@@ -2762,7 +2764,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .removeClass('active');
                     var team = teams[ $(this).data('index') ];
 
-                    team.total =  total.weibo_total + total.twitter_total;
+                    team.total =  ext.weibo_total + ext.twitter_total;
 
                     $('.team-tip').html( LP.format('<p>'+_e('Rank')+':#[ranking]/#[total]</p>\
                         <div class="clearfix">\
@@ -3366,13 +3368,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 })
                 // // show the big video
                 if( !isMobile ){
-                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
-                        $('#' + this.Q).css('z-index' , 0);
-                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
-                        this.on('ended' , function(){
-                            LP.triggerAction('skip-intro');
-                        });
-                    } );
+//                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+//                        $('#' + this.Q).css('z-index' , 0);
+//                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
+//                        this.on('ended' , function(){
+//                            LP.triggerAction('skip-intro');
+//                        });
+//                    } );
                     // renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                     //     $('#' + this.Q).css('z-index' , 0);
                     //     this.on('ended' , function(){
@@ -3500,26 +3502,46 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                 if( $('.video-page').length ){
                     window.NO_QA = 1;
-                    LP.panel({
-                        content:'<div class="popup_fuel">\
+                    var popuptpl = '<div class="popup_fuel">\
                             <div class="popup_fuel_video">\
                                 <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
                             </div>\
-                        </div>',
-                        noClickClose: true,
+                        </div>';
+                    var noClickClose = true;
+
+                    if(USER) {
+                        popuptpl = '<div class="popup_fuel">\
+                            <div class="popup_close"></div>\
+                            <div class="popup_fuel_video">\
+                                <div class="popup_image_wrap" style="width:500px;height:280px;margin-bottom:40px;"></div>\
+                            </div>\
+                        </div>';
+                        noClickClose = false;
+                    }
+
+
+                    LP.panel({
+                        content: popuptpl,
+                        noClickClose: noClickClose,
                         title: '',
                         onShow: function(){
                             var panel = this;
                             var $wrap = panel.$panel.find('.popup_image_wrap');
-                            renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
-                                controls: true,
-                                resize: false,
-                                loop: false,
-                                needMyAutoPlay: false
-                            } , function(){
-                                this.play();
-                                this.dimensions( '100%' , '90%' );
-                            } );
+                            if(TYPE == 'image') {
+                                $wrap.append('<img src="'+VIDEO+'" />');
+                            }
+                            else {
+                                renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
+                                    controls: true,
+                                    resize: false,
+                                    loop: false,
+                                    needMyAutoPlay: false
+                                } , function(){
+                                    this.play();
+                                    this.dimensions( '100%' , '90%' );
+                                } );
+                            }
+
                         }
                     });
                 }
@@ -3978,8 +4000,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         );
                     }
                 }
-            break;
-
+                break;
+            
+            case "racemobile":
             case "race":
                 
                     var getServerTime = function () {
@@ -4043,7 +4066,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             '<div class="oldflash">'+_e('Your Flash player version is too lower, please download latest version:')+' <a target="_blank" href="http://www.adobe.com/support/flashplayer/downloads.html">'+_e('Download now')+'</a>'+'</div>'
                         );
                     }
-
                 }
                 break;
         }

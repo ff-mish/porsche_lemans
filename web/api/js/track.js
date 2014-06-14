@@ -170,11 +170,14 @@ function trackCreate(readyCallback) {
                             projector = new THREE.Projector();
                             renderer = new THREE.WebGLRenderer({alpha: true, antialias: true/*, logarithmicDepthBuffer: true*/});
                             renderer.setClearColor(0x000000, 0);
-                            renderer.setSize(window.innerWidth, window.innerHeight);
+                            var width = window.innerWidth;
+                            var height = window.innerHeight - 60;
+
+                            renderer.setSize(width, height);
                             container.appendChild(renderer.domElement);
 
                             scene = new THREE.Scene();
-                            camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
+                            camera = new THREE.PerspectiveCamera(55, width / height, 0.5, 3000000);
 
                             clock = new THREE.Clock();
 
@@ -443,10 +446,14 @@ function trackCreate(readyCallback) {
                         function onWindowResize() {
                             windowHalfX = window.innerWidth / 2;
                             windowHalfY = window.innerHeight / 2;
-                            camera.aspect = window.innerWidth / window.innerHeight;
+
+                            var width = window.innerWidth;
+                            var height = window.innerHeight - 60;
+
+                            camera.aspect = width / height;
                             camera.updateProjectionMatrix();
 
-                            renderer.setSize(window.innerWidth, window.innerHeight);
+                            renderer.setSize(width, height);
 
                         }
 
