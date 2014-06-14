@@ -2675,14 +2675,16 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     // get max distance
                     var max = 0;
                     $.each( teams , function( i , team ){
-                        max = Math.max( max , team.distance );
+                        max = Math.max( max , team.distance + (teams.length - i) );
                     } );
 
+
                     var height = $('#container').height();
+                    $('#container').css({left: 20 , right: 20 , width: 'auto'});
                     // render each team data
                     var aHtml = ['<div style="height:100%;width: ' + ( teams.length * 50 + 10 ) + 'px;">'];
                     $.each( teams , function( i , team ){
-                        aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + '" data-a="m-bar" style="height:' + (team.distance / max * height) + 'px;margin-top:' + ( (1 - team.distance / max) * height) + 'px;"></div>' );
+                        aHtml.push( '<div data-index="' + i + '" class="m-bar ' + ( team.typeIndex == 0 ? '' : 'tw' ) + '" data-a="m-bar" style="height:' + ((team.distance + (teams.length - i)) / max * height) + 'px;margin-top:' + ( (1 - (team.distance + (teams.length - i)) / max) * height) + 'px;"></div>' );
                     } );
                     aHtml.push('</div>');
 
@@ -2703,8 +2705,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             });
                     } , 2000);
                 });
-
-                LP.action('m-bar' , function(){
+                
+    
+                $(document.body).delegate('.m-bar' , 'touchend' , function(){
+                //LP.action('m-bar' , function(){
                     $(this).addClass('active')
                         .siblings('.active')
                         .removeClass('active');
