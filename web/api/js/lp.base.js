@@ -3627,7 +3627,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             var panel = this;
                             var $wrap = panel.$panel.find('.popup_image_wrap');
                             if(TYPE == 'image') {
-                                $wrap.append('<img src="'+VIDEO+'" />');
+                                renderImage( $('.popup_image_wrap') , VIDEO , true , 0 , true );
                             }
                             else {
                                 renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
