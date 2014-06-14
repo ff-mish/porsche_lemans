@@ -582,7 +582,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // match
             
             var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length > 12 ){
+            if( tmp.length > 15 ){
                 $('.team_name_error_tip').fadeIn();
                 clearTimeout( hideTimer );
                 hideTimer = setTimeout(function(){
@@ -616,7 +616,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var txt = $(this).text();
             var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
+            if( tmp.length >= 15 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
                 $('.team_name_error_tip').fadeIn();
                 clearTimeout( hideTimer );
                 hideTimer = setTimeout(function(){
