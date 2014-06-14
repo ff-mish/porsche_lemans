@@ -41,3 +41,7 @@ body .member_speed{margin-left:50px!important;margin-top:-12px;}
 .conut_tips{font-size: 17px;margin:0 auto;margin-top:50px;width:939px;}
 .count .home_share {margin-top:198px;}
 .count .home_winners {margin-top:247px;}
+
+#container {position:fixed;width:100%;height:100%;}
+
+a.logo:hover {opacity:1;}

@@ -34,4 +34,10 @@
   'Incorrect' => '回答错误',
   'Assiduity' => '',
   'Empty' => '无内容',
+  'Rank' => '排名',
+  'Players' => '队员',
+  'Lap' => '圈数',
+  'Your Flash player version is too lower, please download latest version:' => '你的Flash播放器的版本过久，请下载最新版本:',
+  'Download now' => '立即下载',
+  'Your Flash player version is too lower, please download latest version: ' => '',
 );

@@ -33,4 +33,9 @@
   'Correct' => '',
   'Incorrect' => '',
   'Empty' => '',
+  'Rank' => '',
+  'Players' => '',
+  'Lap' => '',
+  'Your Flash player version is too lower, please download latest version: ' => '',
+  'Download now' => '',
 );

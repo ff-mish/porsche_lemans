@@ -64,7 +64,7 @@ body{background:#000;height: 100%;width: 100%}
 ================================================================================================= */
 .header{background: #fff;height:60px;position: fixed;left:0;right: 0;top:0;z-index: 1000}
 .logo{background: url('../images/logo2.png') no-repeat;width: 77px;height: 45px;top: 7px;left: 40px;overflow: hidden;line-height: 500em;position: absolute;}
-a.logo:hover{opacity: 1;}
+a.logo:hover{opacity: 1;filter:alpha(opacity=100);}
 .hd_info{background:url('../images/hd_info.png') no-repeat;width: 211px;height: 18px;position: absolute;right: 34px;top: 22px}
 .lang-cn .hd_info {background: url('../images/hd_info_cn.png') no-repeat;width: 147px;height: 16px;}
 .nav{font-size: 14px;position: fixed;top: 180px;left:22px;z-index:5;}
@@ -280,7 +280,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .tweet_com img{padding:10px 0;width:100%}
 .tweet_add{position: absolute;right: 0;top:50%;border: #f00 solid 3px;width:120px;height: 120px;line-height: 120px;font-size: 40px;color:#f00; text-align: center;margin-top:-63px;}
 
-
+#container .oldflash {position: absolute;top:50%;text-align: center;width:100%;}
 
 
 /* countdown */
@@ -1026,7 +1026,7 @@ font-size: 24px;color: white;}
     .nav{background: black;top: 80px;margin-top: 0;bottom: 0;padding-top: 60px;width:250px;z-index:100;/*p1*/ }
     .monitor{top: 20px;}
     .nav p{height: 61px;font-size:29px;padding-left:42px;}
-    .race_nav>div{padding-left: 42px;font-size:29px;}
+    .race_nav>div{padding-left: 42px;font-size:29px;margin-bottom:30px;}
     .lang-cn .nav p{height: 61px;font-size:28px;padding-left:45px;}
     .lang-cn .race_nav>div{padding-left: 45px;font-size:28px;}
 

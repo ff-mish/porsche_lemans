@@ -101,6 +101,28 @@ var WebGLHelper = {
 
 }
 
+function getFlashVersion(){
+    // ie
+    try {
+        try {
+            // avoid fp6 minor version lookup issues
+            // see: http://blog.deconcept.com/2006/01/11/getvariable-setvariable-crash-internet-explorer-flash-6/
+            var axo = new ActiveXObject('ShockwaveFlash.ShockwaveFlash.6');
+            try { axo.AllowScriptAccess = 'always'; }
+            catch(e) { return '6,0,0'; }
+        } catch(e) {}
+        return new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version').replace(/\D+/g, ',').match(/^,?(.+),?$/)[1];
+        // other browsers
+    } catch(e) {
+        try {
+            if(navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin){
+                return (navigator.plugins["Shockwave Flash 2.0"] || navigator.plugins["Shockwave Flash"]).description.replace(/\D+/g, ",").match(/^,?(.+),?$/)[1];
+            }
+        } catch(e) {}
+    }
+    return '0,0,0';
+}
+
 //
 function is_support_webgl() {
   var ctx;
@@ -2728,14 +2750,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
                     team.total =  total.weibo_total + total.twitter_total;
 
-                    $('.team-tip').html( LP.format('<p>Rank:#[ranking]/#[total]</p>\
+                    $('.team-tip').html( LP.format('<p>'+_e('Rank')+':#[ranking]/#[total]</p>\
                         <div class="clearfix">\
                             <span>#[team]</span>\
                             <span>#[speed]km/h</span>\
                         </div>\
                         <div class="clearfix">\
-                            <span>Players:#[players]</span>\
-                            <span>Lap:#[lap]</span>\
+                            <span>'+_e('Players')+':#[players]</span>\
+                            <span>'+_e('Lap')+':#[lap]</span>\
                         </div>' , team))
                         .addClass( team.typeIndex == 0 ? '' : 'tw' )
                         .removeClass( team.typeIndex == 0 ? 'tw' : '' )
@@ -3896,15 +3918,23 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !is_support_webgl() ) {
                     // render flash
                     //$('.race_nav,.nav').hide();
-                    $('#container').html(
-                        '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
-                            <param name="movie" value="/js/raceflash/Sticks.swf"/>\
-                            <param name="quality" value="high"/>\
-                            <param name="wmode" value="transparent"/>\
-                            <param name="flashVars" value="xml=/js/raceflash/xml/sticks.xml"/>\
-                            <embed name="flash" src="/js/raceflash/Sticks.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/sticks.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
-                        </object>'
+                    var _version = getFlashVersion();
+                    var version = _version.split(',');
+                    if(version[0] > 12){
+                        $('#container').html(
+                            '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
+                                <param name="movie" value="/js/raceflash/Sticks.swf"/>\
+                                <param name="quality" value="high"/>\
+                                <param name="wmode" value="transparent"/>\
+                                <param name="flashVars" value="xml=/js/raceflash/xml/sticks.xml"/>\
+                                <embed name="flash" src="/js/raceflash/Sticks.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/sticks.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
+                            </object>'
+                            );
+                    } else {
+                        $('#container').html(
+                            '<div class="oldflash">'+_e('Your Flash player version is too lower, please download latest version:')+' <a target="_blank" href="http://www.adobe.com/support/flashplayer/downloads.html">'+_e('Download now')+'</a>'+'</div>'
                         );
+                    }
                 }
             break;
 
@@ -3953,15 +3983,25 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !is_support_webgl()){
                     // render flash
                     //$('.race_nav,.nav').hide();
-                    $('#container').html(
-                        '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
-                            <param name="movie" value="/js/raceflash/track.swf"/>\
-                            <param name="quality" value="high"/>\
-                            <param name="wmode" value="transparent"/>\
-                            <param name="flashVars" value="xml=/js/raceflash/xml/track.xml"/>\
-                            <embed name="flash" src="/js/raceflash/track.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/track.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
-                        </object>'
+                    var _version = getFlashVersion();
+                    var version = _version.split(',');
+                    if(version[0] > 12){
+                        $('#container').html(
+                            '<object id="flash" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="100%" height="100%">\
+                                <param name="movie" value="/js/raceflash/track.swf"/>\
+                                <param name="quality" value="high"/>\
+                                <param name="wmode" value="transparent"/>\
+                                <param name="flashVars" value="xml=/js/raceflash/xml/track.xml"/>\
+                                <embed name="flash" src="/js/raceflash/track.swf" quality="high" wmode="transparent" flashVars="xml=/js/raceflash/xml/track.xml" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="100%" height="100%" allowScriptAccess="always"></embed>\
+                            </object>'
                         );
+                    }
+                    else {
+                        $('#container').html(
+                            '<div class="oldflash">'+_e('Your Flash player version is too lower, please download latest version:')+' <a target="_blank" href="http://www.adobe.com/support/flashplayer/downloads.html">'+_e('Download now')+'</a>'+'</div>'
+                        );
+                    }
+
                 }
                 break;
         }
