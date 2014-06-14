@@ -117,6 +117,8 @@ body[data-page="stand"] .footer_link{}
 body[data-page="stand"] .footer-icon{display: block;}
 
 
+.pagebg404 {background:url('../images/404_bg.jpg') no-repeat center!important;background-size:cover;}
+.pagebg404 .error_404 {position: absolute;top:50%;left:50%;margin:-75px 0 0 -250px;}
 
 .callto{font-size: 18px;background: #f00;height: 60px;position: fixed;bottom: 0;left:0;right: 0;z-index: 10}
 .calltotxt{line-height: 60px;text-align: center;}

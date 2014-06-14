@@ -2745,20 +2745,22 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             } else {
                 var updateTeamData;
-                sticksCreate(function (ret) {
-                    updateTeamData=ret;
-                    updateTeamData('team', function(){
-                      //
-                    });
+                if(is_support_webgl()) {
+                    sticksCreate(function (ret) {
+                        updateTeamData=ret;
+                        updateTeamData('team', function(){
+                          //
+                        });
 
-                  // Switch team race
-                  $('a.switchType').click(function(){
-                      $('div.loading').show();
-                      updateTeamData($(this).attr('data-rank-type'), function(){
-                          $('div.loading').hide();
+                      // Switch team race
+                      $('a.switchType').click(function(){
+                          $('div.loading').show();
+                          updateTeamData($(this).attr('data-rank-type'), function(){
+                              $('div.loading').hide();
+                          });
                       });
-                  });
-                });
+                    });
+                }
             }
         },
         'race' : function(){
