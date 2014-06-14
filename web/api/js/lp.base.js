@@ -3386,9 +3386,9 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
 
 
-            if( LP.parseUrl().params.__qa ){
-                showQa();
-            }
+            // if( LP.parseUrl().params.__qa ){
+            //     showQa();
+            // }
         } , 1000 * 30 );
         }
 
