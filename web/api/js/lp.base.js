@@ -2837,9 +2837,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 });
 
                 $('a.switchType').click(function(){
-                      $(this).addClass('on')
+                    $(this).addClass('on')
                         .siblings()
                         .removeClass('on');
+                    $('#container').children()
+                        .each(function( i ){
+                            $(this).delay( i * 100 ).animate({top: 1000} , 300);
+                        });
+
                       loadData($(this).attr('data-rank-type'));
                   });
     
