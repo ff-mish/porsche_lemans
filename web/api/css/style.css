@@ -394,7 +394,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .popup_dialog_options input {display:none;}
 .popup_timer{position: absolute;width: 34px;height: 34px;right: 40px;top: 40px;}
 .popup_dun{position: absolute;left: 40px;top: 40px;height: 48px;width: 36px;line-height: 48px;text-align: center;color: #ff0000; background: url(../images/dun.png) no-repeat; font-size: 14px;}
-.popup_dun span{position: absolute;left: 150%;}
+.popup_dun span{position: absolute;left: 150%;text-align:left;width:100px;}
 
 .popup_email{border:none;overflow: hidden;text-align: center; text-align: center;width:642px;}
 .popup_email h4{font-size: 20px;text-align: center;line-height: 2em;margin-bottom: 20px;color: white;}
