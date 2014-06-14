@@ -61,7 +61,7 @@ class MediaAR extends CActiveRecord {
     return array(
         array("uri", "fileExit"),
         array("type, uri", "required"),
-        array("mid, cdate, udate, uid, media_link, teaser_image, title, description, lang", "safe"),
+        array("mid, cdate, udate, uid, media_link, teaser_image, title, description, lang, short_url", "safe"),
     );
   }
   
