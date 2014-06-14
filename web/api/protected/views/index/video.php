@@ -49,6 +49,10 @@
 		<!-- fuel end -->
 	</div>
 </div>
+<?php if(!UserAR::crtuser()): ?>
+    <div class="login_bar"><a href="/"><?php echo Yii::t("lemans", "LOGIN_BAR")?></a></div>
+<?php endif;?>
+
 <script type="text/tpl" id="fuel-tpl">
 <div class="fuelitem" {{#if video}}data-video="{{uri}}"{{/if}}>
 	<img src="{{image}}" style="width:105%"/>
