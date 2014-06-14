@@ -582,7 +582,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             // match
             
             var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length > 12 ){
+            if( tmp.length > 15 ){
                 $('.team_name_error_tip').fadeIn();
                 clearTimeout( hideTimer );
                 hideTimer = setTimeout(function(){
@@ -616,7 +616,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
 
             var txt = $(this).text();
             var tmp = txt.replace( /[\u4e00-\u9fa5]/g , '00' );
-            if( tmp.length >= 12 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
+            if( tmp.length >= 15 && ev.which != 8 && ev.which != 37 && ev.which != 39 ){
                 $('.team_name_error_tip').fadeIn();
                 clearTimeout( hideTimer );
                 hideTimer = setTimeout(function(){
@@ -3066,7 +3066,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var timer = null;
                 api.get('/api/question/random' , '' , function( e ){
                     var data = e.data || {};
-                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun">1 <span>' + _e('Assiduity') + '</span></div><div class="popup_dialog_msg">';
+                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun"><span>' + _e('Knowledge') + '</span></div><div class="popup_dialog_msg">';
                     content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
                     $.each( [1,2,3,4] , function( i ){
                         content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'

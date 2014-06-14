@@ -51,7 +51,7 @@
         <div class="stand_tit">
           <span id="team-score"></span>
           <div class="team_name_error_tip" >
-			 <?=Yii::t('lemans','Team name is limited within 12 characters')?>
+			 <?=Yii::t('lemans','Team name is limited within 15 characters')?>
 		  </div>
           <span class="team_name" style="-webkit-user-select: auto;" spellcheck="false" contenteditable="true"></span>
           <div class="stand_chart_tip">
