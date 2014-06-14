@@ -3645,6 +3645,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             this.$panel.find('.popup_close')
                                 .click(function(){
                                     panel.close();
+                                    $('.page_wrap').css({opacity:1});
                                 });
 
                         }
