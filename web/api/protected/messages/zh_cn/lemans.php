@@ -6,6 +6,8 @@
  * Time: 上午3:22
  */
 return array (
+    "Team Rank" => "团队排名",
+    "Top Rank" => "领先排名",
     "Social Race Monitoring:  What’s happening right now?" => "社交耐力赛直播：查看最新动态",
     "Networks" => "网络",
     "Profile" => "个人",
