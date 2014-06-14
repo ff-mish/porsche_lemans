@@ -1256,7 +1256,7 @@ top: 11px;}
     -ms-transition: color 0.2s ease-out;
     transition: color 0.2s ease-out;
     display: block;position: relative;padding-right: 30px;}
-#switch a.on{background: url('../images/navicon2.png') no-repeat 58px -107px;}
+#switch a.on{background: url('../images/navicon2.png') no-repeat 130% -107px;}
 
 
 
