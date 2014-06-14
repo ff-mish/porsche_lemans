@@ -3737,6 +3737,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                     });
                   if (groups.length <= 0) {
+                      $panel.addClass('jspPane-empty');
                     $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
                   }
                 }
