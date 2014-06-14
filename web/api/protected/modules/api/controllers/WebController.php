@@ -303,6 +303,8 @@ class WebController extends Controller {
     $user = UserAR::crtuser(TRUE);
     $team = $user->team;
     
+    $user_team_tid = $team->tid;
+    
     $lenght_of_race = 13.6;
     $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
     
@@ -316,7 +318,7 @@ class WebController extends Controller {
     $teams_in = array();
     // 先把每组速度汇总数据拿出来
     //$sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
-    $sql = "select teams.name as name, users.from as user_from, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid group by teams.tid ORDER BY average_total DESC";
+    $sql = "select teams.name as name, users.from as user_from, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid  where teams.status = 1 group by teams.tid ORDER BY average_total DESC";
     $command = Yii::app()->db->createCommand($sql);
     $results = $command->queryAll();
 
@@ -373,8 +375,6 @@ class WebController extends Controller {
     
     // 排序 team score
     
-    
-    
     $request = Yii::app()->getRequest();
     $type = $request->getParam("type", "team");
     
@@ -420,7 +420,7 @@ class WebController extends Controller {
        $team["player"] = $teamAr->getMemberCount($tid);
      }
      
-     $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
+     $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo, "user_tid"=> $user_team_tid));
     }
     else {
       $ret = array_splice($all_teams_score, 0, 101);
@@ -431,7 +431,7 @@ class WebController extends Controller {
        $tid = $team["tid"];
        $team["player"] = $teamAr->getMemberCount($tid);
      }
-      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
+      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo, "user_tid"=> $user_team_tid));
     }
   }
   
