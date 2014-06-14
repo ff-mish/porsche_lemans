@@ -2352,6 +2352,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             //$('.fuel .loading').hide();
             totalPageLoading.hide();
 
+            if( !e.data.length ){
+                $('.fuelmore').animate({
+                    opacity: 0
+                });
+                return false;
+            }
+
             //  render fuel item
             $.each( e.data || [] , function( i , data ){
                 if (data["type"] == "video") {
@@ -2372,14 +2379,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var $img = $('.fuellist').find('.fuelitem:not(.visible) img').eq(0);
                 // turn each images
                 if( !$img.length ){
-                    if( e.data.length >= 10 ){
-                        hasMore = true;
-                        $('.fuelmore').show().animate({
-                            opacity: 1
-                        });
-                    } else {
-                        hasMore = false;
-                    }
+                    // if( e.data.length >= 10 ){
+                    //     hasMore = true;
+                    //     $('.fuelmore').show().animate({
+                    //         opacity: 1
+                    //     });
+                    // } else {
+                    //     hasMore = false;
+                    // }
                     var $dom = $('.fuellist');
                     $('.fuel').height( $('.fuel').height() );
                     LP.use('isotope' , function(){
