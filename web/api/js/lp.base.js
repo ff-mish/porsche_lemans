@@ -2722,7 +2722,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             <span>#[speed]km/h</span>\
                         </div>\
                         <div class="clearfix">\
-                            <span>Players:#[plays]</span>\
+                            <span>Players:#[players]</span>\
                             <span>Lap:#[lap]</span>\
                         </div>' , team))
                         .addClass( team.typeIndex == 0 ? '' : 'tw' )
