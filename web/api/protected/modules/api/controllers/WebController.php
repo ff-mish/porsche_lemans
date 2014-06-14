@@ -423,11 +423,10 @@ class WebController extends Controller {
     }
     else {
       $ret = array_splice($all_teams_score, 0, 101);
-     $ret = array_merge($before, array($crt_team),  $after);
-     $teamAr = new TeamAR();
+      $teamAr = new TeamAR();
      // 获取每个队的 人数总数
      foreach ($ret as &$team) {
-       $tid = $team["tid"];
+       $tid = $team["id"];
        $team["player"] = $teamAr->getMemberCount($tid);
      }
       $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo, "user_tid"=> $user_team_tid));
