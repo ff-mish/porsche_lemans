@@ -32,4 +32,5 @@
   'Assiduity' => '',
   'Correct' => '',
   'Incorrect' => '',
+  'Empty' => '',
 );

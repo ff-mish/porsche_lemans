@@ -3729,7 +3729,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
                     });
                   if (groups.length <= 0) {
-                    $panel.append("<li class='tweet-signle-item clearfix'>empty</li>");
+                    $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
                   }
                 }
               api.get("/api/twitte", function (e) {
