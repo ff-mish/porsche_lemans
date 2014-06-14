@@ -181,7 +181,6 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
     var isIpad = navigator.userAgent.toLowerCase().match(/ipad/i);
     var isMobile = $(window).width() <= 640 || isMobileBrowser;
 
-    
     if( isMobile ){
         $(document.body).addClass('mobile');
         $(window).load(function(){
@@ -3616,7 +3615,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         noClickClose = false;
                     }
                     else {
-                        $()
+                        $('.footer_logout').hide();
                     }
 
 
@@ -3629,6 +3628,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                             var $wrap = panel.$panel.find('.popup_image_wrap');
                             if(TYPE == 'image') {
                                 renderImage( $('.popup_image_wrap') , VIDEO , true , 0 , true );
+                                $('.popup_image_wrap').css({'text-align':'left'});
                             }
                             else {
                                 renderVideo( $('.popup_image_wrap')/*.css({width: imgW , height: imgH + 30})*/ , VIDEO.replace(/\.\w+$/ , '') , POSTER ,  {
