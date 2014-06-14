@@ -155,10 +155,7 @@ function trackCreate(readyCallback) {
                             projector = new THREE.Projector();
                             renderer = new THREE.CanvasRenderer({alpha: true});
                             renderer.setClearColor(0x000000, 0);
-                            var width = window.innerWidth;
-                            var height = window.innerHeight - 60;
-
-                            renderer.setSize(width, height);
+                            renderer.setSize(window.innerWidth, window.innerHeight);
                             container.appendChild(renderer.domElement);
 
                             scene = new THREE.Scene();
@@ -287,10 +284,7 @@ function trackCreate(readyCallback) {
                             windowHalfX = window.innerWidth / 2;
                             windowHalfY = window.innerHeight / 2;
 
-                            var width = window.innerWidth;
-                            var height = window.innerHeight - 60;
-
-                            var w=width-trackPadding* 2, h=height-trackPadding*2;
+                            var w=window.innerWidth-trackPadding* 2, h=window.innerHeight-trackPadding*2;
                             var d=Math.min(w/trackWidth, h/trackHeight);
                             camera.left=w/d/-2-trackPadding/d;
                             camera.right=w/d/2+trackPadding/d;
@@ -298,17 +292,18 @@ function trackCreate(readyCallback) {
                             camera.bottom=h/d/-2-trackPadding/d;
                             camera.updateProjectionMatrix();
 
-                            renderer.setSize(width, height);
+                            renderer.setSize(window.innerWidth, window.innerHeight);
 
                         }
 
                         function focus(event) {
-                            if (typeof event.offsetX === "undefined" || typeof event.offsetY === "undefined") {
-                                var targetOffset = $(event.target).offset();
-                                event.offsetX = event.pageX - targetOffset.left;
-                                event.offsetY = event.pageY - targetOffset.top;
-                            }
-                            var vector = new THREE.Vector3(( event.offsetX / window.innerWidth ) * 2 - 1, -( event.offsetY / window.innerHeight ) * 2 + 1, 0.5);
+                            selectedCar=selectedCar==meshCarRed?meshCarBlue:meshCarRed;
+                            updateInfoBox();
+                            render();
+
+                            return;
+                            /*
+                            var vector = new THREE.Vector3(( event.clientX / window.innerWidth ) * 2 - 1, -( event.clientY / window.innerHeight ) * 2 + 1, 0.5);
                             var ray=projector.pickingRay(vector, camera);
                             var intersects = ray.intersectObjects(carsGroup.children);
                             var selectedCar1;
@@ -318,7 +313,7 @@ function trackCreate(readyCallback) {
                                 updateInfoBox();
 
                                 //render();
-                            }
+                            }*/
                         }
 
                         function onDocumentClick(event) {
