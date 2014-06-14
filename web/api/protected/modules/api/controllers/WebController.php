@@ -343,14 +343,6 @@ class WebController extends Controller {
           $crt_index = count($all_teams_score);
         }
         
-//        $teams_in[] = array(
-//            "distance" => $distance,
-//            "team" => $team,
-//            "id" => $result["tid"],
-//            "speed" => $speed,
-//            "lap" => $lap,
-//            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
-//        );
         $all_teams_score[] = array(
             "distance" => $distance,
             "team" => $name,
@@ -362,22 +354,53 @@ class WebController extends Controller {
       }
     }
     
-    // 再依次拿出前50条 后50条
-    $first_index = $crt_index - 50;
-    if ($first_index < 0) {
-      $first_index = 0;
-    } 
-    $last_index = $crt_index + 50;
-    if ($last_index >= count($all_teams_score)) {
-      $last_index = count($all_teams_score) - 1;
+    // 排序 team score
+    usort($all_teams_score, "sort_team_data");
+    
+    $request = Yii::app()->getRequest();
+    $type = $request->getParam("type", "team");
+    
+    if ($type == "team") {
+      // 再依次拿出前50条 后50条
+     $first_index = $crt_index - 50;
+     if ($first_index < 0) {
+       $first_index = 0;
+       $least_num = 50 - $crt_index;
+     }
+     else {
+       $first_index = $crt_index - 50;
+       $least_num = 0;
+     }
+     
+     $last_index = $crt_index + 50;
+     if ($last_index >= count($all_teams_score)) {
+       $last_index = count($all_teams_score) - 1;
+       $first_num = $crt_index + 50 - count($all_teams_score) + 1;
+     }
+     else {
+       $first_num = 0;
+     }
+     
+     if ($least_num) {
+       $len = $crt_index - $first_index;
+       $before = array_splice($all_teams_score, $first_index, $len);
+       $last_index = $last_index + $least_num;
+     }
+     else {
+       $len = $crt_index - $first_index;
+       $before = array_splice($all_teams_score, $first_index, $len);
+     }
+     
+     $len = $last_index - $crt_index;
+     $after = array_splice($all_teams_score, $crt_index, $len);
+     
+     $ret = array_merge($before, $after);
+     $this->responseJSON($ret, "success");
     }
-    
-    $before = array_splice($all_teams_score, $first_index, 50);
-    $after = array_splice($all_teams_score, $crt_index, 50);
-    
-    $this->responseJSON(array("before" => $before, "after" => $after), "success");
-    
-    
+    else {
+      $ret = array_splice($all_teams_score, 100);
+      $this->responseJSON($ret, "success");
+    }
   }
   
   // 计算每组的数据
