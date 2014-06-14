@@ -1169,7 +1169,24 @@ body[data-page="teamrace"].mobile #container  .m-bar.m-self-bar{background-color
 body[data-page="teamrace"].mobile #container  .m-bar.tw.active,
 body[data-page="teamrace"].mobile #container  .m-bar.tw.m-self-bar{background-color: #065be0;}
 body[data-page="teamrace"].mobile #container  .m-bar.m-self-bar{background-image: url(/images/at.png); background-position: center 95%; background-repeat: no-repeat;} 
-
+.mobile .team-tip{position: absolute;
+        display: none;
+        background: url(/images/m-tip-weibo.png) no-repeat;
+        width: 259px;
+        height: 124px;
+        top: 200px;
+        right: 0;
+        padding: 85px 40px 80px 90px;
+        font-size: 24px;
+        line-height: 1.5em;}
+    .mobile .team-tip>p{font-size: 24px;}
+    .mobile .team-tip>div{font-size: 22px;}
+    .mobile .tw.team-tip{background: url(/images/m-tip-tw.png) no-repeat;}
+    .mobile .team-tip div>span:first-child{float: left;
+        width: 122px;
+        margin-right: 20px;
+        white-space: nowrap;
+        overflow: hidden;}
 
 
 @media screen and (max-width:640px) and (max-height: 1136 ){
