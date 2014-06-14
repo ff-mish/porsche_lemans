@@ -93,9 +93,9 @@ function sticksCreate(readyCallback) {
                             context.fillText('Rank:'+data.ranking+'/'+Math.round(data.totalCount), 21, 16);
                             context.font="28px 'Porsche News Gothic','黑体','sans-serif'";
                             context.fillText(data.team, 23, 73);
-                            context.fillText(''+Math.round(data.speed) + 'km/h', 180, 73);
-                            context.fillText("Player", 23, 117);
-                            context.fillText("Lap:" + data.lap, 180, 117);
+                            context.fillText(''+Math.round(data.speed) + 'km/h', 185, 73);
+                            context.fillText("Player:"+Math.round(data.player), 23, 117);
+                            context.fillText("Lap:" + data.lap, 185, 117);
                         }
                     });
 
@@ -196,12 +196,12 @@ function sticksCreate(readyCallback) {
                                         })
                                     ];
 
-                                    stick = new THREE.Mesh(geometry, normalStickMaterial);
+                                    stick = new THREE.Mesh(geometry, stickData.id==teamData.ext.user_tid?focusedStickMaterial[stickData.typeIndex]:normalStickMaterial);
                                     stick.frustumCulled = false;
                                     stick.matrixAutoUpdate = false;
                                     stick.updateMatrix();
                                     stick.userData = stickData;
-                                    stick.normalMaterial = normalStickMaterial;
+                                    stick.normalMaterial = stick.material;
                                     stick.selectedMaterial = focusedStickMaterial[stickData.typeIndex];
                                     sticksGroup.add(stick);
                                     sticksWidth = (stickWidth + stickPadding) * stickCount;

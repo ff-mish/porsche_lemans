@@ -345,17 +345,8 @@ class WebController extends Controller {
       // Lap
       $lap = ceil($distance / $lenght_of_race);
 
-      // 排名
-      $ranking = $index + 1;
-
       // 组名
-
-      // 当前位置
       $name = $result["name"];
-      if ($team->tid == $result["tid"]) {
-        $crt_index = count($all_teams_score);
-      }
-
       $all_teams_score[] = array(
           "distance" => $distance,
           "team" => $name,
@@ -366,14 +357,22 @@ class WebController extends Controller {
       );
     }
     
+    
+    // 排序 team score
     usort($all_teams_score, "sort_team_data");
     
     foreach ($all_teams_score as $index => &$team_score) {
       $team_score["ranking"] = $index + 1;
     }
     
+    // 当前位置
+    foreach ($all_teams_score as $key => $team_score) {
+      if ($team->tid == $team_score["id"]) {
+        $crt_index = $key + 1;
+      }
+    }
     
-    // 排序 team score
+    $crt_team = $all_teams_score[$crt_index];
     
     $request = Yii::app()->getRequest();
     $type = $request->getParam("type", "team");
@@ -412,7 +411,7 @@ class WebController extends Controller {
      $len = $last_index - $crt_index;
      $after = array_splice($all_teams_score, $crt_index, $len + 1);
      
-     $ret = array_merge($before, $after);
+     $ret = array_merge($before, array($crt_team), $after);
      $teamAr = new TeamAR();
      // 获取每个队的 人数总数
      foreach ($ret as &$team) {
@@ -424,7 +423,7 @@ class WebController extends Controller {
     }
     else {
       $ret = array_splice($all_teams_score, 0, 101);
-     $ret = array_merge($before, $after);
+     $ret = array_merge($before, array($crt_team),  $after);
      $teamAr = new TeamAR();
      // 获取每个队的 人数总数
      foreach ($ret as &$team) {
