@@ -1069,7 +1069,7 @@ font-size: 24px;color: white;}
     .popup_invite .friend_item .btns{padding-left: 30px;}
     .popup_invite .popup_invite_friend_list, .popup_invite .popup_search_friend_list{height: 320px;}
 
-    .popup_dialog{width: 550px;}
+    .popup_dialog{width: 550px;position: relative;}
     .popup_email input{width: 82%;}
 
     .winners-prizes-con {font-size:22px!important;}
