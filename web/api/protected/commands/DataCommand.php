@@ -71,12 +71,14 @@ class DataCommand extends CConsoleCommand {
     $all = MediaAR::model()->findAll();
     
     foreach ($all as $media) {
-      $host = "http://24socialrace.porsche.com";
-      $ret = Yii::app()->shorturl->shorten($host."/video/". $media->mid);
-      $media->short_url = $ret;
-      $media->save();
-      
-      print "Media: ". $media->title." update short url\r\n";
+      if (!$media->short_url){
+        $host = "http://24socialrace.porsche.com";
+        $ret = Yii::app()->shorturl->shorten($host."/video/". $media->mid);
+        $media->short_url = $ret;
+        $media->save();
+
+        print "Media: ". $media->title." update short url\r\n";
+      }
       
       sleep(1);
     }
