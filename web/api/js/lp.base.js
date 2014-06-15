@@ -222,7 +222,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       LP.panel({
         content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + msg + '</textarea>\
+                <textarea style="overflow:auto;">' + msg + (window.from == 'weibo' ? '' : ' #LM24 ' ) + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
                 '<span class="loading"></span>\
@@ -287,7 +287,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       LP.panel({
         content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + " " + screen_name + ' </textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace  #LM24 ' ) + " " + screen_name + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">0</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
                 '<span class="loading"></span>\
@@ -2025,7 +2025,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '@保时捷 #勒芒社交耐力赛#正激烈开展。以微博之名，助力勒芒竞赛！' : '@Porsche #24SocialRace has started; the better you tweet, the faster you go!' ) + users.join(" ") + (window.from == 'weibo' ? '加入我的队伍吧！http://24socialrace.porsche.com #勒芒24小时#' : 'join my team! http://24socialrace.porsche.com #LM24' )} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '@保时捷 #勒芒社交耐力赛#正激烈开展。以微博之名，助力勒芒竞赛！ ' : '@Porsche #24SocialRace has started! ' ) + users.join(" ") + (window.from == 'weibo' ? ' 加入我的队伍吧！http://24socialrace.porsche.com #勒芒24小时#' : ' join my team! http://por.sc/24 #LM24' )} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
@@ -2095,7 +2095,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + ' </textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace #LM24 @Porsche' ) + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\
@@ -2288,7 +2288,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       data.title = data.title || self.data('title');
       data.url = self.data('url');
       var max_length = 112;
-      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : '#24SocialRace ' + data.title ;
+        var  twiter_tag = '#24SocialRace @Porsche';
+        var random_int = parseInt(Math.random()*3);
+        if(random_int == 1) {
+            var random_int2 = parseInt(Math.random()*2);
+            if(random_int2 == 1) {
+                twiter_tag = '#24SocialRace #24LM @Porsche';
+            }
+            else {
+                twiter_tag = '#24SocialRace #LM24 @Porsche';
+            }
+        }
+
+      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : twiter_tag + data.title ;
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -3946,7 +3958,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               var tweetGroup = $(".tweet-con .tweet-list");
               var callbackRender = function(index, groups) {
                 var $panel = $(".monitor_item").eq(index).find(".jspPane").html('');
-                    
+
                     $.each(groups , function( i , group ){
                         var tweet = {
                           media: group['user']["avatar"],
@@ -3966,7 +3978,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                   if (groups.length <= 0) {
                       $panel.addClass('jspPane-empty');
-                    $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
+                      $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
                   }
                 }
               api.get("/api/twitte", function (e) {
