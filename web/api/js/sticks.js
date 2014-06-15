@@ -75,14 +75,11 @@ function sticksCreate(readyCallback) {
                     projector = new THREE.Projector();
                     renderer = new THREE.WebGLRenderer({alpha: true, antialias: true/*, logarithmicDepthBuffer: true*/});
                     renderer.setClearColor(0x000000, 0);
-                    var width = window.innerWidth;
-                    var height = window.innerHeight - 60;
-
-                    renderer.setSize(width, height);
+                    renderer.setSize(window.innerWidth, window.innerHeight);
                     container.appendChild(renderer.domElement);
 
                     scene = new THREE.Scene();
-                    camera = new THREE.PerspectiveCamera(55, width / height, 0.5, 3000000);
+                    camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.5, 3000000);
 
                     createInfoSprite({ imageUrl:'image/sticks-infobox.png?'+(new Date()).getTime(), opacity:0.86, size:15, fixedScaleFactor:0.015,
                         finishCallback:function(sprite) {
@@ -235,12 +232,10 @@ function sticksCreate(readyCallback) {
         function onWindowResize() {
             windowHalfX = window.innerWidth / 2;
             windowHalfY = window.innerHeight / 2;
-            var width = window.innerWidth;
-            var height = window.innerHeight - 60;
-            camera.aspect = width / height;
+            camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
 
-            renderer.setSize(width, height);
+            renderer.setSize(window.innerWidth, window.innerHeight);
             calSidePadding();
         }
 

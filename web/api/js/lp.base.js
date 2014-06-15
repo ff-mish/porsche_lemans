@@ -2726,7 +2726,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         .fadeIn();
                 });
             } else {
-                sticksCreate();
+                var updateTeamData;
+                sticksCreate(function (ret) {
+                    updateTeamData=ret;
+                    updateTeamData('team', function(){
+                      //
+                    });
+                });
             }
         },
         'race' : function(){
