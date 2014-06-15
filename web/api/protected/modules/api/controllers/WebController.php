@@ -409,77 +409,92 @@ class WebController extends Controller {
      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
     else {
-      $ret = array_splice($all_teams_score, 100);
+      $ret = array_splice($all_teams_score, 0, 100);
       $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo));
     }
   }
   
   // 计算每组的数据
   public function actionTeamdata() {
+    // 先把当前用户的组
+    $user = UserAR::crtuser(TRUE);
+    $team = $user->team;
+    
     $lenght_of_race = 13.6;
     $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
     
+    // 再把所有的组拿出来
     $teams = array();
-    foreach ($fromes as $from) {
-      $teams_in = array();
-      // 先把每组速度汇总数据拿出来
-      $sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
-      $command = Yii::app()->db->createCommand($sql);
-      $results = $command->queryAll();
+    $all_teams_score = array();
+    $crt_index = 0;
+    $total_weibo = 0;
+    $total_twitter = 0;
+    
+    $teams_in = array();
+    // 先把每组速度汇总数据拿出来
+    //$sql = "select teams.name as name, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".$from."' group by teams.tid ORDER BY average_total DESC";
+    $sql = "select teams.name as name, users.from as user_from, score_team.*,  sum(average) as average_total, count(score_team.tid) as team_total from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid group by teams.tid ORDER BY average_total DESC";
+    $command = Yii::app()->db->createCommand($sql);
+    $results = $command->queryAll();
+
+    foreach ($results as $index => $result) {
       
-      foreach ($results as $index => $result) {
-        $total_average = $result["average_total"] + 0.1;
-        $total = $result["team_total"];
-        
-        // 速度
-        $speed = ceil($total_average / $total);
-        
-        // 距离
-        $total_seconds = $total * (30 + 2);
-        $hour = $total_seconds / 3600;
-        $distance = $speed * $hour;
-        
-        // Lap
-        $lap = ceil($distance / $lenght_of_race);
-        
-        // 排名
-        $ranking = $index + 1;
-        
-        // 组名
-        $team = $result["name"];
-        
-        $teams_in[] = array(
-            "distance" => $distance,
-            "team" => $team,
-            "id" => $result["tid"],
-            "speed" => $speed,
-            "lap" => $lap,
-            "typeIndex" => $from == UserAR::FROM_WEIBO ? 0 : 1
-        );
+      if ($result["user_from"] == UserAR::FROM_WEIBO) {
+        $total_weibo += 1;
       }
-      $teams[$from] = $teams_in;
+      else {
+        $total_twitter += 1;
+      }
+      
+      $total_average = $result["average_total"] + 0.1;
+      $total = $result["team_total"];
+
+      // 速度
+      $speed = ceil($total_average / $total);
+
+      // 距离
+      $total_seconds = $total * (30 + 2);
+      $hour = $total_seconds / 3600;
+      $distance = $speed * $hour;
+
+      // Lap
+      $lap = ceil($distance / $lenght_of_race);
+
+      // 排名
+      $ranking = $index + 1;
+
+      // 组名
+
+      // 当前位置
+      $name = $result["name"];
+      if ($team->tid == $result["tid"]) {
+        $crt_index = count($all_teams_score);
+      }
+
+      $all_teams_score[] = array(
+          "distance" => $distance,
+          "rankings" => $ranking,
+          "team" => $name,
+          "id" => $result["tid"],
+          "speed" => $speed,
+          "lap" => $lap,
+          "typeIndex" => $result["user_from"] == UserAR::FROM_WEIBO ? 0 : 1
+      );
     }
     
-    // 然后去掉分组
-    $total_twitter = count($teams[UserAR::FROM_TWITTER]);
-    $total_weibo = count($teams[UserAR::FROM_WEIBO]);
+    // 排序 team score
+    usort($all_teams_score, "sort_team_data");
     
-    $t_teams = array();
-    $t_teams = $teams[UserAR::FROM_TWITTER] + $teams[UserAR::FROM_WEIBO];
+    $request = Yii::app()->getRequest();
+    $type = $request->getParam("type", "team");
     
-    usort($t_teams, "sort_team_data");
+    $ret = array_splice($all_teams_score, 0,100);
     
-    foreach ($t_teams as $key => &$t_team) {
-      $t_team["rankings"] = $key + 1;
-    }
-    
-    $ret_data = array(
-        "teams" => $t_teams,
+    $this->responseJSON(array(
+        "teams" => $ret,
         "twitter_total" => $total_twitter,
         "weibo_total" => $total_weibo
-    );
-    
-    $this->responseJSON($ret_data, "SUCCESS");
+    ), "success");
   }
 }
 
