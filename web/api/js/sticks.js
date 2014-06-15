@@ -12,6 +12,8 @@ function sticksCreate(readyCallback) {
     var fillPercentValue;
     var sticksGroup, sticksWidth, focusedStick;
 
+    var updateTeamData;
+
     function barHeightCal(distance) {
         var ret = 0;
         if (distance / 5<=1) ret += Math.sin(distance / 5 * Math.PI) * 4;
@@ -31,7 +33,7 @@ function sticksCreate(readyCallback) {
 
             var infoSprite = new THREE.Sprite(new THREE.SpriteMaterial({opacity: params.opacity, map:texture}));
             infoSprite.updateInfo = function (stick) {
-                context.drawImage(image,0,height*TYPES[stick.userData.typeIndex].bgOffsetV,width,height/2,0,0,width,height/2);
+                context.drawImage(image,0,height*TYPES[stick.userData.typeIndex].bgOffsetV/2,width,height/2,0,0,width,height/2);
                 if (params.drawCallback) params.drawCallback(context, stick.userData);
                 texture.needsUpdate = true;
                 var v = stick.localToWorld(stick.geometry.vertices[1].clone());
@@ -87,13 +89,13 @@ function sticksCreate(readyCallback) {
                         drawCallback: function(context, data) {
                             context.fillStyle = TYPES[data.typeIndex].color;
                             context.textBaseline = 'top';
-                            context.font="30px 'Porsche News Gothic','黑体','sans-serif'";
-                            context.fillText('P'+data.rankings+'/'+Math.round(data.teamSize), 21, 16);
-                            context.font="19.65px 'Porsche News Gothic','黑体','sans-serif'";
-                            context.fillText(data.team, 23, 60);
-                            context.fillText(''+Math.round(data.speed) + 'km/h', 132, 60);
-                            context.fillText("Player", 23, 87);
-                            context.fillText("Lap:" + data.lap, 132, 87);
+                            context.font="32px 'Porsche News Gothic','黑体','sans-serif'";
+                            context.fillText('Rank:'+data.ranking+'/'+Math.round(data.teamSize), 21, 16);
+                            context.font="28px 'Porsche News Gothic','黑体','sans-serif'";
+                            context.fillText(data.team, 23, 73);
+                            context.fillText(''+Math.round(data.speed) + 'km/h', 180, 73);
+                            context.fillText("Player", 23, 117);
+                            context.fillText("Lap:" + data.lap, 180, 117);
                         }
                     });
 
@@ -126,92 +128,101 @@ function sticksCreate(readyCallback) {
                     sticksGroup = new THREE.Object3D;
                     scene.add(sticksGroup);
 
-                    dataApi.getTeamData(function (teamData) {
-                        if (teamData.status!=0) {
-                            console.error('Data status invalid: '+teamData.message, teamData);
-                        } else {
-                            var stickCount = teamData.data.teams.length, perDistance=stickMaxHeight/stickCount;
-                            var teamSizes=[teamData.data.weibo_total, teamData.data.twitter_total];
-                            for (var i = 0; i < stickCount; i++) {
-                                var stickData = teamData.data.teams[i];
-                                stickData.teamSize=teamSizes[stickData.typeIndex];
-                                var h=i==0?stickMaxHeight:Math.round((perDistance*(stickCount-i+(Math.random()-0.5)*0.9))*100)/100;
-                                var geometry = new THREE.PlaneGeometry(stickWidth, h, 2, Math.ceil(50 / 400 * h));
-                                geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-                                geometry.applyMatrix(new THREE.Matrix4().makeTranslation((stickWidth + stickPadding) * i, 0, -h / 2));
-                                for (var j = 0; j < geometry.vertices.length; j += 3) {
-                                    var v = geometry.vertices.length - j;
-                                    var y = barHeightCal(j / geometry.vertices.length / 15 * h);
-                                    geometry.vertices[v - 3].y = y;
-                                    geometry.vertices[v - 2].y = y;
-                                    geometry.vertices[v - 1].y = y;
-                                }
-                                geometry.dynamic = false;
+                    updateTeamData=function(type, callback) {
+                        dataApi.getTeamData(type, function (teamData) {
+                            if (teamData.status != 0) {
+                                console.error('Data status invalid: ' + teamData.message, teamData);
+                            } else {
+                                while (sticksGroup.children.length>0) sticksGroup.remove(sticksGroup.children[0]); //todo
 
-                                var attributes = {
-                                    percent: {
-                                        type: 'f',
-                                        value: []
+                                fillAniFinished=false;
+                                fillPercentValue.value=0;
+
+                                var stickCount = teamData.data.length, perDistance = stickMaxHeight / stickCount;
+                                var teamSizes = [teamData.ext.weibo_total, teamData.ext.twitter_total];
+                                for (var i = 0; i < stickCount; i++) {
+                                    var stickData = teamData.data[i];
+                                    stickData.teamSize = teamSizes[stickData.typeIndex];
+                                    var h = i == 0 ? stickMaxHeight : Math.round((perDistance * (stickCount - i + (Math.random() - 0.5) * 0.9)) * 100) / 100;
+                                    var geometry = new THREE.PlaneGeometry(stickWidth, h, 2, Math.ceil(50 / 400 * h));
+                                    geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
+                                    geometry.applyMatrix(new THREE.Matrix4().makeTranslation((stickWidth + stickPadding) * i, 0, -h / 2));
+                                    for (var j = 0; j < geometry.vertices.length; j += 3) {
+                                        var v = geometry.vertices.length - j;
+                                        var y = barHeightCal(j / geometry.vertices.length / 15 * h);
+                                        geometry.vertices[v - 3].y = y;
+                                        geometry.vertices[v - 2].y = y;
+                                        geometry.vertices[v - 1].y = y;
                                     }
-                                };
-                                var verts = geometry.vertices;
-                                var values = attributes.percent.value;
-                                for (var v = 0; v < verts.length / 3; v++) {
-                                    var p = 100 - v / (verts.length / 3 - 1) * 100;
-                                    values.push(p, p, p);
+                                    geometry.dynamic = false;
+
+                                    var attributes = {
+                                        percent: {
+                                            type: 'f',
+                                            value: []
+                                        }
+                                    };
+                                    var verts = geometry.vertices;
+                                    var values = attributes.percent.value;
+                                    for (var v = 0; v < verts.length / 3; v++) {
+                                        var p = 100 - v / (verts.length / 3 - 1) * 100;
+                                        values.push(p, p, p);
+                                    }
+
+                                    var normalStickMaterial = new THREE.ShaderMaterial({
+                                        uniforms: normalStickMaterialUniforms,
+                                        attributes: attributes,
+                                        vertexShader: vertexShader,
+                                        fragmentShader: fragmentShader,
+                                        side: THREE.DoubleSide,
+                                        transparent: true
+                                    });
+                                    var focusedStickMaterial = [
+                                        new THREE.ShaderMaterial({
+                                            uniforms: focusedStickMaterialUniforms[0],
+                                            attributes: attributes,
+                                            vertexShader: vertexShader,
+                                            fragmentShader: fragmentShader,
+                                            side: THREE.DoubleSide,
+                                            transparent: true
+                                        }),
+                                        new THREE.ShaderMaterial({
+                                            uniforms: focusedStickMaterialUniforms[1],
+                                            attributes: attributes,
+                                            vertexShader: vertexShader,
+                                            fragmentShader: fragmentShader,
+                                            side: THREE.DoubleSide,
+                                            transparent: true
+                                        })
+                                    ];
+
+                                    stick = new THREE.Mesh(geometry, normalStickMaterial);
+                                    stick.frustumCulled = false;
+                                    stick.matrixAutoUpdate = false;
+                                    stick.updateMatrix();
+                                    stick.userData = stickData;
+                                    stick.normalMaterial = normalStickMaterial;
+                                    stick.selectedMaterial = focusedStickMaterial[stickData.typeIndex];
+                                    sticksGroup.add(stick);
+                                    sticksWidth = (stickWidth + stickPadding) * stickCount;
                                 }
-
-                                var normalStickMaterial = new THREE.ShaderMaterial({
-                                    uniforms: normalStickMaterialUniforms,
-                                    attributes: attributes,
-                                    vertexShader: vertexShader,
-                                    fragmentShader: fragmentShader,
-                                    side: THREE.DoubleSide,
-                                    transparent: true
-                                });
-                                var focusedStickMaterial = [
-                                    new THREE.ShaderMaterial({
-                                        uniforms: focusedStickMaterialUniforms[0],
-                                        attributes: attributes,
-                                        vertexShader: vertexShader,
-                                        fragmentShader: fragmentShader,
-                                        side: THREE.DoubleSide,
-                                        transparent: true
-                                    }),
-                                    new THREE.ShaderMaterial({
-                                        uniforms: focusedStickMaterialUniforms[1],
-                                        attributes: attributes,
-                                        vertexShader: vertexShader,
-                                        fragmentShader: fragmentShader,
-                                        side: THREE.DoubleSide,
-                                        transparent: true
-                                    })
-                                ];
-
-                                stick = new THREE.Mesh(geometry, normalStickMaterial);
-                                stick.frustumCulled = false;
-                                stick.matrixAutoUpdate = false;
-                                stick.updateMatrix();
-                                stick.userData = stickData;
-                                stick.normalMaterial = normalStickMaterial;
-                                stick.selectedMaterial = focusedStickMaterial[stickData.typeIndex];
-                                sticksGroup.add(stick);
-                                sticksWidth = (stickWidth + stickPadding) * stickCount;
                             }
-                        }
 
-                        camera.position.set(0, 35, 43.8);
-                        camera.lookAt(new THREE.Vector3(0, 0, -400 / 3));
-                        camera.position.setX(stickWidth * 5);
-                        calSidePadding();
+                            if (callback) callback();
+                        });
+                    };
 
-                        window.addEventListener('resize', onWindowResize, false);
-                        document.addEventListener('mousemove', onDocumentMouseMove, false);
+                    camera.position.set(0, 35, 43.8);
+                    camera.lookAt(new THREE.Vector3(0, 0, -400 / 3));
+                    camera.position.setX(stickWidth * 5);
+                    calSidePadding();
 
-                        animate();
+                    window.addEventListener('resize', onWindowResize, false);
+                    document.addEventListener('mousemove', onDocumentMouseMove, false);
 
-                        if (readyCallback) readyCallback();
-                    });
+                    animate();
+
+                    if (readyCallback) readyCallback(updateTeamData);
                 }
 
                 init();

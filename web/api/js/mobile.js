@@ -50,6 +50,11 @@ function trackCreate(readyCallback) {
         else return val;
     }
 
+    function calInfoBoxOffsetIndex(car) {
+        var a=Math.atan2(car.side.x,car.side.z);
+        return  Math.floor((a+Math.PI/4)/(Math.PI/2)+4)%4;
+    }
+
     function seTrackPosition(car, smooth) {
         if (smooth === undefined) smooth = true;
         for (var i = 0; i < car.geometry.vertices.length; i += 3) {
@@ -57,6 +62,8 @@ function trackCreate(readyCallback) {
             var p = getPositionByDistance(d);
             var t = getTangentByDistance(d);
             var side = t.cross(new THREE.Vector3(0, 10, 0));
+            //if (i==(carSegments-10)*3+1+car.userData.infoBoxSide) car.side=side.clone().multiplyScalar(car.userData.infoBoxSide);
+            if (i==0) car.side=side.clone().multiplyScalar(car.userData.infoBoxSide);
             var offset = side.clone().multiplyScalar(car.userData.sideOffset*1.6);
             var v = car.geometry.vertices[i + 2];
             var p1 = p.clone().add(offset).add(side.clone().multiplyScalar(2));
@@ -82,13 +89,20 @@ function trackCreate(readyCallback) {
         seTrackPosition(car, smooth);
     }
 
+    var spriteOffset=[
+        {wo:1, x:1, y:0.5},    //left
+        {wo:0, x:0.5, y:0},    //down
+        {wo:3, x:0, y:0.5},     //right
+        {wo:2, x:0.5, y:1}      //up
+    ];
+
     function createInfoSprite(params) {
         var image=new Image();
         image.onload=function() {
-            var width=image.width, height=image.height;
+            var width=image.width/4, height=image.height/2;
             var canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
+            canvas.width = width*2;
+            canvas.height = height*2;
             var texture = new THREE.Texture(canvas);
             var context=canvas.getContext("2d");
 
@@ -96,10 +110,14 @@ function trackCreate(readyCallback) {
             sm.depthTest=false;
             var infoSprite = new THREE.Sprite(sm);
             infoSprite.updateInfo = function (car) {
-                context.drawImage(image,0,height*TYPES[car.userData.typeIndex].bgOffsetV,width,height/2,0,0,width,height/2);
-                if (params.drawCallback) params.drawCallback(context, car.userData);
+                var so=spriteOffset[calInfoBoxOffsetIndex(car)];
+                var padding=13;
+                var offsetX=width*so.x, offsetY=height*so.y;
+                context.clearRect(0,0,canvas.width,canvas.height);
+                context.drawImage(image,width*so.wo,height*TYPES[car.userData.typeIndex].bgOffsetV,width,height,offsetX,offsetY,width,height);
+                if (params.drawCallback) params.drawCallback(context, offsetX+padding, offsetY+padding, car.userData);
                 texture.needsUpdate = true;
-                var v = car.localToWorld(car.geometry.vertices[1].clone().setY(100));
+                var v = car.localToWorld(car.geometry.vertices[(carSegments-10)*3+1+car.userData.infoBoxSide].clone().setY(100));
                 this.position.copy(v);
                 this.scale.copy(infoSprite.scale0).multiplyScalar(camera.position.distanceTo(v)*params.fixedScaleFactor);
             };
@@ -178,13 +196,13 @@ function trackCreate(readyCallback) {
                             var redCarData = {name: raceData.data.weibo.name, distance: raceData.data.weibo.distance,
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
                                 speed: raceData.data.weibo.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
-                                sideOffset: 2.5, typeIndex: raceData.data.weibo.typeIndex, faster: 0};
+                                sideOffset: 2.5, infoBoxSide:1, typeIndex: raceData.data.weibo.typeIndex, faster: 0};
                             redCarData.distance1 = modDistance(redCarData.distance);
                             redCarData.lap0 = redCarData.lap;
                             var blueCarData = {name: raceData.data.twitter.name, distance: raceData.data.twitter.distance,
                                 rankings: raceData.data.twitter.rankings, lap: raceData.data.twitter.lap,
                                 speed: raceData.data.twitter.speed * 1000 / 60 / 60 / trackLengthRatioToReal,
-                                sideOffset: -2.5, typeIndex: raceData.data.twitter.typeIndex, faster: 0};
+                                sideOffset: -2.5, infoBoxSide:-1, typeIndex: raceData.data.twitter.typeIndex, faster: 0};
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
 
@@ -233,25 +251,24 @@ function trackCreate(readyCallback) {
                             setCarDistance(meshCarBlue, false);
                             carsGroup.add(meshCarBlue);
 
-                            createInfoSprite({ imageUrl: 'image/track-infobox.png?' + (new Date()).getTime(), opacity: 0.86, size: 15, fixedScaleFactor: 0.015,
+                            createInfoSprite({ imageUrl: 'image/mobile-infobox.png?' + (new Date()).getTime(), opacity: 0.86, size: 15, fixedScaleFactor: 0.02,
                                 finishCallback: function (sprite) {
                                     infoSprite = sprite;
                                     scene.add(infoSprite);
                                 },
-                                drawCallback: function (context, data) {
-                                    var padding = 10;
+                                drawCallback: function (context, offsetX, offsetY, data) {
                                     context.fillStyle = TYPES[data.typeIndex].color;
                                     context.textBaseline = 'top';
                                     context.font = "28pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText(data.name, 12, 8);
+                                    context.fillText(data.name, offsetX+12, offsetY+8);
                                     context.font = "42pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText("" + data.rankings, 40, 50);
+                                    context.fillText("" + data.rankings, offsetX+40, offsetY+50);
                                     context.font = "26pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText(rankingsTitle(data.rankings), 72, 50);
+                                    context.fillText(rankingsTitle(data.rankings), offsetX+72, offsetY+50);
                                     context.font = "15pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText('' + Math.round(data.speed * trackLengthRatioToReal * 60 * 60 / 1000) + 'km/h', 125, 58);
+                                    context.fillText('' + Math.round(data.speed * trackLengthRatioToReal * 60 * 60 / 1000) + 'km/h', offsetX+125, offsetY+58);
                                     context.font = "14pt 'Porsche News Gothic','黑体','sans-serif'";
-                                    context.fillText("Lap:" + Math.round(data.lap), 125, 84);
+                                    context.fillText("Lap:" + Math.round(data.lap), offsetX+125, offsetY+84);
                                 }
                             });
 

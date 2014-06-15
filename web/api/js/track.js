@@ -124,7 +124,7 @@ function trackCreate(readyCallback) {
             infoSpriteMaterial.opacity0=infoSpriteMaterial.opacity;
             var infoSprite = new THREE.Sprite(infoSpriteMaterial);
             infoSprite.updateInfo = function (car) {
-                context.drawImage(image,0,height*TYPES[car.userData.typeIndex].bgOffsetV,width,height/2,0,0,width,height/2);
+                context.drawImage(image,0,height*TYPES[car.userData.typeIndex].bgOffsetV/2,width,height/2,0,0,width,height/2);
                 if (params.drawCallback) params.drawCallback(context, car.userData);
                 texture.needsUpdate = true;
                 var v = car.localToWorld(car.geometry.vertices[1].clone());
