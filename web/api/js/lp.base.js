@@ -453,11 +453,12 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var off = $dom.offset();
                 var w = $dom.width();
                 var h = $dom.height();
-                $wrap.css({
-                    top: off.top,
+                var st = $(window).scrollTop();
+                $wrap.find('.loading').css({
+                    top: st - 60,
                     left: off.left,
                     width: w,
-                    height: h
+                    height: h + top - st
                 });
             },
             show: function(){
@@ -3259,10 +3260,17 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 if( !isMobile ){
                     renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
                         $('#' + this.Q).css('z-index' , 0);
+                        $('#home_video .vjs-poster').html('<div style="position: absolute;height: 100%;width: 100%;background: url(/images/loading_b.gif) no-repeat center center;"></div>').show();
                         this.on('ended' , function(){
                             LP.triggerAction('skip-intro');
                         });
                     } );
+                    // renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+                    //     $('#' + this.Q).css('z-index' , 0);
+                    //     this.on('ended' , function(){
+                    //         LP.triggerAction('skip-intro');
+                    //     });
+                    // } );
                 }
                 // get parameter d
                 var urlObj = LP.parseUrl();
@@ -3792,10 +3800,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               break;
               
           case "teamrace":
-                if(is_support_webgl()) {
                     // get server time
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ) {
+                            e = {"status":0,"message":"success","data":{"time_now":"2014-06-14 07:43:25","time_start":"2014-06-13 21:00:00"}};
                             clearInterval( interval );
                             var times = e.data.time_now.split(/[- :]/);
                             var now = +new Date( times[0] , parseInt(times[1]) - 1 , times[2] , times[3] , times[4] , times[5] ) / 1000;
@@ -3839,7 +3847,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                 } , 400)
                             
                         });
-                } else {
+                if( !is_support_webgl() ) {
                     // render flash
                     //$('.race_nav,.nav').hide();
                     $('#container').html(
@@ -3855,7 +3863,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             break;
 
             case "race":
-                if(is_support_webgl()){
+                
                     var getServerTime = function () {
                         api.get('/api/web/time?v2=1' , function( e ){
                             clearInterval( interval );
@@ -3894,7 +3902,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                                     opacity: 1
                                 } , 400);
                         });
-                } else {
+                if( !is_support_webgl()){
                     // render flash
                     //$('.race_nav,.nav').hide();
                     $('#container').html(
