@@ -2025,7 +2025,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '加入我的队伍吧！@保时捷 邀你参加#勒芒社交耐力赛#。以微博之名，助力勒芒竞赛。' : 'Join my team! @Porsche introduces #24SocialRace; the better you\'ll tweet, the faster you\'ll go! ' ) + users.join(" ")} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '@保时捷 #勒芒社交耐力赛#正激烈开展。以微博之名，助力勒芒竞赛！' : '@Porsche #24SocialRace has started; the better you tweet, the faster you go!' ) + users.join(" ") + (window.from == 'weibo' ? '加入我的队伍吧！http://24socialrace.porsche.com #勒芒24小时#' : 'join my team! http://24socialrace.porsche.com #LM24' )} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
