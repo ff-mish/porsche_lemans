@@ -33,4 +33,5 @@
   'Correct' => '回答正确',
   'Incorrect' => '回答错误',
   'Assiduity' => '',
+  'Empty' => '无内容',
 );

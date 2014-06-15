@@ -166,6 +166,7 @@ body[data-page="stand"] .footer-icon{display: block;}
 .monitor_list .btns{position: absolute;bottom: -3px;right: 0;line-height: 10px;}
 .monitor_list .btns img{vertical-align: middle;margin: 0 2px;}
 .tweet-signle-item{margin-bottom: 15px;position: relative;}
+.tweet-signle-item-empty {position: absolute;top:50%;left:50%;width:80px;text-align:center;margin-left:-40px;}
 .monitor_box{color:#a3a3a3;position: relative;margin-bottom: 15px;}
 .monitor_pho{float: left;width: 80px;}
 .monitor_info{float: left;width: 186px;}

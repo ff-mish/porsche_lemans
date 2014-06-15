@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.1" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.4" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" afterPath="$PROJECT_DIR$/web/api/protected/runtime/application.log.5" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/style.css" afterPath="$PROJECT_DIR$/web/api/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/css/js.css" afterPath="$PROJECT_DIR$/web/api/css/js.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/api/js/lp.base.js" afterPath="$PROJECT_DIR$/web/api/js/lp.base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="porsche_lemans.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402665549813" ignored="false" />
-    <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402040260474" ignored="false" />
-    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402666949378" ignored="false" />
-    <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402061983411" ignored="false" />
+    <file path="/Dummy.txt" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402709912291" ignored="false" />
+    <file path="/lp.base.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402710164625" ignored="false" />
+    <file path="/style.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402706632719" ignored="false" />
+    <file path="/js.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402710216656" ignored="false" />
     <file path="/jquery.queryloader22.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1400993218095" ignored="false" />
     <file path="$PROJECT_DIR$/../../../XAMPP/xamppfiles/htdocs/avene_mls/css/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401077947462" ignored="false" />
     <file path="/base.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401757914251" ignored="false" />
@@ -82,7 +79,7 @@
     <file path="/countdown.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402022048050" ignored="false" />
     <file path="/default.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402061725017" ignored="false" />
     <file path="/guide.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401262630610" ignored="false" />
-    <file path="/ie8.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402044857584" ignored="false" />
+    <file path="/ie8.css" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402705872736" ignored="false" />
     <file path="$PROJECT_DIR$/../avene_mls/tips/xml/config.xml" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401272425910" ignored="false" />
     <file path="/flash.js" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401274854249" ignored="false" />
     <file path="/index-m.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1401329773066" ignored="false" />
@@ -158,6 +155,7 @@
     <file path="/httpd-vhosts.conf" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402642582702" ignored="false" />
     <file path="/news_cn.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402667404032" ignored="false" />
     <file path="$PROJECT_DIR$/../lily_official/html/news_cn.html" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402667404032" ignored="false" />
+    <file path="/zh_cn.php" changelist="383b0e3d-50b4-430c-8ac6-ec64fa994b0c" time="1402706996274" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,91 +175,171 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="video.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
+      <file leaf-file-name="js.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.6785714">
+            <state line="232" column="15" selection-start="8830" selection-end="8830" vertical-scroll-proportion="0.20588236">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teamrace.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/teamrace.php">
+      <file leaf-file-name="lp.base.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../lemans_p1/js/lp.base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="18" selection-start="513" selection-end="513" vertical-scroll-proportion="-8.821428">
+            <state line="1221" column="137" selection-start="52928" selection-end="52949" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fule.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
+      <file leaf-file-name="zh_cn.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="33" selection-start="584" selection-end="584" vertical-scroll-proportion="-9.678572">
+            <state line="17" column="40" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
+      <file leaf-file-name="lp.base.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
+            <state line="3731" column="39" selection-start="155854" selection-end="155867" vertical-scroll-proportion="-7.923077">
+              <folding>
+                <marker date="1402710200000" expanded="false" signature="6480:6491" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="6492:6621" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="6544:6569" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="6570:6621" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="6606:6620" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="7137:7161" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="9361:9372" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="9373:9502" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="9425:9450" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="9451:9502" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="9487:9501" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="10092:10116" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="43270:43332" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="43706:43778" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="43926:43974" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="53696:53721" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="53756:54057" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="73821:74010" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="74444:74462" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="74463:74595" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="74948:75272" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="75123:75272" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="75203:75216" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="84784:85073" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="85000:85028" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="87649:87660" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="87661:87790" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="87713:87738" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="87739:87790" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="87775:87789" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="88239:88263" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="91374:91847" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="91479:91668" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="91586:91611" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="91719:91847" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="91972:92595" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="92075:92179" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="92233:92595" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="92336:92415" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="92466:92595" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="95938:95949" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="95950:96143" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="96010:96021" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="96022:96143" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="105807:105920" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="111922:111941" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="113568:113705" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="113753:113897" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="125526:125544" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="125811:125889" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="125938:125974" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="131625:131650" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="131651:131831" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="134236:134343" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="139952:140203" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="140012:140171" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="140084:140128" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="145128:145383" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="145180:145383" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="145708:146041" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="145760:145915" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="146189:146446" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="146241:146440" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="147290:147318" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="147706:147868" placeholder="..." />
+                <marker date="1402710200000" expanded="false" signature="149953:149971" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="162314:163024" placeholder="..." />
+                <marker date="1402710200000" expanded="true" signature="165664:166370" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="monitoring.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/monitoring.php">
+      <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="33" selection-start="561" selection-end="561" vertical-scroll-proportion="-10.857142">
-              <folding />
+            <state line="31" column="35" selection-start="990" selection-end="1020" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1402702887000" expanded="true" signature="5112:5246" placeholder="..." />
+                <marker date="1402702887000" expanded="true" signature="6291:6429" placeholder="..." />
+                <marker date="1402702887000" expanded="true" signature="6527:6677" placeholder="..." />
+                <marker date="1402702887000" expanded="true" signature="6681:6775" placeholder="..." />
+                <marker date="1402702887000" expanded="true" signature="7398:7573" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="race.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/race.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="46" selection-start="598" selection-end="598" vertical-scroll-proportion="-12.214286">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="raceteam.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/raceteam.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stand.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="stand.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="34" selection-start="456" selection-end="456" vertical-scroll-proportion="0.39967638">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tweet.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/tweet.php">
+      <file leaf-file-name="track.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/css/track.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="8" column="6" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+      <file leaf-file-name="lemans.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="282" column="18" selection-start="19047" selection-end="19047" vertical-scroll-proportion="-16.76923">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <marker date="1402646914000" expanded="true" signature="7900:8180" placeholder="..." />
+                <marker date="1402646914000" expanded="true" signature="10960:11382" placeholder="..." />
+                <marker date="1402646914000" expanded="true" signature="11386:12165" placeholder="..." />
+                <marker date="1402646914000" expanded="true" signature="14167:14358" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="stand_p2.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand_p2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="48" column="14" selection-start="1908" selection-end="1908" vertical-scroll-proportion="-3.392857">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="en_us.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="14" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -285,22 +363,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/web/api/js/lp.base.js" />
-        <option value="$PROJECT_DIR$/../../conf/apache/extra/httpd-vhosts.conf" />
-        <option value="$PROJECT_DIR$/web/api/protected/views/index/index.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/config/main.php" />
-        <option value="$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php" />
-        <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
-        <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/race.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/teamrace.php" />
         <option value="$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/fule.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/monitoring.php" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/stand.php" />
-        <option value="$PROJECT_DIR$/web/api/css/track.css" />
         <option value="$PROJECT_DIR$/web/api/protected/views/index/video.php" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/layouts/default.php" />
+        <option value="$PROJECT_DIR$/web/api/css/ie8.css" />
         <option value="$PROJECT_DIR$/web/api/css/style.css" />
+        <option value="$PROJECT_DIR$/web/api/script/zh_cn.php" />
+        <option value="$PROJECT_DIR$/web/api/script/en_us.php" />
+        <option value="$PROJECT_DIR$/web/api/css/track.css" />
+        <option value="$PROJECT_DIR$/web/api/protected/views/index/stand_p2.php" />
+        <option value="$PROJECT_DIR$/web/api/js/lp.base.js" />
+        <option value="$PROJECT_DIR$/web/api/css/js.css" />
       </list>
     </option>
   </component>
@@ -358,6 +436,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="All" />
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -477,6 +558,10 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layouts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -505,6 +590,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="index" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porsche_lemans" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porsche_lemans" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -568,10 +679,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porsche_lemans" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="porsche_lemans" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="All" />
       </pane>
     </panes>
   </component>
@@ -581,8 +711,8 @@
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="FullScreen" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -626,15 +756,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="830" extended-state="6" />
+    <frame x="0" y="22" width="1440" height="830" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24986331" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21807748" sideWeight="0.67134833" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22883788" sideWeight="0.67134833" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -643,6 +772,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286517" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -709,29 +839,54 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/achieve.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/teamrace.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="17" selection-start="117" selection-end="117" vertical-scroll-proportion="-2.0357144" />
+        <state line="16" column="18" selection-start="513" selection-end="513" vertical-scroll-proportion="0.029641185" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="225" selection-start="827" selection-end="827" vertical-scroll-proportion="-0.6785714" />
+        <state line="20" column="27" selection-start="739" selection-end="739" vertical-scroll-proportion="0.029641185" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
+    <entry file="file://$PROJECT_DIR$/../lemans_p1/protected/views/layouts/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="23" selection-start="252" selection-end="252" vertical-scroll-proportion="-2.0357144" />
+        <state line="85" column="22" selection-start="4094" selection-end="8594" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/winnerprices.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/layouts/default.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="85" column="22" selection-start="8609" selection-end="8609" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/countdown.php">
+    <entry file="file://$PROJECT_DIR$/web/api/css/ie8.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="27" selection-start="313" selection-end="313" vertical-scroll-proportion="0.11856474" />
+        <state line="19" column="34" selection-start="802" selection-end="802" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="166" column="56" selection-start="10975" selection-end="10975" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/script/en_us.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="14" selection-start="1183" selection-end="1183" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../lemans_p1/js/lp.base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1221" column="137" selection-start="52928" selection-end="52949" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/css/track.css">
@@ -741,72 +896,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/video.php">
+    <entry file="file://$PROJECT_DIR$/web/api/script/zh_cn.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="27" selection-start="729" selection-end="729" vertical-scroll-proportion="-0.6785714">
+        <state line="17" column="40" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/teamrace.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="18" selection-start="513" selection-end="513" vertical-scroll-proportion="-8.821428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/fule.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="33" selection-start="584" selection-end="584" vertical-scroll-proportion="-9.678572">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/index.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/en_us/lemans.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <marker date="1402646914000" expanded="true" signature="7900:8180" placeholder="..." />
+            <marker date="1402646914000" expanded="true" signature="10960:11382" placeholder="..." />
+            <marker date="1402646914000" expanded="true" signature="11386:12165" placeholder="..." />
+            <marker date="1402646914000" expanded="true" signature="14167:14358" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/monitoring.php">
+    <entry file="file://$PROJECT_DIR$/web/api/protected/messages/zh_cn/lemans.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="33" selection-start="561" selection-end="561" vertical-scroll-proportion="-10.857142">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/race.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="46" selection-start="598" selection-end="598" vertical-scroll-proportion="-12.214286">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/raceteam.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/tweet.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/api/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="282" column="18" selection-start="19047" selection-end="19047" vertical-scroll-proportion="-16.76923">
-          <folding />
+        <state line="31" column="35" selection-start="990" selection-end="1020" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1402702887000" expanded="true" signature="5112:5246" placeholder="..." />
+            <marker date="1402702887000" expanded="true" signature="6291:6429" placeholder="..." />
+            <marker date="1402702887000" expanded="true" signature="6527:6677" placeholder="..." />
+            <marker date="1402702887000" expanded="true" signature="6681:6775" placeholder="..." />
+            <marker date="1402702887000" expanded="true" signature="7398:7573" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="34" selection-start="456" selection-end="456" vertical-scroll-proportion="0.39967638">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/protected/views/index/stand_p2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="14" selection-start="1908" selection-end="1908" vertical-scroll-proportion="-3.392857">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/js/lp.base.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3731" column="39" selection-start="155854" selection-end="155867" vertical-scroll-proportion="-7.923077">
+          <folding>
+            <marker date="1402710200000" expanded="false" signature="6480:6491" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="6492:6621" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="6544:6569" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="6570:6621" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="6606:6620" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="7137:7161" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="9361:9372" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="9373:9502" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="9425:9450" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="9451:9502" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="9487:9501" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="10092:10116" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="43270:43332" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="43706:43778" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="43926:43974" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="53696:53721" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="53756:54057" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="73821:74010" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="74444:74462" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="74463:74595" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="74948:75272" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="75123:75272" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="75203:75216" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="84784:85073" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="85000:85028" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="87649:87660" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="87661:87790" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="87713:87738" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="87739:87790" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="87775:87789" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="88239:88263" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="91374:91847" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="91479:91668" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="91586:91611" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="91719:91847" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="91972:92595" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="92075:92179" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="92233:92595" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="92336:92415" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="92466:92595" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="95938:95949" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="95950:96143" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="96010:96021" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="96022:96143" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="105807:105920" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="111922:111941" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="113568:113705" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="113753:113897" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="125526:125544" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="125811:125889" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="125938:125974" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="131625:131650" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="131651:131831" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="134236:134343" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="139952:140203" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="140012:140171" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="140084:140128" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="145128:145383" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="145180:145383" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="145708:146041" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="145760:145915" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="146189:146446" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="146241:146440" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="147290:147318" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="147706:147868" placeholder="..." />
+            <marker date="1402710200000" expanded="false" signature="149953:149971" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="162314:163024" placeholder="..." />
+            <marker date="1402710200000" expanded="true" signature="165664:166370" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/api/css/js.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="232" column="15" selection-start="8830" selection-end="8830" vertical-scroll-proportion="0.20588236">
           <folding />
         </state>
       </provider>
