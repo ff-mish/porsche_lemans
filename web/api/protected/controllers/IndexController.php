@@ -206,9 +206,6 @@ class IndexController extends Controller {
     if (!$mediaAr) {
       return $this->redirect("/");
     }
-    if ($mediaAr->type != MediaAR::MEDIA_VIDEO) {
-      return $this->redirect("/");
-    }
     
     $params = array(
         "page_name" => "fuel"

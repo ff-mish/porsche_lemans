@@ -243,7 +243,7 @@ class TwitteAR extends CActiveRecord {
     return parent::afterSave();
   }
   
-  public function getListInLevel($level, $num = 20) {
+  public function getListInLevel($level, $num = 40) {
     $query = new CDbCriteria();
     $params = array();
     $user = UserAR::crtuser();
