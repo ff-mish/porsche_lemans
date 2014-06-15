@@ -197,16 +197,22 @@ function trackCreate(readyCallback) {
                                 rankings: raceData.data.weibo.rankings, lap: raceData.data.weibo.lap,
                                 sideOffset: 2.5, infoBoxSide:1, typeIndex: raceData.data.weibo.typeIndex};
                             redCarData.speed0=raceData.data.weibo.speed;
-                            redCarData.speed=(raceData.data.weibo.speed<100?100:raceData.data.weibo.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             redCarData.distance1 = modDistance(redCarData.distance);
                             redCarData.lap0 = redCarData.lap;
                             var blueCarData = {name: raceData.data.twitter.name, distance: raceData.data.twitter.distance,
                                 rankings: raceData.data.twitter.rankings, lap: raceData.data.twitter.lap,
                                 sideOffset: -2.5, infoBoxSide:-1, typeIndex: raceData.data.twitter.typeIndex};
                             blueCarData.speed0=raceData.data.twitter.speed;
-                            blueCarData.speed=(raceData.data.twitter.speed<100?100:raceData.data.twitter.speed) * 1000 / 60 / 60 / trackLengthRatioToReal;
                             blueCarData.distance1 = modDistance(blueCarData.distance);
                             blueCarData.lap0 = blueCarData.lap;
+
+                            var speedLow=150, speedFactor=1;
+
+                            if (raceData.data.weibo.speed<speedLow&&raceData.data.twitter.speed<speedLow) {
+                                speedFactor=speedLow/Math.max(raceData.data.weibo.speed, raceData.data.twitter.speed);
+                            }
+                            redCarData.speed=raceData.data.weibo.speed*speedFactor * 1000 / 60 / 60 / trackLengthRatioToReal;
+                            blueCarData.speed=raceData.data.twitter.speed*speedFactor * 1000 / 60 / 60 / trackLengthRatioToReal;
 
                             if (Math.max(redCarData.speed0 > blueCarData.speed0)) {
                                 redCarData.faster = 1;
@@ -284,6 +290,7 @@ function trackCreate(readyCallback) {
 
                             window.addEventListener('resize', onWindowResize, false);
                             document.addEventListener('click', onDocumentClick, false);
+                            //document.addEventListener('touchend', onDocumentClick, false); // for safari on ios
 
                             animate();
 
