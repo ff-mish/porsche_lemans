@@ -2288,19 +2288,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       data.title = data.title || self.data('title');
       data.url = self.data('url');
       var max_length = 112;
-        var  twiter_tag = '#24SocialRace @Porsche';
+        var twiter_tag = '#24SocialRace @Porsche ';
         var random_int = parseInt(Math.random()*3);
         if(random_int == 1) {
             var random_int2 = parseInt(Math.random()*2);
             if(random_int2 == 1) {
-                twiter_tag = '#24SocialRace #24LM @Porsche';
+                twiter_tag = '#24SocialRace #24LM @Porsche ';
             }
             else {
-                twiter_tag = '#24SocialRace #LM24 @Porsche';
+                twiter_tag = '#24SocialRace #LM24 @Porsche ';
             }
         }
 
-      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : twiter_tag + data.title ;
+      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷 ' + data.title : twiter_tag + data.title ;
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
