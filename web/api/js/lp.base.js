@@ -2729,14 +2729,13 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             }
         },
         'race' : function(){
-            trackCreate()
+            trackCreate();
         }
     }
 	var initComplete = function(){
 		if(isComplete) return;
-
-        loadingCallBack[ page ] && loadingCallBack[ page ]();
         isComplete = true;
+        loadingCallBack[ page ] && loadingCallBack[ page ]();
 		$('.loading-wrap').fadeOut(function(){
             $(this).remove();
         });
@@ -3257,14 +3256,14 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     } , 2000);
                 })
                 // // show the big video
-                // if( !isMobile ){
-                //     renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
-                //         $('#' + this.Q).css('z-index' , 0);
-                //         this.on('ended' , function(){
-                //             LP.triggerAction('skip-intro');
-                //         });
-                //     } );
-                // }
+                if( !isMobile ){
+                    renderVideo( $('#home_video') , "/videos/intro" , "/videos/intro.png" ,  {ratio: 368 / 653 , loop: false} , function(){
+                        $('#' + this.Q).css('z-index' , 0);
+                        this.on('ended' , function(){
+                            LP.triggerAction('skip-intro');
+                        });
+                    } );
+                }
                 // get parameter d
                 var urlObj = LP.parseUrl();
                 if( urlObj.params.d ){

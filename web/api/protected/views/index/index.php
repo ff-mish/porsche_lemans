@@ -7,7 +7,7 @@
         </div>
 
     <div class="count">
-      <div class="conut_tit" data-animate="opacity:1;margin-top:50px;" data-delay="200" data-style="opacity:0;margin-top:-50px;"><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace")?></div>
+      <div class="conut_tit" data-animate="opacity:1;margin-top:60px;" data-delay="200" data-style="opacity:0;margin-top:-60px;"><p>Le Mans</p><?php echo Yii::t("lemans", "#24SocialRace")?></div>
       
       <!-- <div class="conut_watch" data-fadein>watch the trailer</div> -->
        <div class="conut_tips" ><?=Yii::t('lemans','JOIN_NOW')?></div>
@@ -19,9 +19,9 @@
       </div>
       <div class="btn home_winners" data-a="winners-prizes"><?=Yii::t('lemans','Winners’ Prizes')?></div>
     </div>
-    <!-- <div id="home_video">
+    <div id="home_video">
       <a class="skipintro" href="#" data-a="skip-intro"><?=Yii::t('lemans','Skip intro')?></a>
-    </div> -->
+    </div>
     <div id="winners-prizes">
             <div class="popup_close btn"></div>
             <div class="winners-prizes-wrap">

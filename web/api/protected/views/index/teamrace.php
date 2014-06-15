@@ -65,5 +65,5 @@
 
 
 
-<script type="application/javascript" src="/js/sticks.js"></script>
+<script type="text/javascript" src="/js/sticks.js"></script>
   
