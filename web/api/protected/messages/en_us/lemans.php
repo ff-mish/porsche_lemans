@@ -7,6 +7,7 @@
  */
 return array (
   "Make a tweet" => "Tweet",
+    "WINNER_RESULT" => "The Porsche #24SocialRace winner team is HLB_PORSCHE from Twitter.<br/>Congratulations to @endexjoey and @OurReturn2014!<div class='no-m'><br /><br />They won a very exclusive VIP package to attend a WEC race LMP category (in Austin or Shanghai) and will have the chance to approach the legendary 919 Hybrid. This experience will include economy flight tickets, VIP passes, access to Porsche hospitality, a meeting with one of the Porsche work drivers and a visit to the Porsche LMP1 garage.<br />Learn about <a href='javascript:;' data-a='legal-mentions'>terms and conditions</a></div>",
 	"JOIN_NOW" => "Sign in now to engage into the first 24-hour social race. The better you'll tweet, the faster you'll go! <br/>The first team will win an exclusive trip to attend a WEC race and see the legendary 919 Hybrid.",
 	"PORSCHE_LINK" => "http://www.porsche.com/international/motorsportandevents/motorsport/worksracing/raceseries/fiawec/",
     "LOGIN_BAR" => "It seems you are not yet logged in the platform, do you want to join the race.",

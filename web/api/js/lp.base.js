@@ -3257,152 +3257,152 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var data = {};
                     
         // fix Q & A
-        if( $(document.body).data('page') != 'index' ){
-        setInterval(function(){
-            if( window.NO_QA ) return false;
-            // ban qa
-            var now  = new Date();
-
-
-            var cookieTimes = [];
-            var qaCookie = LP.getCookie( "__QA__") ;
-            var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
-            var showQa = function(){
-                if( window.NO_QA ) return false;
-                cookieTimes.push( + new Date() );
-                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                LP.removeCookie( "__NQA__" );
-
-                var timer = null;
-                api.get('/api/question/random' , '' , function( e ){
-                    var data = e.data || {};
-                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun"><span>' + _e('Knowledge') + '</span></div><div class="popup_dialog_msg">';
-                    content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
-                    $.each( [1,2,3,4] , function( i ){
-                        content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
-                    } );
-                    content += "<div class=\"loading\" style=\"display:none;position: absolute;right: 0;top: 0;min-height: 30px;height: 30px;\"></div></div><div class=\"popup_dialog_status\">\
-                            <span>" + _e('Success!') + "</span>\
-                        </div></div>";
-
-                    LP.panel({
-                        title: '',
-                        content: content,
-                        noClickClose: true,
-                        width: 784,
-                        height: 296,
-                        onload: function(){
-                            var times = 10;
-                            var t = this;
-
-                            // init select event
-                            this.$panel.find('.popup_dialog_options label')
-                                .click(function(){
-                                    $(this).addClass('active')
-                                        .unbind('click')
-                                        .siblings()
-                                        .removeClass('active')
-                                        .unbind('click');
-
-                                    clearTimeout( questionTimerInitTimer );
-
-                                    t.$panel.find('.loading').show();
-
-                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
-                                        t.$panel.find('.popup_dialog_options').hide()
-                                                .next()
-                                                .html( e.data.is_right ? _e('Correct') : _e('Incorrect') )
-                                                .show();
-                                        setTimeout(function(){
-                                            t.close();
-                                        } , 2000);
-                                        
-                                    });
-                                });
-
-                            // init timer
-                            questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
-                                t.close();
-                            } );
-                        }
-                    });
-                });
-            }
-            if( qaCookie ){
-                cookieTimes = qaCookie.split(",");
-                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
-            }
-
-            // deal current hour
-            var atimes = 0;
-            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
-                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
-                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
-                    atimes++;
-                }
-                break;
-            }
-
-            var lastMinute = new Date( parseInt( cookieTimes[ cookieTimes.length - 1 ] ) ).getMinutes();
-            var currentMinute = now.getMinutes();
-
-            if( nextQa ){
-                if( now - nextQa < 3 * 60 * 1000 && now - nextQa > 0 ){ // show qa
-                    showQa();
-                }
-
-                if( now - nextQa > 10 * 60 * 1000 ){
-                    LP.removeCookie('__NQA__');
-                }
-            } else {
-                var t = 0;
-                switch( atimes ){
-                    case 0:
-                        if( currentMinute < 5 ){
-                            t = 5;
-                            t = (+now) + ~~(( Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute < 20 && currentMinute > 10 ){
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 10;
-                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute > 30 && currentMinute < 45 ){
-                            cookieTimes.push( + new Date() );
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                    case 1:
-                        if( currentMinute < 20 && currentMinute > 10 ){
-                            t = 10;
-                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute > 30 && currentMinute < 45 ){
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                    case 2:
-                        if( currentMinute > 30 && currentMinute < 45 ){
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                }
-                if( t > 0 ){
-                    LP.setCookie( "__NQA__" , t , 30 * 60 , '/' );
-                }
-            }
-
-
-            // if( LP.parseUrl().params.__qa ){
-            //     showQa();
-            // }
-        } , 1000 * 30 );
-        }
+//        if( $(document.body).data('page') != 'index' ){
+//        setInterval(function(){
+//            if( window.NO_QA ) return false;
+//            // ban qa
+//            var now  = new Date();
+//
+//
+//            var cookieTimes = [];
+//            var qaCookie = LP.getCookie( "__QA__") ;
+//            var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
+//            var showQa = function(){
+//                if( window.NO_QA ) return false;
+//                cookieTimes.push( + new Date() );
+//                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                LP.removeCookie( "__NQA__" );
+//
+//                var timer = null;
+//                api.get('/api/question/random' , '' , function( e ){
+//                    var data = e.data || {};
+//                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun"><span>' + _e('Knowledge') + '</span></div><div class="popup_dialog_msg">';
+//                    content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
+//                    $.each( [1,2,3,4] , function( i ){
+//                        content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
+//                    } );
+//                    content += "<div class=\"loading\" style=\"display:none;position: absolute;right: 0;top: 0;min-height: 30px;height: 30px;\"></div></div><div class=\"popup_dialog_status\">\
+//                            <span>" + _e('Success!') + "</span>\
+//                        </div></div>";
+//
+//                    LP.panel({
+//                        title: '',
+//                        content: content,
+//                        noClickClose: true,
+//                        width: 784,
+//                        height: 296,
+//                        onload: function(){
+//                            var times = 10;
+//                            var t = this;
+//
+//                            // init select event
+//                            this.$panel.find('.popup_dialog_options label')
+//                                .click(function(){
+//                                    $(this).addClass('active')
+//                                        .unbind('click')
+//                                        .siblings()
+//                                        .removeClass('active')
+//                                        .unbind('click');
+//
+//                                    clearTimeout( questionTimerInitTimer );
+//
+//                                    t.$panel.find('.loading').show();
+//
+//                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
+//                                        t.$panel.find('.popup_dialog_options').hide()
+//                                                .next()
+//                                                .html( e.data.is_right ? _e('Correct') : _e('Incorrect') )
+//                                                .show();
+//                                        setTimeout(function(){
+//                                            t.close();
+//                                        } , 2000);
+//
+//                                    });
+//                                });
+//
+//                            // init timer
+//                            questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
+//                                t.close();
+//                            } );
+//                        }
+//                    });
+//                });
+//            }
+//            if( qaCookie ){
+//                cookieTimes = qaCookie.split(",");
+//                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
+//            }
+//
+//            // deal current hour
+//            var atimes = 0;
+//            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
+//                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
+//                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
+//                    atimes++;
+//                }
+//                break;
+//            }
+//
+//            var lastMinute = new Date( parseInt( cookieTimes[ cookieTimes.length - 1 ] ) ).getMinutes();
+//            var currentMinute = now.getMinutes();
+//
+//            if( nextQa ){
+//                if( now - nextQa < 3 * 60 * 1000 && now - nextQa > 0 ){ // show qa
+//                    showQa();
+//                }
+//
+//                if( now - nextQa > 10 * 60 * 1000 ){
+//                    LP.removeCookie('__NQA__');
+//                }
+//            } else {
+//                var t = 0;
+//                switch( atimes ){
+//                    case 0:
+//                        if( currentMinute < 5 ){
+//                            t = 5;
+//                            t = (+now) + ~~(( Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute < 20 && currentMinute > 10 ){
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 10;
+//                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute > 30 && currentMinute < 45 ){
+//                            cookieTimes.push( + new Date() );
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                    case 1:
+//                        if( currentMinute < 20 && currentMinute > 10 ){
+//                            t = 10;
+//                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute > 30 && currentMinute < 45 ){
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                    case 2:
+//                        if( currentMinute > 30 && currentMinute < 45 ){
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                }
+//                if( t > 0 ){
+//                    LP.setCookie( "__NQA__" , t , 30 * 60 , '/' );
+//                }
+//            }
+//
+//
+//            // if( LP.parseUrl().params.__qa ){
+//            //     showQa();
+//            // }
+//        } , 1000 * 30 );
+//        }
 
 
         // render mobile video

@@ -59,6 +59,9 @@ body{background:#000;height: 100%;width: 100%}
 .pagebg12{background:url('../images/bg12.jpg') no-repeat center top fixed; background-size:cover; }
 .pagebg13{background:url('../images/bg13.jpg') no-repeat center top fixed; background-size:cover; }*/
 
+.header-space {height:50px;}
+.winner_result {text-align:center;font-size:17px;line-height:22px;width:750px;height:410px;position:fixed;top:50%;left:50%;margin:-240px 0 0 -350px;}
+.winner_result a {text-decoration: underline;}
 
 /* PAGE Used
 ================================================================================================= */
@@ -927,6 +930,7 @@ body .stand_tweet .conut_downitem, body .stand_tweet .conut_downinfo{
 
 
 @media screen and (max-width:640px){
+    .winner_result {font-size:28px;width:auto;padding:0 30px;line-height: 45px;left:auto;top:50%;margin:-227px 0 0;}
     .m {display:block;}
     .no-m {display: none;}
     .header {height:80px;}

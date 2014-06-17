@@ -89,9 +89,7 @@
             </div>
         </div>
 		<?php if ($this->page_name != 'index'): ?>
-		<div class="footer_logout no-m">
-			<a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a>
-		</div>
+
 		<?php endif;?>
         <div class="footer_language">
 	        <?php if (Yii::app()->language == "zh_cn"): ?>
