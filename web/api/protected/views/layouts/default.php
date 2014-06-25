@@ -45,6 +45,15 @@
         <script type="text/javascript" src="/js/data.min.js"></script>
         <!--<![endif]-->
     <?php endif;?>
+    <?php if ($this->page_name == 'timelapse') : ?>
+        <link rel="stylesheet" type="text/css" href="/globe/style/24h.css"/>
+        <script type="text/javascript" src="/globe/js/Detector.js"></script>
+        <script type="text/javascript" src="/globe/js/three.min.js"></script>
+        <script type="text/javascript" src="/globe/js/Tween.js"></script>
+        <script type="text/javascript" src="/globe/js/globe.js"></script>
+        <script type="text/javascript" src="/globe/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="/globe/js/24h.js"></script>
+    <?php endif;?>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -203,6 +203,14 @@ class IndexController extends Controller {
         $this->page_name = $params["page_name"];
         $this->render("winner", $params);
     }
+
+    public function actionTimelapse() {
+        $params = array(
+            "page_name" => "timelapse"
+        );
+        $this->page_name = $params["page_name"];
+        $this->render("timelapse", $params);
+    }
   
   public function actionVideo() {
     $request = Yii::app()->getRequest();

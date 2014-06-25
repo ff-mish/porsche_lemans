@@ -9,6 +9,7 @@ return array (
     "WINNER_RESULT" => "保时捷 #勒芒社交耐力赛# 的获胜团队是来自 Twitter 的 HLB_PORSCHE。<br/>恭喜 @endexjoey 和 @OurReturn2014！<div class='no-m'><br /><br />冠军队伍将赢得 WEC 赛事 LMP 组（奥斯汀站或上海站）的专属 VIP 之旅，更有机会一睹 Porsche 传奇赛车 919 Hybrid 的风采。<br />本次 VIP 之旅包含经济舱机票 ，VIP 通行证，Porsche 豪华款待，并获得与一位 Porsche 车手的会面以及参观 Porsche LMP1 车库的机会。<br />了解<a href='javascript:;' data-a='legal-mentions'>网站条款</a></div>",
     "Simulation" => "赛事回放",
     "Winners" => "获胜者",
+    "Timelapse" => "时段数据",
     "Team Rank" => "团队排名",
     "Top Rank" => "领先排名",
     "Social Race Monitoring:  What’s happening right now?" => "社交耐力赛直播：查看最新动态",

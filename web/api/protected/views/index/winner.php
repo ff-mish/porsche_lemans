@@ -9,8 +9,8 @@
         <!-- nav -->
         <div class="nav">
             <div class="header-space"></div>
-            <p class="on"><?=Yii::t('lemans','Winners')?></p>
-            <p ><a href="/race"><?=Yii::t('lemans','Simulation')?></a></p>
+            <p class="on"><?php echo Yii::t('lemans','Winners')?></p>
+            <p ><a href="/race"><?php echo Yii::t('lemans','Simulation')?></a></p>
             <p> &nbsp; </p>
             <div class="mobile_nav">
                 <p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
@@ -30,7 +30,7 @@
         </div>
         <div class="winner_result">
             <img style="height:300px;" src="/images/winner_prizes.png">
-            <h3><?=Yii::t('lemans','WINNER_RESULT')?></h3>
+            <h3><?php echo Yii::t('lemans','WINNER_RESULT')?></h3>
         </div>
     </div>
 </div>

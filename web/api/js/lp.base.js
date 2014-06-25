@@ -1393,6 +1393,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( cfg.needMyAutoPlay ){
                         setTimeout( function(){
                             player.play();
+                            $(window).trigger('resize');
                         } , 6000 );
                     }
                     // this.dine = function(){
