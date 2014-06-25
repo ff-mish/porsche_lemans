@@ -8,18 +8,10 @@
 		<!--  -->
 		<!-- nav -->
 		<div class="nav">
-			<div class="post_link">
-				<a href="#" data-a="post_weibo" class="navicon"></a>
-				<div class="post_tips">
-					<?=Yii::t('lemans','Tweet')?>
-					<span>◆</span>
-				</div>
-			</div>
-			<p ><a href="/stand"><?=Yii::t('lemans','Stand')?></a></p>
-			<p class="on"><?=Yii::t('lemans','Race')?></p>
-			<p><a href="/fuel"><?=Yii::t('lemans','Fuel')?></a></p>
-			<p><a href="/monitoring"><?=Yii::t('lemans','Monitoring')?></a></p>
-			<p> &nbsp; </p>
+            <div class="header-space"></div>
+            <p><a href="/winner"><?php echo Yii::t('lemans','Winners')?></a></p>
+            <p class="on"><?php echo Yii::t('lemans','Simulation')?></p>
+            <p> &nbsp; </p>
 			<div class="mobile_nav">
 				<p data-a="legal-mentions" class="btn legal"><?php echo Yii::t("lemans", "Legal Notice")?></p>
 				<p class="language">
@@ -30,7 +22,6 @@
 					<?php endif;?>
 				</p>
 			</div>
-			<p><a data-a="logout" class="logout" href="/api/user/logout"><?php echo Yii::t("lemans", "Log out")?></a></p>
 			<div class="mobile_menu btn" data-a="show-menu">
 				<p></p>
 				<p></p>
@@ -51,12 +42,6 @@
 		</div>-->
     <div id="container"></div>
     <div id="map"></div>
-    <div class="race_nav">
-      <div class="race_time"></div>
-      <div class="race_speed"></div>
-      <div class="race_navitem "><a href="/teamrace"><?=Yii::t('lemans','Teams')?></a></div>
-      <div class="race_navitem race_navitemon"><a href="/race"><?=Yii::t('lemans','Networks')?></a></div>
-    </div>
 		<!-- race end -->
 	</div>
 </div>

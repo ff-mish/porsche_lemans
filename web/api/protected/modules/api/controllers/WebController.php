@@ -112,6 +112,7 @@ class WebController extends Controller {
     }
     
     $data = $request->getPost("data");
+    $saveteam = $request->getPost("saveteam");
     if (!$data) {
       return $this->responseError("error", 500);
     }
@@ -166,6 +167,11 @@ class WebController extends Controller {
           }
         }
 
+        if ($saveteam != "true") {
+          print "save team";
+          continue;
+        }
+
         // 第三，保存用户发的微博
         if ($userAr) {
           $uuid = $status["idstr"];
@@ -215,14 +221,40 @@ class WebController extends Controller {
   
   // 赛道数据
   public function actionRacedata() {
+    $lenght_of_race = 13.6;
+    $output = '{"status":0,"message":"success","data":{"twitter":{"name":"Twitter","distance":0,"lap":0,"speed":214,"typeIndex":1,"rankings":0},"weibo":{"name":"Weibo","distance":0,"lap":0,"speed":246,"typeIndex":0,"rankings":2}}}';
+    
+    $output = json_decode($output, true);
+
+    $twitter = &$output["data"]["twitter"];
+
+    //$start_date_seconds = strtotime("-1 day" ,strtotime(date("Y-m-d 15:00:00")));
+    $start_date_seconds = strtotime(date("Y-m-d 15:00:00"));
+    $end_date_seconds =  time();
+    if ($start_date_seconds > $end_date_seconds) {
+      $start_date_seconds = strtotime("-1 day" ,strtotime(date("Y-m-d 15:00:00")));
+    }
+    $hour = ( $end_date_seconds - $start_date_seconds ) / 3600 ;
+
+    $twitter["distance"] = round($twitter["speed"] * $hour);
+    $twitter["lap"] = round($twitter["distance"] / $lenght_of_race);
+
+    $weibo = &$output["data"]["weibo"];
+    $weibo["distance"] = round($weibo["speed"] * $hour);
+    $weibo["lap"] = round($weibo["distance"] / $lenght_of_race);
+
+    print(json_encode($output));
+
+    return;
+
     $time_now = time();
     $time_start = strtotime(Yii::app()->params["startTime"]);
     $hour = ceil(($time_now - $time_start) / 3600);
     
-    $lenght_of_race = 13.6;
-    // weibo 
+    
+    // weibo
     // 第一步，把所有的Team 的数据拿出来
-    $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_WEIBO."'";
+    $sql = "select DISTINCT score_team.tid as tid, score_team.* from score_team left join teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_WEIBO."' ORDER BY average DESC limit 0, 30";
     $command = Yii::app()->db->createCommand($sql);
     
     $teamScores = $command->queryAll();
@@ -255,7 +287,7 @@ class WebController extends Controller {
     
     // ===================================================================
     // Twitter
-    $sql = "select score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_TWITTER."'";
+    $sql = "select DISTINCT score_team.tid as tid, score_team.* from score_team left join  teams on  teams.tid = score_team.tid left join users on users.uid = teams.owner_uid where users.from = '".UserAR::FROM_TWITTER."' ORDER BY average DESC limit 0, 30";
     $command = Yii::app()->db->createCommand($sql);
     
     $teamScores = $command->queryAll();
@@ -273,10 +305,10 @@ class WebController extends Controller {
     // 速度单位是 KM / Hours
     // 分数是30秒计算一次, 所以总共是30秒
     // 可能还要加上2秒误差
-    $twittr_distance = $speed * $hour;
+    $twittr_distance = $twitter_speed * $hour;
     
     // 圈数
-    $twitter_lap = round($distance / $lenght_of_race, 0);
+    $twitter_lap = round($twittr_distance / $lenght_of_race, 0);
     
     $twitter = array(
         "name"=> Yii::t("lemans" ,"Twitter"),
@@ -302,12 +334,20 @@ class WebController extends Controller {
     // 先把当前用户的组
     $user = UserAR::crtuser(TRUE);
     $team = $user->team;
+      $time_now = time();
+      $time_start = strtotime(Yii::app()->params["startTime"]);
+    $hour = ceil(($time_now - $time_start) / 3600);
     
     $user_team_tid = $team->tid;
     
     $lenght_of_race = 13.6;
     $fromes = array(UserAR::FROM_WEIBO, UserAR::FROM_TWITTER);
-    
+
+    $team_total_query = new CDbCriteria();
+    $team_total_query->addCondition("status=:status");
+    $team_total_query->params[":status"] = 1;
+    $total_team = TeamAR::model()->count($team_total_query) + 8000;
+      
     // 再把所有的组拿出来
     $teams = array();
     $all_teams_score = array();
@@ -338,8 +378,7 @@ class WebController extends Controller {
       $speed = ceil($total_average / $total);
 
       // 距离
-      $total_seconds = $total * (30 + 2);
-      $hour = $total_seconds / 3600;
+      
       $distance = $speed * $hour;
 
       // Lap
@@ -419,7 +458,7 @@ class WebController extends Controller {
        $team["player"] = $teamAr->getMemberCount($tid);
      }
      
-     $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo, "user_tid"=> $user_team_tid));
+     $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_team - $total_twitter, "user_tid"=> $user_team_tid));
     }
     else {
       $ret = array_splice($all_teams_score, 0, 101);
@@ -429,8 +468,68 @@ class WebController extends Controller {
        $tid = $team["id"];
        $team["player"] = $teamAr->getMemberCount($tid);
      }
-      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_weibo, "user_tid"=> $user_team_tid));
+      $this->responseJSON($ret, "success", array("twitter_total" => $total_twitter, "weibo_total" => $total_team - $total_twitter, "user_tid"=> $user_team_tid));
     }
+  }
+
+  public function actionEarth() {
+    $sql = "SELECT count(twittes.uid) as total, users.uid as user_uid, users.lat as lat, users.lng as lng, users.from as `from` from twittes left join users on users.uid=twittes.uid  ";
+    
+    header("Content-Type: application/json; charset=utf8");
+    $hour = 24;
+    $ret_data = array();
+    $start_date = "2014-06-14 21:00:00";
+       // 然后补齐数据
+    $query = new CDbCriteria();
+    $query->addCondition("lat", "", "<>");
+    $all_users = UserAR::model()->findAll($query);
+    
+    for ($i = 1; $i <= 24; $i++) {
+      $uids = array();
+      $end_date = date("Y-m-d H:i:s", strtotime($start_date) + 60 * 60 * $i);
+      $new_sql = $sql. " WHERE users.lat <> '' AND users.lng <> '' AND  twittes.cdate >= '"."$start_date"."' AND twittes.cdate < '". $end_date."' group by twittes.uid";
+      
+      $rows = Yii::app()->db->createCommand($new_sql)->queryAll();
+      
+      $new_row = array();
+      foreach ($rows as $row) {
+        $new_row[$row["user_uid"]][] = (float)($row["lat"]);
+        $new_row[$row["user_uid"]][] = (float)($row["lng"]);
+        $new_row[$row["user_uid"]][] = $this->getLength($row["total"]);
+        $new_row[$row["user_uid"]][] = $row["from"] == "weibo" ? 0: 1;
+      }
+
+      foreach ($all_users as $all_user) {
+        if (!isset($new_row[$all_user->uid])) {
+          $new_row[$all_user->uid][] = (float)round($all_user->lat, 2);
+          $new_row[$all_user->uid][] = (float)round($all_user->lng, 2);
+          $new_row[$all_user->uid][] = 0;
+          $new_row[$all_user->uid][] = $all_user->from == "weibo" ? 0: 1;
+        }
+      }
+      
+      ksort($new_row);
+      $new_new_row = array();
+      $new_row = array_values($new_row);
+      foreach ($new_row as $new_row_t) {
+        $new_new_row = array_merge($new_new_row, $new_row_t);
+      }
+      
+      $ret_data[] = array((string)($i), $new_new_row);
+    }
+    
+    $this->responseJSON(($ret_data), "succes");
+  }
+  
+  function getLength ($total) {
+    $max_twittes = 800;
+    $max_length = 1;
+    $d = round($max_length / $max_twittes, 5);
+    if ($d > 1) {
+      $d = 0.9;
+    }
+    
+    return $total * $d;
   }
   
   // 计算每组的数据

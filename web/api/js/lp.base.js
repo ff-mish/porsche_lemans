@@ -222,7 +222,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       LP.panel({
         content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + msg + '</textarea>\
+                <textarea style="overflow:auto;">' + msg + (window.from == 'weibo' ? '' : ' #LM24 ' ) + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
                 '<span class="loading"></span>\
@@ -287,7 +287,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       LP.panel({
         content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace' ) + " " + screen_name + ' </textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛#' : '#24SocialRace  #LM24 ' ) + " " + screen_name + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">0</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + '<a href="javascript:void(0);" class="p-cancel">' + _e('Cancel') + '</a> <a href="javascript:void(0);" class="p-confirm">' + _e('Confirm') + '</a>' + 
                 '<span class="loading"></span>\
@@ -1345,7 +1345,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
             var id = 'my_video_' + ( vid++ );
             var resize = cfg.resize === undefined ? true : cfg.resize;
 
-            var defaultConfig = { "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false } , "needMyAutoPlay": true };
+            var defaultConfig = { fixMax: true, "controls": false, "autoplay": false, "preload": "auto", "loop": true, "children": {"loadingSpinner": false } , "needMyAutoPlay": true };
             $wrap.append( LP.format( tpl , {id: id , poster: poster , videoFile: videoFile } ) );
 
             if( ie8 && $wrap.parent().is(':hidden') ){
@@ -1357,9 +1357,10 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                 var ratio = cfg.ratio || ( 516 / 893 );
                 var myVideo = videojs( id , cfg , function(){ 
                     var v = this;
-                    if( resize ){
+                    if( resize && cfg.fixMax ){
                         $(window).bind( 'resize.video-' + id , function(){
                             if( v.isRemoved  ) return;
+
                             var w = $wrap.width()  ;
                             var h = $wrap.height() ;
                             var vh = 0 ;
@@ -1393,6 +1394,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     if( cfg.needMyAutoPlay ){
                         setTimeout( function(){
                             player.play();
+                            $(window).trigger('resize');
                         } , 6000 );
                     }
                     // this.dine = function(){
@@ -2025,7 +2027,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                         });
 
                         if( !users.length ) return false;
-                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '@保时捷 #勒芒社交耐力赛#正激烈开展。以微博之名，助力勒芒竞赛！' : '@Porsche #24SocialRace has started; the better you tweet, the faster you go!' ) + users.join(" ") + (window.from == 'weibo' ? '加入我的队伍吧！http://24socialrace.porsche.com #勒芒24小时#' : 'join my team! http://24socialrace.porsche.com #LM24' )} , function(){
+                        api.post( '/api/user/invite' , {msg: (window.from == 'weibo' ? '@保时捷 #勒芒社交耐力赛#正激烈开展。以微博之名，助力勒芒竞赛！ ' : '@Porsche #24SocialRace has started! ' ) + users.join(" ") + (window.from == 'weibo' ? ' 加入我的队伍吧！http://24socialrace.porsche.com #勒芒24小时#' : ' join my team! http://por.sc/24 #LM24' )} , function(){
                             $.each( us , function( i , u ){
                                 // add user to panel
                                 $(LP.format('<div class="member_item ">\
@@ -2095,7 +2097,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         LP.panel({
             content: '<div class="popup_dialog popup_post" style="width:auto;">\
             <div class="popup_dialog_msg" style="height:110px;width: auto;">\
-                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace @Porsche' ) + ' </textarea>\
+                <textarea style="overflow:auto;">' + (window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷' : '#24SocialRace #LM24 @Porsche' ) + ' </textarea>\
             </div><div class="alert-message clearfix"><div class="msg"></div><div class="msg-sug"><span class="s1">10</span>/<span class="s2">' + max_length + '</span></div></div>\
             <div class="popup_dialog_btns">' + html_buttons +
                 '<span class="loading"></span>\
@@ -2288,7 +2290,19 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
       data.title = data.title || self.data('title');
       data.url = self.data('url');
       var max_length = 112;
-      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# ' + data.title : '#24SocialRace ' + data.title ;
+        var twiter_tag = '#24SocialRace @Porsche ';
+        var random_int = parseInt(Math.random()*3);
+        if(random_int == 1) {
+            var random_int2 = parseInt(Math.random()*2);
+            if(random_int2 == 1) {
+                twiter_tag = '#24SocialRace #24LM @Porsche ';
+            }
+            else {
+                twiter_tag = '#24SocialRace #LM24 @Porsche ';
+            }
+        }
+
+      var share_text = window.from == 'weibo' ? '#勒芒社交耐力赛# @保时捷 ' + data.title : twiter_tag + data.title ;
 		var html_buttons = '<a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a><a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a>';
 //		if(lang == 'zh_cn') {
 //			var html_buttons = '<a class="p-confirm" href="javascript:void(0);">' + _e('Confirm') + '</a><a class="p-cancel" href="javascript:void(0);">' + _e('Cancel') + '</a>';
@@ -3245,152 +3259,152 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         var data = {};
                     
         // fix Q & A
-        if( $(document.body).data('page') != 'index' ){
-        setInterval(function(){
-            if( window.NO_QA ) return false;
-            // ban qa
-            var now  = new Date();
-
-
-            var cookieTimes = [];
-            var qaCookie = LP.getCookie( "__QA__") ;
-            var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
-            var showQa = function(){
-                if( window.NO_QA ) return false;
-                cookieTimes.push( + new Date() );
-                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                LP.removeCookie( "__NQA__" );
-
-                var timer = null;
-                api.get('/api/question/random' , '' , function( e ){
-                    var data = e.data || {};
-                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun"><span>' + _e('Knowledge') + '</span></div><div class="popup_dialog_msg">';
-                    content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
-                    $.each( [1,2,3,4] , function( i ){
-                        content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
-                    } );
-                    content += "<div class=\"loading\" style=\"display:none;position: absolute;right: 0;top: 0;min-height: 30px;height: 30px;\"></div></div><div class=\"popup_dialog_status\">\
-                            <span>" + _e('Success!') + "</span>\
-                        </div></div>";
-
-                    LP.panel({
-                        title: '',
-                        content: content,
-                        noClickClose: true,
-                        width: 784,
-                        height: 296,
-                        onload: function(){
-                            var times = 10;
-                            var t = this;
-
-                            // init select event
-                            this.$panel.find('.popup_dialog_options label')
-                                .click(function(){
-                                    $(this).addClass('active')
-                                        .unbind('click')
-                                        .siblings()
-                                        .removeClass('active')
-                                        .unbind('click');
-
-                                    clearTimeout( questionTimerInitTimer );
-
-                                    t.$panel.find('.loading').show();
-
-                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
-                                        t.$panel.find('.popup_dialog_options').hide()
-                                                .next()
-                                                .html( e.data.is_right ? _e('Correct') : _e('Incorrect') )
-                                                .show();
-                                        setTimeout(function(){
-                                            t.close();
-                                        } , 2000);
-                                        
-                                    });
-                                });
-
-                            // init timer
-                            questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
-                                t.close();
-                            } );
-                        }
-                    });
-                });
-            }
-            if( qaCookie ){
-                cookieTimes = qaCookie.split(",");
-                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
-            }
-
-            // deal current hour
-            var atimes = 0;
-            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
-                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
-                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
-                    atimes++;
-                }
-                break;
-            }
-
-            var lastMinute = new Date( parseInt( cookieTimes[ cookieTimes.length - 1 ] ) ).getMinutes();
-            var currentMinute = now.getMinutes();
-
-            if( nextQa ){
-                if( now - nextQa < 3 * 60 * 1000 && now - nextQa > 0 ){ // show qa
-                    showQa();
-                }
-
-                if( now - nextQa > 10 * 60 * 1000 ){
-                    LP.removeCookie('__NQA__');
-                }
-            } else {
-                var t = 0;
-                switch( atimes ){
-                    case 0:
-                        if( currentMinute < 5 ){
-                            t = 5;
-                            t = (+now) + ~~(( Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute < 20 && currentMinute > 10 ){
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 10;
-                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute > 30 && currentMinute < 45 ){
-                            cookieTimes.push( + new Date() );
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                    case 1:
-                        if( currentMinute < 20 && currentMinute > 10 ){
-                            t = 10;
-                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        } else if( currentMinute > 30 && currentMinute < 45 ){
-                            cookieTimes.push( + new Date() );
-                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                    case 2:
-                        if( currentMinute > 30 && currentMinute < 45 ){
-                            t = 15;
-                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
-                        }
-                        break;
-                }
-                if( t > 0 ){
-                    LP.setCookie( "__NQA__" , t , 30 * 60 , '/' );
-                }
-            }
-
-
-            // if( LP.parseUrl().params.__qa ){
-            //     showQa();
-            // }
-        } , 1000 * 30 );
-        }
+//        if( $(document.body).data('page') != 'index' ){
+//        setInterval(function(){
+//            if( window.NO_QA ) return false;
+//            // ban qa
+//            var now  = new Date();
+//
+//
+//            var cookieTimes = [];
+//            var qaCookie = LP.getCookie( "__QA__") ;
+//            var nextQa = parseInt( LP.getCookie( "__NQA__") ) ;
+//            var showQa = function(){
+//                if( window.NO_QA ) return false;
+//                cookieTimes.push( + new Date() );
+//                LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                LP.removeCookie( "__NQA__" );
+//
+//                var timer = null;
+//                api.get('/api/question/random' , '' , function( e ){
+//                    var data = e.data || {};
+//                    var content = '<div class="popup_dialog"><div class="popup_timer"></div><div class="popup_dun"><span>' + _e('Knowledge') + '</span></div><div class="popup_dialog_msg">';
+//                    content += data.question + '</div><div class="popup_dialog_options" style="position:relative;">';
+//                    $.each( [1,2,3,4] , function( i ){
+//                        content += '<label data-value="' + ( i + 1 ) + '">' + data['answer' + ( i + 1 ) ] + '</label>'
+//                    } );
+//                    content += "<div class=\"loading\" style=\"display:none;position: absolute;right: 0;top: 0;min-height: 30px;height: 30px;\"></div></div><div class=\"popup_dialog_status\">\
+//                            <span>" + _e('Success!') + "</span>\
+//                        </div></div>";
+//
+//                    LP.panel({
+//                        title: '',
+//                        content: content,
+//                        noClickClose: true,
+//                        width: 784,
+//                        height: 296,
+//                        onload: function(){
+//                            var times = 10;
+//                            var t = this;
+//
+//                            // init select event
+//                            this.$panel.find('.popup_dialog_options label')
+//                                .click(function(){
+//                                    $(this).addClass('active')
+//                                        .unbind('click')
+//                                        .siblings()
+//                                        .removeClass('active')
+//                                        .unbind('click');
+//
+//                                    clearTimeout( questionTimerInitTimer );
+//
+//                                    t.$panel.find('.loading').show();
+//
+//                                    api.post("/api/question/answer" , { answer: t.$panel.find('.popup_dialog_options label.active').data('value') , qaid: data.qaid} , function( e ){
+//                                        t.$panel.find('.popup_dialog_options').hide()
+//                                                .next()
+//                                                .html( e.data.is_right ? _e('Correct') : _e('Incorrect') )
+//                                                .show();
+//                                        setTimeout(function(){
+//                                            t.close();
+//                                        } , 2000);
+//
+//                                    });
+//                                });
+//
+//                            // init timer
+//                            questionTimerInit( this.$panel.find('.popup_timer') , 30000 , function(){
+//                                t.close();
+//                            } );
+//                        }
+//                    });
+//                });
+//            }
+//            if( qaCookie ){
+//                cookieTimes = qaCookie.split(",");
+//                cookieTimes = cookieTimes.slice(cookieTimes.length - 4);
+//            }
+//
+//            // deal current hour
+//            var atimes = 0;
+//            for( var _i = cookieTimes.length - 1 ; _i >= 0 ; _i-- ){
+//                if( now - cookieTimes[ _i ] < 60 * 60 * 1000
+//                    && new Date( parseInt(cookieTimes[ _i ]) ).getHours() == now.getHours() ){
+//                    atimes++;
+//                }
+//                break;
+//            }
+//
+//            var lastMinute = new Date( parseInt( cookieTimes[ cookieTimes.length - 1 ] ) ).getMinutes();
+//            var currentMinute = now.getMinutes();
+//
+//            if( nextQa ){
+//                if( now - nextQa < 3 * 60 * 1000 && now - nextQa > 0 ){ // show qa
+//                    showQa();
+//                }
+//
+//                if( now - nextQa > 10 * 60 * 1000 ){
+//                    LP.removeCookie('__NQA__');
+//                }
+//            } else {
+//                var t = 0;
+//                switch( atimes ){
+//                    case 0:
+//                        if( currentMinute < 5 ){
+//                            t = 5;
+//                            t = (+now) + ~~(( Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute < 20 && currentMinute > 10 ){
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 10;
+//                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute > 30 && currentMinute < 45 ){
+//                            cookieTimes.push( + new Date() );
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                    case 1:
+//                        if( currentMinute < 20 && currentMinute > 10 ){
+//                            t = 10;
+//                            t = (+now) + ~~(( 20 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        } else if( currentMinute > 30 && currentMinute < 45 ){
+//                            cookieTimes.push( + new Date() );
+//                            LP.setCookie( "__QA__" , cookieTimes.join(",") , 86400 * 30 , '/');
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                    case 2:
+//                        if( currentMinute > 30 && currentMinute < 45 ){
+//                            t = 15;
+//                            t = (+now) + ~~(( 30 - currentMinute +  Math.random() * t ) * 60 * 1000);
+//                        }
+//                        break;
+//                }
+//                if( t > 0 ){
+//                    LP.setCookie( "__NQA__" , t , 30 * 60 , '/' );
+//                }
+//            }
+//
+//
+//            // if( LP.parseUrl().params.__qa ){
+//            //     showQa();
+//            // }
+//        } , 1000 * 30 );
+//        }
 
 
         // render mobile video
@@ -3443,6 +3457,21 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
         
         if( $(document.body).data('page') == 'index' ){
             renderImage( $('.index-p2-bg') , '' , false , 40 );
+        } else if($(document.body).data('page') == 'timelapse') {
+            (function(){
+                var ratio = 516 / 893;
+                var videoname = $('body').data('page');
+                renderVideo( $('<div></div>').css({
+                    "position": "fixed",
+                    "z-index": "-1",
+                    "top": 60,
+                    "left": "0",
+                    "bottom": 30,
+                    "width": "100%"
+                }).appendTo( $('.page').css('background' , 'none') ) , "/videos/"+videoname , "/videos/"+videoname + '.jpg' ,  {muted:1,fixMax: false} , function(){
+                    $('#' + this.Q).css({width:'100%' , height: '100%'});
+                } );
+            })();
         } else {
             bigVideoInit();
         }
@@ -3946,7 +3975,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
               var tweetGroup = $(".tweet-con .tweet-list");
               var callbackRender = function(index, groups) {
                 var $panel = $(".monitor_item").eq(index).find(".jspPane").html('');
-                    
+
                     $.each(groups , function( i , group ){
                         var tweet = {
                           media: group['user']["avatar"],
@@ -3966,7 +3995,7 @@ LP.use(['jquery', 'api', 'easing', 'queryloader', 'transit'] , function( $ , api
                     });
                   if (groups.length <= 0) {
                       $panel.addClass('jspPane-empty');
-                    $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
+                      $panel.append("<li class='tweet-signle-item tweet-signle-item-empty clearfix'>"+_e('Empty')+"</li>");
                   }
                 }
               api.get("/api/twitte", function (e) {

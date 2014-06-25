@@ -19,31 +19,24 @@ class IndexController extends Controller {
     }
   }
   
-  public function beforeAction($action) {
-    if ($action->id == "video") {
-      return parent::beforeAction($action);
-    }
-    // 用户是否登录
-    $user = UserAR::crtuser();
-    if (!$user && $action->id != "index") {
-      return $this->redirect("/");
-    }
-    return parent::beforeAction($action);
-  }
+//  public function beforeAction($action) {
+//    if ($action->id == "video") {
+//      return parent::beforeAction($action);
+//    }
+//    // 用户是否登录
+//    $user = UserAR::crtuser();
+//    if (!$user && $action->id != "index") {
+//      return $this->redirect("/");
+//    }
+//    return parent::beforeAction($action);
+//  }
   
   public function actionIndex() {
     $params = array(
-        "page_name" => "index"
+        "page_name" => "winner"
     );
     $this->page_name = $params["page_name"];
-    $startTime = strtotime(Yii::app()->params["startTime"]);
-    $now = time();
-    if ($this->is_start) {
-      $this->render("index", $params);
-    }
-    else {
-      $this->render("countdown");
-    }
+      $this->render("winner");
   }
   
   public function actionAchieve() {
@@ -202,6 +195,22 @@ class IndexController extends Controller {
     $this->page_name = $params["page_name"];
     $this->render("teamrace", $params);
   }
+
+    public function actionWinner() {
+        $params = array(
+            "page_name" => "winner"
+        );
+        $this->page_name = $params["page_name"];
+        $this->render("winner", $params);
+    }
+
+    public function actionTimelapse() {
+        $params = array(
+            "page_name" => "timelapse"
+        );
+        $this->page_name = $params["page_name"];
+        $this->render("timelapse", $params);
+    }
   
   public function actionVideo() {
     $request = Yii::app()->getRequest();

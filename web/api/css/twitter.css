@@ -64,7 +64,7 @@ a:hover{color:#065be0;}
 
 .footer_language a:hover {color:#065be0;opacity:1;}
 
-#switch a.on:after{content:'◆';position: absolute;right: 0; top: 0px;color: #065be0;}
+/*#switch a.on:after{content:'◆';position: absolute;right: 0; top: 0px;color: #065be0;}*/
 @media screen and (max-width:640px){
     .nav .on {background: none;color:#065be0;}
 }
